@@ -1,0 +1,40 @@
+<md-sidenav-layout fullscreen>
+    <md-sidenav #start>
+        <md-nav-list>
+            <div *ngFor="let key of keys(options)">
+                <md-slide-toggle *ngIf="isType(options[key],'boolean')" class="nav-item-center" md-list-item [(ngModel)]="options[key]">{{key}}
+                </md-slide-toggle>
+                <md-input type="number" *ngIf="isType(options[key],'number')" class="nav-item-center" md-list-item [(ngModel)]="options[key]"
+                    placeholder="{{key}}"></md-input>
+                <md-input type="text" *ngIf="isType(options[key],'string')" class="nav-item-center" md-list-item [(ngModel)]="options[key]"
+                    placeholder="{{key}}"></md-input>
+            </div>
+            <hr/>
+        </md-nav-list>
+        <hr/>
+        <button md-button (click)="start.close()">CLOSE</button>
+    </md-sidenav>
+    <div class="page">
+        <md-toolbar color="primary">
+            <button md-icon-button (click)="start.open()">
+                <md-icon class="md-24">menu</md-icon>
+            </button>
+            <h1 class="app-title">{{title}}</h1>
+        </md-toolbar>
+        <div class="content">
+            <div class="left">
+                <textarea [(ngModel)]="md"></textarea>
+            </div>
+            <div class="right">
+                <md [value]="md" [trimEachLine]="options.trimEachLine" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks"
+                    [noHeaderId]="options.noHeaderId" [prefixHeaderId]="options.prefixHeaderId" [parseImgDimensions]="options.parseImgDimensions"
+                    [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores"
+                    [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId"
+                    [ghCodeBlocks]="options.ghCodeBlocks" [tasklists]="options.tasklists" [smoothLivePreview]="options.smoothLivePreview"></md>
+            </div>
+        </div>
+    </div>
+</md-sidenav-layout>
+<a href="https://github.com/yisraelx/ng2-md"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+</a>
