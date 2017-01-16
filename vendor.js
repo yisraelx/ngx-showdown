@@ -24,7 +24,7 @@ webpackJsonp([2],[
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
-	 * @license Angular v2.4.1
+	 * @license Angular v2.4.3
 	 * (c) 2010-2016 Google, Inc. https://angular.io/
 	 * License: MIT
 	 */
@@ -174,7 +174,7 @@ webpackJsonp([2],[
 	    /**
 	     * @stable
 	     */
-	    var VERSION = new _angular_core.Version('2.4.1');
+	    var VERSION = new _angular_core.Version('2.4.3');
 	
 	    /**
 	     * @experimental
@@ -198,7 +198,7 @@ webpackJsonp([2],[
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * @license Angular v2.4.1
+	 * @license Angular v2.4.3
 	 * (c) 2010-2016 Google, Inc. https://angular.io/
 	 * License: MIT
 	 */
@@ -211,7 +211,7 @@ webpackJsonp([2],[
 	  /**
 	   * @stable
 	   */
-	  var /** @type {?} */ VERSION = new _angular_core.Version('2.4.1');
+	  var /** @type {?} */ VERSION = new _angular_core.Version('2.4.3');
 	
 	  /**
 	   * @license
@@ -1368,7 +1368,7 @@ webpackJsonp([2],[
 	  var /** @type {?} */ _SELECTOR_REGEXP = new RegExp('(\\:not\\()|' +
 	      '([-\\w]+)|' +
 	      '(?:\\.([-\\w]+))|' +
-	      '(?:\\[([-\\w*]+)(?:=([^\\]]*))?\\])|' +
+	      '(?:\\[([.-\\w*]+)(?:=([^\\]]*))?\\])|' +
 	      '(\\))|' +
 	      '(\\s*,\\s*)', // ","
 	  'g');
@@ -3850,7 +3850,7 @@ webpackJsonp([2],[
 	              this.advance();
 	              str += two;
 	          }
-	          if (isPresent(threeCode) && this.peek == threeCode) {
+	          if (threeCode != null && this.peek == threeCode) {
 	              this.advance();
 	              str += three;
 	          }
@@ -6629,7 +6629,7 @@ webpackJsonp([2],[
 	          }
 	          var /** @type {?} */ tagDef = this.getTagDefinition(el.name);
 	          var _a = this._getParentElementSkippingContainers(), parent = _a.parent, container = _a.container;
-	          if (isPresent(parent) && tagDef.requireExtraParent(parent.name)) {
+	          if (parent && tagDef.requireExtraParent(parent.name)) {
 	              var /** @type {?} */ newParent = new Element(tagDef.parentToAdd, [], [], el.sourceSpan, el.startSourceSpan, el.endSourceSpan);
 	              this._insertBeforeContainer(parent, container, newParent);
 	          }
@@ -7437,47 +7437,30 @@ webpackJsonp([2],[
 	          this._depth++;
 	          var /** @type {?} */ wasInI18nNode = this._inI18nNode;
 	          var /** @type {?} */ wasInImplicitNode = this._inImplicitNode;
-	          var /** @type {?} */ childNodes;
-	          // Extract only top level nodes with the (implicit) "i18n" attribute if not in a block or an ICU
-	          // message
+	          var /** @type {?} */ childNodes = [];
+	          var /** @type {?} */ translatedChildNodes;
+	          // Extract:
+	          // - top level nodes with the (implicit) "i18n" attribute if not already in a section
+	          // - ICU messages
 	          var /** @type {?} */ i18nAttr = _getI18nAttr(el);
+	          var /** @type {?} */ i18nMeta = i18nAttr ? i18nAttr.value : '';
 	          var /** @type {?} */ isImplicit = this._implicitTags.some(function (tag) { return el.name === tag; }) && !this._inIcu &&
 	              !this._isInTranslatableSection;
 	          var /** @type {?} */ isTopLevelImplicit = !wasInImplicitNode && isImplicit;
-	          this._inImplicitNode = this._inImplicitNode || isImplicit;
+	          this._inImplicitNode = wasInImplicitNode || isImplicit;
 	          if (!this._isInTranslatableSection && !this._inIcu) {
-	              if (i18nAttr) {
-	                  // explicit translation
+	              if (i18nAttr || isTopLevelImplicit) {
 	                  this._inI18nNode = true;
-	                  var /** @type {?} */ message = this._addMessage(el.children, i18nAttr.value);
-	                  childNodes = this._translateMessage(el, message);
-	              }
-	              else if (isTopLevelImplicit) {
-	                  // implicit translation
-	                  this._inI18nNode = true;
-	                  var /** @type {?} */ message = this._addMessage(el.children);
-	                  childNodes = this._translateMessage(el, message);
+	                  var /** @type {?} */ message = this._addMessage(el.children, i18nMeta);
+	                  translatedChildNodes = this._translateMessage(el, message);
 	              }
 	              if (this._mode == _VisitorMode.Extract) {
 	                  var /** @type {?} */ isTranslatable = i18nAttr || isTopLevelImplicit;
-	                  if (isTranslatable) {
+	                  if (isTranslatable)
 	                      this._openTranslatableSection(el);
-	                  }
 	                  visitAll(this, el.children);
-	                  if (isTranslatable) {
+	                  if (isTranslatable)
 	                      this._closeTranslatableSection(el, el.children);
-	                  }
-	              }
-	              if (this._mode === _VisitorMode.Merge && !i18nAttr && !isTopLevelImplicit) {
-	                  childNodes = [];
-	                  el.children.forEach(function (child) {
-	                      var /** @type {?} */ visited = child.visit(_this, context);
-	                      if (visited && !_this._isInTranslatableSection) {
-	                          // Do not add the children from translatable sections (= i18n blocks here)
-	                          // They will be added when the section is close (i.e. on `<!-- /i18n -->`)
-	                          childNodes = childNodes.concat(visited);
-	                      }
-	                  });
 	              }
 	          }
 	          else {
@@ -7488,25 +7471,23 @@ webpackJsonp([2],[
 	                  // Descend into child nodes for extraction
 	                  visitAll(this, el.children);
 	              }
-	              if (this._mode == _VisitorMode.Merge) {
-	                  // Translate attributes in ICU messages
-	                  childNodes = [];
-	                  el.children.forEach(function (child) {
-	                      var /** @type {?} */ visited = child.visit(_this, context);
-	                      if (visited && !_this._isInTranslatableSection) {
-	                          // Do not add the children from translatable sections (= i18n blocks here)
-	                          // They will be added when the section is close (i.e. on `<!-- /i18n -->`)
-	                          childNodes = childNodes.concat(visited);
-	                      }
-	                  });
-	              }
+	          }
+	          if (this._mode === _VisitorMode.Merge) {
+	              var /** @type {?} */ visitNodes = translatedChildNodes || el.children;
+	              visitNodes.forEach(function (child) {
+	                  var /** @type {?} */ visited = child.visit(_this, context);
+	                  if (visited && !_this._isInTranslatableSection) {
+	                      // Do not add the children from translatable sections (= i18n blocks here)
+	                      // They will be added later in this loop when the block closes (i.e. on `<!-- /i18n -->`)
+	                      childNodes = childNodes.concat(visited);
+	                  }
+	              });
 	          }
 	          this._visitAttributesOf(el);
 	          this._depth--;
 	          this._inI18nNode = wasInI18nNode;
 	          this._inImplicitNode = wasInImplicitNode;
 	          if (this._mode === _VisitorMode.Merge) {
-	              // There are no childNodes in translatable sections - those nodes will be replace anyway
 	              var /** @type {?} */ translatedAttrs = this._translateAttributes(el);
 	              return new Element(el.name, translatedAttrs, childNodes, el.sourceSpan, el.startSourceSpan, el.endSourceSpan);
 	          }
@@ -7659,7 +7640,7 @@ webpackJsonp([2],[
 	      Object.defineProperty(_Visitor.prototype, "_isInTranslatableSection", {
 	          /**
 	           *  A translatable section could be:
-	            * - a translatable element,
+	            * - the content of translatable element,
 	            * - nodes between `<!-- i18n -->` and `<!-- /i18n -->` comments
 	           * @return {?}
 	           */
@@ -10150,7 +10131,7 @@ webpackJsonp([2],[
 	          var /** @type {?} */ queries;
 	          while (currentEl !== null) {
 	              queries = currentEl._contentQueries.get(tokenReference(token));
-	              if (isPresent(queries)) {
+	              if (queries) {
 	                  result.push.apply(result, queries.filter(function (query) { return query.descendants || distance <= 1; }));
 	              }
 	              if (currentEl._directiveAsts.length > 0) {
@@ -10159,7 +10140,7 @@ webpackJsonp([2],[
 	              currentEl = currentEl._parent;
 	          }
 	          queries = this.viewContext.viewQueries.get(tokenReference(token));
-	          if (isPresent(queries)) {
+	          if (queries) {
 	              result.push.apply(result, queries);
 	          }
 	          return result;
@@ -10182,7 +10163,7 @@ webpackJsonp([2],[
 	              return null;
 	          }
 	          var /** @type {?} */ transformedProviderAst = this._transformedProviders.get(tokenReference(token));
-	          if (isPresent(transformedProviderAst)) {
+	          if (transformedProviderAst) {
 	              return transformedProviderAst;
 	          }
 	          if (isPresent(this._seenProviders.get(tokenReference(token)))) {
@@ -10204,12 +10185,12 @@ webpackJsonp([2],[
 	                      transformedUseValue = existingDiDep.value;
 	                  }
 	              }
-	              else if (isPresent(provider.useFactory)) {
+	              else if (provider.useFactory) {
 	                  var /** @type {?} */ deps = provider.deps || provider.useFactory.diDeps;
 	                  transformedDeps =
 	                      deps.map(function (dep) { return _this._getDependency(resolvedProvider.providerType, dep, eager); });
 	              }
-	              else if (isPresent(provider.useClass)) {
+	              else if (provider.useClass) {
 	                  var /** @type {?} */ deps = provider.deps || provider.useClass.diDeps;
 	                  transformedDeps =
 	                      deps.map(function (dep) { return _this._getDependency(resolvedProvider.providerType, dep, eager); });
@@ -10283,7 +10264,7 @@ webpackJsonp([2],[
 	          }
 	          else {
 	              // check parent elements
-	              while (!result && isPresent(currElement._parent)) {
+	              while (!result && currElement._parent) {
 	                  var /** @type {?} */ prevElement = currElement;
 	                  currElement = currElement._parent;
 	                  if (prevElement._isViewRoot) {
@@ -10354,7 +10335,7 @@ webpackJsonp([2],[
 	              return null;
 	          }
 	          var /** @type {?} */ transformedProviderAst = this._transformedProviders.get(tokenReference(token));
-	          if (isPresent(transformedProviderAst)) {
+	          if (transformedProviderAst) {
 	              return transformedProviderAst;
 	          }
 	          if (isPresent(this._seenProviders.get(tokenReference(token)))) {
@@ -10376,12 +10357,12 @@ webpackJsonp([2],[
 	                      transformedUseValue = existingDiDep.value;
 	                  }
 	              }
-	              else if (isPresent(provider.useFactory)) {
+	              else if (provider.useFactory) {
 	                  var /** @type {?} */ deps = provider.deps || provider.useFactory.diDeps;
 	                  transformedDeps =
 	                      deps.map(function (dep) { return _this._getDependency(dep, eager, resolvedProvider.sourceSpan); });
 	              }
-	              else if (isPresent(provider.useClass)) {
+	              else if (provider.useClass) {
 	                  var /** @type {?} */ deps = provider.deps || provider.useClass.diDeps;
 	                  transformedDeps =
 	                      deps.map(function (dep) { return _this._getDependency(dep, eager, resolvedProvider.sourceSpan); });
@@ -10512,7 +10493,7 @@ webpackJsonp([2],[
 	   */
 	  function _getViewQueries(component) {
 	      var /** @type {?} */ viewQueries = new Map();
-	      if (isPresent(component.viewQueries)) {
+	      if (component.viewQueries) {
 	          component.viewQueries.forEach(function (query) { return _addQueryToTokenMap(viewQueries, query); });
 	      }
 	      return viewQueries;
@@ -10524,7 +10505,7 @@ webpackJsonp([2],[
 	  function _getContentQueries(directives) {
 	      var /** @type {?} */ contentQueries = new Map();
 	      directives.forEach(function (directive) {
-	          if (isPresent(directive.queries)) {
+	          if (directive.queries) {
 	              directive.queries.forEach(function (query) { return _addQueryToTokenMap(contentQueries, query); });
 	          }
 	      });
@@ -10824,7 +10805,6 @@ webpackJsonp([2],[
 	          }
 	      };
 	      /**
-	       * @param {?} name
 	       * @param {?} prefixToken
 	       * @param {?} value
 	       * @param {?} sourceSpan
@@ -10833,14 +10813,14 @@ webpackJsonp([2],[
 	       * @param {?} targetVars
 	       * @return {?}
 	       */
-	      BindingParser.prototype.parseInlineTemplateBinding = function (name, prefixToken, value, sourceSpan, targetMatchableAttrs, targetProps, targetVars) {
+	      BindingParser.prototype.parseInlineTemplateBinding = function (prefixToken, value, sourceSpan, targetMatchableAttrs, targetProps, targetVars) {
 	          var /** @type {?} */ bindings = this._parseTemplateBindings(prefixToken, value, sourceSpan);
 	          for (var /** @type {?} */ i = 0; i < bindings.length; i++) {
 	              var /** @type {?} */ binding = bindings[i];
 	              if (binding.keyIsVar) {
 	                  targetVars.push(new VariableAst(binding.key, binding.name, sourceSpan));
 	              }
-	              else if (isPresent(binding.expression)) {
+	              else if (binding.expression) {
 	                  this._parsePropertyAst(binding.key, binding.expression, sourceSpan, targetMatchableAttrs, targetProps);
 	              }
 	              else {
@@ -10862,7 +10842,7 @@ webpackJsonp([2],[
 	              var /** @type {?} */ bindingsResult = this._exprParser.parseTemplateBindings(prefixToken, value, sourceInfo);
 	              this._reportExpressionParserErrors(bindingsResult.errors, sourceSpan);
 	              bindingsResult.templateBindings.forEach(function (binding) {
-	                  if (isPresent(binding.expression)) {
+	                  if (binding.expression) {
 	                      _this._checkPipes(binding.expression, sourceSpan);
 	                  }
 	              });
@@ -10931,7 +10911,7 @@ webpackJsonp([2],[
 	       */
 	      BindingParser.prototype.parsePropertyInterpolation = function (name, value, sourceSpan, targetMatchableAttrs, targetProps) {
 	          var /** @type {?} */ expr = this.parseInterpolation(value, sourceSpan);
-	          if (isPresent(expr)) {
+	          if (expr) {
 	              this._parsePropertyAst(name, expr, sourceSpan, targetMatchableAttrs, targetProps);
 	              return true;
 	          }
@@ -11149,7 +11129,7 @@ webpackJsonp([2],[
 	       */
 	      BindingParser.prototype._checkPipes = function (ast, sourceSpan) {
 	          var _this = this;
-	          if (isPresent(ast)) {
+	          if (ast) {
 	              var /** @type {?} */ collector = new PipeCollector();
 	              ast.visit(collector);
 	              collector.pipes.forEach(function (ast, pipeName) {
@@ -11478,7 +11458,7 @@ webpackJsonp([2],[
 	          if (errors.length > 0) {
 	              return new TemplateParseResult(result, errors);
 	          }
-	          if (isPresent(this.transforms)) {
+	          if (this.transforms) {
 	              this.transforms.forEach(function (transform) { result = templateVisitAll(transform, result); });
 	          }
 	          return new TemplateParseResult(result, errors);
@@ -11586,7 +11566,7 @@ webpackJsonp([2],[
 	      TemplateParseVisitor.prototype.visitText = function (text, parent) {
 	          var /** @type {?} */ ngContentIndex = parent.findNgContentIndex(TEXT_CSS_SELECTOR);
 	          var /** @type {?} */ expr = this._bindingParser.parseInterpolation(text.value, text.sourceSpan);
-	          if (isPresent(expr)) {
+	          if (expr) {
 	              return new BoundTextAst(expr, ngContentIndex, text.sourceSpan);
 	          }
 	          else {
@@ -11643,14 +11623,15 @@ webpackJsonp([2],[
 	          var /** @type {?} */ isTemplateElement = lcElName == TEMPLATE_ELEMENT;
 	          element.attrs.forEach(function (attr) {
 	              var /** @type {?} */ hasBinding = _this._parseAttr(isTemplateElement, attr, matchableAttrs, elementOrDirectiveProps, events, elementOrDirectiveRefs, elementVars);
-	              var /** @type {?} */ templateBindingsSource = undefined;
-	              var /** @type {?} */ prefixToken = undefined;
-	              if (_this._normalizeAttributeName(attr.name) == TEMPLATE_ATTR) {
+	              var /** @type {?} */ templateBindingsSource;
+	              var /** @type {?} */ prefixToken;
+	              var /** @type {?} */ normalizedName = _this._normalizeAttributeName(attr.name);
+	              if (normalizedName == TEMPLATE_ATTR) {
 	                  templateBindingsSource = attr.value;
 	              }
-	              else if (attr.name.startsWith(TEMPLATE_ATTR_PREFIX)) {
+	              else if (normalizedName.startsWith(TEMPLATE_ATTR_PREFIX)) {
 	                  templateBindingsSource = attr.value;
-	                  prefixToken = attr.name.substring(TEMPLATE_ATTR_PREFIX.length); // remove the star
+	                  prefixToken = normalizedName.substring(TEMPLATE_ATTR_PREFIX.length) + ':';
 	              }
 	              var /** @type {?} */ hasTemplateBinding = isPresent(templateBindingsSource);
 	              if (hasTemplateBinding) {
@@ -11658,7 +11639,7 @@ webpackJsonp([2],[
 	                      _this._reportError("Can't have multiple template bindings on one element. Use only one attribute named 'template' or prefixed with *", attr.sourceSpan);
 	                  }
 	                  hasInlineTemplates = true;
-	                  _this._bindingParser.parseInlineTemplateBinding(attr.name, prefixToken, templateBindingsSource, attr.sourceSpan, templateMatchableAttrs, templateElementOrDirectiveProps, templateElementVars);
+	                  _this._bindingParser.parseInlineTemplateBinding(prefixToken, templateBindingsSource, attr.sourceSpan, templateMatchableAttrs, templateElementOrDirectiveProps, templateElementVars);
 	              }
 	              if (!hasBinding && !hasTemplateBinding) {
 	                  // don't include the bindings as attributes as well in the AST
@@ -11917,7 +11898,7 @@ webpackJsonp([2],[
 	                  }
 	                  targetReferences.push(new ReferenceAst(elOrDirRef.name, refToken, elOrDirRef.sourceSpan));
 	              }
-	          }); // fix syntax highlighting issue: `
+	          });
 	          return directiveAsts;
 	      };
 	      /**
@@ -12102,7 +12083,7 @@ webpackJsonp([2],[
 	              // in the StyleCompiler
 	              return null;
 	          }
-	          var /** @type {?} */ attrNameAndValues = ast.attrs.map(function (attrAst) { return [attrAst.name, attrAst.value]; });
+	          var /** @type {?} */ attrNameAndValues = ast.attrs.map(function (attr) { return [attr.name, attr.value]; });
 	          var /** @type {?} */ selector = createElementCssSelector(ast.name, attrNameAndValues);
 	          var /** @type {?} */ ngContentIndex = parent.findNgContentIndex(selector);
 	          var /** @type {?} */ children = visitAll(this, ast.children, EMPTY_ELEMENT_CONTEXT);
@@ -12219,17 +12200,17 @@ webpackJsonp([2],[
 	  }());
 	  /**
 	   * @param {?} elementName
-	   * @param {?} matchableAttrs
+	   * @param {?} attributes
 	   * @return {?}
 	   */
-	  function createElementCssSelector(elementName, matchableAttrs) {
+	  function createElementCssSelector(elementName, attributes) {
 	      var /** @type {?} */ cssSelector = new CssSelector();
 	      var /** @type {?} */ elNameNoNs = splitNsName(elementName)[1];
 	      cssSelector.setElement(elNameNoNs);
-	      for (var /** @type {?} */ i = 0; i < matchableAttrs.length; i++) {
-	          var /** @type {?} */ attrName = matchableAttrs[i][0];
+	      for (var /** @type {?} */ i = 0; i < attributes.length; i++) {
+	          var /** @type {?} */ attrName = attributes[i][0];
 	          var /** @type {?} */ attrNameNoNs = splitNsName(attrName)[1];
-	          var /** @type {?} */ attrValue = matchableAttrs[i][1];
+	          var /** @type {?} */ attrValue = attributes[i][1];
 	          cssSelector.addAttribute(attrNameNoNs, attrValue);
 	          if (attrName.toLowerCase() == CLASS_ATTR) {
 	              var /** @type {?} */ classes = splitClasses(attrValue);
@@ -16544,7 +16525,7 @@ webpackJsonp([2],[
 	              var /** @type {?} */ receiver = this.visit(ast.receiver, _Mode.Expression);
 	              if (receiver === this._implicitReceiver) {
 	                  var /** @type {?} */ varExpr = this._getLocal(ast.name);
-	                  if (isPresent(varExpr)) {
+	                  if (varExpr) {
 	                      result = varExpr.callFn(args);
 	                  }
 	              }
@@ -16593,7 +16574,7 @@ webpackJsonp([2],[
 	          var /** @type {?} */ receiver = this.visit(ast.receiver, _Mode.Expression);
 	          if (receiver === this._implicitReceiver) {
 	              var /** @type {?} */ varExpr = this._getLocal(ast.name);
-	              if (isPresent(varExpr)) {
+	              if (varExpr) {
 	                  throw new Error('Cannot assign to a reference or variable!');
 	              }
 	          }
@@ -17780,7 +17761,7 @@ webpackJsonp([2],[
 	      NgModuleResolver.prototype.resolve = function (type, throwIfNotFound) {
 	          if (throwIfNotFound === void 0) { throwIfNotFound = true; }
 	          var /** @type {?} */ ngModuleMeta = ListWrapper.findLast(this._reflector.annotations(type), _isNgModuleMetadata);
-	          if (isPresent(ngModuleMeta)) {
+	          if (ngModuleMeta) {
 	              return ngModuleMeta;
 	          }
 	          else {
@@ -17852,9 +17833,9 @@ webpackJsonp([2],[
 	      PipeResolver.prototype.resolve = function (type, throwIfNotFound) {
 	          if (throwIfNotFound === void 0) { throwIfNotFound = true; }
 	          var /** @type {?} */ metas = this._reflector.annotations(_angular_core.resolveForwardRef(type));
-	          if (isPresent(metas)) {
+	          if (metas) {
 	              var /** @type {?} */ annotation = ListWrapper.findLast(metas, _isPipeMetadata);
-	              if (isPresent(annotation)) {
+	              if (annotation) {
 	                  return annotation;
 	              }
 	          }
@@ -21728,7 +21709,7 @@ webpackJsonp([2],[
 	          if (this._newState.nodeIndex !== this._currState.nodeIndex ||
 	              this._newState.sourceAst !== this._currState.sourceAst) {
 	              var /** @type {?} */ expr = this._updateDebugContext(this._newState);
-	              if (isPresent(expr)) {
+	              if (expr) {
 	                  this._bodyStatements.push(expr.toStmt());
 	              }
 	          }
@@ -21740,11 +21721,11 @@ webpackJsonp([2],[
 	      CompileMethod.prototype._updateDebugContext = function (newState) {
 	          this._currState = this._newState = newState;
 	          if (this._debugEnabled) {
-	              var /** @type {?} */ sourceLocation = isPresent(newState.sourceAst) ? newState.sourceAst.sourceSpan.start : null;
+	              var /** @type {?} */ sourceLocation = newState.sourceAst ? newState.sourceAst.sourceSpan.start : null;
 	              return THIS_EXPR.callMethod('debug', [
 	                  literal(newState.nodeIndex),
-	                  isPresent(sourceLocation) ? literal(sourceLocation.line) : NULL_EXPR,
-	                  isPresent(sourceLocation) ? literal(sourceLocation.col) : NULL_EXPR
+	                  sourceLocation ? literal(sourceLocation.line) : NULL_EXPR,
+	                  sourceLocation ? literal(sourceLocation.col) : NULL_EXPR
 	              ]);
 	          }
 	          else {
@@ -21832,7 +21813,7 @@ webpackJsonp([2],[
 	      else {
 	          var /** @type {?} */ viewProp = THIS_EXPR;
 	          var /** @type {?} */ currView = callingView;
-	          while (currView !== definedView && isPresent(currView.declarationElement.view)) {
+	          while (currView !== definedView && currView.declarationElement.view) {
 	              currView = currView.declarationElement.view;
 	              viewProp = viewProp.prop('parentView');
 	          }
@@ -21954,7 +21935,7 @@ webpackJsonp([2],[
 	      CompileQuery.prototype.addValue = function (value, view) {
 	          var /** @type {?} */ currentView = view;
 	          var /** @type {?} */ elPath = [];
-	          while (isPresent(currentView) && currentView !== this.view) {
+	          while (currentView && currentView !== this.view) {
 	              var /** @type {?} */ parentEl = currentView.declarationElement;
 	              elPath.unshift(parentEl);
 	              currentView = parentEl.view;
@@ -21988,10 +21969,10 @@ webpackJsonp([2],[
 	       * @param {?} targetDynamicMethod
 	       * @return {?}
 	       */
-	      CompileQuery.prototype.afterChildren = function (targetStaticMethod, targetDynamicMethod) {
+	      CompileQuery.prototype.generateStatements = function (targetStaticMethod, targetDynamicMethod) {
 	          var /** @type {?} */ values = createQueryValues(this._values);
 	          var /** @type {?} */ updateStmts = [this.queryList.callMethod('reset', [literalArr(values)]).toStmt()];
-	          if (isPresent(this.ownerDirectiveExpression)) {
+	          if (this.ownerDirectiveExpression) {
 	              var /** @type {?} */ valueExpr = this.meta.first ? this.queryList.prop('first') : this.queryList;
 	              updateStmts.push(this.ownerDirectiveExpression.prop(this.meta.propertyName).set(valueExpr).toStmt());
 	          }
@@ -22039,13 +22020,11 @@ webpackJsonp([2],[
 	      ]);
 	  }
 	  /**
-	   * @param {?} query
-	   * @param {?} directiveInstance
 	   * @param {?} propertyName
 	   * @param {?} compileView
 	   * @return {?}
 	   */
-	  function createQueryList(query, directiveInstance, propertyName, compileView) {
+	  function createQueryList(propertyName, compileView) {
 	      compileView.fields.push(new ClassField(propertyName, importType(createIdentifier(Identifiers.QueryList), [DYNAMIC_TYPE])));
 	      var /** @type {?} */ expr = THIS_EXPR.prop(propertyName);
 	      compileView.createMethod.addStmt(THIS_EXPR.prop(propertyName)
@@ -22385,7 +22364,7 @@ webpackJsonp([2],[
 	                  }
 	              });
 	              var /** @type {?} */ propName = "_" + tokenName(resolvedProvider.token) + "_" + _this.nodeIndex + "_" + _this.instances.size;
-	              var /** @type {?} */ instance = createProviderProperty(propName, resolvedProvider, providerValueExpressions, resolvedProvider.multiProvider, resolvedProvider.eager, _this);
+	              var /** @type {?} */ instance = createProviderProperty(propName, providerValueExpressions, resolvedProvider.multiProvider, resolvedProvider.eager, _this);
 	              if (isDirectiveWrapper) {
 	                  _this.directiveWrapperInstance.set(tokenReference(resolvedProvider.token), instance);
 	                  _this.instances.set(tokenReference(resolvedProvider.token), DirectiveWrapperExpressions.context(instance));
@@ -22403,11 +22382,6 @@ webpackJsonp([2],[
 	          for (var /** @type {?} */ i = 0; i < this._directives.length; i++) {
 	              _loop_1(i);
 	          }
-	          var /** @type {?} */ queriesWithReads = [];
-	          Array.from(this._resolvedProviders.values()).forEach(function (resolvedProvider) {
-	              var /** @type {?} */ queriesForProvider = _this._getQueriesFor(resolvedProvider.token);
-	              queriesWithReads.push.apply(queriesWithReads, queriesForProvider.map(function (query) { return new _QueryWithRead(query, resolvedProvider.token); }));
-	          });
 	          Object.keys(this.referenceTokens).forEach(function (varName) {
 	              var /** @type {?} */ token = _this.referenceTokens[varName];
 	              var /** @type {?} */ varValue;
@@ -22418,28 +22392,6 @@ webpackJsonp([2],[
 	                  varValue = _this.renderNode;
 	              }
 	              _this.view.locals.set(varName, varValue);
-	              var /** @type {?} */ varToken = { value: varName };
-	              queriesWithReads.push.apply(queriesWithReads, _this._getQueriesFor(varToken).map(function (query) { return new _QueryWithRead(query, varToken); }));
-	          });
-	          queriesWithReads.forEach(function (queryWithRead) {
-	              var /** @type {?} */ value;
-	              if (isPresent(queryWithRead.read.identifier)) {
-	                  // query for an identifier
-	                  value = _this.instances.get(tokenReference(queryWithRead.read));
-	              }
-	              else {
-	                  // query for a reference
-	                  var /** @type {?} */ token = _this.referenceTokens[queryWithRead.read.value];
-	                  if (isPresent(token)) {
-	                      value = _this.instances.get(tokenReference(token));
-	                  }
-	                  else {
-	                      value = _this.elementRef;
-	                  }
-	              }
-	              if (isPresent(value)) {
-	                  queryWithRead.query.addValue(value, _this.view);
-	              }
 	          });
 	      };
 	      /**
@@ -22460,10 +22412,14 @@ webpackJsonp([2],[
 	              var /** @type {?} */ providerChildNodeCount = resolvedProvider.providerType === ProviderAstType.PrivateService ? 0 : childNodeCount;
 	              _this.view.injectorGetMethod.addStmt(createInjectInternalCondition(_this.nodeIndex, providerChildNodeCount, resolvedProvider, providerExpr));
 	          });
+	      };
+	      /**
+	       * @return {?}
+	       */
+	      CompileElement.prototype.finish = function () {
+	          var _this = this;
 	          Array.from(this._queries.values())
-	              .forEach(function (queries) { return queries.forEach(function (q) {
-	              return q.afterChildren(_this.view.createMethod, _this.view.updateContentQueriesMethod);
-	          }); });
+	              .forEach(function (queries) { return queries.forEach(function (q) { return q.generateStatements(_this.view.createMethod, _this.view.updateContentQueriesMethod); }); });
 	      };
 	      /**
 	       * @param {?} ngContentIndex
@@ -22485,14 +22441,13 @@ webpackJsonp([2],[
 	       * @return {?}
 	       */
 	      CompileElement.prototype.getProviderTokens = function () {
-	          return Array.from(this._resolvedProviders.values())
-	              .map(function (resolvedProvider) { return createDiTokenExpression(resolvedProvider.token); });
+	          return Array.from(this._resolvedProviders.values()).map(function (provider) { return provider.token; });
 	      };
 	      /**
 	       * @param {?} token
 	       * @return {?}
 	       */
-	      CompileElement.prototype._getQueriesFor = function (token) {
+	      CompileElement.prototype.getQueriesFor = function (token) {
 	          var /** @type {?} */ result = [];
 	          var /** @type {?} */ currentEl = this;
 	          var /** @type {?} */ distance = 0;
@@ -22520,7 +22475,7 @@ webpackJsonp([2],[
 	       */
 	      CompileElement.prototype._addQuery = function (queryMeta, directiveInstance) {
 	          var /** @type {?} */ propName = "_query_" + tokenName(queryMeta.selectors[0]) + "_" + this.nodeIndex + "_" + this._queryCount++;
-	          var /** @type {?} */ queryList = createQueryList(queryMeta, directiveInstance, propName, this.view);
+	          var /** @type {?} */ queryList = createQueryList(propName, this.view);
 	          var /** @type {?} */ query = new CompileQuery(queryMeta, queryList, directiveInstance, this.view);
 	          addQueryToTokenMap(this._queries, query);
 	          return query;
@@ -22609,14 +22564,13 @@ webpackJsonp([2],[
 	  }
 	  /**
 	   * @param {?} propName
-	   * @param {?} provider
 	   * @param {?} providerValueExpressions
 	   * @param {?} isMulti
 	   * @param {?} isEager
 	   * @param {?} compileElement
 	   * @return {?}
 	   */
-	  function createProviderProperty(propName, provider, providerValueExpressions, isMulti, isEager, compileElement) {
+	  function createProviderProperty(propName, providerValueExpressions, isMulti, isEager, compileElement) {
 	      var /** @type {?} */ view = compileElement.view;
 	      var /** @type {?} */ resolvedProviderValueExpr;
 	      var /** @type {?} */ type;
@@ -22647,17 +22601,6 @@ webpackJsonp([2],[
 	      }
 	      return THIS_EXPR.prop(propName);
 	  }
-	  var _QueryWithRead = (function () {
-	      /**
-	       * @param {?} query
-	       * @param {?} match
-	       */
-	      function _QueryWithRead(query, match) {
-	          this.query = query;
-	          this.read = query.meta.read || match;
-	      }
-	      return _QueryWithRead;
-	  }());
 	
 	  var CompilePipe = (function () {
 	      /**
@@ -22846,7 +22789,7 @@ webpackJsonp([2],[
 	              var directiveInstance_1 = THIS_EXPR.prop('context');
 	              this.component.viewQueries.forEach(function (queryMeta, queryIndex) {
 	                  var propName = "_viewQuery_" + tokenName(queryMeta.selectors[0]) + "_" + queryIndex;
-	                  var queryList = createQueryList(queryMeta, directiveInstance_1, propName, _this);
+	                  var queryList = createQueryList(propName, _this);
 	                  var query = new CompileQuery(queryMeta, queryList, directiveInstance_1, _this);
 	                  addQueryToTokenMap(viewQueries, query);
 	              });
@@ -22890,10 +22833,10 @@ webpackJsonp([2],[
 	      /**
 	       * @return {?}
 	       */
-	      CompileView.prototype.afterNodes = function () {
+	      CompileView.prototype.finish = function () {
 	          var _this = this;
 	          Array.from(this.viewQueries.values())
-	              .forEach(function (queries) { return queries.forEach(function (q) { return q.afterChildren(_this.createMethod, _this.updateViewQueriesMethod); }); });
+	              .forEach(function (queries) { return queries.forEach(function (q) { return q.generateStatements(_this.createMethod, _this.updateViewQueriesMethod); }); });
 	      };
 	      return CompileView;
 	  }());
@@ -23224,6 +23167,53 @@ webpackJsonp([2],[
 	  }
 	
 	  /**
+	   * @param {?} ce
+	   * @return {?}
+	   */
+	  function bindQueryValues(ce) {
+	      var /** @type {?} */ queriesWithReads = [];
+	      ce.getProviderTokens().forEach(function (token) {
+	          var /** @type {?} */ queriesForProvider = ce.getQueriesFor(token);
+	          queriesWithReads.push.apply(queriesWithReads, queriesForProvider.map(function (query) { return new _QueryWithRead(query, token); }));
+	      });
+	      Object.keys(ce.referenceTokens).forEach(function (varName) {
+	          var /** @type {?} */ varToken = { value: varName };
+	          queriesWithReads.push.apply(queriesWithReads, ce.getQueriesFor(varToken).map(function (query) { return new _QueryWithRead(query, varToken); }));
+	      });
+	      queriesWithReads.forEach(function (queryWithRead) {
+	          var /** @type {?} */ value;
+	          if (queryWithRead.read.identifier) {
+	              // query for an identifier
+	              value = ce.instances.get(tokenReference(queryWithRead.read));
+	          }
+	          else {
+	              // query for a reference
+	              var /** @type {?} */ token = ce.referenceTokens[queryWithRead.read.value];
+	              if (token) {
+	                  value = ce.instances.get(tokenReference(token));
+	              }
+	              else {
+	                  value = ce.elementRef;
+	              }
+	          }
+	          if (value) {
+	              queryWithRead.query.addValue(value, ce.view);
+	          }
+	      });
+	  }
+	  var _QueryWithRead = (function () {
+	      /**
+	       * @param {?} query
+	       * @param {?} match
+	       */
+	      function _QueryWithRead(query, match) {
+	          this.query = query;
+	          this.read = query.meta.read || match;
+	      }
+	      return _QueryWithRead;
+	  }());
+	
+	  /**
 	   * @param {?} view
 	   * @param {?} parsedTemplate
 	   * @param {?} schemaRegistry
@@ -23277,6 +23267,7 @@ webpackJsonp([2],[
 	      ViewBinderVisitor.prototype.visitElement = function (ast, parent) {
 	          var _this = this;
 	          var /** @type {?} */ compileElement = (this.view.nodes[this._nodeIndex++]);
+	          bindQueryValues(compileElement);
 	          var /** @type {?} */ hasEvents = bindOutputs(ast.outputs, ast.directives, compileElement, true);
 	          bindRenderInputs(ast.inputs, ast.outputs, hasEvents, compileElement);
 	          ast.directives.forEach(function (directiveAst, dirIndex) {
@@ -23307,6 +23298,7 @@ webpackJsonp([2],[
 	       */
 	      ViewBinderVisitor.prototype.visitEmbeddedTemplate = function (ast, parent) {
 	          var /** @type {?} */ compileElement = (this.view.nodes[this._nodeIndex++]);
+	          bindQueryValues(compileElement);
 	          bindOutputs(ast.outputs, ast.directives, compileElement, false);
 	          ast.directives.forEach(function (directiveAst, dirIndex) {
 	              var /** @type {?} */ directiveInstance = compileElement.instances.get(directiveAst.directive.type.reference);
@@ -23397,13 +23389,16 @@ webpackJsonp([2],[
 	   * @return {?}
 	   */
 	  function finishView(view, targetStatements) {
-	      view.afterNodes();
-	      createViewTopLevelStmts(view, targetStatements);
 	      view.nodes.forEach(function (node) {
-	          if (node instanceof CompileElement && node.hasEmbeddedView) {
-	              finishView(node.embeddedView, targetStatements);
+	          if (node instanceof CompileElement) {
+	              node.finish();
+	              if (node.hasEmbeddedView) {
+	                  finishView(node.embeddedView, targetStatements);
+	              }
 	          }
 	      });
+	      view.finish();
+	      createViewTopLevelStmts(view, targetStatements);
 	  }
 	  var ViewBuilderVisitor = (function () {
 	      /**
@@ -23807,7 +23802,8 @@ webpackJsonp([2],[
 	      var /** @type {?} */ componentToken = NULL_EXPR;
 	      var /** @type {?} */ varTokenEntries = [];
 	      if (isPresent(compileElement)) {
-	          providerTokens = compileElement.getProviderTokens();
+	          providerTokens =
+	              compileElement.getProviderTokens().map(function (token) { return createDiTokenExpression(token); });
 	          if (isPresent(compileElement.component)) {
 	              componentToken = createDiTokenExpression(identifierToken(compileElement.component.type));
 	          }
@@ -24078,7 +24074,6 @@ webpackJsonp([2],[
 	      view.nodes.forEach(function (node) {
 	          if (node instanceof CompileElement) {
 	              if (node.embeddedView) {
-	                  var /** @type {?} */ parentNodeIndex = node.isRootElement() ? null : node.parent.nodeIndex;
 	                  stmts.push(new IfStmt(nodeIndexVar.equals(literal(node.nodeIndex)), [new ReturnStatement(node.embeddedView.classExpr.instantiate([
 	                          ViewProperties.viewUtils, THIS_EXPR, literal(node.nodeIndex), node.renderNode,
 	                          node.viewContainer
@@ -25672,6 +25667,7 @@ webpackJsonp([2],[
 	                          if (value_1 && (depth != 0 || value_1.__symbolic != 'error')) {
 	                              var /** @type {?} */ parameters = targetFunction['parameters'];
 	                              var /** @type {?} */ defaults = targetFunction.defaults;
+	                              args = args.map(function (arg) { return simplifyInContext(context, arg, depth + 1); });
 	                              if (defaults && defaults.length > args.length) {
 	                                  args.push.apply(args, defaults.slice(args.length).map(function (value) { return simplify(value); }));
 	                              }
@@ -25873,15 +25869,15 @@ webpackJsonp([2],[
 	                                          return context;
 	                                      }
 	                                      var /** @type {?} */ argExpressions = expression['arguments'] || [];
-	                                      var /** @type {?} */ args = argExpressions.map(function (arg) { return simplifyInContext(context, arg, depth + 1); });
 	                                      var /** @type {?} */ converter = self.conversionMap.get(staticSymbol);
 	                                      if (converter) {
+	                                          var /** @type {?} */ args = argExpressions.map(function (arg) { return simplifyInContext(context, arg, depth + 1); });
 	                                          return converter(context, args);
 	                                      }
 	                                      else {
 	                                          // Determine if the function is one we can simplify.
 	                                          var /** @type {?} */ targetFunction = resolveReferenceValue(staticSymbol);
-	                                          return simplifyCall(staticSymbol, targetFunction, args);
+	                                          return simplifyCall(staticSymbol, targetFunction, argExpressions);
 	                                      }
 	                                  }
 	                                  break;
@@ -28301,7 +28297,7 @@ webpackJsonp([2],[
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
-	 * @license Angular v2.4.1
+	 * @license Angular v2.4.3
 	 * (c) 2010-2016 Google, Inc. https://angular.io/
 	 * License: MIT
 	 */
@@ -28933,30 +28929,7 @@ webpackJsonp([2],[
 	        }
 	    ], Query));
 	    /**
-	     * @whatItDoes Configures a content query.
-	     *
-	     * @howToUse
-	     *
-	     * {@example core/di/ts/contentChild/content_child_howto.ts region='HowTo'}
-	     *
-	     * @description
-	     *
-	     * You can use ContentChild to get the first element or the directive matching the selector from the
-	     * content DOM. If the content DOM changes, and a new child matches the selector,
-	     * the property will be updated.
-	     *
-	     * Content queries are set before the `ngAfterContentInit` callback is called.
-	     *
-	     * **Metadata Properties**:
-	     *
-	     * * **selector** - the directive type or the name used for querying.
-	     * * **read** - read a different token from the queried element.
-	     *
-	     * Let's look at an example:
-	     *
-	     * {@example core/di/ts/contentChild/content_child_example.ts region='Component'}
-	     *
-	     * **npm package**: `@angular/core`
+	     * ContentChild decorator and metadata.
 	     *
 	     * @stable
 	     * @Annotation
@@ -28970,30 +28943,7 @@ webpackJsonp([2],[
 	        }
 	    ], Query);
 	    /**
-	     * @whatItDoes Configures a view query.
-	     *
-	     * @howToUse
-	     *
-	     * {@example core/di/ts/viewChildren/view_children_howto.ts region='HowTo'}
-	     *
-	     * @description
-	     *
-	     * You can use ViewChildren to get the {@link QueryList} of elements or directives from the
-	     * view DOM. Any time a child element is added, removed, or moved, the query list will be updated,
-	     * and the changes observable of the query list will emit a new value.
-	     *
-	     * View queries are set before the `ngAfterViewInit` callback is called.
-	     *
-	     * **Metadata Properties**:
-	     *
-	     * * **selector** - the directive type or the name used for querying.
-	     * * **read** - read a different token from the queried elements.
-	     *
-	     * Let's look at an example:
-	     *
-	     * {@example core/di/ts/viewChildren/view_children_example.ts region='Component'}
-	     *
-	     * **npm package**: `@angular/core`
+	     * ViewChildren decorator and metadata.
 	     *
 	     * @stable
 	     * @Annotation
@@ -29451,7 +29401,7 @@ webpackJsonp([2],[
 	    /**
 	     * @stable
 	     */
-	    var /** @type {?} */ VERSION = new Version('2.4.1');
+	    var /** @type {?} */ VERSION = new Version('2.4.3');
 	
 	    /**
 	     *  Allows to refer to references which are not yet defined.
@@ -30076,6 +30026,13 @@ webpackJsonp([2],[
 	     * @stable
 	     */
 	    var /** @type {?} */ Type = Function;
+	    /**
+	     * @param {?} v
+	     * @return {?}
+	     */
+	    function isType(v) {
+	        return typeof v === 'function';
+	    }
 	
 	    /**
 	     * Attention: This regex has to hold even if the code is minified!
@@ -30188,7 +30145,10 @@ webpackJsonp([2],[
 	        ReflectionCapabilities.prototype.parameters = function (type) {
 	            // Note: only report metadata if we have at least one class decorator
 	            // to stay in sync with the static reflector.
-	            var /** @type {?} */ parentCtor = Object.getPrototypeOf(type.prototype).constructor;
+	            if (!isType(type)) {
+	                return [];
+	            }
+	            var /** @type {?} */ parentCtor = getParentCtor(type);
 	            var /** @type {?} */ parameters = this._ownParameters(type, parentCtor);
 	            if (!parameters && parentCtor !== Object) {
 	                parameters = this.parameters(parentCtor);
@@ -30223,7 +30183,10 @@ webpackJsonp([2],[
 	         * @return {?}
 	         */
 	        ReflectionCapabilities.prototype.annotations = function (typeOrFunc) {
-	            var /** @type {?} */ parentCtor = Object.getPrototypeOf(typeOrFunc.prototype).constructor;
+	            if (!isType(typeOrFunc)) {
+	                return [];
+	            }
+	            var /** @type {?} */ parentCtor = getParentCtor(typeOrFunc);
 	            var /** @type {?} */ ownAnnotations = this._ownAnnotations(typeOrFunc, parentCtor) || [];
 	            var /** @type {?} */ parentAnnotations = parentCtor !== Object ? this.annotations(parentCtor) : [];
 	            return parentAnnotations.concat(ownAnnotations);
@@ -30263,7 +30226,10 @@ webpackJsonp([2],[
 	         * @return {?}
 	         */
 	        ReflectionCapabilities.prototype.propMetadata = function (typeOrFunc) {
-	            var /** @type {?} */ parentCtor = Object.getPrototypeOf(typeOrFunc.prototype).constructor;
+	            if (!isType(typeOrFunc)) {
+	                return {};
+	            }
+	            var /** @type {?} */ parentCtor = getParentCtor(typeOrFunc);
 	            var /** @type {?} */ propMetadata = {};
 	            if (parentCtor !== Object) {
 	                var /** @type {?} */ parentPropMetadata_1 = this.propMetadata(parentCtor);
@@ -30353,6 +30319,17 @@ webpackJsonp([2],[
 	            var /** @type {?} */ annotationArgs = decoratorInvocation.args ? decoratorInvocation.args : [];
 	            return new (annotationCls.bind.apply(annotationCls, [void 0].concat(annotationArgs)))();
 	        });
+	    }
+	    /**
+	     * @param {?} ctor
+	     * @return {?}
+	     */
+	    function getParentCtor(ctor) {
+	        var /** @type {?} */ parentProto = Object.getPrototypeOf(ctor.prototype);
+	        var /** @type {?} */ parentCtor = parentProto ? parentProto.constructor : null;
+	        // Note: We always use `Object` as the null value
+	        // to simplify checking later on.
+	        return parentCtor || Object;
 	    }
 	
 	    /**
@@ -34902,7 +34879,6 @@ webpackJsonp([2],[
 	        function ViewUtils(_renderer, sanitizer, animationQueue) {
 	            this._renderer = _renderer;
 	            this.animationQueue = animationQueue;
-	            this._nextCompTypeId = 0;
 	            this.sanitizer = sanitizer;
 	        }
 	        /**
@@ -36985,7 +36961,7 @@ webpackJsonp([2],[
 	            }
 	            this._loadComponent(compRef);
 	            if (isDevMode()) {
-	                this._console.log("Angular 2 is running in the development mode. Call enableProdMode() to enable the production mode.");
+	                this._console.log("Angular is running in the development mode. Call enableProdMode() to enable the production mode.");
 	            }
 	            return compRef;
 	        };
@@ -38467,6 +38443,13 @@ webpackJsonp([2],[
 	        return defaultKeyValueDiffers;
 	    }
 	    /**
+	     * @param {?=} locale
+	     * @return {?}
+	     */
+	    function _localeFactory(locale) {
+	        return locale || 'en-US';
+	    }
+	    /**
 	     *  This module includes the providers of @angular/core that are needed
 	      * to bootstrap components via `ApplicationRef`.
 	      * *
@@ -38486,7 +38469,11 @@ webpackJsonp([2],[
 	                            AnimationQueue,
 	                            { provide: IterableDiffers, useFactory: _iterableDiffersFactory },
 	                            { provide: KeyValueDiffers, useFactory: _keyValueDiffersFactory },
-	                            { provide: LOCALE_ID, useValue: 'en-US' },
+	                            {
+	                                provide: LOCALE_ID,
+	                                useFactory: _localeFactory,
+	                                deps: [[new Inject(LOCALE_ID), new Optional(), new SkipSelf()]]
+	                            },
 	                        ]
 	                    },] },
 	        ];
@@ -40494,7 +40481,7 @@ webpackJsonp([2],[
 	    /**
 	     * @experimental
 	     */
-	    var /** @type {?} */ EMPTY_CONTEXT$1 = new Object();
+	    var /** @type {?} */ EMPTY_CONTEXT = new Object();
 	    var /** @type {?} */ UNDEFINED$1 = new Object();
 	    /**
 	     *  Cost of making objects: http://jsperf.com/instantiate-size-of-object
@@ -40570,7 +40557,7 @@ webpackJsonp([2],[
 	         * @return {?}
 	         */
 	        AppView.prototype.createHostView = function (rootSelectorOrNode, hostInjector, projectableNodes) {
-	            this.context = (EMPTY_CONTEXT$1);
+	            this.context = (EMPTY_CONTEXT);
 	            this._hasExternalHostElement = isPresent(rootSelectorOrNode);
 	            this._hostInjector = hostInjector;
 	            this._hostProjectableNodes = projectableNodes;
@@ -42069,6 +42056,11 @@ webpackJsonp([2],[
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
 	var isArray_1 = __webpack_require__(12);
 	var isObject_1 = __webpack_require__(13);
 	var isFunction_1 = __webpack_require__(10);
@@ -42121,7 +42113,8 @@ webpackJsonp([2],[
 	            var trial = tryCatch_1.tryCatch(_unsubscribe).call(this);
 	            if (trial === errorObject_1.errorObject) {
 	                hasErrors = true;
-	                (errors = errors || []).push(errorObject_1.errorObject.e);
+	                errors = errors || (errorObject_1.errorObject.e instanceof UnsubscriptionError_1.UnsubscriptionError ?
+	                    flattenUnsubscriptionErrors(errorObject_1.errorObject.e.errors) : [errorObject_1.errorObject.e]);
 	            }
 	        }
 	        if (isArray_1.isArray(_subscriptions)) {
@@ -42136,7 +42129,7 @@ webpackJsonp([2],[
 	                        errors = errors || [];
 	                        var err = errorObject_1.errorObject.e;
 	                        if (err instanceof UnsubscriptionError_1.UnsubscriptionError) {
-	                            errors = errors.concat(err.errors);
+	                            errors = errors.concat(flattenUnsubscriptionErrors(err.errors));
 	                        }
 	                        else {
 	                            errors.push(err);
@@ -42180,19 +42173,20 @@ webpackJsonp([2],[
 	                sub = new Subscription(teardown);
 	            case 'object':
 	                if (sub.closed || typeof sub.unsubscribe !== 'function') {
-	                    break;
+	                    return sub;
 	                }
 	                else if (this.closed) {
 	                    sub.unsubscribe();
-	                }
-	                else {
-	                    (this._subscriptions || (this._subscriptions = [])).push(sub);
+	                    return sub;
 	                }
 	                break;
 	            default:
 	                throw new Error('unrecognized teardown ' + teardown + ' added to Subscription.');
 	        }
-	        return sub;
+	        var childSub = new ChildSubscription(sub, this);
+	        this._subscriptions = this._subscriptions || [];
+	        this._subscriptions.push(childSub);
+	        return childSub;
 	    };
 	    /**
 	     * Removes a Subscription from the internal list of subscriptions that will
@@ -42220,6 +42214,24 @@ webpackJsonp([2],[
 	    return Subscription;
 	}());
 	exports.Subscription = Subscription;
+	var ChildSubscription = (function (_super) {
+	    __extends(ChildSubscription, _super);
+	    function ChildSubscription(_innerSub, _parent) {
+	        _super.call(this);
+	        this._innerSub = _innerSub;
+	        this._parent = _parent;
+	    }
+	    ChildSubscription.prototype._unsubscribe = function () {
+	        var _a = this, _innerSub = _a._innerSub, _parent = _a._parent;
+	        _parent.remove(this);
+	        _innerSub.unsubscribe();
+	    };
+	    return ChildSubscription;
+	}(Subscription));
+	exports.ChildSubscription = ChildSubscription;
+	function flattenUnsubscriptionErrors(errors) {
+	    return errors.reduce(function (errs, err) { return errs.concat((err instanceof UnsubscriptionError_1.UnsubscriptionError) ? err.errors : err); }, []);
+	}
 	//# sourceMappingURL=Subscription.js.map
 
 /***/ },
@@ -42437,7 +42449,7 @@ webpackJsonp([2],[
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
-	 * @license Angular v2.4.1
+	 * @license Angular v2.4.3
 	 * (c) 2010-2016 Google, Inc. https://angular.io/
 	 * License: MIT
 	 */
@@ -43439,12 +43451,23 @@ webpackJsonp([2],[
 	          });
 	          var /** @type {?} */ previousStyleProps = Object.keys(this.previousStyles);
 	          if (previousStyleProps.length) {
-	              var /** @type {?} */ startingKeyframe_1 = findStartingKeyframe(keyframes);
+	              var /** @type {?} */ startingKeyframe_1 = keyframes[0];
+	              var /** @type {?} */ missingStyleProps_1 = [];
 	              previousStyleProps.forEach(function (prop) {
-	                  if (isPresent(startingKeyframe_1[prop])) {
-	                      startingKeyframe_1[prop] = _this.previousStyles[prop];
+	                  if (!isPresent(startingKeyframe_1[prop])) {
+	                      missingStyleProps_1.push(prop);
 	                  }
+	                  startingKeyframe_1[prop] = _this.previousStyles[prop];
 	              });
+	              if (missingStyleProps_1.length) {
+	                  var _loop_1 = function(i) {
+	                      var /** @type {?} */ kf = keyframes[i];
+	                      missingStyleProps_1.forEach(function (prop) { kf[prop] = _computeStyle(_this.element, prop); });
+	                  };
+	                  for (var /** @type {?} */ i = 1; i < keyframes.length; i++) {
+	                      _loop_1(i);
+	                  }
+	              }
 	          }
 	          this._player = this._triggerWebAnimation(this.element, keyframes, this.options);
 	          this._finalKeyframe = _copyKeyframeStyles(keyframes[keyframes.length - 1]);
@@ -43600,23 +43623,6 @@ webpackJsonp([2],[
 	      });
 	      return newStyles;
 	  }
-	  /**
-	   * @param {?} keyframes
-	   * @return {?}
-	   */
-	  function findStartingKeyframe(keyframes) {
-	      var /** @type {?} */ startingKeyframe = keyframes[0];
-	      // it's important that we find the LAST keyframe
-	      // to ensure that style overidding is final.
-	      for (var /** @type {?} */ i = 1; i < keyframes.length; i++) {
-	          var /** @type {?} */ kf = keyframes[i];
-	          var /** @type {?} */ offset = kf['offset'];
-	          if (offset !== 0)
-	              break;
-	          startingKeyframe = kf;
-	      }
-	      return startingKeyframe;
-	  }
 	
 	  var WebAnimationsDriver = (function () {
 	      function WebAnimationsDriver() {
@@ -43635,24 +43641,27 @@ webpackJsonp([2],[
 	          if (previousPlayers === void 0) { previousPlayers = []; }
 	          var /** @type {?} */ formattedSteps = [];
 	          var /** @type {?} */ startingStyleLookup = {};
-	          if (isPresent(startingStyles) && startingStyles.styles.length > 0) {
+	          if (isPresent(startingStyles)) {
 	              startingStyleLookup = _populateStyles(startingStyles, {});
-	              startingStyleLookup['offset'] = 0;
-	              formattedSteps.push(startingStyleLookup);
 	          }
 	          keyframes.forEach(function (keyframe) {
 	              var /** @type {?} */ data = _populateStyles(keyframe.styles, startingStyleLookup);
 	              data['offset'] = Math.max(0, Math.min(1, keyframe.offset));
 	              formattedSteps.push(data);
 	          });
-	          // this is a special case when only styles are applied as an
-	          // animation. When this occurs we want to animate from start to
-	          // end with the same values. Removing the offset and having only
-	          // start/end values is suitable enough for the web-animations API
-	          if (formattedSteps.length == 1) {
-	              var /** @type {?} */ start = formattedSteps[0];
-	              start['offset'] = null;
-	              formattedSteps = [start, start];
+	          // Styling passed into element.animate() must always be balanced.
+	          // The special cases below can occur if only style() calls exist
+	          // within an animation or when a style() calls are used prior
+	          // to a group() animation being issued or if the renderer is
+	          // invoked by the user directly.
+	          if (formattedSteps.length == 0) {
+	              formattedSteps = [startingStyleLookup, startingStyleLookup];
+	          }
+	          else if (formattedSteps.length == 1) {
+	              var /** @type {?} */ start = startingStyleLookup;
+	              var /** @type {?} */ end = formattedSteps[0];
+	              end['offset'] = null;
+	              formattedSteps = [start, end];
 	          }
 	          var /** @type {?} */ playerOptions = {
 	              'duration': duration,
@@ -45612,12 +45621,10 @@ webpackJsonp([2],[
 	       */
 	      DomRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
 	          if (previousPlayers === void 0) { previousPlayers = []; }
-	          try {
+	          if (this._rootRenderer.document.body.contains(element)) {
 	              return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers);
 	          }
-	          catch (e) {
-	              return new NoOpAnimationPlayer();
-	          }
+	          return new NoOpAnimationPlayer();
 	      };
 	      return DomRenderer;
 	  }());
@@ -47099,7 +47106,7 @@ webpackJsonp([2],[
 	  /**
 	   * @stable
 	   */
-	  var /** @type {?} */ VERSION = new core.Version('2.4.1');
+	  var /** @type {?} */ VERSION = new core.Version('2.4.3');
 	
 	  exports.BrowserModule = BrowserModule;
 	  exports.platformBrowser = platformBrowser;
@@ -47126,7 +47133,7 @@ webpackJsonp([2],[
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
-	 * @license Angular v2.4.1
+	 * @license Angular v2.4.3
 	 * (c) 2010-2016 Google, Inc. https://angular.io/
 	 * License: MIT
 	 */
@@ -48433,6 +48440,8 @@ webpackJsonp([2],[
 	      * <some-element [ngClass]="{'first': true, 'second': true, 'third': false}">...</some-element>
 	      * *
 	      * <some-element [ngClass]="stringExp|arrayExp|objExp">...</some-element>
+	      * *
+	      * <some-element [ngClass]="{'class1 class2 class3' : true}">...</some-element>
 	      * ```
 	      * *
 	      * *
@@ -48569,7 +48578,7 @@ webpackJsonp([2],[
 	                }
 	                else {
 	                    Object.keys(rawClassVal).forEach(function (klass) {
-	                        if (isPresent(rawClassVal[klass]))
+	                        if (rawClassVal[klass] != null)
 	                            _this._toggleClass(klass, !isCleanup);
 	                    });
 	                }
@@ -48736,8 +48745,12 @@ webpackJsonp([2],[
 	             * @return {?}
 	             */
 	            set: function (fn) {
-	                if (typeof fn !== 'function') {
-	                    throw new Error("trackBy must be a function, but received " + JSON.stringify(fn));
+	                if (_angular_core.isDevMode() && fn != null && typeof fn !== 'function') {
+	                    // TODO(vicb): use a log service once there is a public one available
+	                    if ((console) && (console.warn)) {
+	                        console.warn(("trackBy must be a function, but received " + JSON.stringify(fn) + ". ") +
+	                            "See https://angular.io/docs/ts/latest/api/common/index/NgFor-directive.html#!#change-propagation for more information.");
+	                    }
 	                }
 	                this._trackByFn = fn;
 	            },
@@ -49162,10 +49175,9 @@ webpackJsonp([2],[
 	      * *
 	      * ```
 	      * <some-element [ngPlural]="value">
-	      * <ng-container *ngPluralCase="'=0'">there is nothing</ng-container>
-	      * <ng-container *ngPluralCase="'=1'">there is one</ng-container>
-	      * <ng-container *ngPluralCase="'few'">there are a few</ng-container>
-	      * <ng-container *ngPluralCase="'other'">there are exactly #</ng-container>
+	      * <template ngPluralCase="=0">there is nothing</template>
+	      * <template ngPluralCase="=1">there is one</template>
+	      * <template ngPluralCase="few">there are a few</template>
 	      * </some-element>
 	      * ```
 	      * *
@@ -49254,8 +49266,8 @@ webpackJsonp([2],[
 	      * *
 	      * ```
 	      * <some-element [ngPlural]="value">
-	      * <ng-container *ngPluralCase="'=0'">...</ng-container>
-	      * <ng-container *ngPluralCase="'other'">...</ng-container>
+	      * <template ngPluralCase="=0">...</template>
+	      * <template ngPluralCase="other">...</template>
 	      * </some-element>
 	      * *```
 	      * *
@@ -50156,7 +50168,7 @@ webpackJsonp([2],[
 	         * @return {?}
 	         */
 	        I18nPluralPipe.prototype.transform = function (value, pluralMap) {
-	            if (isBlank(value))
+	            if (value == null)
 	                return '';
 	            if (typeof pluralMap !== 'object' || pluralMap === null) {
 	                throw new InvalidPipeArgumentError(I18nPluralPipe, pluralMap);
@@ -50287,7 +50299,7 @@ webpackJsonp([2],[
 	    function formatNumber(pipe, locale, value, style, digits, currency, currencyAsSymbol) {
 	        if (currency === void 0) { currency = null; }
 	        if (currencyAsSymbol === void 0) { currencyAsSymbol = false; }
-	        if (isBlank(value))
+	        if (value == null)
 	            return null;
 	        // Convert strings to numbers
 	        value = typeof value === 'string' && NumberWrapper.isNumeric(value) ? +value : value;
@@ -50308,13 +50320,13 @@ webpackJsonp([2],[
 	            if (parts === null) {
 	                throw new Error(digits + " is not a valid digit info for number pipes");
 	            }
-	            if (isPresent(parts[1])) {
+	            if (parts[1] != null) {
 	                minInt = NumberWrapper.parseIntAutoRadix(parts[1]);
 	            }
-	            if (isPresent(parts[3])) {
+	            if (parts[3] != null) {
 	                minFraction = NumberWrapper.parseIntAutoRadix(parts[3]);
 	            }
-	            if (isPresent(parts[5])) {
+	            if (parts[5] != null) {
 	                maxFraction = NumberWrapper.parseIntAutoRadix(parts[5]);
 	            }
 	        }
@@ -50512,7 +50524,7 @@ webpackJsonp([2],[
 	         * @return {?}
 	         */
 	        SlicePipe.prototype.transform = function (value, start, end) {
-	            if (isBlank(value))
+	            if (value == null)
 	                return value;
 	            if (!this.supports(value)) {
 	                throw new InvalidPipeArgumentError(SlicePipe, value);
@@ -50605,7 +50617,7 @@ webpackJsonp([2],[
 	    /**
 	     * @stable
 	     */
-	    var /** @type {?} */ VERSION = new _angular_core.Version('2.4.1');
+	    var /** @type {?} */ VERSION = new _angular_core.Version('2.4.3');
 	
 	    exports.NgLocalization = NgLocalization;
 	    exports.CommonModule = CommonModule;
@@ -50648,7 +50660,7 @@ webpackJsonp([2],[
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * @license Angular v2.4.1
+	 * @license Angular v2.4.3
 	 * (c) 2010-2016 Google, Inc. https://angular.io/
 	 * License: MIT
 	 */
@@ -51026,7 +51038,8 @@ webpackJsonp([2],[
 	     * @return {?}
 	     */
 	    function isEmptyInputValue(value) {
-	        return value == null || typeof value === 'string' && value.length === 0;
+	        // we don't check for string here so it also works with arrays
+	        return value == null || value.length === 0;
 	    }
 	    /**
 	     * Providers for validators to be used for {@link FormControl}s in a form.
@@ -56299,7 +56312,7 @@ webpackJsonp([2],[
 	    /**
 	     * @stable
 	     */
-	    var /** @type {?} */ VERSION = new _angular_core.Version('2.4.1');
+	    var /** @type {?} */ VERSION = new _angular_core.Version('2.4.3');
 	
 	    var /** @type {?} */ SHARED_FORM_DIRECTIVES = [
 	        NgSelectOption,
@@ -56499,7 +56512,7 @@ webpackJsonp([2],[
 	     * @see {@link from}
 	     *
 	     * @param {Promise<T>} promise The promise to be converted.
-	     * @param {Scheduler} [scheduler] An optional Scheduler to use for scheduling
+	     * @param {Scheduler} [scheduler] An optional IScheduler to use for scheduling
 	     * the delivery of the resolved value (or the rejection).
 	     * @return {Observable<T>} An Observable which wraps the Promise.
 	     * @static true
@@ -71096,7 +71109,7 @@ webpackJsonp([2],[
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * @license Angular v2.4.1
+	 * @license Angular v2.4.3
 	 * (c) 2010-2016 Google, Inc. https://angular.io/
 	 * License: MIT
 	 */
@@ -73092,7 +73105,7 @@ webpackJsonp([2],[
 	    /**
 	     * @stable
 	     */
-	    var /** @type {?} */ VERSION = new _angular_core.Version('2.4.1');
+	    var /** @type {?} */ VERSION = new _angular_core.Version('2.4.3');
 	
 	    exports.BrowserXhr = BrowserXhr;
 	    exports.JSONPBackend = JSONPBackend;
@@ -73317,7 +73330,7 @@ webpackJsonp([2],[
 	     * @see {@link of}
 	     * @see {@link throw}
 	     *
-	     * @param {Scheduler} [scheduler] A {@link Scheduler} to use for scheduling
+	     * @param {Scheduler} [scheduler] A {@link IScheduler} to use for scheduling
 	     * the emission of the complete notification.
 	     * @return {Observable} An "empty" Observable: emits only the complete
 	     * notification.
@@ -73619,8 +73632,8 @@ webpackJsonp([2],[
 	     * This static operator is useful for creating a simple Observable that only
 	     * emits the arguments given, and the complete notification thereafter. It can
 	     * be used for composing with other Observables, such as with {@link concat}.
-	     * By default, it uses a `null` Scheduler, which means the `next`
-	     * notifications are sent synchronously, although with a different Scheduler
+	     * By default, it uses a `null` IScheduler, which means the `next`
+	     * notifications are sent synchronously, although with a different IScheduler
 	     * it is possible to determine when those notifications will be delivered.
 	     *
 	     * @example <caption>Emit 10, 20, 30, then 'a', 'b', 'c', then start ticking every second.</caption>
@@ -73636,7 +73649,7 @@ webpackJsonp([2],[
 	     * @see {@link throw}
 	     *
 	     * @param {...T} values Arguments that represent `next` values to be emitted.
-	     * @param {Scheduler} [scheduler] A {@link Scheduler} to use for scheduling
+	     * @param {Scheduler} [scheduler] A {@link IScheduler} to use for scheduling
 	     * the emissions of the `next` notifications.
 	     * @return {Observable<T>} An Observable that emits each given input value.
 	     * @static true
@@ -75059,7 +75072,7 @@ webpackJsonp([2],[
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * @license Angular v3.4.1
+	 * @license Angular v3.4.3
 	 * (c) 2010-2016 Google, Inc. https://angular.io/
 	 * License: MIT
 	 */(function (global, factory) {
@@ -75384,7 +75397,7 @@ webpackJsonp([2],[
 	   * @return {?}
 	   */
 	  function containsQueryParams(container, containee) {
-	      return Object.keys(containee) <= Object.keys(container) &&
+	      return Object.keys(containee).length <= Object.keys(container).length &&
 	          Object.keys(containee).every(function (key) { return containee[key] === container[key]; });
 	  }
 	  /**
@@ -76312,7 +76325,7 @@ webpackJsonp([2],[
 	              if (route.loadChildren) {
 	                  return rxjs_operator_map.map.call(this.configLoader.load(injector, route.loadChildren), function (r) {
 	                      ((route))._loadedConfig = r;
-	                      return rxjs_observable_of.of(new UrlSegmentGroup(segments, {}));
+	                      return new UrlSegmentGroup(segments, {});
 	                  });
 	              }
 	              else {
@@ -77229,22 +77242,23 @@ webpackJsonp([2],[
 	   */
 	  function advanceActivatedRoute(route) {
 	      if (route.snapshot) {
-	          if (!shallowEqual(route.snapshot.queryParams, route._futureSnapshot.queryParams)) {
+	          var /** @type {?} */ currentSnapshot = route.snapshot;
+	          route.snapshot = route._futureSnapshot;
+	          if (!shallowEqual(currentSnapshot.queryParams, route._futureSnapshot.queryParams)) {
 	              ((route.queryParams)).next(route._futureSnapshot.queryParams);
 	          }
-	          if (route.snapshot.fragment !== route._futureSnapshot.fragment) {
+	          if (currentSnapshot.fragment !== route._futureSnapshot.fragment) {
 	              ((route.fragment)).next(route._futureSnapshot.fragment);
 	          }
-	          if (!shallowEqual(route.snapshot.params, route._futureSnapshot.params)) {
+	          if (!shallowEqual(currentSnapshot.params, route._futureSnapshot.params)) {
 	              ((route.params)).next(route._futureSnapshot.params);
 	          }
-	          if (!shallowEqualArrays(route.snapshot.url, route._futureSnapshot.url)) {
+	          if (!shallowEqualArrays(currentSnapshot.url, route._futureSnapshot.url)) {
 	              ((route.url)).next(route._futureSnapshot.url);
 	          }
-	          if (!equalParamsAndUrlSegments(route.snapshot, route._futureSnapshot)) {
+	          if (!equalParamsAndUrlSegments(currentSnapshot, route._futureSnapshot)) {
 	              ((route.data)).next(route._futureSnapshot.data);
 	          }
-	          route.snapshot = route._futureSnapshot;
 	      }
 	      else {
 	          route.snapshot = route._futureSnapshot;
@@ -77365,7 +77379,7 @@ webpackJsonp([2],[
 	   * @return {?}
 	   */
 	  function isMatrixParams(command) {
-	      return typeof command === 'object' && !command.outlets && !command.segmentPath;
+	      return typeof command === 'object' && command != null && !command.outlets && !command.segmentPath;
 	  }
 	  /**
 	   * @param {?} oldSegmentGroup
@@ -77412,7 +77426,7 @@ webpackJsonp([2],[
 	          if (isAbsolute && commands.length > 0 && isMatrixParams(commands[0])) {
 	              throw new Error('Root segment cannot have matrix parameters');
 	          }
-	          var cmdWithOutlet = commands.find(function (c) { return typeof c === 'object' && c.outlets; });
+	          var cmdWithOutlet = commands.find(function (c) { return typeof c === 'object' && c != null && c.outlets; });
 	          if (cmdWithOutlet && cmdWithOutlet !== last(commands)) {
 	              throw new Error('{outlets:{}} has to be the last command');
 	          }
@@ -77437,7 +77451,7 @@ webpackJsonp([2],[
 	      var /** @type {?} */ numberOfDoubleDots = 0;
 	      var /** @type {?} */ isAbsolute = false;
 	      var /** @type {?} */ res = commands.reduce(function (res, cmd, cmdIdx) {
-	          if (typeof cmd === 'object') {
+	          if (typeof cmd === 'object' && cmd != null) {
 	              if (cmd.outlets) {
 	                  var /** @type {?} */ outlets_1 = {};
 	                  forEach(cmd.outlets, function (commands, name) {
@@ -77527,8 +77541,9 @@ webpackJsonp([2],[
 	   * @return {?}
 	   */
 	  function getPath(command) {
-	      if (typeof command === 'object' && command.outlets)
+	      if (typeof command === 'object' && command != null && command.outlets) {
 	          return command.outlets[PRIMARY_OUTLET];
+	      }
 	      return "" + command;
 	  }
 	  /**
@@ -78575,6 +78590,7 @@ webpackJsonp([2],[
 	       */
 	      Router.prototype.navigate = function (commands, extras) {
 	          if (extras === void 0) { extras = { skipLocationChange: false }; }
+	          validateCommands(commands);
 	          if (typeof extras.queryParams === 'object' && extras.queryParams !== null) {
 	              extras.queryParams = this.removeEmptyProps(extras.queryParams);
 	          }
@@ -79407,6 +79423,18 @@ webpackJsonp([2],[
 	      }
 	      return outlet;
 	  }
+	  /**
+	   * @param {?} commands
+	   * @return {?}
+	   */
+	  function validateCommands(commands) {
+	      for (var /** @type {?} */ i = 0; i < commands.length; i++) {
+	          var /** @type {?} */ cmd = commands[i];
+	          if (cmd == null) {
+	              throw new Error("The requested path contains " + cmd + " segment at index " + i);
+	          }
+	      }
+	  }
 	
 	  /**
 	   *  *
@@ -79479,15 +79507,15 @@ webpackJsonp([2],[
 	      }
 	      Object.defineProperty(RouterLink.prototype, "routerLink", {
 	          /**
-	           * @param {?} data
+	           * @param {?} commands
 	           * @return {?}
 	           */
-	          set: function (data) {
-	              if (Array.isArray(data)) {
-	                  this.commands = data;
+	          set: function (commands) {
+	              if (commands != null) {
+	                  this.commands = Array.isArray(commands) ? commands : [commands];
 	              }
 	              else {
-	                  this.commands = [data];
+	                  this.commands = [];
 	              }
 	          },
 	          enumerable: true,
@@ -79536,7 +79564,7 @@ webpackJsonp([2],[
 	          'skipLocationChange': [{ type: _angular_core.Input },],
 	          'replaceUrl': [{ type: _angular_core.Input },],
 	          'routerLink': [{ type: _angular_core.Input },],
-	          'onClick': [{ type: _angular_core.HostListener, args: ['click', [],] },],
+	          'onClick': [{ type: _angular_core.HostListener, args: ['click',] },],
 	      };
 	      return RouterLink;
 	  }());
@@ -79566,15 +79594,15 @@ webpackJsonp([2],[
 	      }
 	      Object.defineProperty(RouterLinkWithHref.prototype, "routerLink", {
 	          /**
-	           * @param {?} data
+	           * @param {?} commands
 	           * @return {?}
 	           */
-	          set: function (data) {
-	              if (Array.isArray(data)) {
-	                  this.commands = data;
+	          set: function (commands) {
+	              if (commands != null) {
+	                  this.commands = Array.isArray(commands) ? commands : [commands];
 	              }
 	              else {
-	                  this.commands = [data];
+	                  this.commands = [];
 	              }
 	          },
 	          enumerable: true,
@@ -79641,7 +79669,7 @@ webpackJsonp([2],[
 	          { type: _angular_common.LocationStrategy, },
 	      ]; };
 	      RouterLinkWithHref.propDecorators = {
-	          'target': [{ type: _angular_core.Input },],
+	          'target': [{ type: _angular_core.HostBinding, args: ['attr.target',] }, { type: _angular_core.Input },],
 	          'queryParams': [{ type: _angular_core.Input },],
 	          'fragment': [{ type: _angular_core.Input },],
 	          'preserveQueryParams': [{ type: _angular_core.Input },],
@@ -80478,7 +80506,7 @@ webpackJsonp([2],[
 	  /**
 	   * @stable
 	   */
-	  var /** @type {?} */ VERSION = new _angular_core.Version('3.4.1');
+	  var /** @type {?} */ VERSION = new _angular_core.Version('3.4.3');
 	
 	  var /** @type {?} */ __router_private__ = {
 	      ROUTER_PROVIDERS: ROUTER_PROVIDERS,
@@ -81007,11 +81035,15 @@ webpackJsonp([2],[
 	        this.delay = delay;
 	    }
 	    ObserveOnSubscriber.dispatch = function (arg) {
-	        var notification = arg.notification, destination = arg.destination;
+	        var notification = arg.notification, destination = arg.destination, subscription = arg.subscription;
 	        notification.observe(destination);
+	        if (subscription) {
+	            subscription.unsubscribe();
+	        }
 	    };
 	    ObserveOnSubscriber.prototype.scheduleMessage = function (notification) {
-	        this.add(this.scheduler.schedule(ObserveOnSubscriber.dispatch, this.delay, new ObserveOnMessage(notification, this.destination)));
+	        var message = new ObserveOnMessage(notification, this.destination);
+	        message.subscription = this.add(this.scheduler.schedule(ObserveOnSubscriber.dispatch, this.delay, message));
 	    };
 	    ObserveOnSubscriber.prototype._next = function (value) {
 	        this.scheduleMessage(Notification_1.Notification.createNext(value));
@@ -81431,6 +81463,12 @@ webpackJsonp([2],[
 	var Subscriber_1 = __webpack_require__(9);
 	/**
 	 * Returns an Observable that emits whether or not every item of the source satisfies the condition specified.
+	 *
+	 * @example <caption>A simple example emitting true if all elements are less than 5, false otherwise</caption>
+	 *  Observable.of(1, 2, 3, 4, 5, 6)
+	 *     .every(x => x < 5)
+	 *     .subscribe(x => console.log(x)); // -> false
+	 *
 	 * @param {function} predicate a function for determining if an item meets a specified condition.
 	 * @param {any} [thisArg] optional object to use for `this` in the callback
 	 * @return {Observable} an Observable of booleans that determines if all items of the source Observable meet the condition specified.
@@ -82652,7 +82690,7 @@ webpackJsonp([2],[
 	 * source Observable. More than one input Observables may be given as argument.
 	 * @param {function} [project] An optional function to project the values from
 	 * the combined latest values into a new value on the output Observable.
-	 * @param {Scheduler} [scheduler=null] The Scheduler to use for subscribing to
+	 * @param {Scheduler} [scheduler=null] The IScheduler to use for subscribing to
 	 * each input Observable.
 	 * @return {Observable} An Observable of projected values from the most recent
 	 * values from each input Observable, or an array of the most recent values from
@@ -82911,7 +82949,7 @@ webpackJsonp([2],[
 	 *
 	 * @param {Observable} other An input Observable to concatenate after the source
 	 * Observable. More than one input Observables may be given as argument.
-	 * @param {Scheduler} [scheduler=null] An optional Scheduler to schedule each
+	 * @param {Scheduler} [scheduler=null] An optional IScheduler to schedule each
 	 * Observable subscription on.
 	 * @return {Observable} All values of each passed Observable merged into a
 	 * single Observable, in order, in serial fashion.
@@ -82969,7 +83007,7 @@ webpackJsonp([2],[
 	 * @param {Observable} input1 An input Observable to concatenate with others.
 	 * @param {Observable} input2 An input Observable to concatenate with others.
 	 * More than one input Observables may be given as argument.
-	 * @param {Scheduler} [scheduler=null] An optional Scheduler to schedule each
+	 * @param {Scheduler} [scheduler=null] An optional IScheduler to schedule each
 	 * Observable subscription on.
 	 * @return {Observable} All values of each passed Observable merged into a
 	 * single Observable, in order, in serial fashion.
@@ -83578,7 +83616,7 @@ webpackJsonp([2],[
 	    }
 	    /**
 	     * Creates an Observable that emits sequential numbers every specified
-	     * interval of time, on a specified Scheduler.
+	     * interval of time, on a specified IScheduler.
 	     *
 	     * <span class="informal">Emits incremental numbers periodically in time.
 	     * </span>
@@ -83589,8 +83627,8 @@ webpackJsonp([2],[
 	     * ascending integers, with a constant interval of time of your choosing
 	     * between those emissions. The first emission is not sent immediately, but
 	     * only after the first period has passed. By default, this operator uses the
-	     * `async` Scheduler to provide a notion of time, but you may pass any
-	     * Scheduler to it.
+	     * `async` IScheduler to provide a notion of time, but you may pass any
+	     * IScheduler to it.
 	     *
 	     * @example <caption>Emits ascending numbers, one every second (1000ms)</caption>
 	     * var numbers = Rx.Observable.interval(1000);
@@ -83601,7 +83639,7 @@ webpackJsonp([2],[
 	     *
 	     * @param {number} [period=0] The interval size in milliseconds (by default)
 	     * or the time unit determined by the scheduler's clock.
-	     * @param {Scheduler} [scheduler=async] The Scheduler to use for scheduling
+	     * @param {Scheduler} [scheduler=async] The IScheduler to use for scheduling
 	     * the emission of values, and providing a notion of "time".
 	     * @return {Observable} An Observable that emits a sequential number each time
 	     * interval.
@@ -84036,7 +84074,7 @@ webpackJsonp([2],[
 	 * Observable. More than one input Observables may be given as argument.
 	 * @param {number} [concurrent=Number.POSITIVE_INFINITY] Maximum number of input
 	 * Observables being subscribed to concurrently.
-	 * @param {Scheduler} [scheduler=null] The Scheduler to use for managing
+	 * @param {Scheduler} [scheduler=null] The IScheduler to use for managing
 	 * concurrency of input Observables.
 	 * @return {Observable} an Observable that emits items that are the result of
 	 * every input Observable.
@@ -84104,7 +84142,7 @@ webpackJsonp([2],[
 	 * @param {...Observable} observables Input Observables to merge together.
 	 * @param {number} [concurrent=Number.POSITIVE_INFINITY] Maximum number of input
 	 * Observables being subscribed to concurrently.
-	 * @param {Scheduler} [scheduler=null] The Scheduler to use for managing
+	 * @param {Scheduler} [scheduler=null] The IScheduler to use for managing
 	 * concurrency of input Observables.
 	 * @return {Observable} an Observable that emits items that are the result of
 	 * every input Observable.
@@ -84503,7 +84541,7 @@ webpackJsonp([2],[
 	    }
 	    /**
 	     * Convert an object into an observable sequence of [key, value] pairs
-	     * using an optional Scheduler to enumerate the object.
+	     * using an optional IScheduler to enumerate the object.
 	     *
 	     * @example <caption>Converts a javascript object to an Observable</caption>
 	     * var obj = {
@@ -84527,7 +84565,7 @@ webpackJsonp([2],[
 	     *
 	     * @param {Object} obj The object to inspect and turn into an
 	     * Observable sequence.
-	     * @param {Scheduler} [scheduler] An optional Scheduler to run the
+	     * @param {Scheduler} [scheduler] An optional IScheduler to run the
 	     * enumeration of the input sequence on.
 	     * @returns {(Observable<Array<string | T>>)} An observable sequence of
 	     * [key, value] pairs from the object.
@@ -84609,8 +84647,8 @@ webpackJsonp([2],[
 	     *
 	     * `range` operator emits a range of sequential integers, in order, where you
 	     * select the `start` of the range and its `length`. By default, uses no
-	     * Scheduler and just delivers the notifications synchronously, but may use
-	     * an optional Scheduler to regulate those deliveries.
+	     * IScheduler and just delivers the notifications synchronously, but may use
+	     * an optional IScheduler to regulate those deliveries.
 	     *
 	     * @example <caption>Emits the numbers 1 to 10</caption>
 	     * var numbers = Rx.Observable.range(1, 10);
@@ -84621,7 +84659,7 @@ webpackJsonp([2],[
 	     *
 	     * @param {number} [start=0] The value of the first integer in the sequence.
 	     * @param {number} [count=0] The number of sequential integers to generate.
-	     * @param {Scheduler} [scheduler] A {@link Scheduler} to use for scheduling
+	     * @param {Scheduler} [scheduler] A {@link IScheduler} to use for scheduling
 	     * the emissions of the notifications.
 	     * @return {Observable} An Observable of numbers that emits a finite range of
 	     * sequential integers.
@@ -84835,7 +84873,7 @@ webpackJsonp([2],[
 	     * @see {@link of}
 	     *
 	     * @param {any} error The particular Error to pass to the error notification.
-	     * @param {Scheduler} [scheduler] A {@link Scheduler} to use for scheduling
+	     * @param {Scheduler} [scheduler] A {@link IScheduler} to use for scheduling
 	     * the emission of the error notification.
 	     * @return {Observable} An error Observable: emits only the error notification
 	     * using the given error argument.
@@ -84940,8 +84978,8 @@ webpackJsonp([2],[
 	     * integers, with a constant interval of time, `period` of your choosing
 	     * between those emissions. The first emission happens after the specified
 	     * `initialDelay`. The initial delay may be a {@link Date}. By default, this
-	     * operator uses the `async` Scheduler to provide a notion of time, but you
-	     * may pass any Scheduler to it. If `period` is not specified, the output
+	     * operator uses the `async` IScheduler to provide a notion of time, but you
+	     * may pass any IScheduler to it. If `period` is not specified, the output
 	     * Observable emits only one value, `0`. Otherwise, it emits an infinite
 	     * sequence.
 	     *
@@ -84960,7 +84998,7 @@ webpackJsonp([2],[
 	     * emitting the first value of `0`.
 	     * @param {number} [period] The period of time between emissions of the
 	     * subsequent numbers.
-	     * @param {Scheduler} [scheduler=async] The Scheduler to use for scheduling
+	     * @param {Scheduler} [scheduler=async] The IScheduler to use for scheduling
 	     * the emission of values, and providing a notion of "time".
 	     * @return {Observable} An Observable that emits a `0` after the
 	     * `initialDelay` and ever increasing numbers after each `period` of time
@@ -85061,6 +85099,30 @@ webpackJsonp([2],[
 	exports.zipProto = zipProto;
 	/* tslint:enable:max-line-length */
 	/**
+	 * Combines multiple Observables to create an Observable whose values are calculated from the values, in order, of each
+	 * of its input Observables.
+	 *
+	 * If the latest parameter is a function, this function is used to compute the created value from the input values.
+	 * Otherwise, an array of the input values is returned.
+	 *
+	 * @example <caption>Combine age and name from different sources</caption>
+	 *
+	 * let age$ = Observable.of<number>(27, 25, 29);
+	 * let name$ = Observable.of<string>('Foo', 'Bar', 'Beer');
+	 * let isDev$ = Observable.of<boolean>(true, true, false);
+	 *
+	 * Observable
+	 *     .zip(age$,
+	 *          name$,
+	 *          isDev$,
+	 *          (age: number, name: string, isDev: boolean) => ({ age, name, isDev }))
+	 *     .subscribe(x => console.log(x));
+	 *
+	 * // outputs
+	 * // { age: 7, name: 'Foo', isDev: true }
+	 * // { age: 5, name: 'Bar', isDev: true }
+	 * // { age: 9, name: 'Beer', isDev: false }
+	 *
 	 * @param observables
 	 * @return {Observable<R>}
 	 * @static true
@@ -87651,7 +87713,7 @@ webpackJsonp([2],[
 	 * This is a rate-limiting operator, because it is impossible for more than one
 	 * value to be emitted in any time window of duration `dueTime`, but it is also
 	 * a delay-like operator since output emissions do not occur at the same time as
-	 * they did on the source Observable. Optionally takes a {@link Scheduler} for
+	 * they did on the source Observable. Optionally takes a {@link IScheduler} for
 	 * managing timers.
 	 *
 	 * @example <caption>Emit the most recent click after a burst of clicks</caption>
@@ -87669,7 +87731,7 @@ webpackJsonp([2],[
 	 * unit determined internally by the optional `scheduler`) for the window of
 	 * time required to wait for emission silence before emitting the most recent
 	 * source value.
-	 * @param {Scheduler} [scheduler=async] The {@link Scheduler} to use for
+	 * @param {Scheduler} [scheduler=async] The {@link IScheduler} to use for
 	 * managing the timers that handle the timeout for each value.
 	 * @return {Observable} An Observable that delays the emissions of the source
 	 * Observable by the specified `dueTime`, and may drop some values if they occur
@@ -87888,7 +87950,7 @@ webpackJsonp([2],[
 	 *
 	 * @param {number|Date} delay The delay duration in milliseconds (a `number`) or
 	 * a `Date` until which the emission of the source items is delayed.
-	 * @param {Scheduler} [scheduler=async] The Scheduler to use for
+	 * @param {Scheduler} [scheduler=async] The IScheduler to use for
 	 * managing the timers that handle the time-shift for each item.
 	 * @return {Observable} An Observable that delays the emissions of the source
 	 * Observable by the specified timeout or Date.
@@ -88212,14 +88274,43 @@ webpackJsonp([2],[
 	var Set_1 = __webpack_require__(470);
 	/**
 	 * Returns an Observable that emits all items emitted by the source Observable that are distinct by comparison from previous items.
+	 *
 	 * If a keySelector function is provided, then it will project each value from the source observable into a new value that it will
 	 * check for equality with previously projected values. If a keySelector function is not provided, it will use each value from the
 	 * source observable directly with an equality check against previous values.
+	 *
 	 * In JavaScript runtimes that support `Set`, this operator will use a `Set` to improve performance of the distinct value checking.
+	 *
 	 * In other runtimes, this operator will use a minimal implementation of `Set` that relies on an `Array` and `indexOf` under the
 	 * hood, so performance will degrade as more values are checked for distinction. Even in newer browsers, a long-running `distinct`
 	 * use might result in memory leaks. To help alleviate this in some scenarios, an optional `flushes` parameter is also provided so
 	 * that the internal `Set` can be "flushed", basically clearing it of values.
+	 *
+	 * @example <caption>A simple example with numbers</caption>
+	 * Observable.of(1, 1, 2, 2, 2, 1, 2, 3, 4, 3, 2, 1)
+	 *   .distinct()
+	 *   .subscribe(x => console.log(x)); // 1, 2, 3, 4
+	 *
+	 * @example <caption>An example using a keySelector function</caption>
+	 * interface Person {
+	 *    age: number,
+	 *    name: string
+	 * }
+	 *
+	 * Observable.of<Person>(
+	 *     { age: 4, name: 'Foo'},
+	 *     { age: 7, name: 'Bar'},
+	 *     { age: 5, name: 'Foo'})
+	 *     .distinct((p: Person) => p.name)
+	 *     .subscribe(x => console.log(x));
+	 *
+	 * // displays:
+	 * // { age: 4, name: 'Foo' }
+	 * // { age: 7, name: 'Bar' }
+	 *
+	 * @see {@link distinctUntilChanged}
+	 * @see {@link distinctUntilKeyChanged}
+	 *
 	 * @param {function} [keySelector] optional function to select which value you want to check as distinct.
 	 * @param {Observable} [flushes] optional Observable for flushing the internal HashSet of the operator.
 	 * @return {Observable} an Observable that emits items from the source Observable with distinct values.
@@ -88357,8 +88448,38 @@ webpackJsonp([2],[
 	/* tslint:disable:max-line-length */
 	/**
 	 * Returns an Observable that emits all items emitted by the source Observable that are distinct by comparison from the previous item.
+	 *
 	 * If a comparator function is provided, then it will be called for each item to test for whether or not that value should be emitted.
+	 *
 	 * If a comparator function is not provided, an equality check is used by default.
+	 *
+	 * @example <caption>A simple example with numbers</caption>
+	 * Observable.of(1, 1, 2, 2, 2, 1, 1, 2, 3, 3, 4)
+	 *   .distinctUntilChanged()
+	 *   .subscribe(x => console.log(x)); // 1, 2, 1, 2, 3, 4
+	 *
+	 * @example <caption>An example using a compare function</caption>
+	 * interface Person {
+	 *    age: number,
+	 *    name: string
+	 * }
+	 *
+	 * Observable.of<Person>(
+	 *     { age: 4, name: 'Foo'},
+	 *     { age: 7, name: 'Bar'},
+	 *     { age: 5, name: 'Foo'})
+	 *     { age: 6, name: 'Foo'})
+	 *     .distinctUntilChanged((p: Person, q: Person) => p.name === q.name)
+	 *     .subscribe(x => console.log(x));
+	 *
+	 * // displays:
+	 * // { age: 4, name: 'Foo' }
+	 * // { age: 7, name: 'Bar' }
+	 * // { age: 5, name: 'Foo' }
+	 *
+	 * @see {@link distinct}
+	 * @see {@link distinctUntilKeyChanged}
+	 *
 	 * @param {function} [compare] optional comparison function called to test if an item is distinct from the previous item in the source.
 	 * @return {Observable} an Observable that emits items from the source Observable with distinct values.
 	 * @method distinctUntilChanged
@@ -88444,8 +88565,54 @@ webpackJsonp([2],[
 	/**
 	 * Returns an Observable that emits all items emitted by the source Observable that are distinct by comparison from the previous item,
 	 * using a property accessed by using the key provided to check if the two items are distinct.
+	 *
 	 * If a comparator function is provided, then it will be called for each item to test for whether or not that value should be emitted.
+	 *
 	 * If a comparator function is not provided, an equality check is used by default.
+	 *
+	 * @example <caption>An example comparing the name of persons</caption>
+	 *
+	 *  interface Person {
+	 *     age: number,
+	 *     name: string
+	 *  }
+	 *
+	 * Observable.of<Person>(
+	 *     { age: 4, name: 'Foo'},
+	 *     { age: 7, name: 'Bar'},
+	 *     { age: 5, name: 'Foo'},
+	 *     { age: 6, name: 'Foo'})
+	 *     .distinctUntilKeyChanged('name')
+	 *     .subscribe(x => console.log(x));
+	 *
+	 * // displays:
+	 * // { age: 4, name: 'Foo' }
+	 * // { age: 7, name: 'Bar' }
+	 * // { age: 5, name: 'Foo' }
+	 *
+	 * @example <caption>An example comparing the first letters of the name</caption>
+	 *
+	 * interface Person {
+	 *     age: number,
+	 *     name: string
+	 *  }
+	 *
+	 * Observable.of<Person>(
+	 *     { age: 4, name: 'Foo1'},
+	 *     { age: 7, name: 'Bar'},
+	 *     { age: 5, name: 'Foo2'},
+	 *     { age: 6, name: 'Foo3'})
+	 *     .distinctUntilKeyChanged('name', (x: string, y: string) => x.substring(0, 3) === y.substring(0, 3))
+	 *     .subscribe(x => console.log(x));
+	 *
+	 * // displays:
+	 * // { age: 4, name: 'Foo1' }
+	 * // { age: 7, name: 'Bar' }
+	 * // { age: 5, name: 'Foo2' }
+	 *
+	 * @see {@link distinct}
+	 * @see {@link distinctUntilChanged}
+	 *
 	 * @param {string} key string key for object property lookup on each item.
 	 * @param {function} [compare] optional comparison function called to test if an item is distinct from the previous item in the source.
 	 * @return {Observable} an Observable that emits items from the source Observable with distinct values based on the key specified.
@@ -88782,7 +88949,7 @@ webpackJsonp([2],[
 	 * returns an Observable.
 	 * @param {number} [concurrent=Number.POSITIVE_INFINITY] Maximum number of input
 	 * Observables being subscribed to concurrently.
-	 * @param {Scheduler} [scheduler=null] The Scheduler to use for subscribing to
+	 * @param {Scheduler} [scheduler=null] The IScheduler to use for subscribing to
 	 * each projected inner Observable.
 	 * @return {Observable} An Observable that emits the source values and also
 	 * result of applying the projection function to each value emitted on the
@@ -89850,7 +90017,7 @@ webpackJsonp([2],[
 	 * the time unit determined internally by the optional `scheduler`) has passed,
 	 * the timer is disabled, then the most recent source value is emitted on the
 	 * output Observable, and this process repeats for the next source value.
-	 * Optionally takes a {@link Scheduler} for managing timers.
+	 * Optionally takes a {@link IScheduler} for managing timers.
 	 *
 	 * @example <caption>Emit clicks at a rate of at most one click per second</caption>
 	 * var clicks = Rx.Observable.fromEvent(document, 'click');
@@ -89866,7 +90033,7 @@ webpackJsonp([2],[
 	 * @param {number} duration Time to wait before emitting the most recent source
 	 * value, measured in milliseconds or the time unit determined internally
 	 * by the optional `scheduler`.
-	 * @param {Scheduler} [scheduler=async] The {@link Scheduler} to use for
+	 * @param {Scheduler} [scheduler=async] The {@link IScheduler} to use for
 	 * managing the timers that handle the rate-limiting behavior.
 	 * @return {Observable<T>} An Observable that performs rate-limiting of
 	 * emissions from the source Observable.
@@ -90176,14 +90343,33 @@ webpackJsonp([2],[
 	"use strict";
 	var reduce_1 = __webpack_require__(352);
 	/**
-	 * The Max operator operates on an Observable that emits numbers (or items that can be evaluated as numbers),
-	 * and when source Observable completes it emits a single item: the item with the largest number.
+	 * The Max operator operates on an Observable that emits numbers (or items that can be compared with a provided function),
+	 * and when source Observable completes it emits a single item: the item with the largest value.
 	 *
 	 * <img src="./img/max.png" width="100%">
 	 *
+	 * @example <caption>Get the maximal value of a series of numbers</caption>
+	 * Rx.Observable.of(5, 4, 7, 2, 8)
+	 *   .max()
+	 *   .subscribe(x => console.log(x)); // -> 8
+	 *
+	 * @example <caption>Use a comparer function to get the maximal item</caption>
+	 * interface Person {
+	 *   age: number,
+	 *   name: string
+	 * }
+	 * Observable.of<Person>({age: 7, name: 'Foo'},
+	 *                       {age: 5, name: 'Bar'},
+	 *                       {age: 9, name: 'Beer'})
+	 *           .max<Person>((a: Person, b: Person) => a.age < b.age ? -1 : 1)
+	 *           .subscribe((x: Person) => console.log(x.name)); // -> 'Beer'
+	 * }
+	 *
+	 * @see {@link min}
+	 *
 	 * @param {Function} optional comparer function that it will use instead of its default to compare the value of two
 	 * items.
-	 * @return {Observable} an Observable that emits item with the largest number.
+	 * @return {Observable} an Observable that emits item with the largest value.
 	 * @method max
 	 * @owner Observable
 	 */
@@ -90376,13 +90562,32 @@ webpackJsonp([2],[
 	"use strict";
 	var reduce_1 = __webpack_require__(352);
 	/**
-	 * The Min operator operates on an Observable that emits numbers (or items that can be evaluated as numbers),
-	 * and when source Observable completes it emits a single item: the item with the smallest number.
+	 * The Min operator operates on an Observable that emits numbers (or items that can be compared with a provided function),
+	 * and when source Observable completes it emits a single item: the item with the smallest value.
 	 *
 	 * <img src="./img/min.png" width="100%">
 	 *
+	 * @example <caption>Get the minimal value of a series of numbers</caption>
+	 * Rx.Observable.of(5, 4, 7, 2, 8)
+	 *   .min()
+	 *   .subscribe(x => console.log(x)); // -> 2
+	 *
+	 * @example <caption>Use a comparer function to get the minimal item</caption>
+	 * interface Person {
+	 *   age: number,
+	 *   name: string
+	 * }
+	 * Observable.of<Person>({age: 7, name: 'Foo'},
+	 *                       {age: 5, name: 'Bar'},
+	 *                       {age: 9, name: 'Beer'})
+	 *           .min<Person>( (a: Person, b: Person) => a.age < b.age ? -1 : 1)
+	 *           .subscribe((x: Person) => console.log(x.name)); // -> 'Bar'
+	 * }
+	 *
+	 * @see {@link max}
+	 *
 	 * @param {Function} optional comparer function that it will use instead of its default to compare the value of two items.
-	 * @return {Observable<R>} an Observable that emits item with the smallest number.
+	 * @return {Observable<R>} an Observable that emits item with the smallest value.
 	 * @method min
 	 * @owner Observable
 	 */
@@ -90845,11 +91050,11 @@ webpackJsonp([2],[
 	var EmptyObservable_1 = __webpack_require__(37);
 	/**
 	 * Returns an Observable that repeats the stream of items emitted by the source Observable at most count times,
-	 * on a particular Scheduler.
+	 * on a particular IScheduler.
 	 *
 	 * <img src="./img/repeat.png" width="100%">
 	 *
-	 * @param {Scheduler} [scheduler] the Scheduler to emit the items on.
+	 * @param {Scheduler} [scheduler] the IScheduler to emit the items on.
 	 * @param {number} [count] the number of times the source Observable items are repeated, a count of 0 will yield
 	 * an empty Observable.
 	 * @return {Observable} an Observable that repeats the stream of items emitted by the source Observable at most
@@ -90941,13 +91146,13 @@ webpackJsonp([2],[
 	 * A `complete` will cause the emission of the Throwable that cause the complete to the Observable returned from
 	 * notificationHandler. If that Observable calls onComplete or `complete` then retry will call `complete` or `error`
 	 * on the child subscription. Otherwise, this Observable will resubscribe to the source observable, on a particular
-	 * Scheduler.
+	 * IScheduler.
 	 *
 	 * <img src="./img/repeatWhen.png" width="100%">
 	 *
 	 * @param {notificationHandler} receives an Observable of notifications with which a user can `complete` or `error`,
 	 * aborting the retry.
-	 * @param {scheduler} the Scheduler on which to subscribe to the source Observable.
+	 * @param {scheduler} the IScheduler on which to subscribe to the source Observable.
 	 * @return {Observable} the source Observable modified with retry logic.
 	 * @method repeatWhen
 	 * @owner Observable
@@ -91146,13 +91351,13 @@ webpackJsonp([2],[
 	 * An `error` will cause the emission of the Throwable that cause the error to the Observable returned from
 	 * notificationHandler. If that Observable calls onComplete or `error` then retry will call `complete` or `error`
 	 * on the child subscription. Otherwise, this Observable will resubscribe to the source observable, on a particular
-	 * Scheduler.
+	 * IScheduler.
 	 *
 	 * <img src="./img/retryWhen.png" width="100%">
 	 *
 	 * @param {notificationHandler} receives an Observable of notifications with which a user can `complete` or `error`,
 	 * aborting the retry.
-	 * @param {scheduler} the Scheduler on which to subscribe to the source Observable.
+	 * @param {scheduler} the IScheduler on which to subscribe to the source Observable.
 	 * @return {Observable} the source Observable modified with retry logic.
 	 * @method retryWhen
 	 * @owner Observable
@@ -91391,7 +91596,7 @@ webpackJsonp([2],[
 	 *
 	 * @param {number} period The sampling period expressed in milliseconds or the
 	 * time unit determined internally by the optional `scheduler`.
-	 * @param {Scheduler} [scheduler=async] The {@link Scheduler} to use for
+	 * @param {Scheduler} [scheduler=async] The {@link IScheduler} to use for
 	 * managing the timers that handle the sampling.
 	 * @return {Observable<T>} An Observable that emits the results of sampling the
 	 * values emitted by the source Observable at the specified time interval.
@@ -92178,12 +92383,12 @@ webpackJsonp([2],[
 	"use strict";
 	var SubscribeOnObservable_1 = __webpack_require__(567);
 	/**
-	 * Asynchronously subscribes Observers to this Observable on the specified Scheduler.
+	 * Asynchronously subscribes Observers to this Observable on the specified IScheduler.
 	 *
 	 * <img src="./img/subscribeOn.png" width="100%">
 	 *
-	 * @param {Scheduler} the Scheduler to perform subscription actions on.
-	 * @return {Observable<T>} the source Observable modified so that its subscriptions happen on the specified Scheduler
+	 * @param {Scheduler} the IScheduler to perform subscription actions on.
+	 * @return {Observable<T>} the source Observable modified so that its subscriptions happen on the specified IScheduler
 	 .
 	 * @method subscribeOn
 	 * @owner Observable
@@ -93845,7 +94050,7 @@ webpackJsonp([2],[
 	 * is enabled. After `duration` milliseconds (or the time unit determined
 	 * internally by the optional `scheduler`) has passed, the timer is disabled,
 	 * and this process repeats for the next source value. Optionally takes a
-	 * {@link Scheduler} for managing timers.
+	 * {@link IScheduler} for managing timers.
 	 *
 	 * @example <caption>Emit clicks at a rate of at most one click per second</caption>
 	 * var clicks = Rx.Observable.fromEvent(document, 'click');
@@ -93861,7 +94066,7 @@ webpackJsonp([2],[
 	 * @param {number} duration Time to wait before emitting another value after
 	 * emitting the last value, measured in milliseconds or the time unit determined
 	 * internally by the optional `scheduler`.
-	 * @param {Scheduler} [scheduler=async] The {@link Scheduler} to use for
+	 * @param {Scheduler} [scheduler=async] The {@link IScheduler} to use for
 	 * managing the timers that handle the sampling.
 	 * @return {Observable<T>} An Observable that performs the throttle operation to
 	 * limit the rate of emissions from the source.
@@ -95827,8 +96032,16 @@ webpackJsonp([2],[
 	    }
 	    VirtualAction.prototype.schedule = function (state, delay) {
 	        if (delay === void 0) { delay = 0; }
-	        return !this.id ?
-	            _super.prototype.schedule.call(this, state, delay) : this.add(new VirtualAction(this.scheduler, this.work)).schedule(state, delay);
+	        if (!this.id) {
+	            return _super.prototype.schedule.call(this, state, delay);
+	        }
+	        // If an action is rescheduled, we save allocations by mutating its state,
+	        // pushing it to the end of the scheduler queue, and recycling the action.
+	        // But since the VirtualTimeScheduler is used for testing, VirtualActions
+	        // must be immutable so they can be inspected later.
+	        var action = new VirtualAction(this.scheduler, this.work);
+	        this.add(action);
+	        return action.schedule(state, delay);
 	    };
 	    VirtualAction.prototype.requestAsyncId = function (scheduler, id, delay) {
 	        if (delay === void 0) { delay = 0; }

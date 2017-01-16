@@ -88,7 +88,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/ng2-md/";
+/******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -7154,6 +7154,21 @@
 	                return Object.prototype.toString.call(this);
 	            }
 	        };
+	        // add toJSON method to prevent cyclic error when
+	        // call JSON.stringify(zoneTask)
+	        ZoneTask.prototype.toJSON = function () {
+	            return {
+	                type: this.type,
+	                source: this.source,
+	                data: this.data,
+	                zone: this.zone.name,
+	                invoke: this.invoke,
+	                scheduleFn: this.scheduleFn,
+	                cancelFn: this.cancelFn,
+	                runCount: this.runCount,
+	                callback: this.callback
+	            };
+	        };
 	        return ZoneTask;
 	    }());
 	    var ZoneFrame = (function () {
@@ -7333,6 +7348,9 @@
 	                resolvePromise(promise, false, e);
 	            }
 	        }
+	        ZoneAwarePromise.toString = function () {
+	            return 'function ZoneAwarePromise() { [native code] }';
+	        };
 	        ZoneAwarePromise.resolve = function (value) {
 	            return resolvePromise(new this(null), RESOLVED, value);
 	        };
@@ -7467,11 +7485,49 @@
 	    // How should the stack frames be parsed.
 	    var frameParserStrategy = null;
 	    var stackRewrite = 'stackRewrite';
+	    var assignAll = function (to, from) {
+	        if (!to) {
+	            return to;
+	        }
+	        if (from) {
+	            var keys = Object.getOwnPropertyNames(from);
+	            for (var i = 0; i < keys.length; i++) {
+	                var key = keys[i];
+	                // Avoid bugs when hasOwnProperty is shadowed
+	                if (Object.prototype.hasOwnProperty.call(from, key)) {
+	                    to[key] = from[key];
+	                }
+	            }
+	            // copy all properties from prototype
+	            // in Error, property such as name/message is in Error's prototype
+	            // but not enumerable, so we copy those properties through
+	            // Error's prototype
+	            var proto = Object.getPrototypeOf(from);
+	            if (proto) {
+	                var pKeys = Object.getOwnPropertyNames(proto);
+	                for (var i = 0; i < pKeys.length; i++) {
+	                    var key = pKeys[i];
+	                    // skip constructor
+	                    if (key !== 'constructor') {
+	                        to[key] = from[key];
+	                    }
+	                }
+	            }
+	        }
+	        return to;
+	    };
 	    /**
 	     * This is ZoneAwareError which processes the stack frame and cleans up extra frames as well as
 	     * adds zone information to it.
 	     */
 	    function ZoneAwareError() {
+	        // make sure we have a valid this
+	        // if this is undefined(call Error without new) or this is global
+	        // or this is some other objects, we should force to create a
+	        // valid ZoneAwareError by call Object.create()
+	        if (!(this instanceof ZoneAwareError)) {
+	            return ZoneAwareError.apply(Object.create(ZoneAwareError.prototype), arguments);
+	        }
 	        // Create an Error.
 	        var error = NativeError.apply(this, arguments);
 	        // Save original stack trace
@@ -7510,7 +7566,7 @@
 	            }
 	            error.stack = error.zoneAwareStack = frames_1.join('\n');
 	        }
-	        return error;
+	        return assignAll(this, error);
 	    }
 	    // Copy the prototype so that instanceof operator works as expected
 	    ZoneAwareError.prototype = NativeError.prototype;
@@ -7531,7 +7587,9 @@
 	    }
 	    if (NativeError.hasOwnProperty('captureStackTrace')) {
 	        Object.defineProperty(ZoneAwareError, 'captureStackTrace', {
-	            value: function (targetObject, constructorOpt) {
+	            // add named function here because we need to remove this
+	            // stack frame when prepareStackTrace below
+	            value: function zoneCaptureStackTrace(targetObject, constructorOpt) {
 	                NativeError.captureStackTrace(targetObject, constructorOpt);
 	            }
 	        });
@@ -7541,10 +7599,25 @@
 	            return NativeError.prepareStackTrace;
 	        },
 	        set: function (value) {
-	            return NativeError.prepareStackTrace = value;
+	            if (!value || typeof value !== 'function') {
+	                return NativeError.prepareStackTrace = value;
+	            }
+	            return NativeError.prepareStackTrace = function (error, structuredStackTrace) {
+	                // remove additional stack information from ZoneAwareError.captureStackTrace
+	                if (structuredStackTrace) {
+	                    for (var i = 0; i < structuredStackTrace.length; i++) {
+	                        var st = structuredStackTrace[i];
+	                        // remove the first function which name is value
+	                        if (st.getFunctionName() === 'zoneCaptureStackTrace') {
+	                            structuredStackTrace.splice(i, 1);
+	                            break;
+	                        }
+	                    }
+	                }
+	                return value.apply(this, [error, structuredStackTrace]);
+	            };
 	        }
 	    });
-	    // Now we need to populet the `blacklistedStackFrames` as well as find the
 	    // Now we need to populet the `blacklistedStackFrames` as well as find the
 	    // run/runGuraded/runTask frames. This is done by creating a detect zone and then threading
 	    // the execution through all of the above methods so that we can look at the stack trace and
@@ -7998,6 +8071,7 @@
 	    }
 	    return delegate;
 	}
+	// TODO: support cancel task later if necessary
 	
 	/**
 	 * @license
@@ -8294,7 +8368,13 @@
 	        if (desc && !desc.configurable)
 	            return false;
 	    }
+	    // add enumerable and configurable here because in opera
+	    // by default XMLHttpRequest.prototype.onreadystatechange is undefined
+	    // without adding enumerable and configurable will cause onreadystatechange
+	    // non-configurable
 	    Object.defineProperty(XMLHttpRequest.prototype, 'onreadystatechange', {
+	        enumerable: true,
+	        configurable: true,
 	        get: function () {
 	            return true;
 	        }
@@ -8391,8 +8471,8 @@
 	patchTimer(_global, 'mozRequest', 'mozCancel', 'AnimationFrame');
 	patchTimer(_global, 'webkitRequest', 'webkitCancel', 'AnimationFrame');
 	for (var i = 0; i < blockingMethods.length; i++) {
-	    var name = blockingMethods[i];
-	    patchMethod(_global, name, function (delegate, symbol, name) {
+	    var name_1 = blockingMethods[i];
+	    patchMethod(_global, name_1, function (delegate, symbol, name) {
 	        return function (s, args) {
 	            return Zone.current.run(delegate, _global, args, name);
 	        };
@@ -8467,7 +8547,10 @@
 	        var task = findPendingTask(self);
 	        if (task && typeof task.type == 'string') {
 	            // If the XHR has already completed, do nothing.
-	            if (task.cancelFn == null) {
+	            // If the XHR has already been aborted, do nothing.
+	            // Fix #569, call abort multiple times before done will cause
+	            // macroTask task count be negative number
+	            if (task.cancelFn == null || (task.data && task.data.aborted)) {
 	                return;
 	            }
 	            task.zone.cancelTask(task);
@@ -8591,7 +8674,7 @@
 	    onHandleError: function (parentZoneDelegate, currentZone, targetZone, error) {
 	        var parentTask = Zone.currentTask || error.task;
 	        if (error instanceof Error && parentTask) {
-	            var stackSetSucceded = null;
+	            var stackSetSucceeded = null;
 	            try {
 	                var descriptor = Object.getOwnPropertyDescriptor(error, 'stack');
 	                if (descriptor && descriptor.configurable) {
@@ -8603,24 +8686,24 @@
 	                        }
 	                    };
 	                    Object.defineProperty(error, 'stack', descriptor);
-	                    stackSetSucceded = true;
+	                    stackSetSucceeded = true;
 	                }
 	            }
 	            catch (e) {
 	            }
-	            var longStack = stackSetSucceded ?
+	            var longStack = stackSetSucceeded ?
 	                null :
 	                renderLongStackTrace(parentTask.data && parentTask.data[creationTrace], error.stack);
-	            if (!stackSetSucceded) {
+	            if (!stackSetSucceeded) {
 	                try {
-	                    stackSetSucceded = error.stack = longStack;
+	                    stackSetSucceeded = error.stack = longStack;
 	                }
 	                catch (e) {
 	                }
 	            }
-	            if (!stackSetSucceded) {
+	            if (!stackSetSucceeded) {
 	                try {
-	                    stackSetSucceded = error.longStack = longStack;
+	                    stackSetSucceeded = error.longStack = longStack;
 	                }
 	                catch (e) {
 	                }

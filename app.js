@@ -27,9 +27,6 @@ webpackJsonp([0],{
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
 	var core_1 = __webpack_require__(4);
 	var forms_1 = __webpack_require__(25);
 	var platform_browser_1 = __webpack_require__(22);
@@ -53,8 +50,7 @@ webpackJsonp([0],{
 	            app_component_1.AppComponent
 	        ],
 	        bootstrap: [app_component_1.AppComponent]
-	    }),
-	    __metadata("design:paramtypes", [])
+	    })
 	], AppModule);
 	exports.AppModule = AppModule;
 
@@ -70,9 +66,6 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(4);
 	var AppComponent = (function () {
@@ -108,8 +101,7 @@ webpackJsonp([0],{
 	        selector: 'my-app',
 	        template: __webpack_require__(66),
 	        styles: [__webpack_require__(67)]
-	    }),
-	    __metadata("design:paramtypes", [])
+	    })
 	], AppComponent);
 	exports.AppComponent = AppComponent;
 
@@ -119,14 +111,14 @@ webpackJsonp([0],{
 /***/ 66:
 /***/ function(module, exports) {
 
-	module.exports = "<md-sidenav-layout fullscreen>\r\n    <md-sidenav #start>\r\n        <md-nav-list>\r\n            <div *ngFor=\"let key of keys(options)\">\r\n                <md-slide-toggle *ngIf=\"isType(options[key],'boolean')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\">{{key}}\r\n                </md-slide-toggle>\r\n                <md-input type=\"number\" *ngIf=\"isType(options[key],'number')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\r\n                    placeholder=\"{{key}}\"></md-input>\r\n                <md-input type=\"text\" *ngIf=\"isType(options[key],'string')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\r\n                    placeholder=\"{{key}}\"></md-input>\r\n            </div>\r\n            <hr/>\r\n        </md-nav-list>\r\n        <hr/>\r\n        <button md-button (click)=\"start.close()\">CLOSE</button>\r\n    </md-sidenav>\r\n    <div class=\"page\">\r\n        <md-toolbar color=\"primary\">\r\n            <button md-icon-button (click)=\"start.open()\">\r\n                <md-icon class=\"md-24\">menu</md-icon>\r\n            </button>\r\n            <h1 class=\"app-title\">{{title}}</h1>\r\n        </md-toolbar>\r\n        <div class=\"content\">\r\n            <div class=\"left\">\r\n                <textarea [(ngModel)]=\"md\"></textarea>\r\n            </div>\r\n            <div class=\"right\">\r\n                <md [value]=\"md\" [trimEachLine]=\"options.trimEachLine\" [omitExtraWLInCodeBlocks]=\"options.omitExtraWLInCodeBlocks\"\r\n                    [noHeaderId]=\"options.noHeaderId\" [prefixHeaderId]=\"options.prefixHeaderId\" [parseImgDimensions]=\"options.parseImgDimensions\"\r\n                    [headerLevelStart]=\"options.headerLevelStart\" [literalMidWordUnderscores]=\"options.literalMidWordUnderscores\"\r\n                    [strikethrough]=\"options.strikethrough\" [tables]=\"options.tables\" [tablesHeaderId]=\"options.tablesHeaderId\"\r\n                    [ghCodeBlocks]=\"options.ghCodeBlocks\" [tasklists]=\"options.tasklists\" [smoothLivePreview]=\"options.smoothLivePreview\"></md>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</md-sidenav-layout>\r\n<a href=\"https://github.com/yisraelx/ng2-md\"><img style=\"position: absolute; top: 0; right: 0; border: 0;\" src=\"https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67\"\r\nalt=\"Fork me on GitHub\" data-canonical-src=\"https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png\">\r\n</a>";
+	module.exports = "<md-sidenav-layout fullscreen>\n    <md-sidenav #start>\n        <md-nav-list>\n            <div *ngFor=\"let key of keys(options)\">\n                <md-slide-toggle *ngIf=\"isType(options[key],'boolean')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\">{{key}}\n                </md-slide-toggle>\n                <md-input type=\"number\" *ngIf=\"isType(options[key],'number')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\n                    placeholder=\"{{key}}\"></md-input>\n                <md-input type=\"text\" *ngIf=\"isType(options[key],'string')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\n                    placeholder=\"{{key}}\"></md-input>\n            </div>\n            <hr/>\n        </md-nav-list>\n        <hr/>\n        <button md-button (click)=\"start.close()\">CLOSE</button>\n    </md-sidenav>\n    <div class=\"page\">\n        <md-toolbar color=\"primary\">\n            <button md-icon-button (click)=\"start.open()\">\n                <md-icon class=\"md-24\">menu</md-icon>\n            </button>\n            <h1 class=\"app-title\">{{title}}</h1>\n        </md-toolbar>\n        <div class=\"content\">\n            <div class=\"left\">\n                <textarea [(ngModel)]=\"md\"></textarea>\n            </div>\n            <div class=\"right\">\n                <md [value]=\"md\" [trimEachLine]=\"options.trimEachLine\" [omitExtraWLInCodeBlocks]=\"options.omitExtraWLInCodeBlocks\"\n                    [noHeaderId]=\"options.noHeaderId\" [prefixHeaderId]=\"options.prefixHeaderId\" [parseImgDimensions]=\"options.parseImgDimensions\"\n                    [headerLevelStart]=\"options.headerLevelStart\" [literalMidWordUnderscores]=\"options.literalMidWordUnderscores\"\n                    [strikethrough]=\"options.strikethrough\" [tables]=\"options.tables\" [tablesHeaderId]=\"options.tablesHeaderId\"\n                    [ghCodeBlocks]=\"options.ghCodeBlocks\" [tasklists]=\"options.tasklists\" [smoothLivePreview]=\"options.smoothLivePreview\"></md>\n            </div>\n        </div>\n    </div>\n</md-sidenav-layout>\n<a href=\"https://github.com/yisraelx/ng2-md\"><img style=\"position: absolute; top: 0; right: 0; border: 0;\" src=\"https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67\"\nalt=\"Fork me on GitHub\" data-canonical-src=\"https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png\">\n</a>";
 
 /***/ },
 
 /***/ 67:
 /***/ function(module, exports) {
 
-	module.exports = ".app-title {\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n\r\nmd-sidenav {\r\n    width: 30%;\r\n    text-align: center;\r\n}\r\n\r\n.page {\r\n    height: calc(90%);\r\n}\r\n\r\n.content {\r\n    display: flex;\r\n    height: 100%;\r\n}\r\n\r\nmd, textarea {\r\n    height: 100%;\r\n    overflow-y: scroll;\r\n    border: none;\r\n    padding: 10px;\r\n}\r\n\r\n.left, .right {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    flex: 1;\r\n    padding: 1rem;\r\n}"
+	module.exports = ".app-title {\n    width: 100%;\n    text-align: center;\n}\n\nmd-sidenav {\n    width: 30%;\n    text-align: center;\n}\n\n.page {\n    height: calc(90%);\n}\n\n.content {\n    display: flex;\n    height: 100%;\n}\n\nmd, textarea {\n    height: 100%;\n    overflow-y: scroll;\n    border: none;\n    padding: 10px;\n}\n\n.left, .right {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    flex: 1;\n    padding: 1rem;\n}"
 
 /***/ },
 
@@ -200,7 +192,7 @@ webpackJsonp([0],{
 /***/ 70:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;;/*! showdown 30-12-2016 */
+	var __WEBPACK_AMD_DEFINE_RESULT__;;/*! showdown 09-01-2017 */
 	(function(){
 	/**
 	 * Created by Tivie on 13-07-2015.
@@ -227,8 +219,8 @@ webpackJsonp([0],{
 	    },
 	    ghCompatibleHeaderId: {
 	      defaultValue: false,
-	      describe: 'Generate header ids compatible with github style (spaces are replaced with dashes, &~$!@#*()=:/,;?+%\\\'. chars are removed)',
-	      type: 'string'
+	      describe: 'Generate header ids compatible with github style (spaces are replaced with dashes, a bunch of non alphanumeric chars are removed)',
+	      type: 'boolean'
 	    },
 	    headerLevelStart: {
 	      defaultValue: false,
@@ -304,6 +296,11 @@ webpackJsonp([0],{
 	      defaultValue: false,
 	      description: 'Makes adding a space between `#` and the header text mandatory (GFM Style)',
 	      type: 'boolean'
+	    },
+	    ghMentions: {
+	      defaultValue: false,
+	      description: 'Enables github @mentions',
+	      type: 'boolean'
 	    }
 	  };
 	  if (simple === false) {
@@ -339,6 +336,7 @@ webpackJsonp([0],{
 	    parsers = {},
 	    extensions = {},
 	    globalOptions = getDefaultOpts(true),
+	    setFlavor = 'vanilla',
 	    flavor = {
 	      github: {
 	        omitExtraWLInCodeBlocks:              true,
@@ -354,7 +352,8 @@ webpackJsonp([0],{
 	        disableForced4SpacesIndentedSublists: true,
 	        simpleLineBreaks:                     true,
 	        requireSpaceBeforeHeadingText:        true,
-	        ghCompatibleHeaderId:                 true
+	        ghCompatibleHeaderId:                 true,
+	        ghMentions:                           true
 	      },
 	      vanilla: getDefaultOpts(true),
 	      allOn: allOptionsOn()
@@ -421,13 +420,36 @@ webpackJsonp([0],{
 	 */
 	showdown.setFlavor = function (name) {
 	  'use strict';
-	  if (flavor.hasOwnProperty(name)) {
-	    var preset = flavor[name];
-	    for (var option in preset) {
-	      if (preset.hasOwnProperty(option)) {
-	        globalOptions[option] = preset[option];
-	      }
+	  if (!flavor.hasOwnProperty(name)) {
+	    throw Error(name + ' flavor was not found');
+	  }
+	  var preset = flavor[name];
+	  setFlavor = name;
+	  for (var option in preset) {
+	    if (preset.hasOwnProperty(option)) {
+	      globalOptions[option] = preset[option];
 	    }
+	  }
+	};
+	
+	/**
+	 * Get the currently set flavor
+	 * @returns {string}
+	 */
+	showdown.getFlavor = function () {
+	  'use strict';
+	  return setFlavor;
+	};
+	
+	/**
+	 * Get the options of a specified flavor. Returns undefined if the flavor was not found
+	 * @param {string} name Name of the flavor
+	 * @returns {{}|undefined}
+	 */
+	showdown.getFlavorOptions = function (name) {
+	  'use strict';
+	  if (flavor.hasOwnProperty(name)) {
+	    return flavor[name];
 	  }
 	};
 	
@@ -918,7 +940,8 @@ webpackJsonp([0],{
 	/**
 	 * POLYFILLS
 	 */
-	if (showdown.helper.isUndefined(console)) {
+	// use this instead of builtin is undefined for IE8 compatibility
+	if (typeof(console) === 'undefined') {
 	  console = {
 	    warn: function (msg) {
 	      'use strict';
@@ -975,7 +998,12 @@ webpackJsonp([0],{
 	       * @private
 	       * @type {{}}
 	       */
-	      listeners = {};
+	      listeners = {},
+	
+	      /**
+	       * The flavor set in this converter
+	       */
+	      setConvFlavor = setFlavor;
 	
 	  _constructor();
 	
@@ -1299,14 +1327,24 @@ webpackJsonp([0],{
 	   * @param {string} name
 	   */
 	  this.setFlavor = function (name) {
-	    if (flavor.hasOwnProperty(name)) {
-	      var preset = flavor[name];
-	      for (var option in preset) {
-	        if (preset.hasOwnProperty(option)) {
-	          options[option] = preset[option];
-	        }
+	    if (!flavor.hasOwnProperty(name)) {
+	      throw Error(name + ' flavor was not found');
+	    }
+	    var preset = flavor[name];
+	    setConvFlavor = name;
+	    for (var option in preset) {
+	      if (preset.hasOwnProperty(option)) {
+	        options[option] = preset[option];
 	      }
 	    }
+	  };
+	
+	  /**
+	   * Get the currently set flavor of this converter
+	   * @returns {string}
+	   */
+	  this.getFlavor = function () {
+	    return setConvFlavor;
 	  };
 	
 	  /**
@@ -1407,10 +1445,20 @@ webpackJsonp([0],{
 	  text = text.replace(/(\[((?:\[[^\]]*]|[^\[\]])*)]\([ \t]*()<?(.*?(?:\(.*?\).*?)?)>?[ \t]*((['"])(.*?)\6[ \t]*)?\))/g,
 	                      writeAnchorTag);
 	
-	  // Last, handle reference-style shortcuts: [link text]
+	  // handle reference-style shortcuts: [link text]
 	  // These must come last in case you've also got [link test][1]
 	  // or [link test](/foo)
 	  text = text.replace(/(\[([^\[\]]+)])()()()()()/g, writeAnchorTag);
+	
+	  // Lastly handle GithubMentions if option is enabled
+	  if (options.ghMentions) {
+	    text = text.replace(/(^|\s)(\\)?(@([a-z\d\-]+))(?=[.!?;,[\]()]|\s|$)/gmi, function (wm, st, escape, mentions, username) {
+	      if (escape === '\\') {
+	        return st + mentions;
+	      }
+	      return st + '<a href="https://www.github.com/' + username + '">' + mentions + '</a>';
+	    });
+	  }
 	
 	  text = globals.converter._dispatch('anchors.after', text, options, globals);
 	  return text;
@@ -2052,7 +2100,8 @@ webpackJsonp([0],{
 	        .replace(/~T/g, '')
 	        .replace(/~D/g, '')
 	        //replace rest of the chars (&~$ are repeated as they might have been escaped)
-	        .replace(/[&~$!@#*()=:/,;?+'.%\\]/g, '')
+	        // borrowed from github's redcarpet (some they should produce similar results)
+	        .replace(/[&+$,\/:;=?@"#{}|^~\[\]`\\*)(%.!'<>]/g, '')
 	        .toLowerCase();
 	    } else {
 	      escapedId = m.replace(/[^\w]/g, '').toLowerCase();
@@ -2277,12 +2326,16 @@ webpackJsonp([0],{
 	        item = showdown.subParser('lists')(item, options, globals);
 	        item = item.replace(/\n$/, ''); // chomp(item)
 	        item = showdown.subParser('hashHTMLBlocks')(item, options, globals);
+	        // Colapse double linebreaks
 	        item = item.replace(/\n\n+/g, '\n\n');
+	        // replace double linebreaks with a placeholder
+	        item = item.replace(/\n\n/g, '~B');
 	        if (isParagraphed) {
 	          item = showdown.subParser('paragraphs')(item, options, globals);
 	        } else {
 	          item = showdown.subParser('spanGamut')(item, options, globals);
 	        }
+	        item = item.replace(/~B/g, '\n\n');
 	      }
 	
 	      // now we need to remove the marker (~A)
@@ -2502,10 +2555,10 @@ webpackJsonp([0],{
 	  // Do hard breaks
 	  if (options.simpleLineBreaks) {
 	    // GFM style hard breaks
-	    text = text.replace(/\b\n\b/g, '<br />\n');
+	    text = text.replace(/\n/g, '<br />\n');
 	  } else {
 	    // Vanilla hard breaks
-	    text = text.replace(/\b  +\n\b/g, '<br />\n');
+	    text = text.replace(/  +\n/g, '<br />\n');
 	  }
 	
 	  text = globals.converter._dispatch('spanGamut.after', text, options, globals);
@@ -3119,17 +3172,17 @@ webpackJsonp([0],{
 	__decorate([
 	    core_1.Input(),
 	    __metadata("design:type", String),
-	    __metadata("design:paramtypes", [])
+	    __metadata("design:paramtypes", [String])
 	], MdDirective.prototype, "value", null);
 	__decorate([
 	    core_1.Input(),
 	    __metadata("design:type", String),
-	    __metadata("design:paramtypes", [])
+	    __metadata("design:paramtypes", [String])
 	], MdDirective.prototype, "md", null);
 	__decorate([
 	    core_1.Input(),
 	    __metadata("design:type", Object),
-	    __metadata("design:paramtypes", [])
+	    __metadata("design:paramtypes", [Object])
 	], MdDirective.prototype, "options", null);
 	MdDirective = MdDirective_1 = __decorate([
 	    core_1.Directive({
@@ -3224,7 +3277,7 @@ webpackJsonp([0],{
 	__decorate([
 	    core_1.Input(),
 	    __metadata("design:type", String),
-	    __metadata("design:paramtypes", [])
+	    __metadata("design:paramtypes", [String])
 	], SrcDirective.prototype, "src", null);
 	SrcDirective = __decorate([
 	    core_1.Directive({
@@ -3320,9 +3373,6 @@ webpackJsonp([0],{
 	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
 	var core_1 = __webpack_require__(4);
 	var md_directive_1 = __webpack_require__(74);
 	var src_directive_1 = __webpack_require__(75);
@@ -3357,8 +3407,7 @@ webpackJsonp([0],{
 	            { provide: base_converter_options_provider_1.ConverterOptions, useClass: base_converter_options_provider_1.BaseConverterOptions }
 	        ],
 	        exports: declarations
-	    }),
-	    __metadata("design:paramtypes", [])
+	    })
 	], MdModule);
 	exports.MdModule = MdModule;
 
