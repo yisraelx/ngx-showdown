@@ -1,7 +1,7 @@
 language: node_js
-sudo: false
 node_js:
   - '6.6.0'
+sudo: false
 cache:
   directories:
     - node_modules
@@ -9,17 +9,12 @@ notifications:
   email: false
 branches:
   only:
-  - master
-before_script:
-  - npm prune
-script:
-  - npm run lint
-  - npm run test
-  - npm run coverage:check
-  - npm run build
-after_success:
-  - npm run coverage:report
-  - npm run semantic-release
-branches:
+    - master
   except:
     - /^v\d+\.\d+\.\d+$/
+before_script:
+  - npm run ci:before
+script:
+  - npm run ci:script
+after_success:
+  - npm run ci:after
