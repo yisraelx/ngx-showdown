@@ -1,7 +1,7 @@
 {
   "name": "ng2-md",
   "description": "Angular 2 Markdown Module.",
-  "version": "0.0.0-development",
+  "version": "0.0.0-semantically-released",
   "license": "MIT",
   "author": {
     "name": "Yisrael Eliav",
@@ -9,7 +9,7 @@
     "url": "https://github.com/yisraelx/"
   },
   "main": "lib/index.js",
-  "browser": "bundles/ng-md.umd.js",
+  "browser": "bundles/ng2-md.umd.js",
   "typings": "lib/index.d.ts",
   "files": [
     "bundles",
@@ -63,9 +63,6 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
-  },
-  "engines": {
-    "node": ">= 5.4.1 < 7"
   },
   "peerDependencies": {
     "@angular/core": "^2.4.1",
