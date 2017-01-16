@@ -7,8 +7,7 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## Demo
-- Online demo - [try](http://yisraelx.github.io/ng2-md)
-- Local demo - [source](https://github.com/yisraelx/ng2-md/blob/master/demo)
+There is a demo in [source code](https://github.com/yisraelx/ng2-md/blob/master/demo), it is also [online](http://yisraelx.github.io/ng2-md) and have another demo in [Plunker](https://plnkr.co/edit/0j8d9w) can play it online.
 
 ## Install
 ```bash
