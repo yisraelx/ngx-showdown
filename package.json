@@ -34,16 +34,17 @@
     "build:lib": "tsc --project src",
     "build:bundles": "webpack --progress --profile --bail",
     "build:demo": "webpack --config demo/webpack.config.js --progress --profile --bail",
+    "build:gh-pages": "npm run build:demo -- --output-public-path /ng2-md/",
     "ci:before": "npm prune",
     "ci:script": "run-s ready",
     "ci:after": "run-s coverage:report semantic-release ci:deploy",
-    "ci:deploy": "git config --global user.email 'gh-pages@localhost' && git config --global user.name 'gh-pages' && npm run deploy -- -r https://$GH_TOKEN@github.com/yisraelx/ng2-md.git -x",
+    "ci:deploy": "run-s build:gh-pages && git config --global user.email 'gh-pages@localhost' && git config --global user.name 'gh-pages' && gh-pages -d demo/build -r https://$GH_TOKEN@github.com/yisraelx/ng2-md.git -x",
     "coverage:check": "istanbul check-coverage --statements 80 --branches 80 --functions 80 --lines 80",
     "coverage:report": "codecov -f coverage/*.json",
     "clean": "rimraf lib bundles demo/build coverage",
     "commit": "git-cz",
     "demo": "webpack-dev-server --config demo/webpack.config.js --progress",
-    "deploy": "gh-pages -d demo/build",
+    "deploy": "run-s build:gh-pages && gh-pages -d demo/build",
     "lint": "run-s lint:*",
     "lint:demo": "tslint demo/src/**/*.ts",
     "lint:lib": "tslint src/**/*.ts",
@@ -54,7 +55,7 @@
     "test": "karma start",
     "watch:lib": "npm run build:lib -- --watch",
     "watch:test": "npm test -- --auto-watch --no-single-run",
-    "semantic-release": "semantic-release pre && npm run build && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && run-s build:lib build:bundles && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
