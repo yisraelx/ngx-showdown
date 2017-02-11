@@ -31,7 +31,7 @@
   ],
   "scripts": {
     "build": "run-s build:*",
-    "build:lib": "tsc --project src",
+    "build:lib": "ngc --project src",
     "build:bundles": "webpack --progress --profile --bail",
     "build:demo": "webpack --config demo/webpack.config.js --progress --profile --bail",
     "build:gh-pages": "npm run build:demo -- --output-public-path /ng2-md/",
@@ -53,7 +53,7 @@
     "ready": "run-s clean lint test coverage:check",
     "start": "run-s demo",
     "test": "karma start",
-    "watch:lib": "npm run build:lib -- --watch",
+    "watch:lib": "tsc --project src --watch",
     "watch:test": "npm test -- --auto-watch --no-single-run",
     "semantic-release": "semantic-release pre && run-s build:lib build:bundles && npm publish && semantic-release post"
   },
@@ -78,6 +78,7 @@
   "devDependencies": {
     "@angular/common": "^2.4.7",
     "@angular/compiler": "^2.4.7",
+    "@angular/compiler-cli": "^2.4.7",
     "@angular/core": "^2.4.7",
     "@angular/forms": "^2.4.7",
     "@angular/http": "^2.4.7",
