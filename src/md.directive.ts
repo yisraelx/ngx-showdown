@@ -23,7 +23,7 @@ export enum MD_COMPONENT_STATUSES {
 
 /**
  * @problem in content use <md>{}</md> - [unescaped "{":](https://github.com/angular/angular/issues/11859) the solution is to sanitize (html char code etc.).
- * 
+ *
  * @example
  * ```javascript
  * import { NgModule } from '@angular/core';
@@ -189,7 +189,7 @@ export class MdDirective extends BaseConverter implements OnInit {
 
 }
 
-// define options properties getter setter for angular directive and direct access 
+// define options properties getter setter for angular directive and direct access
 optionsProperties.forEach((key: string) => {
     Object.defineProperty(MdDirective.prototype, key, {
         set(value: any): void {
