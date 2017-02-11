@@ -111,14 +111,14 @@ webpackJsonp([0],{
 /***/ 66:
 /***/ function(module, exports) {
 
-	module.exports = "<md-sidenav-layout fullscreen>\r\n    <md-sidenav #start>\r\n        <md-nav-list>\r\n            <div *ngFor=\"let key of keys(options)\">\r\n                <md-slide-toggle *ngIf=\"isType(options[key],'boolean')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\">{{key}}\r\n                </md-slide-toggle>\r\n                <md-input type=\"number\" *ngIf=\"isType(options[key],'number')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\r\n                    placeholder=\"{{key}}\"></md-input>\r\n                <md-input type=\"text\" *ngIf=\"isType(options[key],'string')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\r\n                    placeholder=\"{{key}}\"></md-input>\r\n            </div>\r\n            <hr/>\r\n        </md-nav-list>\r\n        <hr/>\r\n        <button md-button (click)=\"start.close()\">CLOSE</button>\r\n    </md-sidenav>\r\n    <div class=\"page\">\r\n        <md-toolbar color=\"primary\">\r\n            <button md-icon-button (click)=\"start.open()\">\r\n                <md-icon class=\"md-24\">menu</md-icon>\r\n            </button>\r\n            <h1 class=\"app-title\">{{title}}</h1>\r\n        </md-toolbar>\r\n        <div class=\"content\">\r\n            <div class=\"left\">\r\n                <textarea [(ngModel)]=\"md\"></textarea>\r\n            </div>\r\n            <div class=\"right\">\r\n                <md [value]=\"md\" [trimEachLine]=\"options.trimEachLine\" [omitExtraWLInCodeBlocks]=\"options.omitExtraWLInCodeBlocks\"\r\n                    [noHeaderId]=\"options.noHeaderId\" [prefixHeaderId]=\"options.prefixHeaderId\" [parseImgDimensions]=\"options.parseImgDimensions\"\r\n                    [headerLevelStart]=\"options.headerLevelStart\" [literalMidWordUnderscores]=\"options.literalMidWordUnderscores\"\r\n                    [strikethrough]=\"options.strikethrough\" [tables]=\"options.tables\" [tablesHeaderId]=\"options.tablesHeaderId\"\r\n                    [ghCodeBlocks]=\"options.ghCodeBlocks\" [tasklists]=\"options.tasklists\" [smoothLivePreview]=\"options.smoothLivePreview\"></md>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</md-sidenav-layout>\r\n<a href=\"https://github.com/yisraelx/ng2-md\"><img style=\"position: absolute; top: 0; right: 0; border: 0;\" src=\"https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67\"\r\nalt=\"Fork me on GitHub\" data-canonical-src=\"https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png\">\r\n</a>";
+	module.exports = "<md-sidenav-layout fullscreen>\n    <md-sidenav #start>\n        <md-nav-list>\n            <div *ngFor=\"let key of keys(options)\">\n                <md-slide-toggle *ngIf=\"isType(options[key],'boolean')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\">{{key}}\n                </md-slide-toggle>\n                <md-input type=\"number\" *ngIf=\"isType(options[key],'number')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\n                    placeholder=\"{{key}}\"></md-input>\n                <md-input type=\"text\" *ngIf=\"isType(options[key],'string')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\n                    placeholder=\"{{key}}\"></md-input>\n            </div>\n            <hr/>\n        </md-nav-list>\n        <hr/>\n        <button md-button (click)=\"start.close()\">CLOSE</button>\n    </md-sidenav>\n    <div class=\"page\">\n        <md-toolbar color=\"primary\">\n            <button md-icon-button (click)=\"start.open()\">\n                <md-icon class=\"md-24\">menu</md-icon>\n            </button>\n            <h1 class=\"app-title\">{{title}}</h1>\n        </md-toolbar>\n        <div class=\"content\">\n            <div class=\"left\">\n                <textarea [(ngModel)]=\"md\"></textarea>\n            </div>\n            <div class=\"right\">\n                <md [value]=\"md\" [trimEachLine]=\"options.trimEachLine\" [omitExtraWLInCodeBlocks]=\"options.omitExtraWLInCodeBlocks\"\n                    [noHeaderId]=\"options.noHeaderId\" [prefixHeaderId]=\"options.prefixHeaderId\" [parseImgDimensions]=\"options.parseImgDimensions\"\n                    [headerLevelStart]=\"options.headerLevelStart\" [literalMidWordUnderscores]=\"options.literalMidWordUnderscores\"\n                    [strikethrough]=\"options.strikethrough\" [tables]=\"options.tables\" [tablesHeaderId]=\"options.tablesHeaderId\"\n                    [ghCodeBlocks]=\"options.ghCodeBlocks\" [tasklists]=\"options.tasklists\" [smoothLivePreview]=\"options.smoothLivePreview\"></md>\n            </div>\n        </div>\n    </div>\n</md-sidenav-layout>\n<a href=\"https://github.com/yisraelx/ng2-md\"><img style=\"position: absolute; top: 0; right: 0; border: 0;\" src=\"https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67\"\nalt=\"Fork me on GitHub\" data-canonical-src=\"https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png\">\n</a>";
 
 /***/ },
 
 /***/ 67:
 /***/ function(module, exports) {
 
-	module.exports = ".app-title {\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n\r\nmd-sidenav {\r\n    width: 30%;\r\n    text-align: center;\r\n}\r\n\r\n.page {\r\n    height: calc(90%);\r\n}\r\n\r\n.content {\r\n    display: flex;\r\n    height: 100%;\r\n}\r\n\r\nmd, textarea {\r\n    height: 100%;\r\n    overflow-y: scroll;\r\n    border: none;\r\n    padding: 10px;\r\n}\r\n\r\n.left, .right {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    flex: 1;\r\n    padding: 1rem;\r\n}"
+	module.exports = ".app-title {\n    width: 100%;\n    text-align: center;\n}\n\nmd-sidenav {\n    width: 30%;\n    text-align: center;\n}\n\n.page {\n    height: calc(90%);\n}\n\n.content {\n    display: flex;\n    height: 100%;\n}\n\nmd, textarea {\n    height: 100%;\n    overflow-y: scroll;\n    border: none;\n    padding: 10px;\n}\n\n.left, .right {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    flex: 1;\n    padding: 1rem;\n}"
 
 /***/ },
 
@@ -192,13 +192,13 @@ webpackJsonp([0],{
 /***/ 70:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;;/*! showdown 09-01-2017 */
+	var __WEBPACK_AMD_DEFINE_RESULT__;;/*! showdown 06-02-2017 */
 	(function(){
 	/**
 	 * Created by Tivie on 13-07-2015.
 	 */
 	
-	function getDefaultOpts(simple) {
+	function getDefaultOpts (simple) {
 	  'use strict';
 	
 	  var defaultOptions = {
@@ -301,6 +301,16 @@ webpackJsonp([0],{
 	      defaultValue: false,
 	      description: 'Enables github @mentions',
 	      type: 'boolean'
+	    },
+	    ghMentionsLink: {
+	      defaultValue: 'https://github.com/{u}',
+	      description: 'Changes the link generated by @mentions. Only applies if ghMentions option is enabled.',
+	      type: 'string'
+	    },
+	    encodeEmails: {
+	      defaultValue: true,
+	      description: 'Encode e-mail addresses through the use of Character Entities, transforming ASCII e-mail addresses into its equivalent decimal entities',
+	      type: 'boolean'
 	    }
 	  };
 	  if (simple === false) {
@@ -315,7 +325,7 @@ webpackJsonp([0],{
 	  return ret;
 	}
 	
-	function allOptionsOn() {
+	function allOptionsOn () {
 	  'use strict';
 	  var options = getDefaultOpts(true),
 	      ret = {};
@@ -340,7 +350,6 @@ webpackJsonp([0],{
 	    flavor = {
 	      github: {
 	        omitExtraWLInCodeBlocks:              true,
-	        prefixHeaderId:                       'user-content-',
 	        simplifiedAutoLink:                   true,
 	        excludeTrailingPunctuationFromURLs:   true,
 	        literalMidWordUnderscores:            true,
@@ -354,6 +363,27 @@ webpackJsonp([0],{
 	        requireSpaceBeforeHeadingText:        true,
 	        ghCompatibleHeaderId:                 true,
 	        ghMentions:                           true
+	      },
+	      original: {
+	        noHeaderId:                           true,
+	        ghCodeBlocks:                         false
+	      },
+	      ghost: {
+	        omitExtraWLInCodeBlocks:              true,
+	        parseImgDimensions:                   true,
+	        simplifiedAutoLink:                   true,
+	        excludeTrailingPunctuationFromURLs:   true,
+	        literalMidWordUnderscores:            true,
+	        strikethrough:                        true,
+	        tables:                               true,
+	        tablesHeaderId:                       true,
+	        ghCodeBlocks:                         true,
+	        tasklists:                            true,
+	        smoothLivePreview:                    true,
+	        simpleLineBreaks:                     true,
+	        requireSpaceBeforeHeadingText:        true,
+	        ghMentions:                           false,
+	        encodeEmails:                         true
 	      },
 	      vanilla: getDefaultOpts(true),
 	      allOn: allOptionsOn()
@@ -566,14 +596,14 @@ webpackJsonp([0],{
 	 * @param {string} name
 	 * @returns {{valid: boolean, error: string}}
 	 */
-	function validate(extension, name) {
+	function validate (extension, name) {
 	  'use strict';
 	
 	  var errMsg = (name) ? 'Error in ' + name + ' extension->' : 'Error in unnamed extension',
-	    ret = {
-	      valid: true,
-	      error: ''
-	    };
+	      ret = {
+	        valid: true,
+	        error: ''
+	      };
 	
 	  if (!showdown.helper.isArray(extension)) {
 	    extension = [extension];
@@ -653,7 +683,7 @@ webpackJsonp([0],{
 	      if (showdown.helper.isString(ext.regex)) {
 	        ext.regex = new RegExp(ext.regex, 'g');
 	      }
-	      if (!ext.regex instanceof RegExp) {
+	      if (!(ext.regex instanceof RegExp)) {
 	        ret.valid = false;
 	        ret.error = baseMsg + '"regex" property must either be a string or a RegExp object, but ' + typeof ext.regex + ' given';
 	        return ret;
@@ -698,7 +728,7 @@ webpackJsonp([0],{
 	 * @param {string} a
 	 * @returns {boolean}
 	 */
-	showdown.helper.isString = function isString(a) {
+	showdown.helper.isString = function (a) {
 	  'use strict';
 	  return (typeof a === 'string' || a instanceof String);
 	};
@@ -706,30 +736,13 @@ webpackJsonp([0],{
 	/**
 	 * Check if var is a function
 	 * @static
-	 * @param {string} a
+	 * @param {*} a
 	 * @returns {boolean}
 	 */
-	showdown.helper.isFunction = function isFunction(a) {
+	showdown.helper.isFunction = function (a) {
 	  'use strict';
 	  var getType = {};
 	  return a && getType.toString.call(a) === '[object Function]';
-	};
-	
-	/**
-	 * ForEach helper function
-	 * @static
-	 * @param {*} obj
-	 * @param {function} callback
-	 */
-	showdown.helper.forEach = function forEach(obj, callback) {
-	  'use strict';
-	  if (typeof obj.forEach === 'function') {
-	    obj.forEach(callback);
-	  } else {
-	    for (var i = 0; i < obj.length; i++) {
-	      callback(obj[i], i, obj);
-	    }
-	  }
 	};
 	
 	/**
@@ -738,7 +751,7 @@ webpackJsonp([0],{
 	 * @param {*} a
 	 * @returns {boolean}
 	 */
-	showdown.helper.isArray = function isArray(a) {
+	showdown.helper.isArray = function (a) {
 	  'use strict';
 	  return a.constructor === Array;
 	};
@@ -749,9 +762,48 @@ webpackJsonp([0],{
 	 * @param {*} value The value to check.
 	 * @returns {boolean} Returns `true` if `value` is `undefined`, else `false`.
 	 */
-	showdown.helper.isUndefined = function isUndefined(value) {
+	showdown.helper.isUndefined = function (value) {
 	  'use strict';
 	  return typeof value === 'undefined';
+	};
+	
+	/**
+	 * ForEach helper function
+	 * Iterates over Arrays and Objects (own properties only)
+	 * @static
+	 * @param {*} obj
+	 * @param {function} callback Accepts 3 params: 1. value, 2. key, 3. the original array/object
+	 */
+	showdown.helper.forEach = function (obj, callback) {
+	  'use strict';
+	  // check if obj is defined
+	  if (showdown.helper.isUndefined(obj)) {
+	    throw new Error('obj param is required');
+	  }
+	
+	  if (showdown.helper.isUndefined(callback)) {
+	    throw new Error('callback param is required');
+	  }
+	
+	  if (!showdown.helper.isFunction(callback)) {
+	    throw new Error('callback param must be a function/closure');
+	  }
+	
+	  if (typeof obj.forEach === 'function') {
+	    obj.forEach(callback);
+	  } else if (showdown.helper.isArray(obj)) {
+	    for (var i = 0; i < obj.length; i++) {
+	      callback(obj[i], i, obj);
+	    }
+	  } else if (typeof (obj) === 'object') {
+	    for (var prop in obj) {
+	      if (obj.hasOwnProperty(prop)) {
+	        callback(obj[prop], prop, obj);
+	      }
+	    }
+	  } else {
+	    throw new Error('obj does not seem to be an array or an iterable object');
+	  }
 	};
 	
 	/**
@@ -762,13 +814,13 @@ webpackJsonp([0],{
 	 */
 	showdown.helper.stdExtName = function (s) {
 	  'use strict';
-	  return s.replace(/[_-]||\s/g, '').toLowerCase();
+	  return s.replace(/[_?*+\/\\.^-]/g, '').replace(/\s/g, '').toLowerCase();
 	};
 	
-	function escapeCharactersCallback(wholeMatch, m1) {
+	function escapeCharactersCallback (wholeMatch, m1) {
 	  'use strict';
 	  var charCodeToEscape = m1.charCodeAt(0);
-	  return '~E' + charCodeToEscape + 'E';
+	  return '¨E' + charCodeToEscape + 'E';
 	}
 	
 	/**
@@ -788,7 +840,7 @@ webpackJsonp([0],{
 	 * @param {boolean} afterBackslash
 	 * @returns {XML|string|void|*}
 	 */
-	showdown.helper.escapeCharacters = function escapeCharacters(text, charsToEscape, afterBackslash) {
+	showdown.helper.escapeCharacters = function (text, charsToEscape, afterBackslash) {
 	  'use strict';
 	  // First we have to escape the escape characters so that
 	  // we can build a character class out of them
@@ -807,11 +859,11 @@ webpackJsonp([0],{
 	var rgxFindMatchPos = function (str, left, right, flags) {
 	  'use strict';
 	  var f = flags || '',
-	    g = f.indexOf('g') > -1,
-	    x = new RegExp(left + '|' + right, 'g' + f.replace(/g/g, '')),
-	    l = new RegExp(left, f.replace(/g/g, '')),
-	    pos = [],
-	    t, s, m, start, end;
+	      g = f.indexOf('g') > -1,
+	      x = new RegExp(left + '|' + right, 'g' + f.replace(/g/g, '')),
+	      l = new RegExp(left, f.replace(/g/g, '')),
+	      pos = [],
+	      t, s, m, start, end;
 	
 	  do {
 	    t = 0;
@@ -875,7 +927,7 @@ webpackJsonp([0],{
 	  'use strict';
 	
 	  var matchPos = rgxFindMatchPos (str, left, right, flags),
-	    results = [];
+	      results = [];
 	
 	  for (var i = 0; i < matchPos.length; ++i) {
 	    results.push([
@@ -938,6 +990,46 @@ webpackJsonp([0],{
 	};
 	
 	/**
+	 * Obfuscate an e-mail address through the use of Character Entities,
+	 * transforming ASCII characters into their equivalent decimal or hex entities.
+	 *
+	 * Since it has a random component, subsequent calls to this function produce different results
+	 *
+	 * @param {string} mail
+	 * @returns {string}
+	 */
+	showdown.helper.encodeEmailAddress = function (mail) {
+	  'use strict';
+	  var encode = [
+	    function (ch) {
+	      return '&#' + ch.charCodeAt(0) + ';';
+	    },
+	    function (ch) {
+	      return '&#x' + ch.charCodeAt(0).toString(16) + ';';
+	    },
+	    function (ch) {
+	      return ch;
+	    }
+	  ];
+	
+	  mail = mail.replace(/./g, function (ch) {
+	    if (ch === '@') {
+	      // this *must* be encoded. I insist.
+	      ch = encode[Math.floor(Math.random() * 2)](ch);
+	    } else {
+	      var r = Math.random();
+	      // roughly 10% raw, 45% hex, 45% dec
+	      ch = (
+	        r > 0.9 ? encode[2](ch) : r > 0.45 ? encode[1](ch) : encode[0](ch)
+	      );
+	    }
+	    return ch;
+	  });
+	
+	  return mail;
+	};
+	
+	/**
 	 * POLYFILLS
 	 */
 	// use this instead of builtin is undefined for IE8 compatibility
@@ -957,6 +1049,14 @@ webpackJsonp([0],{
 	    }
 	  };
 	}
+	
+	/**
+	 * Common regexes.
+	 * We declare some common regexes to improve performance
+	 */
+	showdown.helper.regexes = {
+	  asteriskAndDash: /([*_])/g
+	};
 	
 	/**
 	 * Created by Estevao on 31-05-2015.
@@ -1011,7 +1111,7 @@ webpackJsonp([0],{
 	   * Converter constructor
 	   * @private
 	   */
-	  function _constructor() {
+	  function _constructor () {
 	    converterOptions = converterOptions || {};
 	
 	    for (var gOpt in globalOptions) {
@@ -1043,7 +1143,7 @@ webpackJsonp([0],{
 	   * @param {string} [name='']
 	   * @private
 	   */
-	  function _parseExtension(ext, name) {
+	  function _parseExtension (ext, name) {
 	
 	    name = name || null;
 	    // If it's a string, the extension was previously loaded
@@ -1107,7 +1207,7 @@ webpackJsonp([0],{
 	   * @param {*} ext
 	   * @param {string} name
 	   */
-	  function legacyExtensionLoading(ext, name) {
+	  function legacyExtensionLoading (ext, name) {
 	    if (typeof ext === 'function') {
 	      ext = ext(new showdown.Converter());
 	    }
@@ -1139,7 +1239,7 @@ webpackJsonp([0],{
 	   * @param {string} name
 	   * @param {function} callback
 	   */
-	  function listen(name, callback) {
+	  function listen (name, callback) {
 	    if (!showdown.helper.isString(name)) {
 	      throw Error('Invalid argument in converter.listen() method: name must be a string, but ' + typeof name + ' given');
 	    }
@@ -1154,7 +1254,7 @@ webpackJsonp([0],{
 	    listeners[name].push(callback);
 	  }
 	
-	  function rTrimInputText(text) {
+	  function rTrimInputText (text) {
 	    var rsp = text.match(/^\s*/)[0].length,
 	        rgx = new RegExp('^\\s{0,' + rsp + '}', 'gm');
 	    return text.replace(rgx, '');
@@ -1218,16 +1318,15 @@ webpackJsonp([0],{
 	      ghCodeBlocks:    []
 	    };
 	
-	    // attacklab: Replace ~ with ~T
-	    // This lets us use tilde as an escape char to avoid md5 hashes
+	    // This lets us use ¨ trema as an escape char to avoid md5 hashes
 	    // The choice of character is arbitrary; anything that isn't
 	    // magic in Markdown will work.
-	    text = text.replace(/~/g, '~T');
+	    text = text.replace(/¨/g, '¨T');
 	
-	    // attacklab: Replace $ with ~D
+	    // Replace $ with ¨D
 	    // RegExp interprets $ as a special character
 	    // when it's in a replacement string
-	    text = text.replace(/\$/g, '~D');
+	    text = text.replace(/\$/g, '¨D');
 	
 	    // Standardize line endings
 	    text = text.replace(/\r\n/g, '\n'); // DOS to Unix
@@ -1246,8 +1345,13 @@ webpackJsonp([0],{
 	    // detab
 	    text = showdown.subParser('detab')(text, options, globals);
 	
-	    // stripBlankLines
-	    text = showdown.subParser('stripBlankLines')(text, options, globals);
+	    /**
+	     * Strip any lines consisting only of spaces and tabs.
+	     * This makes subsequent regexs easier to write, because we can
+	     * match consecutive blank lines with /\n+/ instead of something
+	     * contorted like /[ \t]*\n+/
+	     */
+	    text = text.replace(/^[ \t]+$/mg, '');
 	
 	    //run languageExtensions
 	    showdown.helper.forEach(langExtensions, function (ext) {
@@ -1258,17 +1362,17 @@ webpackJsonp([0],{
 	    text = showdown.subParser('hashPreCodeTags')(text, options, globals);
 	    text = showdown.subParser('githubCodeBlocks')(text, options, globals);
 	    text = showdown.subParser('hashHTMLBlocks')(text, options, globals);
-	    text = showdown.subParser('hashHTMLSpans')(text, options, globals);
+	    text = showdown.subParser('hashCodeTags')(text, options, globals);
 	    text = showdown.subParser('stripLinkDefinitions')(text, options, globals);
 	    text = showdown.subParser('blockGamut')(text, options, globals);
 	    text = showdown.subParser('unhashHTMLSpans')(text, options, globals);
 	    text = showdown.subParser('unescapeSpecialChars')(text, options, globals);
 	
 	    // attacklab: Restore dollar signs
-	    text = text.replace(/~D/g, '$$');
+	    text = text.replace(/¨D/g, '$$');
 	
-	    // attacklab: Restore tildes
-	    text = text.replace(/~T/g, '~');
+	    // attacklab: Restore tremas
+	    text = text.replace(/¨T/g, '¨');
 	
 	    // Run output modifiers
 	    showdown.helper.forEach(outputModifiers, function (ext) {
@@ -1424,12 +1528,15 @@ webpackJsonp([0],{
 	      }
 	    }
 	
-	    url = showdown.helper.escapeCharacters(url, '*_', false);
+	    //url = showdown.helper.escapeCharacters(url, '*_', false); // replaced line to improve performance
+	    url = url.replace(showdown.helper.regexes.asteriskAndDash, showdown.helper.escapeCharactersCallback);
+	
 	    var result = '<a href="' + url + '"';
 	
 	    if (title !== '' && title !== null) {
 	      title = title.replace(/"/g, '&quot;');
-	      title = showdown.helper.escapeCharacters(title, '*_', false);
+	      //title = showdown.helper.escapeCharacters(title, '*_', false); // replaced line to improve performance
+	      title = title.replace(showdown.helper.regexes.asteriskAndDash, showdown.helper.escapeCharactersCallback);
 	      result += ' title="' + title + '"';
 	    }
 	
@@ -1456,7 +1563,13 @@ webpackJsonp([0],{
 	      if (escape === '\\') {
 	        return st + mentions;
 	      }
-	      return st + '<a href="https://www.github.com/' + username + '">' + mentions + '</a>';
+	
+	      //check if options.ghMentionsLink is a string
+	      if (!showdown.helper.isString(options.ghMentionsLink)) {
+	        throw new Error('ghMentionsLink option must be a string');
+	      }
+	      var lnk = options.ghMentionsLink.replace(/\{u}/g, username);
+	      return st + '<a href="' + lnk + '">' + mentions + '</a>';
 	    });
 	  }
 	
@@ -1472,8 +1585,8 @@ webpackJsonp([0],{
 	  var simpleURLRegex  = /\b(((https?|ftp|dict):\/\/|www\.)[^'">\s]+\.[^'">\s]+)()(?=\s|$)(?!["<>])/gi,
 	      simpleURLRegex2 = /\b(((https?|ftp|dict):\/\/|www\.)[^'">\s]+\.[^'">\s]+?)([.!?()]?)(?=\s|$)(?!["<>])/gi,
 	      delimUrlRegex   = /<(((https?|ftp|dict):\/\/|www\.)[^'">\s]+)>/gi,
-	      simpleMailRegex = /(?:^|\s)([A-Za-z0-9!#$%&'*+-/=?^_`{|}~.]+@[-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+)(?:$|\s)/gi,
-	      delimMailRegex  = /<(?:mailto:)?([-.\w]+@[-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+)>/gi;
+	      simpleMailRegex = /(^|\s)(?:mailto:)?([A-Za-z0-9!#$%&'*+-/=?^_`{|}~.]+@[-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+)(?=$|\s)/gmi,
+	      delimMailRegex  = /<()(?:mailto:)?([-.\w]+@[-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+)>/gi;
 	
 	  text = text.replace(delimUrlRegex, replaceLink);
 	  text = text.replace(delimMailRegex, replaceMail);
@@ -1489,7 +1602,7 @@ webpackJsonp([0],{
 	    text = text.replace(simpleMailRegex, replaceMail);
 	  }
 	
-	  function replaceLink(wm, link, m2, m3, trailingPunctuation) {
+	  function replaceLink (wm, link, m2, m3, trailingPunctuation) {
 	    var lnkTxt = link,
 	        append = '';
 	    if (/^www\./i.test(link)) {
@@ -1501,9 +1614,17 @@ webpackJsonp([0],{
 	    return '<a href="' + link + '">' + lnkTxt + '</a>' + append;
 	  }
 	
-	  function replaceMail(wholeMatch, mail) {
-	    var unescapedStr = showdown.subParser('unescapeSpecialChars')(mail);
-	    return showdown.subParser('encodeEmailAddress')(unescapedStr);
+	  function replaceMail (wholeMatch, b, mail) {
+	    var href = 'mailto:';
+	    b = b || '';
+	    mail = showdown.subParser('unescapeSpecialChars')(mail, options, globals);
+	    if (options.encodeEmails) {
+	      href = showdown.helper.encodeEmailAddress(href + mail);
+	      mail = showdown.helper.encodeEmailAddress(mail);
+	    } else {
+	      href = href + mail;
+	    }
+	    return b + '<a href="' + href + '">' + mail + '</a>';
 	  }
 	
 	  text = globals.converter._dispatch('autoLinks.after', text, options, globals);
@@ -1526,10 +1647,7 @@ webpackJsonp([0],{
 	  text = showdown.subParser('headers')(text, options, globals);
 	
 	  // Do Horizontal Rules:
-	  var key = showdown.subParser('hashBlock')('<hr />', options, globals);
-	  text = text.replace(/^ {0,2}( ?-){3,}[ \t]*$/gm, key);
-	  text = text.replace(/^ {0,2}( ?\*){3,}[ \t]*$/gm, key);
-	  text = text.replace(/^ {0,2}( ?_){3,}[ \t]*$/gm, key);
+	  text = showdown.subParser('horizontalRule')(text, options, globals);
 	
 	  text = showdown.subParser('lists')(text, options, globals);
 	  text = showdown.subParser('codeBlocks')(text, options, globals);
@@ -1557,10 +1675,10 @@ webpackJsonp([0],{
 	
 	    // attacklab: hack around Konqueror 3.5.4 bug:
 	    // "----------bug".replace(/^-/g,"") == "bug"
-	    bq = bq.replace(/^[ \t]*>[ \t]?/gm, '~0'); // trim one level of quoting
+	    bq = bq.replace(/^[ \t]*>[ \t]?/gm, '¨0'); // trim one level of quoting
 	
 	    // attacklab: clean up hack
-	    bq = bq.replace(/~0/g, '');
+	    bq = bq.replace(/¨0/g, '');
 	
 	    bq = bq.replace(/^[ \t]+$/gm, ''); // trim whitespace-only lines
 	    bq = showdown.subParser('githubCodeBlocks')(bq, options, globals);
@@ -1571,8 +1689,8 @@ webpackJsonp([0],{
 	    bq = bq.replace(/(\s*<pre>[^\r]+?<\/pre>)/gm, function (wholeMatch, m1) {
 	      var pre = m1;
 	      // attacklab: hack around Konqueror 3.5.4 bug:
-	      pre = pre.replace(/^  /mg, '~0');
-	      pre = pre.replace(/~0/g, '');
+	      pre = pre.replace(/^  /mg, '¨0');
+	      pre = pre.replace(/¨0/g, '');
 	      return pre;
 	    });
 	
@@ -1592,17 +1710,17 @@ webpackJsonp([0],{
 	  text = globals.converter._dispatch('codeBlocks.before', text, options, globals);
 	
 	  // sentinel workarounds for lack of \A and \Z, safari\khtml bug
-	  text += '~0';
+	  text += '¨0';
 	
-	  var pattern = /(?:\n\n|^)((?:(?:[ ]{4}|\t).*\n+)+)(\n*[ ]{0,3}[^ \t\n]|(?=~0))/g;
+	  var pattern = /(?:\n\n|^)((?:(?:[ ]{4}|\t).*\n+)+)(\n*[ ]{0,3}[^ \t\n]|(?=¨0))/g;
 	  text = text.replace(pattern, function (wholeMatch, m1, m2) {
 	    var codeblock = m1,
 	        nextChar = m2,
 	        end = '\n';
 	
-	    codeblock = showdown.subParser('outdent')(codeblock);
-	    codeblock = showdown.subParser('encodeCode')(codeblock);
-	    codeblock = showdown.subParser('detab')(codeblock);
+	    codeblock = showdown.subParser('outdent')(codeblock, options, globals);
+	    codeblock = showdown.subParser('encodeCode')(codeblock, options, globals);
+	    codeblock = showdown.subParser('detab')(codeblock, options, globals);
 	    codeblock = codeblock.replace(/^\n+/g, ''); // trim leading newlines
 	    codeblock = codeblock.replace(/\n+$/g, ''); // trim trailing newlines
 	
@@ -1616,7 +1734,7 @@ webpackJsonp([0],{
 	  });
 	
 	  // strip sentinel
-	  text = text.replace(/~0/, '');
+	  text = text.replace(/¨0/, '');
 	
 	  text = globals.converter._dispatch('codeBlocks.after', text, options, globals);
 	  return text;
@@ -1652,19 +1770,6 @@ webpackJsonp([0],{
 	
 	  text = globals.converter._dispatch('codeSpans.before', text, options, globals);
 	
-	  /*
-	   text = text.replace(/
-	   (^|[^\\])					// Character before opening ` can't be a backslash
-	   (`+)						// $2 = Opening run of `
-	   (							// $3 = The code block
-	   [^\r]*?
-	   [^`]					// attacklab: work around lack of lookbehind
-	   )
-	   \2							// Matching closer
-	   (?!`)
-	   /gm, function(){...});
-	   */
-	
 	  if (typeof(text) === 'undefined') {
 	    text = '';
 	  }
@@ -1673,7 +1778,7 @@ webpackJsonp([0],{
 	      var c = m3;
 	      c = c.replace(/^([ \t]*)/g, '');	// leading whitespace
 	      c = c.replace(/[ \t]*$/g, '');	// trailing whitespace
-	      c = showdown.subParser('encodeCode')(c);
+	      c = showdown.subParser('encodeCode')(c, options, globals);
 	      return m1 + '<code>' + c + '</code>';
 	    }
 	  );
@@ -1685,17 +1790,18 @@ webpackJsonp([0],{
 	/**
 	 * Convert all tabs to spaces
 	 */
-	showdown.subParser('detab', function (text) {
+	showdown.subParser('detab', function (text, options, globals) {
 	  'use strict';
+	  text = globals.converter._dispatch('detab.before', text, options, globals);
 	
 	  // expand first n-1 tabs
 	  text = text.replace(/\t(?=\t)/g, '    '); // g_tab_width
 	
 	  // replace the nth with two sentinels
-	  text = text.replace(/\t/g, '~A~B');
+	  text = text.replace(/\t/g, '¨A¨B');
 	
 	  // use the sentinel to anchor our regex so it doesn't explode
-	  text = text.replace(/~B(.+?)~A/g, function (wholeMatch, m1) {
+	  text = text.replace(/¨B(.+?)¨A/g, function (wholeMatch, m1) {
 	    var leadingText = m1,
 	        numSpaces = 4 - leadingText.length % 4;  // g_tab_width
 	
@@ -1708,25 +1814,34 @@ webpackJsonp([0],{
 	  });
 	
 	  // clean up sentinels
-	  text = text.replace(/~A/g, '    ');  // g_tab_width
-	  text = text.replace(/~B/g, '');
+	  text = text.replace(/¨A/g, '    ');  // g_tab_width
+	  text = text.replace(/¨B/g, '');
 	
+	  text = globals.converter._dispatch('detab.after', text, options, globals);
 	  return text;
-	
 	});
 	
 	/**
 	 * Smart processing for ampersands and angle brackets that need to be encoded.
 	 */
-	showdown.subParser('encodeAmpsAndAngles', function (text) {
+	showdown.subParser('encodeAmpsAndAngles', function (text, options, globals) {
 	  'use strict';
+	  text = globals.converter._dispatch('encodeAmpsAndAngles.before', text, options, globals);
+	
 	  // Ampersand-encoding based entirely on Nat Irons's Amputator MT plugin:
 	  // http://bumppo.net/projects/amputator/
 	  text = text.replace(/&(?!#?[xX]?(?:[0-9a-fA-F]+|\w+);)/g, '&amp;');
 	
 	  // Encode naked <'s
-	  text = text.replace(/<(?![a-z\/?\$!])/gi, '&lt;');
+	  text = text.replace(/<(?![a-z\/?$!])/gi, '&lt;');
 	
+	  // Encode <
+	  text = text.replace(/</g, '&lt;');
+	
+	  // Encode >
+	  text = text.replace(/>/g, '&gt;');
+	
+	  text = globals.converter._dispatch('encodeAmpsAndAngles.after', text, options, globals);
 	  return text;
 	});
 	
@@ -1741,10 +1856,14 @@ webpackJsonp([0],{
 	 * ...but we're sidestepping its use of the (slow) RegExp constructor
 	 * as an optimization for Firefox.  This function gets called a LOT.
 	 */
-	showdown.subParser('encodeBackslashEscapes', function (text) {
+	showdown.subParser('encodeBackslashEscapes', function (text, options, globals) {
 	  'use strict';
+	  text = globals.converter._dispatch('encodeBackslashEscapes.before', text, options, globals);
+	
 	  text = text.replace(/\\(\\)/g, showdown.helper.escapeCharactersCallback);
-	  text = text.replace(/\\([`*_{}\[\]()>#+-.!])/g, showdown.helper.escapeCharactersCallback);
+	  text = text.replace(/\\([`*_{}\[\]()>#+.!~=-])/g, showdown.helper.escapeCharactersCallback);
+	
+	  text = globals.converter._dispatch('encodeBackslashEscapes.after', text, options, globals);
 	  return text;
 	});
 	
@@ -1753,100 +1872,44 @@ webpackJsonp([0],{
 	 * The point is that in code, these characters are literals,
 	 * and lose their special Markdown meanings.
 	 */
-	showdown.subParser('encodeCode', function (text) {
+	showdown.subParser('encodeCode', function (text, options, globals) {
 	  'use strict';
+	
+	  text = globals.converter._dispatch('encodeCode.before', text, options, globals);
 	
 	  // Encode all ampersands; HTML entities are not
 	  // entities within a Markdown code span.
-	  text = text.replace(/&/g, '&amp;');
-	
+	  text = text
+	    .replace(/&/g, '&amp;')
 	  // Do the angle bracket song and dance:
-	  text = text.replace(/</g, '&lt;');
-	  text = text.replace(/>/g, '&gt;');
-	
+	    .replace(/</g, '&lt;')
+	    .replace(/>/g, '&gt;')
 	  // Now, escape characters that are magic in Markdown:
-	  text = showdown.helper.escapeCharacters(text, '*_{}[]\\', false);
+	    .replace(/([*_{}\[\]\\=~-])/g, showdown.helper.escapeCharactersCallback);
 	
-	  // jj the line above breaks this:
-	  //---
-	  //* Item
-	  //   1. Subitem
-	  //            special char: *
-	  // ---
-	
+	  text = globals.converter._dispatch('encodeCode.after', text, options, globals);
 	  return text;
 	});
 	
 	/**
-	 *  Input: an email address, e.g. "foo@example.com"
-	 *
-	 *  Output: the email address as a mailto link, with each character
-	 *    of the address encoded as either a decimal or hex entity, in
-	 *    the hopes of foiling most address harvesting spam bots. E.g.:
-	 *
-	 *    <a href="&#x6D;&#97;&#105;&#108;&#x74;&#111;:&#102;&#111;&#111;&#64;&#101;
-	 *       x&#x61;&#109;&#x70;&#108;&#x65;&#x2E;&#99;&#111;&#109;">&#102;&#111;&#111;
-	 *       &#64;&#101;x&#x61;&#109;&#x70;&#108;&#x65;&#x2E;&#99;&#111;&#109;</a>
-	 *
-	 *  Based on a filter by Matthew Wickline, posted to the BBEdit-Talk
-	 *  mailing list: <http://tinyurl.com/yu7ue>
-	 *
-	 */
-	showdown.subParser('encodeEmailAddress', function (addr) {
-	  'use strict';
-	
-	  var encode = [
-	    function (ch) {
-	      return '&#' + ch.charCodeAt(0) + ';';
-	    },
-	    function (ch) {
-	      return '&#x' + ch.charCodeAt(0).toString(16) + ';';
-	    },
-	    function (ch) {
-	      return ch;
-	    }
-	  ];
-	
-	  addr = 'mailto:' + addr;
-	
-	  addr = addr.replace(/./g, function (ch) {
-	    if (ch === '@') {
-	      // this *must* be encoded. I insist.
-	      ch = encode[Math.floor(Math.random() * 2)](ch);
-	    } else if (ch !== ':') {
-	      // leave ':' alone (to spot mailto: later)
-	      var r = Math.random();
-	      // roughly 10% raw, 45% hex, 45% dec
-	      ch = (
-	        r > 0.9 ? encode[2](ch) : r > 0.45 ? encode[1](ch) : encode[0](ch)
-	      );
-	    }
-	    return ch;
-	  });
-	
-	  addr = '<a href="' + addr + '">' + addr + '</a>';
-	  addr = addr.replace(/">.+:/g, '">'); // strip the mailto: from the visible part
-	
-	  return addr;
-	});
-	
-	/**
-	 * Within tags -- meaning between < and > -- encode [\ ` * _] so they
+	 * Within tags -- meaning between < and > -- encode [\ ` * _ ~ =] so they
 	 * don't conflict with their use in Markdown for code, italics and strong.
 	 */
-	showdown.subParser('escapeSpecialCharsWithinTagAttributes', function (text) {
+	showdown.subParser('escapeSpecialCharsWithinTagAttributes', function (text, options, globals) {
 	  'use strict';
+	  text = globals.converter._dispatch('escapeSpecialCharsWithinTagAttributes.before', text, options, globals);
 	
 	  // Build a regex to find HTML tags and comments.  See Friedl's
 	  // "Mastering Regular Expressions", 2nd Ed., pp. 200-201.
 	  var regex = /(<[a-z\/!$]("[^"]*"|'[^']*'|[^'">])*>|<!(--.*?--\s*)+>)/gi;
 	
 	  text = text.replace(regex, function (wholeMatch) {
-	    var tag = wholeMatch.replace(/(.)<\/?code>(?=.)/g, '$1`');
-	    tag = showdown.helper.escapeCharacters(tag, '\\`*_', false);
-	    return tag;
+	    return wholeMatch
+	      .replace(/(.)<\/?code>(?=.)/g, '$1`')
+	      .replace(/([\\`*_~=])/g, showdown.helper.escapeCharactersCallback);
 	  });
 	
+	  text = globals.converter._dispatch('escapeSpecialCharsWithinTagAttributes.after', text, options, globals);
 	  return text;
 	});
 	
@@ -1870,14 +1933,14 @@ webpackJsonp([0],{
 	
 	  text = globals.converter._dispatch('githubCodeBlocks.before', text, options, globals);
 	
-	  text += '~0';
+	  text += '¨0';
 	
 	  text = text.replace(/(?:^|\n)```(.*)\n([\s\S]*?)\n```/g, function (wholeMatch, language, codeblock) {
 	    var end = (options.omitExtraWLInCodeBlocks) ? '' : '\n';
 	
 	    // First parse the github code block
-	    codeblock = showdown.subParser('encodeCode')(codeblock);
-	    codeblock = showdown.subParser('detab')(codeblock);
+	    codeblock = showdown.subParser('encodeCode')(codeblock, options, globals);
+	    codeblock = showdown.subParser('detab')(codeblock, options, globals);
 	    codeblock = codeblock.replace(/^\n+/g, ''); // trim leading newlines
 	    codeblock = codeblock.replace(/\n+$/g, ''); // trim trailing whitespace
 	
@@ -1888,19 +1951,41 @@ webpackJsonp([0],{
 	    // Since GHCodeblocks can be false positives, we need to
 	    // store the primitive text and the parsed text in a global var,
 	    // and then return a token
-	    return '\n\n~G' + (globals.ghCodeBlocks.push({text: wholeMatch, codeblock: codeblock}) - 1) + 'G\n\n';
+	    return '\n\n¨G' + (globals.ghCodeBlocks.push({text: wholeMatch, codeblock: codeblock}) - 1) + 'G\n\n';
 	  });
 	
 	  // attacklab: strip sentinel
-	  text = text.replace(/~0/, '');
+	  text = text.replace(/¨0/, '');
 	
 	  return globals.converter._dispatch('githubCodeBlocks.after', text, options, globals);
 	});
 	
 	showdown.subParser('hashBlock', function (text, options, globals) {
 	  'use strict';
+	  text = globals.converter._dispatch('hashBlock.before', text, options, globals);
 	  text = text.replace(/(^\n+|\n+$)/g, '');
-	  return '\n\n~K' + (globals.gHtmlBlocks.push(text) - 1) + 'K\n\n';
+	  text = '\n\n¨K' + (globals.gHtmlBlocks.push(text) - 1) + 'K\n\n';
+	  text = globals.converter._dispatch('hashBlock.after', text, options, globals);
+	  return text;
+	});
+	
+	/**
+	 * Hash and escape <code> elements that should not be parsed as markdown
+	 */
+	showdown.subParser('hashCodeTags', function (text, options, globals) {
+	  'use strict';
+	  text = globals.converter._dispatch('hashCodeTags.before', text, options, globals);
+	
+	  var repFunc = function (wholeMatch, match, left, right) {
+	    var codeblock = left + showdown.subParser('encodeCode')(match, options, globals) + right;
+	    return '¨C' + (globals.gHtmlSpans.push(codeblock) - 1) + 'C';
+	  };
+	
+	  // Hash naked <code>
+	  text = showdown.helper.replaceRecursiveRegExp(text, repFunc, '<code\\b[^>]*>', '</code>', 'gim');
+	
+	  text = globals.converter._dispatch('hashCodeTags.after', text, options, globals);
+	  return text;
 	});
 	
 	showdown.subParser('hashElement', function (text, options, globals) {
@@ -1916,8 +2001,8 @@ webpackJsonp([0],{
 	    // strip trailing blank lines
 	    blockText = blockText.replace(/\n+$/g, '');
 	
-	    // Replace the element text with a marker ("~KxK" where x is its key)
-	    blockText = '\n\n~K' + (globals.gHtmlBlocks.push(blockText) - 1) + 'K\n\n';
+	    // Replace the element text with a marker ("¨KxK" where x is its key)
+	    blockText = '\n\n¨K' + (globals.gHtmlBlocks.push(blockText) - 1) + 'K\n\n';
 	
 	    return blockText;
 	  };
@@ -1925,52 +2010,53 @@ webpackJsonp([0],{
 	
 	showdown.subParser('hashHTMLBlocks', function (text, options, globals) {
 	  'use strict';
+	  text = globals.converter._dispatch('hashHTMLBlocks.before', text, options, globals);
 	
 	  var blockTags = [
-	      'pre',
-	      'div',
-	      'h1',
-	      'h2',
-	      'h3',
-	      'h4',
-	      'h5',
-	      'h6',
-	      'blockquote',
-	      'table',
-	      'dl',
-	      'ol',
-	      'ul',
-	      'script',
-	      'noscript',
-	      'form',
-	      'fieldset',
-	      'iframe',
-	      'math',
-	      'style',
-	      'section',
-	      'header',
-	      'footer',
-	      'nav',
-	      'article',
-	      'aside',
-	      'address',
-	      'audio',
-	      'canvas',
-	      'figure',
-	      'hgroup',
-	      'output',
-	      'video',
-	      'p'
-	    ],
-	    repFunc = function (wholeMatch, match, left, right) {
-	      var txt = wholeMatch;
-	      // check if this html element is marked as markdown
-	      // if so, it's contents should be parsed as markdown
-	      if (left.search(/\bmarkdown\b/) !== -1) {
-	        txt = left + globals.converter.makeHtml(match) + right;
-	      }
-	      return '\n\n~K' + (globals.gHtmlBlocks.push(txt) - 1) + 'K\n\n';
-	    };
+	        'pre',
+	        'div',
+	        'h1',
+	        'h2',
+	        'h3',
+	        'h4',
+	        'h5',
+	        'h6',
+	        'blockquote',
+	        'table',
+	        'dl',
+	        'ol',
+	        'ul',
+	        'script',
+	        'noscript',
+	        'form',
+	        'fieldset',
+	        'iframe',
+	        'math',
+	        'style',
+	        'section',
+	        'header',
+	        'footer',
+	        'nav',
+	        'article',
+	        'aside',
+	        'address',
+	        'audio',
+	        'canvas',
+	        'figure',
+	        'hgroup',
+	        'output',
+	        'video',
+	        'p'
+	      ],
+	      repFunc = function (wholeMatch, match, left, right) {
+	        var txt = wholeMatch;
+	        // check if this html element is marked as markdown
+	        // if so, it's contents should be parsed as markdown
+	        if (left.search(/\bmarkdown\b/) !== -1) {
+	          txt = left + globals.converter.makeHtml(match) + right;
+	        }
+	        return '\n\n¨K' + (globals.gHtmlBlocks.push(txt) - 1) + 'K\n\n';
+	      };
 	
 	  for (var i = 0; i < blockTags.length; ++i) {
 	    text = showdown.helper.replaceRecursiveRegExp(text, repFunc, '^ {0,3}<' + blockTags[i] + '\\b[^>]*>', '</' + blockTags[i] + '>', 'gim');
@@ -1982,56 +2068,98 @@ webpackJsonp([0],{
 	
 	  // Special case for standalone HTML comments
 	  text = showdown.helper.replaceRecursiveRegExp(text, function (txt) {
-	    return '\n\n~K' + (globals.gHtmlBlocks.push(txt) - 1) + 'K\n\n';
+	    return '\n\n¨K' + (globals.gHtmlBlocks.push(txt) - 1) + 'K\n\n';
 	  }, '^ {0,3}<!--', '-->', 'gm');
 	
 	  // PHP and ASP-style processor instructions (<?...?> and <%...%>)
 	  text = text.replace(/(?:\n\n)( {0,3}(?:<([?%])[^\r]*?\2>)[ \t]*(?=\n{2,}))/g,
 	    showdown.subParser('hashElement')(text, options, globals));
 	
+	  text = globals.converter._dispatch('hashHTMLBlocks.after', text, options, globals);
 	  return text;
 	});
 	
 	/**
 	 * Hash span elements that should not be parsed as markdown
 	 */
-	showdown.subParser('hashHTMLSpans', function (text, config, globals) {
+	showdown.subParser('hashHTMLSpans', function (text, options, globals) {
 	  'use strict';
+	  text = globals.converter._dispatch('hashHTMLSpans.before', text, options, globals);
 	
-	  var matches = showdown.helper.matchRecursiveRegExp(text, '<code\\b[^>]*>', '</code>', 'gi');
-	
-	  for (var i = 0; i < matches.length; ++i) {
-	    text = text.replace(matches[i][0], '~C' + (globals.gHtmlSpans.push(matches[i][0]) - 1) + 'C');
+	  function hashHTMLSpan (html) {
+	    return '¨C' + (globals.gHtmlSpans.push(html) - 1) + 'C';
 	  }
+	
+	  // Hash Self Closing tags
+	  text = text.replace(/<[^>]+?\/>/gi, function (wm) {
+	    return hashHTMLSpan(wm);
+	  });
+	
+	  // Hash tags without properties
+	  text = text.replace(/<([^>]+?)>[\s\S]*?<\/\1>/g, function (wm) {
+	    return hashHTMLSpan(wm);
+	  });
+	
+	  // Hash tags with properties
+	  text = text.replace(/<([^>]+?)\s[^>]+?>[\s\S]*?<\/\1>/g, function (wm) {
+	    return hashHTMLSpan(wm);
+	  });
+	
+	  // Hash self closing tags without />
+	  text = text.replace(/<[^>]+?>/gi, function (wm) {
+	    return hashHTMLSpan(wm);
+	  });
+	
+	  /*showdown.helper.matchRecursiveRegExp(text, '<code\\b[^>]*>', '</code>', 'gi');*/
+	
+	  text = globals.converter._dispatch('hashHTMLSpans.after', text, options, globals);
 	  return text;
 	});
 	
 	/**
 	 * Unhash HTML spans
 	 */
-	showdown.subParser('unhashHTMLSpans', function (text, config, globals) {
+	showdown.subParser('unhashHTMLSpans', function (text, options, globals) {
 	  'use strict';
+	  text = globals.converter._dispatch('unhashHTMLSpans.before', text, options, globals);
 	
 	  for (var i = 0; i < globals.gHtmlSpans.length; ++i) {
-	    text = text.replace('~C' + i + 'C', globals.gHtmlSpans[i]);
+	    var repText = globals.gHtmlSpans[i],
+	        // limiter to prevent infinite loop (assume 10 as limit for recurse)
+	        limit = 0;
+	
+	    while (/¨C(\d+)C/.test(repText)) {
+	      var num = RegExp.$1;
+	      repText = repText.replace('¨C' + num + 'C', globals.gHtmlSpans[num]);
+	      if (limit === 10) {
+	        break;
+	      }
+	      ++limit;
+	    }
+	    text = text.replace('¨C' + i + 'C', repText);
 	  }
 	
+	  text = globals.converter._dispatch('unhashHTMLSpans.after', text, options, globals);
 	  return text;
 	});
 	
 	/**
-	 * Hash span elements that should not be parsed as markdown
+	 * Hash and escape <pre><code> elements that should not be parsed as markdown
 	 */
-	showdown.subParser('hashPreCodeTags', function (text, config, globals) {
+	showdown.subParser('hashPreCodeTags', function (text, options, globals) {
 	  'use strict';
+	  text = globals.converter._dispatch('hashPreCodeTags.before', text, options, globals);
 	
 	  var repFunc = function (wholeMatch, match, left, right) {
 	    // encode html entities
-	    var codeblock = left + showdown.subParser('encodeCode')(match) + right;
-	    return '\n\n~G' + (globals.ghCodeBlocks.push({text: wholeMatch, codeblock: codeblock}) - 1) + 'G\n\n';
+	    var codeblock = left + showdown.subParser('encodeCode')(match, options, globals) + right;
+	    return '\n\n¨G' + (globals.ghCodeBlocks.push({text: wholeMatch, codeblock: codeblock}) - 1) + 'G\n\n';
 	  };
 	
+	  // Hash <pre><code>
 	  text = showdown.helper.replaceRecursiveRegExp(text, repFunc, '^ {0,3}<pre\\b[^>]*>\\s*<code\\b[^>]*>', '^ {0,3}</code>\\s*</pre>', 'gim');
+	
+	  text = globals.converter._dispatch('hashPreCodeTags.after', text, options, globals);
 	  return text;
 	});
 	
@@ -2040,8 +2168,7 @@ webpackJsonp([0],{
 	
 	  text = globals.converter._dispatch('headers.before', text, options, globals);
 	
-	  var prefixHeader = options.prefixHeaderId,
-	      headerLevelStart = (isNaN(parseInt(options.headerLevelStart))) ? 1 : parseInt(options.headerLevelStart),
+	  var headerLevelStart = (isNaN(parseInt(options.headerLevelStart))) ? 1 : parseInt(options.headerLevelStart),
 	      ghHeaderId = options.ghCompatibleHeaderId,
 	
 	  // Set text-style headers:
@@ -2067,7 +2194,7 @@ webpackJsonp([0],{
 	    var spanGamut = showdown.subParser('spanGamut')(m1, options, globals),
 	        hID = (options.noHeaderId) ? '' : ' id="' + headerId(m1) + '"',
 	        hLevel = headerLevelStart + 1,
-	      hashBlock = '<h' + hLevel + hID + '>' + spanGamut + '</h' + hLevel + '>';
+	        hashBlock = '<h' + hLevel + hID + '>' + spanGamut + '</h' + hLevel + '>';
 	    return showdown.subParser('hashBlock')(hashBlock, options, globals);
 	  });
 	
@@ -2089,43 +2216,59 @@ webpackJsonp([0],{
 	    return showdown.subParser('hashBlock')(header, options, globals);
 	  });
 	
-	  function headerId(m) {
-	    var title, escapedId;
+	  function headerId (m) {
+	    var title;
+	    // Prefix id to prevent causing inadvertent pre-existing style matches.
+	    if (showdown.helper.isString(options.prefixHeaderId)) {
+	      title = options.prefixHeaderId + m;
+	    } else if (options.prefixHeaderId === true) {
+	      title = 'section ' + m;
+	    } else {
+	      title = m;
+	    }
 	
 	    if (ghHeaderId) {
-	      escapedId = m
+	      title = title
 	        .replace(/ /g, '-')
-	        //replace previously escaped chars (&, ~ and $)
+	        // replace previously escaped chars (&, ¨ and $)
 	        .replace(/&amp;/g, '')
-	        .replace(/~T/g, '')
-	        .replace(/~D/g, '')
-	        //replace rest of the chars (&~$ are repeated as they might have been escaped)
+	        .replace(/¨T/g, '')
+	        .replace(/¨D/g, '')
+	        // replace rest of the chars (&~$ are repeated as they might have been escaped)
 	        // borrowed from github's redcarpet (some they should produce similar results)
-	        .replace(/[&+$,\/:;=?@"#{}|^~\[\]`\\*)(%.!'<>]/g, '')
+	        .replace(/[&+$,\/:;=?@"#{}|^¨~\[\]`\\*)(%.!'<>]/g, '')
 	        .toLowerCase();
 	    } else {
-	      escapedId = m.replace(/[^\w]/g, '').toLowerCase();
+	      title = title
+	        .replace(/[^\w]/g, '')
+	        .toLowerCase();
 	    }
 	
-	    if (globals.hashLinkCounts[escapedId]) {
-	      title = escapedId + '-' + (globals.hashLinkCounts[escapedId]++);
+	    if (globals.hashLinkCounts[title]) {
+	      title = title + '-' + (globals.hashLinkCounts[title]++);
 	    } else {
-	      title = escapedId;
-	      globals.hashLinkCounts[escapedId] = 1;
-	    }
-	
-	    // Prefix id to prevent causing inadvertent pre-existing style matches.
-	    if (prefixHeader === true) {
-	      prefixHeader = 'section';
-	    }
-	
-	    if (showdown.helper.isString(prefixHeader)) {
-	      return prefixHeader + title;
+	      globals.hashLinkCounts[title] = 1;
 	    }
 	    return title;
 	  }
 	
 	  text = globals.converter._dispatch('headers.after', text, options, globals);
+	  return text;
+	});
+	
+	/**
+	 * Turn Markdown link shortcuts into XHTML <a> tags.
+	 */
+	showdown.subParser('horizontalRule', function (text, options, globals) {
+	  'use strict';
+	  text = globals.converter._dispatch('horizontalRule.before', text, options, globals);
+	
+	  var key = showdown.subParser('hashBlock')('<hr />', options, globals);
+	  text = text.replace(/^ {0,2}( ?-){3,}[ \t]*$/gm, key);
+	  text = text.replace(/^ {0,2}( ?\*){3,}[ \t]*$/gm, key);
+	  text = text.replace(/^ {0,2}( ?_){3,}[ \t]*$/gm, key);
+	
+	  text = globals.converter._dispatch('horizontalRule.after', text, options, globals);
 	  return text;
 	});
 	
@@ -2173,14 +2316,19 @@ webpackJsonp([0],{
 	      }
 	    }
 	
-	    altText = altText.replace(/"/g, '&quot;');
-	    altText = showdown.helper.escapeCharacters(altText, '*_', false);
-	    url = showdown.helper.escapeCharacters(url, '*_', false);
+	    altText = altText
+	      .replace(/"/g, '&quot;')
+	    //altText = showdown.helper.escapeCharacters(altText, '*_', false);
+	      .replace(showdown.helper.regexes.asteriskAndDash, showdown.helper.escapeCharactersCallback);
+	    //url = showdown.helper.escapeCharacters(url, '*_', false);
+	    url = url.replace(showdown.helper.regexes.asteriskAndDash, showdown.helper.escapeCharactersCallback);
 	    var result = '<img src="' + url + '" alt="' + altText + '"';
 	
 	    if (title) {
-	      title = title.replace(/"/g, '&quot;');
-	      title = showdown.helper.escapeCharacters(title, '*_', false);
+	      title = title
+	        .replace(/"/g, '&quot;')
+	      //title = showdown.helper.escapeCharacters(title, '*_', false);
+	        .replace(showdown.helper.regexes.asteriskAndDash, showdown.helper.escapeCharactersCallback);
 	      result += ' title="' + title + '"';
 	    }
 	
@@ -2212,20 +2360,39 @@ webpackJsonp([0],{
 	
 	  text = globals.converter._dispatch('italicsAndBold.before', text, options, globals);
 	
-	  if (options.literalMidWordUnderscores) {
-	    //underscores
-	    // Since we are consuming a \s character, we need to add it
-	    text = text.replace(/(^|\s|>|\b)__(?=\S)([\s\S]+?)__(?=\b|<|\s|$)/gm, '$1<strong>$2</strong>');
-	    text = text.replace(/(^|\s|>|\b)_(?=\S)([\s\S]+?)_(?=\b|<|\s|$)/gm, '$1<em>$2</em>');
-	    //asterisks
-	    text = text.replace(/(\*\*)(?=\S)([^\r]*?\S[*]*)\1/g, '<strong>$2</strong>');
-	    text = text.replace(/(\*)(?=\S)([^\r]*?\S)\1/g, '<em>$2</em>');
+	  // it's faster to have 3 separate regexes for each case than have just one
+	  // because of backtracing, in some cases, it could lead to an exponential effect
+	  // called "catastrophic backtrace". Ominous!
 	
+	  // Parse underscores
+	  if (options.literalMidWordUnderscores) {
+	    text = text.replace(/\b___(\S[\s\S]*)___\b/g, '<strong><em>$1</em></strong>');
+	    text = text.replace(/\b__(\S[\s\S]*)__\b/g, '<strong>$1</strong>');
+	    text = text.replace(/\b_(\S[\s\S]*?)_\b/g, '<em>$1</em>');
 	  } else {
-	    // <strong> must go first:
-	    text = text.replace(/(\*\*|__)(?=\S)([^\r]*?\S[*_]*)\1/g, '<strong>$2</strong>');
-	    text = text.replace(/(\*|_)(?=\S)([^\r]*?\S)\1/g, '<em>$2</em>');
+	    text = text.replace(/___(\S[\s\S]*?)___/g, function (wm, m) {
+	      return (/\S$/.test(m)) ? '<strong><em>' + m + '</em></strong>' : wm;
+	    });
+	    text = text.replace(/__(\S[\s\S]*?)__/g, function (wm, m) {
+	      return (/\S$/.test(m)) ? '<strong>' + m + '</strong>' : wm;
+	    });
+	    text = text.replace(/_([^\s_][\s\S]*?)_/g, function (wm, m) {
+	      // !/^_[^_]/.test(m) - test if it doesn't start with __ (since it seems redundant, we removed it)
+	      return (/\S$/.test(m)) ? '<em>' + m + '</em>' : wm;
+	    });
 	  }
+	
+	  // Now parse asterisks
+	  text = text.replace(/\*\*\*(\S[\s\S]*?)\*\*\*/g, function (wm, m) {
+	    return (/\S$/.test(m)) ? '<strong><em>' + m + '</em></strong>' : wm;
+	  });
+	  text = text.replace(/\*\*(\S[\s\S]*?)\*\*/g, function (wm, m) {
+	    return (/\S$/.test(m)) ? '<strong>' + m + '</strong>' : wm;
+	  });
+	  text = text.replace(/\*([^\s*][\s\S]*?)\*/g, function (wm, m) {
+	    // !/^\*[^*]/.test(m) - test if it doesn't start with ** (since it seems redundant, we removed it)
+	    return (/\S$/.test(m)) ? '<em>' + m + '</em>' : wm;
+	  });
 	
 	  text = globals.converter._dispatch('italicsAndBold.after', text, options, globals);
 	  return text;
@@ -2272,16 +2439,16 @@ webpackJsonp([0],{
 	    listStr = listStr.replace(/\n{2,}$/, '\n');
 	
 	    // attacklab: add sentinel to emulate \z
-	    listStr += '~0';
+	    listStr += '¨0';
 	
-	    var rgx = /(\n)?(^ {0,3})([*+-]|\d+[.])[ \t]+((\[(x|X| )?])?[ \t]*[^\r]+?(\n{1,2}))(?=\n*(~0| {0,3}([*+-]|\d+[.])[ \t]+))/gm,
-	        isParagraphed = (/\n[ \t]*\n(?!~0)/.test(listStr));
+	    var rgx = /(\n)?(^ {0,3})([*+-]|\d+[.])[ \t]+((\[(x|X| )?])?[ \t]*[^\r]+?(\n{1,2}))(?=\n*(¨0| {0,3}([*+-]|\d+[.])[ \t]+))/gm,
+	        isParagraphed = (/\n[ \t]*\n(?!¨0)/.test(listStr));
 	
 	    // Since version 1.5, nesting sublists requires 4 spaces (or 1 tab) indentation,
 	    // which is a syntax breaking change
 	    // activating this option reverts to old behavior
 	    if (options.disableForced4SpacesIndentedSublists) {
-	      rgx = /(\n)?(^ {0,3})([*+-]|\d+[.])[ \t]+((\[(x|X| )?])?[ \t]*[^\r]+?(\n{1,2}))(?=\n*(~0|\2([*+-]|\d+[.])[ \t]+))/gm;
+	      rgx = /(\n)?(^ {0,3})([*+-]|\d+[.])[ \t]+((\[(x|X| )?])?[ \t]*[^\r]+?(\n{1,2}))(?=\n*(¨0|\2([*+-]|\d+[.])[ \t]+))/gm;
 	    }
 	
 	    listStr = listStr.replace(rgx, function (wholeMatch, m1, m2, m3, m4, taskbtn, checked) {
@@ -2309,10 +2476,10 @@ webpackJsonp([0],{
 	      // <ul><li><li><li>a</li></li></li></ul>
 	      // instead of:
 	      // <ul><li>- - a</li></ul>
-	      // So, to prevent it, we will put a marker (~A)in the beginning of the line
+	      // So, to prevent it, we will put a marker (¨A)in the beginning of the line
 	      // Kind of hackish/monkey patching, but seems more effective than overcomplicating the list parser
 	      item = item.replace(/^([-*+]|\d\.)[ \t]+[\S\n ]*/g, function (wm2) {
-	        return '~A' + wm2;
+	        return '¨A' + wm2;
 	      });
 	
 	      // m1 - Leading line or
@@ -2329,17 +2496,17 @@ webpackJsonp([0],{
 	        // Colapse double linebreaks
 	        item = item.replace(/\n\n+/g, '\n\n');
 	        // replace double linebreaks with a placeholder
-	        item = item.replace(/\n\n/g, '~B');
+	        item = item.replace(/\n\n/g, '¨B');
 	        if (isParagraphed) {
 	          item = showdown.subParser('paragraphs')(item, options, globals);
 	        } else {
 	          item = showdown.subParser('spanGamut')(item, options, globals);
 	        }
-	        item = item.replace(/~B/g, '\n\n');
+	        item = item.replace(/¨B/g, '\n\n');
 	      }
 	
-	      // now we need to remove the marker (~A)
-	      item = item.replace('~A', '');
+	      // now we need to remove the marker (¨A)
+	      item = item.replace('¨A', '');
 	      // we can finally wrap the line in list item tags
 	      item =  '<li' + bulletStyle + '>' + item + '</li>\n';
 	
@@ -2347,7 +2514,7 @@ webpackJsonp([0],{
 	    });
 	
 	    // attacklab: strip sentinel
-	    listStr = listStr.replace(/~0/g, '');
+	    listStr = listStr.replace(/¨0/g, '');
 	
 	    globals.gListLevel--;
 	
@@ -2365,7 +2532,7 @@ webpackJsonp([0],{
 	   * @param {boolean} trimTrailing
 	   * @returns {string}
 	   */
-	  function parseConsecutiveLists(list, listType, trimTrailing) {
+	  function parseConsecutiveLists (list, listType, trimTrailing) {
 	    // check if we caught 2 or more consecutive lists by mistake
 	    // we use the counterRgx, meaning if listType is UL we look for OL and vice versa
 	    var olRgx = (options.disableForced4SpacesIndentedSublists) ? /^ ?\d+\.[ \t]/gm : /^ {0,3}\d+\.[ \t]/gm,
@@ -2374,7 +2541,7 @@ webpackJsonp([0],{
 	        result = '';
 	
 	    if (list.search(counterRxg) !== -1) {
-	      (function parseCL(txt) {
+	      (function parseCL (txt) {
 	        var pos = txt.search(counterRxg);
 	        if (pos !== -1) {
 	          // slice
@@ -2399,17 +2566,17 @@ webpackJsonp([0],{
 	
 	  // add sentinel to hack around khtml/safari bug:
 	  // http://bugs.webkit.org/show_bug.cgi?id=11231
-	  text += '~0';
+	  text += '¨0';
 	
 	  if (globals.gListLevel) {
-	    text = text.replace(/^(( {0,3}([*+-]|\d+[.])[ \t]+)[^\r]+?(~0|\n{2,}(?=\S)(?![ \t]*(?:[*+-]|\d+[.])[ \t]+)))/gm,
+	    text = text.replace(/^(( {0,3}([*+-]|\d+[.])[ \t]+)[^\r]+?(¨0|\n{2,}(?=\S)(?![ \t]*(?:[*+-]|\d+[.])[ \t]+)))/gm,
 	      function (wholeMatch, list, m2) {
 	        var listType = (m2.search(/[*+-]/g) > -1) ? 'ul' : 'ol';
 	        return parseConsecutiveLists(list, listType, true);
 	      }
 	    );
 	  } else {
-	    text = text.replace(/(\n\n|^\n?)(( {0,3}([*+-]|\d+[.])[ \t]+)[^\r]+?(~0|\n{2,}(?=\S)(?![ \t]*(?:[*+-]|\d+[.])[ \t]+)))/gm,
+	    text = text.replace(/(\n\n|^\n?)(( {0,3}([*+-]|\d+[.])[ \t]+)[^\r]+?(¨0|\n{2,}(?=\S)(?![ \t]*(?:[*+-]|\d+[.])[ \t]+)))/gm,
 	      function (wholeMatch, m1, list, m3) {
 	        var listType = (m3.search(/[*+-]/g) > -1) ? 'ul' : 'ol';
 	        return parseConsecutiveLists(list, listType, false);
@@ -2418,7 +2585,7 @@ webpackJsonp([0],{
 	  }
 	
 	  // strip sentinel
-	  text = text.replace(/~0/, '');
+	  text = text.replace(/¨0/, '');
 	  text = globals.converter._dispatch('lists.after', text, options, globals);
 	  return text;
 	});
@@ -2426,16 +2593,18 @@ webpackJsonp([0],{
 	/**
 	 * Remove one level of line-leading tabs or spaces
 	 */
-	showdown.subParser('outdent', function (text) {
+	showdown.subParser('outdent', function (text, options, globals) {
 	  'use strict';
+	  text = globals.converter._dispatch('outdent.before', text, options, globals);
 	
 	  // attacklab: hack around Konqueror 3.5.4 bug:
 	  // "----------bug".replace(/^-/g,"") == "bug"
-	  text = text.replace(/^(\t|[ ]{1,4})/gm, '~0'); // attacklab: g_tab_width
+	  text = text.replace(/^(\t|[ ]{1,4})/gm, '¨0'); // attacklab: g_tab_width
 	
 	  // attacklab: clean up hack
-	  text = text.replace(/~0/g, '');
+	  text = text.replace(/¨0/g, '');
 	
+	  text = globals.converter._dispatch('outdent.after', text, options, globals);
 	  return text;
 	});
 	
@@ -2457,9 +2626,12 @@ webpackJsonp([0],{
 	  for (var i = 0; i < end; i++) {
 	    var str = grafs[i];
 	    // if this is an HTML marker, copy it
-	    if (str.search(/~(K|G)(\d+)\1/g) >= 0) {
+	    if (str.search(/¨(K|G)(\d+)\1/g) >= 0) {
 	      grafsOut.push(str);
-	    } else {
+	
+	    // test for presence of characters to prevent empty lines being parsed
+	    // as paragraphs (resulting in undesired extra empty paragraphs)
+	    } else if (str.search(/\S/) >= 0) {
 	      str = showdown.subParser('spanGamut')(str, options, globals);
 	      str = str.replace(/^([ \t]*)/g, '<p>');
 	      str += '</p>';
@@ -2474,7 +2646,8 @@ webpackJsonp([0],{
 	        grafsOutIt = grafsOut[i],
 	        codeFlag = false;
 	    // if this is a marker for an html block...
-	    while (grafsOutIt.search(/~(K|G)(\d+)\1/) >= 0) {
+	    // use RegExp.test instead of string.search because of QML bug
+	    while (/¨(K|G)(\d+)\1/.test(grafsOutIt)) {
 	      var delim = RegExp.$1,
 	          num   = RegExp.$2;
 	
@@ -2484,14 +2657,14 @@ webpackJsonp([0],{
 	        // we need to check if ghBlock is a false positive
 	        if (codeFlag) {
 	          // use encoded version of all text
-	          blockText = showdown.subParser('encodeCode')(globals.ghCodeBlocks[num].text);
+	          blockText = showdown.subParser('encodeCode')(globals.ghCodeBlocks[num].text, options, globals);
 	        } else {
 	          blockText = globals.ghCodeBlocks[num].codeblock;
 	        }
 	      }
 	      blockText = blockText.replace(/\$/g, '$$$$'); // Escape any dollar signs
 	
-	      grafsOutIt = grafsOutIt.replace(/(\n\n)?~(K|G)\d+\2(\n\n)?/, blockText);
+	      grafsOutIt = grafsOutIt.replace(/(\n\n)?¨(K|G)\d+\2(\n\n)?/, blockText);
 	      // Check if grafsOutIt is a pre->code
 	      if (/^<pre\b[^>]*>\s*<code\b[^>]*>/.test(grafsOutIt)) {
 	        codeFlag = true;
@@ -2518,7 +2691,7 @@ webpackJsonp([0],{
 	  } else if (ext.regex) {
 	    // TODO remove this when old extension loading mechanism is deprecated
 	    var re = ext.regex;
-	    if (!re instanceof RegExp) {
+	    if (!(re instanceof RegExp)) {
 	      re = new RegExp(re, 'g');
 	    }
 	    text = text.replace(re, ext.replace);
@@ -2548,9 +2721,14 @@ webpackJsonp([0],{
 	  // Must come after _DoAnchors(), because you can use < and >
 	  // delimiters in inline links like [this](<url>).
 	  text = showdown.subParser('autoLinks')(text, options, globals);
-	  text = showdown.subParser('encodeAmpsAndAngles')(text, options, globals);
 	  text = showdown.subParser('italicsAndBold')(text, options, globals);
 	  text = showdown.subParser('strikethrough')(text, options, globals);
+	
+	  // we need to hash HTML tags inside spans
+	  text = showdown.subParser('hashHTMLSpans')(text, options, globals);
+	
+	  // now we encode amps and angles
+	  text = showdown.subParser('encodeAmpsAndAngles')(text, options, globals);
 	
 	  // Do hard breaks
 	  if (options.simpleLineBreaks) {
@@ -2570,22 +2748,11 @@ webpackJsonp([0],{
 	
 	  if (options.strikethrough) {
 	    text = globals.converter._dispatch('strikethrough.before', text, options, globals);
-	    text = text.replace(/(?:~T){2}([\s\S]+?)(?:~T){2}/g, '<del>$1</del>');
+	    text = text.replace(/(?:~){2}([\s\S]+?)(?:~){2}/g, '<del>$1</del>');
 	    text = globals.converter._dispatch('strikethrough.after', text, options, globals);
 	  }
 	
 	  return text;
-	});
-	
-	/**
-	 * Strip any lines consisting only of spaces and tabs.
-	 * This makes subsequent regexs easier to write, because we can
-	 * match consecutive blank lines with /\n+/ instead of something
-	 * contorted like /[ \t]*\n+/
-	 */
-	showdown.subParser('stripBlankLines', function (text) {
-	  'use strict';
-	  return text.replace(/^[ \t]+$/mg, '');
 	});
 	
 	/**
@@ -2596,14 +2763,14 @@ webpackJsonp([0],{
 	showdown.subParser('stripLinkDefinitions', function (text, options, globals) {
 	  'use strict';
 	
-	  var regex = /^ {0,3}\[(.+)]:[ \t]*\n?[ \t]*<?(\S+?)>?(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*\n?[ \t]*(?:(\n*)["|'(](.+?)["|')][ \t]*)?(?:\n+|(?=~0))/gm;
+	  var regex = /^ {0,3}\[(.+)]:[ \t]*\n?[ \t]*<?(\S+?)>?(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*\n?[ \t]*(?:(\n*)["|'(](.+?)["|')][ \t]*)?(?:\n+|(?=¨0))/gm;
 	
 	  // attacklab: sentinel workarounds for lack of \A and \Z, safari\khtml bug
-	  text += '~0';
+	  text += '¨0';
 	
 	  text = text.replace(regex, function (wholeMatch, linkId, url, width, height, blankLines, title) {
 	    linkId = linkId.toLowerCase();
-	    globals.gUrls[linkId] = showdown.subParser('encodeAmpsAndAngles')(url);  // Link IDs are case-insensitive
+	    globals.gUrls[linkId] = showdown.subParser('encodeAmpsAndAngles')(url, options, globals);  // Link IDs are case-insensitive
 	
 	    if (blankLines) {
 	      // Oops, found blank lines, so it's not a title.
@@ -2626,7 +2793,7 @@ webpackJsonp([0],{
 	  });
 	
 	  // attacklab: strip sentinel
-	  text = text.replace(/~0/, '');
+	  text = text.replace(/¨0/, '');
 	
 	  return text;
 	});
@@ -2638,9 +2805,9 @@ webpackJsonp([0],{
 	    return text;
 	  }
 	
-	  var tableRgx = /^ {0,3}\|?.+\|.+\n[ \t]{0,3}\|?[ \t]*:?[ \t]*(?:-|=){2,}[ \t]*:?[ \t]*\|[ \t]*:?[ \t]*(?:-|=){2,}[\s\S]+?(?:\n\n|~0)/gm;
+	  var tableRgx = /^ {0,3}\|?.+\|.+\n[ \t]{0,3}\|?[ \t]*:?[ \t]*(?:-|=){2,}[ \t]*:?[ \t]*\|[ \t]*:?[ \t]*(?:-|=){2,}[\s\S]+?(?:\n\n|¨0)/gm;
 	
-	  function parseStyles(sLine) {
+	  function parseStyles (sLine) {
 	    if (/^:[ \t]*--*$/.test(sLine)) {
 	      return ' style="text-align:left;"';
 	    } else if (/^--*[ \t]*:[ \t]*$/.test(sLine)) {
@@ -2652,7 +2819,7 @@ webpackJsonp([0],{
 	    }
 	  }
 	
-	  function parseHeaders(header, style) {
+	  function parseHeaders (header, style) {
 	    var id = '';
 	    header = header.trim();
 	    if (options.tableHeaderId) {
@@ -2663,12 +2830,12 @@ webpackJsonp([0],{
 	    return '<th' + id + style + '>' + header + '</th>\n';
 	  }
 	
-	  function parseCells(cell, style) {
+	  function parseCells (cell, style) {
 	    var subText = showdown.subParser('spanGamut')(cell, options, globals);
 	    return '<td' + style + '>' + subText + '</td>\n';
 	  }
 	
-	  function buildTable(headers, cells) {
+	  function buildTable (headers, cells) {
 	    var tb = '<table>\n<thead>\n<tr>\n',
 	        tblLgn = headers.length;
 	
@@ -2764,13 +2931,16 @@ webpackJsonp([0],{
 	/**
 	 * Swap back in all the special characters we've hidden.
 	 */
-	showdown.subParser('unescapeSpecialChars', function (text) {
+	showdown.subParser('unescapeSpecialChars', function (text, options, globals) {
 	  'use strict';
+	  text = globals.converter._dispatch('unescapeSpecialChars.before', text, options, globals);
 	
-	  text = text.replace(/~E(\d+)E/g, function (wholeMatch, m1) {
+	  text = text.replace(/¨E(\d+)E/g, function (wholeMatch, m1) {
 	    var charCodeToReplace = parseInt(m1);
 	    return String.fromCharCode(charCodeToReplace);
 	  });
+	
+	  text = globals.converter._dispatch('unescapeSpecialChars.after', text, options, globals);
 	  return text;
 	});
 	
@@ -3193,7 +3363,7 @@ webpackJsonp([0],{
 	    __metadata("design:paramtypes", [core_1.ElementRef, base_converter_options_provider_1.ConverterOptions])
 	], MdDirective);
 	exports.MdDirective = MdDirective;
-	// define options properties getter setter for angular directive and direct access 
+	// define options properties getter setter for angular directive and direct access
 	optionsProperties.forEach(function (key) {
 	    Object.defineProperty(MdDirective.prototype, key, {
 	        set: function (value) {
