@@ -6,7 +6,11 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "sourceMap": true
+    "sourceMap": true,
+    "lib": [
+      "es6",
+      "dom"
+    ]
   },
   "include": [
     "./*.ts"

@@ -9,7 +9,11 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": false,
-    "sourceMap": true
+    "sourceMap": true,
+    "lib": [
+      "es6",
+      "dom"
+    ]
   },
   "files": [
     "index.ts"
