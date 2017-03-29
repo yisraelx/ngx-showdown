@@ -76,13 +76,14 @@
     "showdown": "^1.6.4"
   },
   "devDependencies": {
+    "@angular/animations": "^4.0.0",
     "@angular/common": "^2.4.7",
     "@angular/compiler": "^2.4.7",
     "@angular/compiler-cli": "^2.4.7",
     "@angular/core": "^2.4.7",
     "@angular/forms": "^2.4.7",
     "@angular/http": "^2.4.7",
-    "@angular/material": "^2.0.0-beta.1",
+    "@angular/material": "git+https://github.com/angular/material2-builds.git",
     "@angular/platform-browser": "^2.4.7",
     "@angular/platform-browser-dynamic": "^2.4.7",
     "@angular/router": "^3.4.7",
