@@ -5,10 +5,10 @@ module.exports = function (config) {
     config.set({
         basePath: '',
 
-        frameworks: ['jasmine','source-map-support'],
+        frameworks: ['jasmine', 'source-map-support'],
 
         files: [
-            { pattern: './test/index.ts', watched: false }
+            {pattern: './test/index.ts', watched: false}
         ],
 
         preprocessors: {
@@ -19,19 +19,18 @@ module.exports = function (config) {
             devtool: 'inline-source-map',
 
             resolve: {
-                extensions: ['', '.ts', '.js'],
-                modulesDirectories: ['node_modules', 'src']
+                extensions: ['.ts', '.js'],
+                modules: ['node_modules', 'src']
             },
 
             module: {
-                loaders: [
+                rules: [
                     {
                         test: /\.ts$/,
                         loader: 'ts-loader'
-                    }
-                ],
-                postLoaders: [
+                    },
                     {
+                        enforce: 'post',
                         test: /\.ts$/,
                         loader: 'istanbul-instrumenter-loader',
                         exclude: [
@@ -39,11 +38,15 @@ module.exports = function (config) {
                             /test/
                         ]
                     }
-                ]
+                ],
             },
 
-            plugins:[
-                new CleanWebpackPlugin('./coverage')
+            plugins: [
+                new CleanWebpackPlugin('./coverage'),
+                new webpack.ContextReplacementPlugin(
+                    /angular(\\|\/)core(\\|\/)@angular/,
+                    'src'
+                )
             ]
         },
 
@@ -66,7 +69,7 @@ module.exports = function (config) {
             lcovonly: './coverage/lcov.info'
         },
 
-        reporters: ['progress', 'coverage','remap-coverage'],
+        reporters: ['progress', 'coverage', 'remap-coverage'],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,

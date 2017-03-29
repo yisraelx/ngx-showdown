@@ -11,20 +11,20 @@ let webpack = require('webpack'),
 module.exports = {
 
     entry: {
-        "ng2-md.umd": "./src/index.ts",
-        "ng2-md.umd.min": "./src/index.ts"
+        'ng2-md.umd': './src/index.ts',
+        'ng2-md.umd.min': './src/index.ts'
     },
 
     output: {
-        path: __dirname + "/bundles",
-        filename: "[name].js",
+        path: __dirname + '/bundles',
+        filename: '[name].js',
         libraryTarget: 'umd',
         library: ['ng', 'md'],
         umdNamedDefine: false
     },
 
     resolve: {
-        extensions: ['', '.js', '.ts']
+        extensions: ['.js', '.ts']
     },
 
     plugins: [
@@ -32,19 +32,22 @@ module.exports = {
         new webpack.optimize.UglifyJsPlugin({
             include: /\.min\.js$/, minimize: true
         }),
-        new webpack.BannerPlugin(banner, {raw: true, entryOnly: true})
+        new webpack.BannerPlugin({banner, raw: true, entryOnly: true})
     ],
 
     module: {
-        loaders: [
-            {test: /\.ts$/, loader: "ts-loader"}
-        ]
-    },
+        rules: [
+            {
+                test: /\.ts$/,
+                loader: 'ts-loader',
+                options: {
+                    compilerOptions: {
+                        declaration: false
+                    }
+                }
 
-    ts: {
-        compilerOptions: {
-            declaration: false
-        }
+            }
+        ]
     },
 
     externals: {
