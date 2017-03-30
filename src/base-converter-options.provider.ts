@@ -4,20 +4,30 @@ import { IConverterConstructorOptions } from './base-converter.class';
 
 export class ConverterOptions {
 
-    omitExtraWLInCodeBlocks: boolean;
-    noHeaderId: boolean;
-    prefixHeaderId: string | boolean;
-    parseImgDimensions: boolean;
+    disableForced4SpacesIndentedSublists: boolean;
+    encodeEmails: boolean;
+    excludeTrailingPunctuationFromURLs: boolean;
+    extensions: string[];
+    ghCodeBlocks: boolean;
+    ghCompatibleHeaderId: boolean;
+    ghMentions: boolean;
+    ghMentionsLink: string;
     headerLevelStart: number;
     literalMidWordUnderscores: boolean;
+    noHeaderId: boolean;
+    omitExtraWLInCodeBlocks: boolean;
+    parseImgDimensions: boolean;
+    prefixHeaderId: string | boolean;
+    requireSpaceBeforeHeadingText: boolean;
+    simpleLineBreaks: boolean;
+    simplifiedAutoLink: boolean;
+    smartIndentationFix: boolean;
+    smoothLivePreview: boolean;
     strikethrough: boolean;
     tables: boolean;
     tablesHeaderId: boolean;
-    ghCodeBlocks: boolean;
     tasklists: boolean;
-    smoothLivePreview: boolean;
-    trimEachLine: boolean | 'space' | 'tab';
-    extensions: string | string[];
+    trimEachLine?: boolean | 'tab' | 'space';
 
     constructor(options?: IConverterConstructorOptions) {
         this.merge(options);
@@ -53,18 +63,29 @@ export class ConverterOptions {
 export class BaseConverterOptions extends ConverterOptions {
     constructor() {
         super({
-            omitExtraWLInCodeBlocks: false,
-            noHeaderId: false,
-            prefixHeaderId: false,
-            parseImgDimensions: false,
+            disableForced4SpacesIndentedSublists: false,
+            encodeEmails: true,
+            excludeTrailingPunctuationFromURLs: false,
+            extensions: [],
+            ghCodeBlocks: true,
+            ghCompatibleHeaderId: false,
+            ghMentions: false,
+            ghMentionsLink: 'https://github.com/{u}',
             headerLevelStart: 1,
             literalMidWordUnderscores: false,
+            noHeaderId: false,
+            omitExtraWLInCodeBlocks: false,
+            parseImgDimensions: false,
+            prefixHeaderId: false,
+            requireSpaceBeforeHeadingText: false,
+            simpleLineBreaks: false,
+            simplifiedAutoLink: false,
+            smartIndentationFix: false,
+            smoothLivePreview: false,
             strikethrough: false,
             tables: false,
             tablesHeaderId: false,
-            ghCodeBlocks: true,
             tasklists: false,
-            smoothLivePreview: false,
             trimEachLine: false
         });
     }

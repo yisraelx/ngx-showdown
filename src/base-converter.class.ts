@@ -3,23 +3,33 @@ import $ from './utils';
 import { ConverterOptions } from './base-converter-options.provider';
 
 export interface IConverterOptions {
-    omitExtraWLInCodeBlocks?: boolean;
-    noHeaderId?: boolean;
-    prefixHeaderId?: string | boolean;
-    parseImgDimensions?: boolean;
+    disableForced4SpacesIndentedSublists?: boolean;
+    encodeEmails?: boolean;
+    excludeTrailingPunctuationFromURLs?: boolean;
+    ghCodeBlocks?: boolean;
+    ghCompatibleHeaderId?: boolean;
+    ghMentions?: boolean;
+    ghMentionsLink?: string;
     headerLevelStart?: number;
     literalMidWordUnderscores?: boolean;
+    noHeaderId?: boolean;
+    omitExtraWLInCodeBlocks?: boolean;
+    parseImgDimensions?: boolean;
+    prefixHeaderId?: string | boolean;
+    requireSpaceBeforeHeadingText?: boolean;
+    simpleLineBreaks?: boolean;
+    simplifiedAutoLink?: boolean;
+    smartIndentationFix?: boolean;
+    smoothLivePreview?: boolean;
     strikethrough?: boolean;
     tables?: boolean;
     tablesHeaderId?: boolean;
-    ghCodeBlocks?: boolean;
     tasklists?: boolean;
-    smoothLivePreview?: boolean;
     trimEachLine?: boolean | 'tab' | 'space';
 }
 
 export interface IConverterConstructorOptions extends IConverterOptions {
-    extensions?: string | string[];
+    extensions?: string[];
 }
 
 export class BaseConverter extends Converter {
