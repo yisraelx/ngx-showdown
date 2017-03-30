@@ -58,7 +58,6 @@
     "no-string-literal": false,
     "no-switch-case-fall-through": true,
     "no-unused-expression": true,
-    "no-use-before-declare": true,
     "no-var-keyword": true,
     "radix": true,
     "switch-default": true,
@@ -117,7 +116,6 @@
       "check-operator",
       "check-separator",
       "check-type"
-    ],
-    "import-destructuring-spacing": true
+    ]
   }
 }
