@@ -27,6 +27,16 @@ import { MdModule } from 'ng2-md';
 })
 export class AppModule{}
 ```
+Or with config
+```javascript
+import { NgModule } from '@angular/core';
+import { MdModule, ConverterOptions, IConverterConstructorOptions } from 'ng2-md';
+
+@NgModule({
+    imports: [ MdModule.forRoot({...} as ConverterOptions | IConverterConstructorOptions) ]
+})
+export class AppModule{}
+```
 ### MdDirective
 #### Binding
 ```javascript
