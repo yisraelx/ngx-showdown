@@ -30,23 +30,23 @@ export class AppModule{}
 Or with config
 ```javascript
 import { NgModule } from '@angular/core';
-import { MdModule, ConverterOptions, IConverterConstructorOptions } from 'ng2-md';
+import { MdModule, ConverterOptions, IConverterOptions } from 'ng2-md';
 
 @NgModule({
-    imports: [ MdModule.forRoot({...} as ConverterOptions | IConverterConstructorOptions) ]
+    imports: [ MdModule.forRoot({...} as ConverterOptions | IConverterOptions) ]
 })
 export class AppModule{}
 ```
 ### MdDirective
 #### Binding
 ```javascript
-import { IConverterOptions } from 'ng2-md';
+import { IConverterOptionsChangeable } from 'ng2-md';
 // ...
     text: string = `
         # h1
         ## h2
     `;
-    options: IConverterOptions = {...}
+    options: IConverterOptionsChangeable = {...}
 // ...
 ```
 ```html
@@ -66,18 +66,18 @@ import { IConverterOptions } from 'ng2-md';
 <md>
 ```
 ```html
-<md [options]="{...} as IConverterOptions">
+<md [options]="{...} as IConverterOptionsChangeable">
     # H1
     ## H2
 <md>
 ```
-Note: _there is a problem in content unescaped "{" and "}" (use html code)._
+Note: _there is a problem in content unescaped "{" and "}" (use html char code)._
 
 ### Options
 ```javascript
-import { IConverterOptions } from 'ng2-md';
+import { IConverterOptionsChangeable } from 'ng2-md';
 // ...
-    options:IConverterOptions = {...};
+    options: IConverterOptionsChangeable = {...};
 //...
 ```
 ```html
@@ -102,18 +102,18 @@ both tab and space
 <md src="README.md"></md>
 ```
 ```html
-<md src="README.md" [options]="{...} as IConverterOptions"></md>
+<md src="README.md" [options]="{...} as IConverterOptionsChangeable"></md>
 ```
 
 ### Pipe
 ```javascript
-import { IConverterOptions } from 'ng2-md';
+import { IConverterOptionsChangeable } from 'ng2-md';
 // ...
     text: string = `
         # h1
         ## h2
     `;
-    options: IConverterOptions = {...}
+    options: IConverterOptionsChangeable = {...}
 // ...
 ```
 ```html
@@ -147,6 +147,18 @@ export class MyConverterOptions extends ConverterOptions{
 @NgModel({
     providers:[
         {provide: ConverterOptions, useClass: MyConverterOptions},
+    ]
+})
+export class AppModule{}
+```
+Or
+```javascript
+import { NgModel } from '@angular/core';
+import { ConverterOptions, IConverterOptions } from 'ng2-md';
+
+@NgModel({
+    providers:[
+        {provide: ConverterOptions, useValue: {...} as IConverterOptions | ConverterOptions},
     ]
 })
 export class AppModule{}

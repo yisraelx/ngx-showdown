@@ -16,7 +16,7 @@ import { MdDirective } from './md.directive';
  * <md src="README.md"><md/>
  * ```
  * ```html
- * <md src="README.md" [options]="{...} as IConverterOptions"><md/>
+ * <md src="README.md" [options]="{...} as IConverterOptionsChangeable"><md/>
  * ```
  * ```html
  * <div md src="README.md"><div/>

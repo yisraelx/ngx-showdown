@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IConverterOptions } from '../../../src';
+import { IConverterOptionsChangeable } from '../../../src';
 
 @Component({
     selector: 'my-app',
@@ -17,7 +17,7 @@ let sum = a+b;
 console.log(\`sum: \${sum}\`);
 \`\`\``;
 
-    options: IConverterOptions = {
+    options: IConverterOptionsChangeable = {
         disableForced4SpacesIndentedSublists: false,
         encodeEmails: true,
         excludeTrailingPunctuationFromURLs: false,

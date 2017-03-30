@@ -1,4 +1,4 @@
-export { BaseConverter, IConverterConstructorOptions, IConverterOptions } from './base-converter.class';
+export { BaseConverter, IConverterOptions, IConverterOptionsChangeable } from './base-converter.class';
 export { ConverterOptions, BaseConverterOptions } from './base-converter-options.provider';
 export { MdConverter } from './md-converter.provider';
 export { MdDirective } from './md.directive';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import $ from './utils';
-import { IConverterConstructorOptions } from './base-converter.class';
+import { IConverterOptions } from './base-converter.class';
 
 export class ConverterOptions {
 
@@ -29,11 +29,11 @@ export class ConverterOptions {
     tasklists: boolean;
     trimEachLine?: boolean | 'tab' | 'space';
 
-    constructor(options?: IConverterConstructorOptions) {
+    constructor(options?: IConverterOptions) {
         this.merge(options);
     }
 
-    public merge(options: IConverterConstructorOptions) {
+    public merge(options: IConverterOptions) {
         if (!$.isObject(options)) return;
         $.forIn(options, (val, key) => {
             this[key] = val;

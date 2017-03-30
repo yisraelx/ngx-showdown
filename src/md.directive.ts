@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, OnInit, Optional } from '@angular/core';
 import $ from './utils';
 import { ConverterOptions } from './base-converter-options.provider';
-import { BaseConverter, IConverterOptions } from './base-converter.class';
+import { BaseConverter, IConverterOptionsChangeable } from './base-converter.class';
 
 let optionsProperties: string[] = [
     'omitExtraWLInCodeBlocks', 'noHeaderId', 'prefixHeaderId', 'parseImgDimensions', 'headerLevelStart', 'literalMidWordUnderscores', 'strikethrough', 'tables', 'tablesHeaderId', 'ghCodeBlocks', 'tasklists', 'smoothLivePreview', 'trimEachLine'
@@ -34,10 +34,10 @@ export enum MD_COMPONENT_STATUSES {
  * export class AppModule{}
  * ```
  * ```javascript
- * import { IConverterOptions } from 'ng2-md';
+ * import { IConverterOptionsChangeable } from 'ng2-md';
  * // ...
  * text: string = "...";
- * options: IConverterOptions = {...};
+ * options: IConverterOptionsChangeable = {...};
  * // ...
  * ```
  * ```html
@@ -122,11 +122,11 @@ export class MdDirective extends BaseConverter implements OnInit {
     }
 
     @Input()
-    public get options(): IConverterOptions {
+    public get options(): IConverterOptionsChangeable {
         return this.getOptions();
     }
 
-    public set options(options: IConverterOptions) {
+    public set options(options: IConverterOptionsChangeable) {
         this.setOptions(options);
     }
 
@@ -159,7 +159,7 @@ export class MdDirective extends BaseConverter implements OnInit {
         this._onChange();
     }
 
-    public setOptions(options: IConverterOptions): void {
+    public setOptions(options: IConverterOptionsChangeable): void {
         super.setOptions(options);
         this._onChange();
     }

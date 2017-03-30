@@ -2,7 +2,7 @@ import { Converter } from 'showdown';
 import $ from './utils';
 import { ConverterOptions } from './base-converter-options.provider';
 
-export interface IConverterOptions {
+export interface IConverterOptionsChangeable {
     disableForced4SpacesIndentedSublists?: boolean;
     encodeEmails?: boolean;
     excludeTrailingPunctuationFromURLs?: boolean;
@@ -28,13 +28,13 @@ export interface IConverterOptions {
     trimEachLine?: boolean | 'tab' | 'space';
 }
 
-export interface IConverterConstructorOptions extends IConverterOptions {
+export interface IConverterOptions extends IConverterOptionsChangeable {
     extensions?: string[];
 }
 
 export class BaseConverter extends Converter {
 
-    constructor(options?: IConverterConstructorOptions | ConverterOptions) {
+    constructor(options?: IConverterOptions | ConverterOptions) {
         super(options);
         // override makeHtml method (define in super constructor)
         let {makeHtml} = this;
@@ -44,7 +44,7 @@ export class BaseConverter extends Converter {
         };
     }
 
-    public setOptions(options: IConverterOptions): void {
+    public setOptions(options: IConverterOptionsChangeable): void {
         if ($.isObject(options)) {
             $.forIn(options, (value: any, optionKey: string) => {
                 this.setOption(optionKey, value);
@@ -54,7 +54,7 @@ export class BaseConverter extends Converter {
 
     /** pre super.makeHtml (situation that not possible to achieve it with subParsers or extensions) */
     private _preMakeHtml(text: string): string {
-        let {trimEachLine} = this.getOptions() as IConverterOptions;
+        let {trimEachLine} = this.getOptions() as IConverterOptionsChangeable;
         text = $.trimEachLine(text, trimEachLine);
         return text;
     }

@@ -1,6 +1,6 @@
 import { PipeTransform, Pipe, Optional } from '@angular/core';
 import { ConverterOptions } from './base-converter-options.provider';
-import { BaseConverter, IConverterOptions } from './base-converter.class';
+import { BaseConverter, IConverterOptionsChangeable } from './base-converter.class';
 
 /**
  * @example
@@ -13,10 +13,10 @@ import { BaseConverter, IConverterOptions } from './base-converter.class';
  * export class AppModule{}
  * ```
  * ```javascript
- * import { IConverterOptions } from 'ng2-md';
+ * import { IConverterOptionsChangeable } from 'ng2-md';
  * // ...
  * md: string = "...";
- * options: IConverterOptions = {...};
+ * options: IConverterOptionsChangeable = {...};
  * // ...
  * ```
  * ```html
@@ -36,7 +36,7 @@ export class MdPipe extends BaseConverter implements PipeTransform {
         super(options);
     }
 
-    transform(md: string = '', options?: IConverterOptions): string {
+    transform(md: string = '', options?: IConverterOptionsChangeable): string {
         this.setOptions(options);
         return this.makeHtml(md);
     }
