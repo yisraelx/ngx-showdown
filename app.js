@@ -33,7 +33,7 @@ var utils_1 = __webpack_require__(126);
 var base_converter_options_provider_1 = __webpack_require__(70);
 var base_converter_class_1 = __webpack_require__(91);
 var optionsProperties = [
-    'omitExtraWLInCodeBlocks', 'noHeaderId', 'prefixHeaderId', 'parseImgDimensions', 'headerLevelStart', 'literalMidWordUnderscores', 'strikethrough', 'tables', 'tablesHeaderId', 'ghCodeBlocks', 'tasklists', 'smoothLivePreview', 'trimEachLine'
+    'disableForced4SpacesIndentedSublists', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordUnderscores', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'parseImgDimensions', 'prefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'trimEachLine'
 ];
 var MD_COMPONENT_TYPES;
 (function (MD_COMPONENT_TYPES) {
@@ -78,7 +78,7 @@ var MD_COMPONENT_STATUSES;
  * <md [value]="text" [options]="options"><md/>
  * ```
  * ```html
- * <md [value]="text" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks" [noHeaderId]="options.noHeaderId" [prefixHeaderId]="options.prefixHeaderId" [parseImgDimensions]="options.parseImgDimensions" [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores" [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId" [ghCodeBlocks]="options.ghCodeBlocks" [tasklists]="options.tasklists" [smoothLivePreview]="options.smoothLivePreview"></md>
+ * <md [value]="text" [disableForced4SpacesIndentedSublists]="options.disableForced4SpacesIndentedSublists" [encodeEmails]="options.encodeEmails" [excludeTrailingPunctuationFromURLs]="options.excludeTrailingPunctuationFromURLs" [ghCodeBlocks]="options.ghCodeBlocks" [ghCompatibleHeaderId]="options.ghCompatibleHeaderId" [ghMentions]="options.ghMentions" [ghMentionsLink]="options.ghMentionsLink" [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores" [noHeaderId]="options.noHeaderId" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks" [parseImgDimensions]="options.parseImgDimensions" [prefixHeaderId]="options.prefixHeaderId" [requireSpaceBeforeHeadingText]="options.requireSpaceBeforeHeadingText" [simpleLineBreaks]="options.simpleLineBreaks" [simplifiedAutoLink]="options.simplifiedAutoLink" [smartIndentationFix]="options.smartIndentationFix" [smoothLivePreview]="options.smoothLivePreview" [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId" [tasklists]="options.tasklists" [trimEachLine]="options.trimEachLine"></md>
  * ```
  * ```html
  * <md trimEachLine="space"> # abc </md> // <md><h1>abc</h1></md>
