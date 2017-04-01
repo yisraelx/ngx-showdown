@@ -4,7 +4,7 @@ import { ConverterOptions } from './base-converter-options.provider';
 import { BaseConverter, IConverterOptionsChangeable } from './base-converter.class';
 
 let optionsProperties: string[] = [
-    'omitExtraWLInCodeBlocks', 'noHeaderId', 'prefixHeaderId', 'parseImgDimensions', 'headerLevelStart', 'literalMidWordUnderscores', 'strikethrough', 'tables', 'tablesHeaderId', 'ghCodeBlocks', 'tasklists', 'smoothLivePreview', 'trimEachLine'
+    'disableForced4SpacesIndentedSublists', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordUnderscores', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'parseImgDimensions', 'prefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'trimEachLine'
 ];
 
 export enum MD_COMPONENT_TYPES {
@@ -50,7 +50,7 @@ export enum MD_COMPONENT_STATUSES {
  * <md [value]="text" [options]="options"><md/>
  * ```
  * ```html
- * <md [value]="text" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks" [noHeaderId]="options.noHeaderId" [prefixHeaderId]="options.prefixHeaderId" [parseImgDimensions]="options.parseImgDimensions" [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores" [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId" [ghCodeBlocks]="options.ghCodeBlocks" [tasklists]="options.tasklists" [smoothLivePreview]="options.smoothLivePreview"></md>
+ * <md [value]="text" [disableForced4SpacesIndentedSublists]="options.disableForced4SpacesIndentedSublists" [encodeEmails]="options.encodeEmails" [excludeTrailingPunctuationFromURLs]="options.excludeTrailingPunctuationFromURLs" [ghCodeBlocks]="options.ghCodeBlocks" [ghCompatibleHeaderId]="options.ghCompatibleHeaderId" [ghMentions]="options.ghMentions" [ghMentionsLink]="options.ghMentionsLink" [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores" [noHeaderId]="options.noHeaderId" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks" [parseImgDimensions]="options.parseImgDimensions" [prefixHeaderId]="options.prefixHeaderId" [requireSpaceBeforeHeadingText]="options.requireSpaceBeforeHeadingText" [simpleLineBreaks]="options.simpleLineBreaks" [simplifiedAutoLink]="options.simplifiedAutoLink" [smartIndentationFix]="options.smartIndentationFix" [smoothLivePreview]="options.smoothLivePreview" [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId" [tasklists]="options.tasklists" [trimEachLine]="options.trimEachLine"></md>
  * ```
  * ```html
  * <md trimEachLine="space"> # abc </md> // <md><h1>abc</h1></md>
@@ -73,19 +73,29 @@ export class MdDirective extends BaseConverter implements OnInit {
     public static readonly STATUSES = MD_COMPONENT_STATUSES;
 
     // options getter setter dynamic definition (the code after the class)
-    public omitExtraWLInCodeBlocks: boolean;
-    public noHeaderId: boolean;
-    public prefixHeaderId: string | boolean;
-    public parseImgDimensions: boolean;
-    public headerLevelStart: number;
-    public literalMidWordUnderscores: boolean;
-    public strikethrough: boolean;
-    public tables: boolean;
-    public tablesHeaderId: boolean;
-    public ghCodeBlocks: boolean;
-    public tasklists: boolean;
-    public smoothLivePreview: boolean;
-    public trimEachLine: boolean | 'tab' | 'space';
+    public disableForced4SpacesIndentedSublists?: boolean;
+    public encodeEmails?: boolean;
+    public excludeTrailingPunctuationFromURLs?: boolean;
+    public ghCodeBlocks?: boolean;
+    public ghCompatibleHeaderId?: boolean;
+    public ghMentions?: boolean;
+    public ghMentionsLink?: string;
+    public headerLevelStart?: number;
+    public literalMidWordUnderscores?: boolean;
+    public noHeaderId?: boolean;
+    public omitExtraWLInCodeBlocks?: boolean;
+    public parseImgDimensions?: boolean;
+    public prefixHeaderId?: string | boolean;
+    public requireSpaceBeforeHeadingText?: boolean;
+    public simpleLineBreaks?: boolean;
+    public simplifiedAutoLink?: boolean;
+    public smartIndentationFix?: boolean;
+    public smoothLivePreview?: boolean;
+    public strikethrough?: boolean;
+    public tables?: boolean;
+    public tablesHeaderId?: boolean;
+    public tasklists?: boolean;
+    public trimEachLine?: boolean | 'tab' | 'space';
 
     private _value: string;
     private _type: number = MdDirective.TYPES.NONE;
