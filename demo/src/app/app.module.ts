@@ -1,7 +1,16 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule }  from '@angular/platform-browser';
-import { MaterialModule } from '@angular/material';
+import {
+    MdInputModule,
+    MdSlideToggleModule,
+    MdSliderModule,
+    MdToolbarModule,
+    MdButtonModule,
+    MdListModule,
+    MdSidenavModule,
+    MdIconModule
+} from '@angular/material';
 import { AppComponent } from './app.component';
 import { MdModule } from '../../../src';
 
@@ -9,8 +18,16 @@ import { MdModule } from '../../../src';
     imports: [
         BrowserModule,
         FormsModule,
-        MaterialModule.forRoot(),
-        MdModule
+        MdModule,
+        // material
+        MdInputModule,
+        MdSlideToggleModule,
+        MdSliderModule,
+        MdToolbarModule,
+        MdButtonModule,
+        MdListModule,
+        MdSidenavModule,
+        MdIconModule
     ],
     declarations: [
         AppComponent
