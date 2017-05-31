@@ -70,6 +70,9 @@
       "path": "cz-conventional-changelog"
     }
   },
+  "dependencies": {
+    "@types/showdown": "^1.4.32"
+  },
   "peerDependencies": {
     "@angular/core": "^4.0.1",
     "@angular/http": "^4.0.1",
@@ -90,7 +93,6 @@
     "@types/core-js": "^0.9.40",
     "@types/jasmine": "^2.5.47",
     "@types/node": "^7.0.12",
-    "@types/showdown": "^1.4.32",
     "@types/webpack": "^2.2.13",
     "angular2-template-loader": "^0.6.2",
     "clean-webpack-plugin": "^0.1.16",
