@@ -286,7 +286,7 @@ exports.default = Utils;
 
 /***/ }),
 
-/***/ 213:
+/***/ 215:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -345,7 +345,7 @@ exports.MdConverter = MdConverter;
 
 /***/ }),
 
-/***/ 214:
+/***/ 216:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -425,7 +425,7 @@ exports.MdPipe = MdPipe;
 
 /***/ }),
 
-/***/ 215:
+/***/ 217:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -441,7 +441,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(11);
-var http_1 = __webpack_require__(92);
+var http_1 = __webpack_require__(93);
 var md_directive_1 = __webpack_require__(125);
 /**
  * @example
@@ -506,14 +506,14 @@ exports.SrcDirective = SrcDirective;
 
 /***/ }),
 
-/***/ 219:
+/***/ 221:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ 223:
+/***/ 225:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -541,8 +541,16 @@ AppModule = __decorate([
         imports: [
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
-            material_1.MaterialModule.forRoot(),
-            src_1.MdModule
+            src_1.MdModule,
+            // material
+            material_1.MdInputModule,
+            material_1.MdSlideToggleModule,
+            material_1.MdSliderModule,
+            material_1.MdToolbarModule,
+            material_1.MdButtonModule,
+            material_1.MdListModule,
+            material_1.MdSidenavModule,
+            material_1.MdIconModule
         ],
         declarations: [
             app_component_1.AppComponent
@@ -558,14 +566,14 @@ exports.AppModule = AppModule;
 /***/ 380:
 /***/ (function(module, exports) {
 
-module.exports = "<md-sidenav-container fullscreen>\n    <md-sidenav #start>\n        <md-nav-list>\n            <div *ngFor=\"let key of keys(options)\">\n                <md-slide-toggle *ngIf=\"isType(options[key],'boolean')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\">{{key}}\n                </md-slide-toggle>\n                <input mdInput  type=\"number\" *ngIf=\"isType(options[key],'number')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\n                       placeholder=\"{{key}}\" />\n                <input mdInput type=\"text\" *ngIf=\"isType(options[key],'string')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\n                       placeholder=\"{{key}}\" />\n            </div>\n            <hr/>\n        </md-nav-list>\n        <hr/>\n        <button md-button (click)=\"start.close()\">CLOSE</button>\n    </md-sidenav>\n    <div class=\"page\">\n        <md-toolbar color=\"primary\">\n            <button md-icon-button (click)=\"start.open()\">\n                <md-icon class=\"md-24\">menu</md-icon>\n            </button>\n            <h1 class=\"app-title\">{{title}}</h1>\n        </md-toolbar>\n        <div class=\"content\">\n            <div class=\"left\">\n                <textarea [(ngModel)]=\"md\"></textarea>\n            </div>\n            <div class=\"right\">\n                <md [value]=\"md\" [trimEachLine]=\"options.trimEachLine\" [omitExtraWLInCodeBlocks]=\"options.omitExtraWLInCodeBlocks\"\n                    [noHeaderId]=\"options.noHeaderId\" [prefixHeaderId]=\"options.prefixHeaderId\" [parseImgDimensions]=\"options.parseImgDimensions\"\n                    [headerLevelStart]=\"options.headerLevelStart\" [literalMidWordUnderscores]=\"options.literalMidWordUnderscores\"\n                    [strikethrough]=\"options.strikethrough\" [tables]=\"options.tables\" [tablesHeaderId]=\"options.tablesHeaderId\"\n                    [ghCodeBlocks]=\"options.ghCodeBlocks\" [tasklists]=\"options.tasklists\" [smoothLivePreview]=\"options.smoothLivePreview\"></md>\n            </div>\n        </div>\n    </div>\n</md-sidenav-container>\n<a href=\"https://github.com/yisraelx/ng2-md\"><img style=\"position: absolute; top: 0; right: 0; border: 0;\" src=\"https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67\"\n                                                  alt=\"Fork me on GitHub\" data-canonical-src=\"https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png\">\n</a>";
+module.exports = "<md-sidenav-container fullscreen>\r\n    <md-sidenav #start>\r\n        <md-nav-list>\r\n            <div *ngFor=\"let key of keys(options)\">\r\n                <md-slide-toggle *ngIf=\"isType(options[key],'boolean')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\">{{key}}\r\n                </md-slide-toggle>\r\n                <input mdInput  type=\"number\" *ngIf=\"isType(options[key],'number')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\r\n                       placeholder=\"{{key}}\" />\r\n                <input mdInput type=\"text\" *ngIf=\"isType(options[key],'string')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\r\n                       placeholder=\"{{key}}\" />\r\n            </div>\r\n            <hr/>\r\n        </md-nav-list>\r\n        <hr/>\r\n        <button md-button (click)=\"start.close()\">CLOSE</button>\r\n    </md-sidenav>\r\n    <div class=\"page\">\r\n        <md-toolbar color=\"primary\">\r\n            <button md-icon-button (click)=\"start.open()\">\r\n                <md-icon class=\"md-24\">menu</md-icon>\r\n            </button>\r\n            <h1 class=\"app-title\">{{title}}</h1>\r\n        </md-toolbar>\r\n        <div class=\"content\">\r\n            <div class=\"left\">\r\n                <textarea [(ngModel)]=\"md\"></textarea>\r\n            </div>\r\n            <div class=\"right\">\r\n                <md [value]=\"md\" [trimEachLine]=\"options.trimEachLine\" [omitExtraWLInCodeBlocks]=\"options.omitExtraWLInCodeBlocks\"\r\n                    [noHeaderId]=\"options.noHeaderId\" [prefixHeaderId]=\"options.prefixHeaderId\" [parseImgDimensions]=\"options.parseImgDimensions\"\r\n                    [headerLevelStart]=\"options.headerLevelStart\" [literalMidWordUnderscores]=\"options.literalMidWordUnderscores\"\r\n                    [strikethrough]=\"options.strikethrough\" [tables]=\"options.tables\" [tablesHeaderId]=\"options.tablesHeaderId\"\r\n                    [ghCodeBlocks]=\"options.ghCodeBlocks\" [tasklists]=\"options.tasklists\" [smoothLivePreview]=\"options.smoothLivePreview\"></md>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</md-sidenav-container>\r\n<a href=\"https://github.com/yisraelx/ng2-md\"><img style=\"position: absolute; top: 0; right: 0; border: 0;\" src=\"https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67\"\r\n                                                  alt=\"Fork me on GitHub\" data-canonical-src=\"https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png\">\r\n</a>";
 
 /***/ }),
 
-/***/ 383:
+/***/ 381:
 /***/ (function(module, exports) {
 
-module.exports = ".app-title {\n    width: 100%;\n    text-align: center;\n}\n\nmd-sidenav {\n    width: 30%;\n    text-align: center;\n}\n\n.page {\n    height: calc(90%);\n}\n\n.content {\n    display: flex;\n    height: 100%;\n}\n\nmd, textarea {\n    height: 100%;\n    overflow-y: scroll;\n    border: none;\n    padding: 10px;\n}\n\n.left, .right {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    flex: 1;\n    padding: 1rem;\n}"
+module.exports = ".app-title {\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n\r\nmd-sidenav {\r\n    width: 30%;\r\n    text-align: center;\r\n}\r\n\r\n.page {\r\n    height: calc(90%);\r\n}\r\n\r\n.content {\r\n    display: flex;\r\n    height: 100%;\r\n}\r\n\r\nmd, textarea {\r\n    height: 100%;\r\n    overflow-y: scroll;\r\n    border: none;\r\n    padding: 10px;\r\n}\r\n\r\n.left, .right {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    flex: 1;\r\n    padding: 1rem;\r\n}"
 
 /***/ }),
 
@@ -3404,7 +3412,7 @@ AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
         template: __webpack_require__(380),
-        styles: [__webpack_require__(383)]
+        styles: [__webpack_require__(381)]
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;
@@ -3418,16 +3426,16 @@ exports.AppComponent = AppComponent;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 Object.defineProperty(exports, "__esModule", { value: true });
-var platform_browser_dynamic_1 = __webpack_require__(93);
+var platform_browser_dynamic_1 = __webpack_require__(94);
 var core_1 = __webpack_require__(11);
-var app_module_1 = __webpack_require__(223);
-__webpack_require__(219);
+var app_module_1 = __webpack_require__(225);
+__webpack_require__(221);
 if (process.env.ENV === 'production') {
     core_1.enableProdMode();
 }
 platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(58)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(71)))
 
 /***/ }),
 
@@ -3442,13 +3450,13 @@ exports.BaseConverter = base_converter_class_1.BaseConverter;
 var base_converter_options_provider_1 = __webpack_require__(70);
 exports.ConverterOptions = base_converter_options_provider_1.ConverterOptions;
 exports.BaseConverterOptions = base_converter_options_provider_1.BaseConverterOptions;
-var md_converter_provider_1 = __webpack_require__(213);
+var md_converter_provider_1 = __webpack_require__(215);
 exports.MdConverter = md_converter_provider_1.MdConverter;
 var md_directive_1 = __webpack_require__(125);
 exports.MdDirective = md_directive_1.MdDirective;
-var src_directive_1 = __webpack_require__(215);
+var src_directive_1 = __webpack_require__(217);
 exports.SrcDirective = src_directive_1.SrcDirective;
-var md_pipe_1 = __webpack_require__(214);
+var md_pipe_1 = __webpack_require__(216);
 exports.MdPipe = md_pipe_1.MdPipe;
 var md_module_1 = __webpack_require__(638);
 exports.MdModule = md_module_1.MdModule;
@@ -3470,9 +3478,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(11);
 var md_directive_1 = __webpack_require__(125);
-var src_directive_1 = __webpack_require__(215);
-var md_pipe_1 = __webpack_require__(214);
-var md_converter_provider_1 = __webpack_require__(213);
+var src_directive_1 = __webpack_require__(217);
+var md_pipe_1 = __webpack_require__(216);
+var md_converter_provider_1 = __webpack_require__(215);
 var base_converter_options_provider_1 = __webpack_require__(70);
 var declarations = [
     md_directive_1.MdDirective,
