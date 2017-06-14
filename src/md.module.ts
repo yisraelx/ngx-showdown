@@ -33,7 +33,7 @@ let declarations = [
  * ```
  */
 @NgModule({
-    declarations,
+    declarations: declarations,
     providers: [
         MdConverter,
         {provide: ConverterOptions, useClass: BaseConverterOptions}
