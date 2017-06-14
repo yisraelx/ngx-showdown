@@ -1,6 +1,6 @@
 webpackJsonp([1],{
 
-/***/ 125:
+/***/ 126:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29,11 +29,11 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(11);
-var utils_1 = __webpack_require__(126);
-var base_converter_options_provider_1 = __webpack_require__(70);
-var base_converter_class_1 = __webpack_require__(91);
+var utils_1 = __webpack_require__(127);
+var base_converter_options_provider_1 = __webpack_require__(71);
+var base_converter_class_1 = __webpack_require__(92);
 var optionsProperties = [
-    'disableForced4SpacesIndentedSublists', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordUnderscores', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'parseImgDimensions', 'prefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'trimEachLine'
+    'customizedHeaderId', 'disableForced4SpacesIndentedSublists', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordAsterisks', 'literalMidWordUnderscores', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'openLinksInNewWindow', 'parseImgDimensions', 'prefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'trimEachLine'
 ];
 var MD_COMPONENT_TYPES;
 (function (MD_COMPONENT_TYPES) {
@@ -239,7 +239,7 @@ var MdDirective_1;
 
 /***/ }),
 
-/***/ 126:
+/***/ 127:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -286,65 +286,6 @@ exports.default = Utils;
 
 /***/ }),
 
-/***/ 215:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(11);
-var base_converter_options_provider_1 = __webpack_require__(70);
-var base_converter_class_1 = __webpack_require__(91);
-/**
- * @example
- * ```javascript
- * import { MdConverter } from 'ng2-md';
- * class Some{
- *  constructor(mdConverter: MdConverter){
- *      console.log(mdConverter.makeHtml("..."));
- *  }
- * }
- * ```
- */
-var MdConverter = (function (_super) {
-    __extends(MdConverter, _super);
-    function MdConverter(options) {
-        return _super.call(this, options) || this;
-    }
-    return MdConverter;
-}(base_converter_class_1.BaseConverter));
-MdConverter = __decorate([
-    core_1.Injectable(),
-    __param(0, core_1.Optional()),
-    __metadata("design:paramtypes", [base_converter_options_provider_1.ConverterOptions])
-], MdConverter);
-exports.MdConverter = MdConverter;
-
-
-/***/ }),
-
 /***/ 216:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -374,8 +315,67 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(11);
-var base_converter_options_provider_1 = __webpack_require__(70);
-var base_converter_class_1 = __webpack_require__(91);
+var base_converter_options_provider_1 = __webpack_require__(71);
+var base_converter_class_1 = __webpack_require__(92);
+/**
+ * @example
+ * ```javascript
+ * import { MdConverter } from 'ng2-md';
+ * class Some{
+ *  constructor(mdConverter: MdConverter){
+ *      console.log(mdConverter.makeHtml("..."));
+ *  }
+ * }
+ * ```
+ */
+var MdConverter = (function (_super) {
+    __extends(MdConverter, _super);
+    function MdConverter(options) {
+        return _super.call(this, options) || this;
+    }
+    return MdConverter;
+}(base_converter_class_1.BaseConverter));
+MdConverter = __decorate([
+    core_1.Injectable(),
+    __param(0, core_1.Optional()),
+    __metadata("design:paramtypes", [base_converter_options_provider_1.ConverterOptions])
+], MdConverter);
+exports.MdConverter = MdConverter;
+
+
+/***/ }),
+
+/***/ 217:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(11);
+var base_converter_options_provider_1 = __webpack_require__(71);
+var base_converter_class_1 = __webpack_require__(92);
 /**
  * @example
  * ```javascript
@@ -425,7 +425,7 @@ exports.MdPipe = MdPipe;
 
 /***/ }),
 
-/***/ 217:
+/***/ 218:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -441,8 +441,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(11);
-var http_1 = __webpack_require__(93);
-var md_directive_1 = __webpack_require__(125);
+var http_1 = __webpack_require__(94);
+var md_directive_1 = __webpack_require__(126);
 /**
  * @example
  * ```javascript
@@ -506,14 +506,14 @@ exports.SrcDirective = SrcDirective;
 
 /***/ }),
 
-/***/ 221:
+/***/ 222:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ 225:
+/***/ 226:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -526,11 +526,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(11);
-var forms_1 = __webpack_require__(129);
-var platform_browser_1 = __webpack_require__(46);
-var material_1 = __webpack_require__(127);
-var app_component_1 = __webpack_require__(633);
-var src_1 = __webpack_require__(637);
+var forms_1 = __webpack_require__(130);
+var platform_browser_1 = __webpack_require__(47);
+var material_1 = __webpack_require__(128);
+var app_component_1 = __webpack_require__(634);
+var src_1 = __webpack_require__(638);
 var AppModule = (function () {
     function AppModule() {
     }
@@ -563,24 +563,24 @@ exports.AppModule = AppModule;
 
 /***/ }),
 
-/***/ 380:
+/***/ 381:
 /***/ (function(module, exports) {
 
 module.exports = "<md-sidenav-container fullscreen>\r\n    <md-sidenav #start>\r\n        <md-nav-list>\r\n            <div *ngFor=\"let key of keys(options)\">\r\n                <md-slide-toggle *ngIf=\"isType(options[key],'boolean')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\">{{key}}\r\n                </md-slide-toggle>\r\n                <input mdInput  type=\"number\" *ngIf=\"isType(options[key],'number')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\r\n                       placeholder=\"{{key}}\" />\r\n                <input mdInput type=\"text\" *ngIf=\"isType(options[key],'string')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\r\n                       placeholder=\"{{key}}\" />\r\n            </div>\r\n            <hr/>\r\n        </md-nav-list>\r\n        <hr/>\r\n        <button md-button (click)=\"start.close()\">CLOSE</button>\r\n    </md-sidenav>\r\n    <div class=\"page\">\r\n        <md-toolbar color=\"primary\">\r\n            <button md-icon-button (click)=\"start.open()\">\r\n                <md-icon class=\"md-24\">menu</md-icon>\r\n            </button>\r\n            <h1 class=\"app-title\">{{title}}</h1>\r\n        </md-toolbar>\r\n        <div class=\"content\">\r\n            <div class=\"left\">\r\n                <textarea [(ngModel)]=\"md\"></textarea>\r\n            </div>\r\n            <div class=\"right\">\r\n                <md [value]=\"md\" [trimEachLine]=\"options.trimEachLine\" [omitExtraWLInCodeBlocks]=\"options.omitExtraWLInCodeBlocks\"\r\n                    [noHeaderId]=\"options.noHeaderId\" [prefixHeaderId]=\"options.prefixHeaderId\" [parseImgDimensions]=\"options.parseImgDimensions\"\r\n                    [headerLevelStart]=\"options.headerLevelStart\" [literalMidWordUnderscores]=\"options.literalMidWordUnderscores\"\r\n                    [strikethrough]=\"options.strikethrough\" [tables]=\"options.tables\" [tablesHeaderId]=\"options.tablesHeaderId\"\r\n                    [ghCodeBlocks]=\"options.ghCodeBlocks\" [tasklists]=\"options.tasklists\" [smoothLivePreview]=\"options.smoothLivePreview\"></md>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</md-sidenav-container>\r\n<a href=\"https://github.com/yisraelx/ng2-md\"><img style=\"position: absolute; top: 0; right: 0; border: 0;\" src=\"https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67\"\r\n                                                  alt=\"Fork me on GitHub\" data-canonical-src=\"https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png\">\r\n</a>";
 
 /***/ }),
 
-/***/ 381:
+/***/ 382:
 /***/ (function(module, exports) {
 
 module.exports = ".app-title {\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n\r\nmd-sidenav {\r\n    width: 30%;\r\n    text-align: center;\r\n}\r\n\r\n.page {\r\n    height: calc(90%);\r\n}\r\n\r\n.content {\r\n    display: flex;\r\n    height: 100%;\r\n}\r\n\r\nmd, textarea {\r\n    height: 100%;\r\n    overflow-y: scroll;\r\n    border: none;\r\n    padding: 10px;\r\n}\r\n\r\n.left, .right {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    flex: 1;\r\n    padding: 1rem;\r\n}"
 
 /***/ }),
 
-/***/ 632:
+/***/ 633:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_RESULT__;;/*! showdown 06-02-2017 */
+var __WEBPACK_AMD_DEFINE_RESULT__;;/*! showdown 02-06-2017 */
 (function(){
 /**
  * Created by Tivie on 13-07-2015.
@@ -633,6 +633,11 @@ function getDefaultOpts (simple) {
     literalMidWordUnderscores: {
       defaultValue: false,
       describe: 'Parse midword underscores as literal underscores',
+      type: 'boolean'
+    },
+    literalMidWordAsterisks: {
+      defaultValue: false,
+      describe: 'Parse midword asterisks as literal asterisks',
       type: 'boolean'
     },
     strikethrough: {
@@ -698,6 +703,11 @@ function getDefaultOpts (simple) {
     encodeEmails: {
       defaultValue: true,
       description: 'Encode e-mail addresses through the use of Character Entities, transforming ASCII e-mail addresses into its equivalent decimal entities',
+      type: 'boolean'
+    },
+    openLinksInNewWindow: {
+      defaultValue: false,
+      description: 'Open all links in new windows',
       type: 'boolean'
     }
   };
@@ -841,6 +851,7 @@ showdown.setFlavor = function (name) {
   if (!flavor.hasOwnProperty(name)) {
     throw Error(name + ' flavor was not found');
   }
+  showdown.resetOptions();
   var preset = flavor[name];
   setFlavor = name;
   for (var option in preset) {
@@ -1378,6 +1389,43 @@ showdown.helper.replaceRecursiveRegExp = function (str, replacement, left, right
 };
 
 /**
+ * Returns the index within the passed String object of the first occurrence of the specified regex,
+ * starting the search at fromIndex. Returns -1 if the value is not found.
+ *
+ * @param {string} str string to search
+ * @param {RegExp} regex Regular expression to search
+ * @param {int} [fromIndex = 0] Index to start the search
+ * @returns {Number}
+ * @throws InvalidArgumentError
+ */
+showdown.helper.regexIndexOf = function (str, regex, fromIndex) {
+  'use strict';
+  if (!showdown.helper.isString(str)) {
+    throw 'InvalidArgumentError: first parameter of showdown.helper.regexIndexOf function must be a string';
+  }
+  if (regex instanceof RegExp === false) {
+    throw 'InvalidArgumentError: second parameter of showdown.helper.regexIndexOf function must be an instance of RegExp';
+  }
+  var indexOf = str.substring(fromIndex || 0).search(regex);
+  return (indexOf >= 0) ? (indexOf + (fromIndex || 0)) : indexOf;
+};
+
+/**
+ * Splits the passed string object at the defined index, and returns an array composed of the two substrings
+ * @param {string} str string to split
+ * @param {int} index index to split string at
+ * @returns {[string,string]}
+ * @throws InvalidArgumentError
+ */
+showdown.helper.splitAtIndex = function (str, index) {
+  'use strict';
+  if (!showdown.helper.isString(str)) {
+    throw 'InvalidArgumentError: first parameter of showdown.helper.regexIndexOf function must be a string';
+  }
+  return [str.substring(0, index), str.substring(index)];
+};
+
+/**
  * Obfuscate an e-mail address through the use of Character Entities,
  * transforming ASCII characters into their equivalent decimal or hex entities.
  *
@@ -1884,17 +1932,16 @@ showdown.subParser('anchors', function (text, options, globals) {
 
   text = globals.converter._dispatch('anchors.before', text, options, globals);
 
-  var writeAnchorTag = function (wholeMatch, m1, m2, m3, m4, m5, m6, m7) {
-    if (showdown.helper.isUndefined(m7)) {
-      m7 = '';
+  var writeAnchorTag = function (wholeMatch, linkText, linkId, url, m5, m6, title) {
+    if (showdown.helper.isUndefined(title)) {
+      title = '';
     }
-    wholeMatch = m1;
-    var linkText = m2,
-        linkId = m3.toLowerCase(),
-        url = m4,
-        title = m7;
+    linkId = linkId.toLowerCase();
 
-    if (!url) {
+    // Special case for explicit empty url
+    if (wholeMatch.search(/\(<?\s*>? ?(['"].*['"])?\)$/m) > -1) {
+      url = '';
+    } else if (!url) {
       if (!linkId) {
         // lower-case and turn embedded newlines into spaces
         linkId = linkText.toLowerCase().replace(/ ?\n/g, ' ');
@@ -1907,12 +1954,7 @@ showdown.subParser('anchors', function (text, options, globals) {
           title = globals.gTitles[linkId];
         }
       } else {
-        if (wholeMatch.search(/\(\s*\)$/m) > -1) {
-          // Special case for explicit empty url
-          url = '';
-        } else {
-          return wholeMatch;
-        }
+        return wholeMatch;
       }
     }
 
@@ -1928,22 +1970,32 @@ showdown.subParser('anchors', function (text, options, globals) {
       result += ' title="' + title + '"';
     }
 
+    if (options.openLinksInNewWindow) {
+      // escaped _
+      result += ' target="¨E95Eblank"';
+    }
+
     result += '>' + linkText + '</a>';
 
     return result;
   };
 
   // First, handle reference-style links: [link text] [id]
-  text = text.replace(/(\[((?:\[[^\]]*]|[^\[\]])*)][ ]?(?:\n[ ]*)?\[(.*?)])()()()()/g, writeAnchorTag);
+  text = text.replace(/\[((?:\[[^\]]*]|[^\[\]])*)] ?(?:\n *)?\[(.*?)]()()()()/g, writeAnchorTag);
 
   // Next, inline-style links: [link text](url "optional title")
-  text = text.replace(/(\[((?:\[[^\]]*]|[^\[\]])*)]\([ \t]*()<?(.*?(?:\(.*?\).*?)?)>?[ \t]*((['"])(.*?)\6[ \t]*)?\))/g,
+  // cases with crazy urls like ./image/cat1).png
+  text = text.replace(/\[((?:\[[^\]]*]|[^\[\]])*)]()[ \t]*\([ \t]?<([^>]*)>(?:[ \t]*((["'])([^"]*?)\5))?[ \t]?\)/g,
+    writeAnchorTag);
+
+  // normal cases
+  text = text.replace(/\[((?:\[[^\]]*]|[^\[\]])*)]()[ \t]*\([ \t]?<?([\S]+?(?:\([\S]*?\)[\S]*?)?)>?(?:[ \t]*((["'])([^"]*?)\5))?[ \t]?\)/g,
                       writeAnchorTag);
 
   // handle reference-style shortcuts: [link text]
   // These must come last in case you've also got [link test][1]
   // or [link test](/foo)
-  text = text.replace(/(\[([^\[\]]+)])()()()()()/g, writeAnchorTag);
+  text = text.replace(/\[([^\[\]]+)]()()()()()/g, writeAnchorTag);
 
   // Lastly handle GithubMentions if option is enabled
   if (options.ghMentions) {
@@ -1965,57 +2017,81 @@ showdown.subParser('anchors', function (text, options, globals) {
   return text;
 });
 
+// url allowed chars [a-z\d_.~:/?#[]@!$&'()*+,;=-]
+
+var simpleURLRegex  = /\b(((https?|ftp|dict):\/\/|www\.)[^'">\s]+\.[^'">\s]+)()(?=\s|$)(?!["<>])/gi,
+    simpleURLRegex2 = /\b(((https?|ftp|dict):\/\/|www\.)[^'">\s]+\.[^'">\s]+?)([.!?,()\[\]]?)(?=\s|$)(?!["<>])/gi,
+    //simpleURLRegex3 = /\b(((https?|ftp):\/\/|www\.)[a-z\d.-]+\.[a-z\d_.~:/?#\[\]@!$&'()*+,;=-]+?)([.!?()]?)(?=\s|$)(?!["<>])/gi,
+    delimUrlRegex   = /<(((https?|ftp|dict):\/\/|www\.)[^'">\s]+)()>/gi,
+    simpleMailRegex = /(^|\s)(?:mailto:)?([A-Za-z0-9!#$%&'*+-/=?^_`{|}~.]+@[-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+)(?=$|\s)/gmi,
+    delimMailRegex  = /<()(?:mailto:)?([-.\w]+@[-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+)>/gi,
+
+    replaceLink = function (options) {
+      'use strict';
+
+      return function (wm, link, m2, m3, trailingPunctuation) {
+        var lnkTxt = link,
+            append = '',
+            target = '';
+        if (/^www\./i.test(link)) {
+          link = link.replace(/^www\./i, 'http://www.');
+        }
+        if (options.excludeTrailingPunctuationFromURLs && trailingPunctuation) {
+          append = trailingPunctuation;
+        }
+        if (options.openLinksInNewWindow) {
+          target = ' target="¨E95Eblank"';
+        }
+        return '<a href="' + link + '"' + target + '>' + lnkTxt + '</a>' + append;
+      };
+    },
+
+    replaceMail = function (options, globals) {
+      'use strict';
+      return function (wholeMatch, b, mail) {
+        var href = 'mailto:';
+        b = b || '';
+        mail = showdown.subParser('unescapeSpecialChars')(mail, options, globals);
+        if (options.encodeEmails) {
+          href = showdown.helper.encodeEmailAddress(href + mail);
+          mail = showdown.helper.encodeEmailAddress(mail);
+        } else {
+          href = href + mail;
+        }
+        return b + '<a href="' + href + '">' + mail + '</a>';
+      };
+    };
+
 showdown.subParser('autoLinks', function (text, options, globals) {
   'use strict';
 
   text = globals.converter._dispatch('autoLinks.before', text, options, globals);
 
-  var simpleURLRegex  = /\b(((https?|ftp|dict):\/\/|www\.)[^'">\s]+\.[^'">\s]+)()(?=\s|$)(?!["<>])/gi,
-      simpleURLRegex2 = /\b(((https?|ftp|dict):\/\/|www\.)[^'">\s]+\.[^'">\s]+?)([.!?()]?)(?=\s|$)(?!["<>])/gi,
-      delimUrlRegex   = /<(((https?|ftp|dict):\/\/|www\.)[^'">\s]+)>/gi,
-      simpleMailRegex = /(^|\s)(?:mailto:)?([A-Za-z0-9!#$%&'*+-/=?^_`{|}~.]+@[-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+)(?=$|\s)/gmi,
-      delimMailRegex  = /<()(?:mailto:)?([-.\w]+@[-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+)>/gi;
-
-  text = text.replace(delimUrlRegex, replaceLink);
-  text = text.replace(delimMailRegex, replaceMail);
-  // simpleURLRegex  = /\b(((https?|ftp|dict):\/\/|www\.)[-.+~:?#@!$&'()*,;=[\]\w]+)\b/gi,
-  // Email addresses: <address@domain.foo>
-
-  if (options.simplifiedAutoLink) {
-    if (options.excludeTrailingPunctuationFromURLs) {
-      text = text.replace(simpleURLRegex2, replaceLink);
-    } else {
-      text = text.replace(simpleURLRegex, replaceLink);
-    }
-    text = text.replace(simpleMailRegex, replaceMail);
-  }
-
-  function replaceLink (wm, link, m2, m3, trailingPunctuation) {
-    var lnkTxt = link,
-        append = '';
-    if (/^www\./i.test(link)) {
-      link = link.replace(/^www\./i, 'http://www.');
-    }
-    if (options.excludeTrailingPunctuationFromURLs && trailingPunctuation) {
-      append = trailingPunctuation;
-    }
-    return '<a href="' + link + '">' + lnkTxt + '</a>' + append;
-  }
-
-  function replaceMail (wholeMatch, b, mail) {
-    var href = 'mailto:';
-    b = b || '';
-    mail = showdown.subParser('unescapeSpecialChars')(mail, options, globals);
-    if (options.encodeEmails) {
-      href = showdown.helper.encodeEmailAddress(href + mail);
-      mail = showdown.helper.encodeEmailAddress(mail);
-    } else {
-      href = href + mail;
-    }
-    return b + '<a href="' + href + '">' + mail + '</a>';
-  }
+  text = text.replace(delimUrlRegex, replaceLink(options));
+  text = text.replace(delimMailRegex, replaceMail(options, globals));
 
   text = globals.converter._dispatch('autoLinks.after', text, options, globals);
+
+  return text;
+});
+
+showdown.subParser('simplifiedAutoLinks', function (text, options, globals) {
+  'use strict';
+
+  if (!options.simplifiedAutoLink) {
+    return text;
+  }
+
+  text = globals.converter._dispatch('simplifiedAutoLinks.before', text, options, globals);
+
+  if (options.excludeTrailingPunctuationFromURLs) {
+    text = text.replace(simpleURLRegex2, replaceLink(options));
+  } else {
+    text = text.replace(simpleURLRegex, replaceLink(options));
+  }
+  text = text.replace(simpleMailRegex, replaceMail(options, globals));
+
+  text = globals.converter._dispatch('simplifiedAutoLinks.after', text, options, globals);
 
   return text;
 });
@@ -2249,7 +2325,7 @@ showdown.subParser('encodeBackslashEscapes', function (text, options, globals) {
   text = globals.converter._dispatch('encodeBackslashEscapes.before', text, options, globals);
 
   text = text.replace(/\\(\\)/g, showdown.helper.escapeCharactersCallback);
-  text = text.replace(/\\([`*_{}\[\]()>#+.!~=-])/g, showdown.helper.escapeCharactersCallback);
+  text = text.replace(/\\([`*_{}\[\]()>#+.!~=|-])/g, showdown.helper.escapeCharactersCallback);
 
   text = globals.converter._dispatch('encodeBackslashEscapes.after', text, options, globals);
   return text;
@@ -2294,7 +2370,7 @@ showdown.subParser('escapeSpecialCharsWithinTagAttributes', function (text, opti
   text = text.replace(regex, function (wholeMatch) {
     return wholeMatch
       .replace(/(.)<\/?code>(?=.)/g, '$1`')
-      .replace(/([\\`*_~=])/g, showdown.helper.escapeCharactersCallback);
+      .replace(/([\\`*_~=|])/g, showdown.helper.escapeCharactersCallback);
   });
 
   text = globals.converter._dispatch('escapeSpecialCharsWithinTagAttributes.after', text, options, globals);
@@ -2447,9 +2523,25 @@ showdown.subParser('hashHTMLBlocks', function (text, options, globals) {
       };
 
   for (var i = 0; i < blockTags.length; ++i) {
-    text = showdown.helper.replaceRecursiveRegExp(text, repFunc, '^ {0,3}<' + blockTags[i] + '\\b[^>]*>', '</' + blockTags[i] + '>', 'gim');
-  }
 
+    var opTagPos,
+        rgx1     = new RegExp('^ {0,3}<' + blockTags[i] + '\\b[^>]*>', 'im'),
+        patLeft  = '<' + blockTags[i] + '\\b[^>]*>',
+        patRight = '</' + blockTags[i] + '>';
+    // 1. Look for the first position of the first opening HTML tag in the text
+    while ((opTagPos = showdown.helper.regexIndexOf(text, rgx1)) !== -1) {
+      //2. Split the text in that position
+      var subTexts = showdown.helper.splitAtIndex(text, opTagPos),
+      //3. Match recursively
+          newSubText1 = showdown.helper.replaceRecursiveRegExp(subTexts[1], repFunc, patLeft, patRight, 'im');
+
+      // prevent an infinite loop
+      if (newSubText1 === subTexts[1]) {
+        break;
+      }
+      text = subTexts[0].concat(newSubText1);
+    }
+  }
   // HR SPECIAL CASE
   text = text.replace(/(\n {0,3}(<(hr)\b([^<>])*?\/?>)[ \t]*(?=\n{2,}))/g,
     showdown.subParser('hashElement')(text, options, globals));
@@ -2596,7 +2688,12 @@ showdown.subParser('headers', function (text, options, globals) {
   var atxStyle = (options.requireSpaceBeforeHeadingText) ? /^(#{1,6})[ \t]+(.+?)[ \t]*#*\n+/gm : /^(#{1,6})[ \t]*(.+?)[ \t]*#*\n+/gm;
 
   text = text.replace(atxStyle, function (wholeMatch, m1, m2) {
-    var span = showdown.subParser('spanGamut')(m2, options, globals),
+    var hText = m2;
+    if (options.customizedHeaderId) {
+      hText = m2.replace(/\s?\{([^{]+?)}\s*$/, '');
+    }
+
+    var span = showdown.subParser('spanGamut')(hText, options, globals),
         hID = (options.noHeaderId) ? '' : ' id="' + headerId(m2) + '"',
         hLevel = headerLevelStart - 1 + m1.length,
         header = '<h' + hLevel + hID + '>' + span + '</h' + hLevel + '>';
@@ -2606,6 +2703,15 @@ showdown.subParser('headers', function (text, options, globals) {
 
   function headerId (m) {
     var title;
+
+    // It is separate from other options to allow combining prefix and customized
+    if (options.customizedHeaderId) {
+      var match = m.match(/\{([^{]+?)}\s*$/);
+      if (match && match[1]) {
+        m = match[1];
+      }
+    }
+
     // Prefix id to prevent causing inadvertent pre-existing style matches.
     if (showdown.helper.isString(options.prefixHeaderId)) {
       title = options.prefixHeaderId + m;
@@ -2668,8 +2774,10 @@ showdown.subParser('images', function (text, options, globals) {
 
   text = globals.converter._dispatch('images.before', text, options, globals);
 
-  var inlineRegExp    = /!\[(.*?)]\s?\([ \t]*()<?(\S+?)>?(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*(?:(['"])(.*?)\6[ \t]*)?\)/g,
-      referenceRegExp = /!\[([^\]]*?)] ?(?:\n *)?\[(.*?)]()()()()()/g;
+  var inlineRegExp      = /!\[([^\]]*?)][ \t]*()\([ \t]?<?([\S]+?(?:\([\S]*?\)[\S]*?)?)>?(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*(?:(["'])([^"]*?)\6)?[ \t]?\)/g,
+      crazyRegExp       = /!\[([^\]]*?)][ \t]*()\([ \t]?<([^>]*)>(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*(?:(?:(["'])([^"]*?)\6))?[ \t]?\)/g,
+      referenceRegExp   = /!\[([^\]]*?)] ?(?:\n *)?\[(.*?)]()()()()()/g,
+      refShortcutRegExp = /!\[([^\[\]]+)]()()()()()/g;
 
   function writeImageTag (wholeMatch, altText, linkId, url, width, height, m5, title) {
 
@@ -2682,8 +2790,11 @@ showdown.subParser('images', function (text, options, globals) {
     if (!title) {
       title = '';
     }
+    // Special case for explicit empty url
+    if (wholeMatch.search(/\(<?\s*>? ?(['"].*['"])?\)$/m) > -1) {
+      url = '';
 
-    if (url === '' || url === null) {
+    } else if (url === '' || url === null) {
       if (linkId === '' || linkId === null) {
         // lower-case and turn embedded newlines into spaces
         linkId = altText.toLowerCase().replace(/ ?\n/g, ' ');
@@ -2737,7 +2848,14 @@ showdown.subParser('images', function (text, options, globals) {
   text = text.replace(referenceRegExp, writeImageTag);
 
   // Next, handle inline images:  ![alt text](url =<width>x<height> "optional title")
+  // cases with crazy urls like ./image/cat1).png
+  text = text.replace(crazyRegExp, writeImageTag);
+
+  // normal cases
   text = text.replace(inlineRegExp, writeImageTag);
+
+  // handle reference-style shortcuts: |[img text]
+  text = text.replace(refShortcutRegExp, writeImageTag);
 
   text = globals.converter._dispatch('images.after', text, options, globals);
   return text;
@@ -2752,35 +2870,61 @@ showdown.subParser('italicsAndBold', function (text, options, globals) {
   // because of backtracing, in some cases, it could lead to an exponential effect
   // called "catastrophic backtrace". Ominous!
 
+  function parseInside (txt, left, right) {
+    if (options.simplifiedAutoLink) {
+      txt = showdown.subParser('simplifiedAutoLinks')(txt, options, globals);
+    }
+    return left + txt + right;
+  }
+
   // Parse underscores
   if (options.literalMidWordUnderscores) {
-    text = text.replace(/\b___(\S[\s\S]*)___\b/g, '<strong><em>$1</em></strong>');
-    text = text.replace(/\b__(\S[\s\S]*)__\b/g, '<strong>$1</strong>');
-    text = text.replace(/\b_(\S[\s\S]*?)_\b/g, '<em>$1</em>');
+    text = text.replace(/\b___(\S[\s\S]*)___\b/g, function (wm, txt) {
+      return parseInside (txt, '<strong><em>', '</em></strong>');
+    });
+    text = text.replace(/\b__(\S[\s\S]*)__\b/g, function (wm, txt) {
+      return parseInside (txt, '<strong>', '</strong>');
+    });
+    text = text.replace(/\b_(\S[\s\S]*?)_\b/g, function (wm, txt) {
+      return parseInside (txt, '<em>', '</em>');
+    });
   } else {
     text = text.replace(/___(\S[\s\S]*?)___/g, function (wm, m) {
-      return (/\S$/.test(m)) ? '<strong><em>' + m + '</em></strong>' : wm;
+      return (/\S$/.test(m)) ? parseInside (m, '<strong><em>', '</em></strong>') : wm;
     });
     text = text.replace(/__(\S[\s\S]*?)__/g, function (wm, m) {
-      return (/\S$/.test(m)) ? '<strong>' + m + '</strong>' : wm;
+      return (/\S$/.test(m)) ? parseInside (m, '<strong>', '</strong>') : wm;
     });
     text = text.replace(/_([^\s_][\s\S]*?)_/g, function (wm, m) {
       // !/^_[^_]/.test(m) - test if it doesn't start with __ (since it seems redundant, we removed it)
-      return (/\S$/.test(m)) ? '<em>' + m + '</em>' : wm;
+      return (/\S$/.test(m)) ? parseInside (m, '<em>', '</em>') : wm;
     });
   }
 
   // Now parse asterisks
-  text = text.replace(/\*\*\*(\S[\s\S]*?)\*\*\*/g, function (wm, m) {
-    return (/\S$/.test(m)) ? '<strong><em>' + m + '</em></strong>' : wm;
-  });
-  text = text.replace(/\*\*(\S[\s\S]*?)\*\*/g, function (wm, m) {
-    return (/\S$/.test(m)) ? '<strong>' + m + '</strong>' : wm;
-  });
-  text = text.replace(/\*([^\s*][\s\S]*?)\*/g, function (wm, m) {
-    // !/^\*[^*]/.test(m) - test if it doesn't start with ** (since it seems redundant, we removed it)
-    return (/\S$/.test(m)) ? '<em>' + m + '</em>' : wm;
-  });
+  if (options.literalMidWordAsterisks) {
+    text = text.trim().replace(/(?:^| +)\*{3}(\S[\s\S]*?)\*{3}(?: +|$)/g, function (wm, txt) {
+      return parseInside (txt, ' <strong><em>', '</em></strong> ');
+    });
+    text = text.trim().replace(/(?:^| +)\*{2}(\S[\s\S]*?)\*{2}(?: +|$)/g, function (wm, txt) {
+      return parseInside (txt, ' <strong>', '</strong> ');
+    });
+    text = text.trim().replace(/(?:^| +)\*{1}(\S[\s\S]*?)\*{1}(?: +|$)/g, function (wm, txt) {
+      return parseInside (txt, ' <em>', '</em>' + (wm.slice(-1) === ' ' ? ' ' : ''));
+    });
+  } else {
+    text = text.replace(/\*\*\*(\S[\s\S]*?)\*\*\*/g, function (wm, m) {
+      return (/\S$/.test(m)) ? parseInside (m, '<strong><em>', '</em></strong>') : wm;
+    });
+    text = text.replace(/\*\*(\S[\s\S]*?)\*\*/g, function (wm, m) {
+      return (/\S$/.test(m)) ? parseInside (m, '<strong>', '</strong>') : wm;
+    });
+    text = text.replace(/\*([^\s*][\s\S]*?)\*/g, function (wm, m) {
+      // !/^\*[^*]/.test(m) - test if it doesn't start with ** (since it seems redundant, we removed it)
+      return (/\S$/.test(m)) ? parseInside (m, '<em>', '</em>') : wm;
+    });
+  }
+
 
   text = globals.converter._dispatch('italicsAndBold.after', text, options, globals);
   return text;
@@ -3106,11 +3250,12 @@ showdown.subParser('spanGamut', function (text, options, globals) {
   text = showdown.subParser('anchors')(text, options, globals);
 
   // Make links out of things like `<http://example.com/>`
-  // Must come after _DoAnchors(), because you can use < and >
+  // Must come after anchors, because you can use < and >
   // delimiters in inline links like [this](<url>).
   text = showdown.subParser('autoLinks')(text, options, globals);
   text = showdown.subParser('italicsAndBold')(text, options, globals);
   text = showdown.subParser('strikethrough')(text, options, globals);
+  text = showdown.subParser('simplifiedAutoLinks')(text, options, globals);
 
   // we need to hash HTML tags inside spans
   text = showdown.subParser('hashHTMLSpans')(text, options, globals);
@@ -3134,9 +3279,16 @@ showdown.subParser('spanGamut', function (text, options, globals) {
 showdown.subParser('strikethrough', function (text, options, globals) {
   'use strict';
 
+  function parseInside (txt) {
+    if (options.simplifiedAutoLink) {
+      txt = showdown.subParser('simplifiedAutoLinks')(txt, options, globals);
+    }
+    return '<del>' + txt + '</del>';
+  }
+
   if (options.strikethrough) {
     text = globals.converter._dispatch('strikethrough.before', text, options, globals);
-    text = text.replace(/(?:~){2}([\s\S]+?)(?:~){2}/g, '<del>$1</del>');
+    text = text.replace(/(?:~){2}([\s\S]+?)(?:~){2}/g, function (wm, txt) { return parseInside(txt); });
     text = globals.converter._dispatch('strikethrough.after', text, options, globals);
   }
 
@@ -3151,7 +3303,7 @@ showdown.subParser('strikethrough', function (text, options, globals) {
 showdown.subParser('stripLinkDefinitions', function (text, options, globals) {
   'use strict';
 
-  var regex = /^ {0,3}\[(.+)]:[ \t]*\n?[ \t]*<?(\S+?)>?(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*\n?[ \t]*(?:(\n*)["|'(](.+?)["|')][ \t]*)?(?:\n+|(?=¨0))/gm;
+  var regex = /^ {0,3}\[(.+)]:[ \t]*\n?[ \t]*<?([^>\s]+)>?(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*\n?[ \t]*(?:(\n*)["|'(](.+?)["|')][ \t]*)?(?:\n+|(?=¨0))/gm;
 
   // attacklab: sentinel workarounds for lack of \A and \Z, safari\khtml bug
   text += '¨0';
@@ -3245,6 +3397,10 @@ showdown.subParser('tables', function (text, options, globals) {
 
   text = globals.converter._dispatch('tables.before', text, options, globals);
 
+  // find escaped pipe characters
+  text = text.replace(/\\(\|)/g, showdown.helper.escapeCharactersCallback);
+
+  // parse tables
   text = text.replace(tableRgx, function (rawTable) {
 
     var i, tableLines = rawTable.split('\n');
@@ -3357,7 +3513,7 @@ if (typeof module !== 'undefined' && module.exports) {
 
 /***/ }),
 
-/***/ 633:
+/***/ 634:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3375,6 +3531,7 @@ var AppComponent = (function () {
         this.title = 'Angular 2 Markdown Demo!';
         this.md = "## hello markdown!\n```js\nlet a = 1;\nlet b = 2;\nlet sum = a+b;\nconsole.log(`sum: ${sum}`);\n```";
         this.options = {
+            customizedHeaderId: false,
             disableForced4SpacesIndentedSublists: false,
             encodeEmails: true,
             excludeTrailingPunctuationFromURLs: false,
@@ -3383,9 +3540,11 @@ var AppComponent = (function () {
             ghMentions: false,
             ghMentionsLink: 'https://github.com/{u}',
             headerLevelStart: 1,
+            literalMidWordAsterisks: false,
             literalMidWordUnderscores: false,
             noHeaderId: false,
             omitExtraWLInCodeBlocks: false,
+            openLinksInNewWindow: false,
             parseImgDimensions: false,
             prefixHeaderId: false,
             requireSpaceBeforeHeadingText: false,
@@ -3411,8 +3570,8 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: __webpack_require__(380),
-        styles: [__webpack_require__(381)]
+        template: __webpack_require__(381),
+        styles: [__webpack_require__(382)]
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;
@@ -3420,51 +3579,51 @@ exports.AppComponent = AppComponent;
 
 /***/ }),
 
-/***/ 634:
+/***/ 635:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 Object.defineProperty(exports, "__esModule", { value: true });
-var platform_browser_dynamic_1 = __webpack_require__(94);
+var platform_browser_dynamic_1 = __webpack_require__(95);
 var core_1 = __webpack_require__(11);
-var app_module_1 = __webpack_require__(225);
-__webpack_require__(221);
+var app_module_1 = __webpack_require__(226);
+__webpack_require__(222);
 if (process.env.ENV === 'production') {
     core_1.enableProdMode();
 }
 platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(71)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(72)))
 
 /***/ }),
 
-/***/ 637:
+/***/ 638:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var base_converter_class_1 = __webpack_require__(91);
+var base_converter_class_1 = __webpack_require__(92);
 exports.BaseConverter = base_converter_class_1.BaseConverter;
-var base_converter_options_provider_1 = __webpack_require__(70);
+var base_converter_options_provider_1 = __webpack_require__(71);
 exports.ConverterOptions = base_converter_options_provider_1.ConverterOptions;
 exports.BaseConverterOptions = base_converter_options_provider_1.BaseConverterOptions;
-var md_converter_provider_1 = __webpack_require__(215);
+var md_converter_provider_1 = __webpack_require__(216);
 exports.MdConverter = md_converter_provider_1.MdConverter;
-var md_directive_1 = __webpack_require__(125);
+var md_directive_1 = __webpack_require__(126);
 exports.MdDirective = md_directive_1.MdDirective;
-var src_directive_1 = __webpack_require__(217);
+var src_directive_1 = __webpack_require__(218);
 exports.SrcDirective = src_directive_1.SrcDirective;
-var md_pipe_1 = __webpack_require__(216);
+var md_pipe_1 = __webpack_require__(217);
 exports.MdPipe = md_pipe_1.MdPipe;
-var md_module_1 = __webpack_require__(638);
+var md_module_1 = __webpack_require__(639);
 exports.MdModule = md_module_1.MdModule;
 
 
 /***/ }),
 
-/***/ 638:
+/***/ 639:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3477,11 +3636,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(11);
-var md_directive_1 = __webpack_require__(125);
-var src_directive_1 = __webpack_require__(217);
-var md_pipe_1 = __webpack_require__(216);
-var md_converter_provider_1 = __webpack_require__(215);
-var base_converter_options_provider_1 = __webpack_require__(70);
+var md_directive_1 = __webpack_require__(126);
+var src_directive_1 = __webpack_require__(218);
+var md_pipe_1 = __webpack_require__(217);
+var md_converter_provider_1 = __webpack_require__(216);
+var base_converter_options_provider_1 = __webpack_require__(71);
 var declarations = [
     md_directive_1.MdDirective,
     md_pipe_1.MdPipe,
@@ -3535,7 +3694,7 @@ var MdModule_1;
 
 /***/ }),
 
-/***/ 70:
+/***/ 71:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3561,7 +3720,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(11);
-var utils_1 = __webpack_require__(126);
+var utils_1 = __webpack_require__(127);
 var ConverterOptions = (function () {
     function ConverterOptions(options) {
         this.merge(options);
@@ -3599,6 +3758,7 @@ var BaseConverterOptions = (function (_super) {
     __extends(BaseConverterOptions, _super);
     function BaseConverterOptions() {
         return _super.call(this, {
+            customizedHeaderId: false,
             disableForced4SpacesIndentedSublists: false,
             encodeEmails: true,
             excludeTrailingPunctuationFromURLs: false,
@@ -3608,9 +3768,11 @@ var BaseConverterOptions = (function (_super) {
             ghMentions: false,
             ghMentionsLink: 'https://github.com/{u}',
             headerLevelStart: 1,
+            literalMidWordAsterisks: false,
             literalMidWordUnderscores: false,
             noHeaderId: false,
             omitExtraWLInCodeBlocks: false,
+            openLinksInNewWindow: false,
             parseImgDimensions: false,
             prefixHeaderId: false,
             requireSpaceBeforeHeadingText: false,
@@ -3636,7 +3798,7 @@ exports.BaseConverterOptions = BaseConverterOptions;
 
 /***/ }),
 
-/***/ 91:
+/***/ 92:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3652,8 +3814,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var showdown_1 = __webpack_require__(632);
-var utils_1 = __webpack_require__(126);
+var showdown_1 = __webpack_require__(633);
+var utils_1 = __webpack_require__(127);
 var BaseConverter = (function (_super) {
     __extends(BaseConverter, _super);
     function BaseConverter(options) {
@@ -3687,5 +3849,5 @@ exports.BaseConverter = BaseConverter;
 
 /***/ })
 
-},[634]);
+},[635]);
 //# sourceMappingURL=app.js.map
