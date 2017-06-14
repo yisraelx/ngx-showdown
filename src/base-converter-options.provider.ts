@@ -4,18 +4,20 @@ import { IConverterOptions } from './base-converter.class';
 
 export class ConverterOptions {
 
+    customizedHeaderId: boolean;
     disableForced4SpacesIndentedSublists: boolean;
     encodeEmails: boolean;
     excludeTrailingPunctuationFromURLs: boolean;
-    extensions: string[];
     ghCodeBlocks: boolean;
     ghCompatibleHeaderId: boolean;
     ghMentions: boolean;
     ghMentionsLink: string;
     headerLevelStart: number;
+    literalMidWordAsterisks: boolean;
     literalMidWordUnderscores: boolean;
     noHeaderId: boolean;
     omitExtraWLInCodeBlocks: boolean;
+    openLinksInNewWindow: boolean;
     parseImgDimensions: boolean;
     prefixHeaderId: string | boolean;
     requireSpaceBeforeHeadingText: boolean;
@@ -63,6 +65,7 @@ export class ConverterOptions {
 export class BaseConverterOptions extends ConverterOptions {
     constructor() {
         super({
+            customizedHeaderId: false,
             disableForced4SpacesIndentedSublists: false,
             encodeEmails: true,
             excludeTrailingPunctuationFromURLs: false,
@@ -72,9 +75,11 @@ export class BaseConverterOptions extends ConverterOptions {
             ghMentions: false,
             ghMentionsLink: 'https://github.com/{u}',
             headerLevelStart: 1,
+            literalMidWordAsterisks: false,
             literalMidWordUnderscores: false,
             noHeaderId: false,
             omitExtraWLInCodeBlocks: false,
+            openLinksInNewWindow: false,
             parseImgDimensions: false,
             prefixHeaderId: false,
             requireSpaceBeforeHeadingText: false,

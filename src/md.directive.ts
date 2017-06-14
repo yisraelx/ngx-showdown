@@ -4,7 +4,7 @@ import { ConverterOptions } from './base-converter-options.provider';
 import { BaseConverter, IConverterOptionsChangeable } from './base-converter.class';
 
 let optionsProperties: string[] = [
-    'disableForced4SpacesIndentedSublists', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordUnderscores', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'parseImgDimensions', 'prefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'trimEachLine'
+    'customizedHeaderId', 'disableForced4SpacesIndentedSublists', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordAsterisks', 'literalMidWordUnderscores', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'openLinksInNewWindow', 'parseImgDimensions', 'prefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'trimEachLine'
 ];
 
 export enum MD_COMPONENT_TYPES {
@@ -73,6 +73,7 @@ export class MdDirective extends BaseConverter implements OnInit {
     public static readonly STATUSES = MD_COMPONENT_STATUSES;
 
     // options getter setter dynamic definition (the code after the class)
+    public customizedHeaderId?: boolean;
     public disableForced4SpacesIndentedSublists?: boolean;
     public encodeEmails?: boolean;
     public excludeTrailingPunctuationFromURLs?: boolean;
@@ -81,9 +82,11 @@ export class MdDirective extends BaseConverter implements OnInit {
     public ghMentions?: boolean;
     public ghMentionsLink?: string;
     public headerLevelStart?: number;
+    public literalMidWordAsterisks?: boolean;
     public literalMidWordUnderscores?: boolean;
     public noHeaderId?: boolean;
     public omitExtraWLInCodeBlocks?: boolean;
+    public openLinksInNewWindow?: boolean;
     public parseImgDimensions?: boolean;
     public prefixHeaderId?: string | boolean;
     public requireSpaceBeforeHeadingText?: boolean;

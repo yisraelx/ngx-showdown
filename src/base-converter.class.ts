@@ -3,6 +3,7 @@ import $ from './utils';
 import { ConverterOptions } from './base-converter-options.provider';
 
 export interface IConverterOptionsChangeable {
+    customizedHeaderId?:  boolean;
     disableForced4SpacesIndentedSublists?: boolean;
     encodeEmails?: boolean;
     excludeTrailingPunctuationFromURLs?: boolean;
@@ -11,9 +12,11 @@ export interface IConverterOptionsChangeable {
     ghMentions?: boolean;
     ghMentionsLink?: string;
     headerLevelStart?: number;
+    literalMidWordAsterisks?: boolean;
     literalMidWordUnderscores?: boolean;
     noHeaderId?: boolean;
     omitExtraWLInCodeBlocks?: boolean;
+    openLinksInNewWindow?: boolean;
     parseImgDimensions?: boolean;
     prefixHeaderId?: string | boolean;
     requireSpaceBeforeHeadingText?: boolean;

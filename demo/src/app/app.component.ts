@@ -18,6 +18,7 @@ console.log(\`sum: \${sum}\`);
 \`\`\``;
 
     options: IConverterOptionsChangeable = {
+        customizedHeaderId: false,
         disableForced4SpacesIndentedSublists: false,
         encodeEmails: true,
         excludeTrailingPunctuationFromURLs: false,
@@ -26,9 +27,11 @@ console.log(\`sum: \${sum}\`);
         ghMentions: false,
         ghMentionsLink: 'https://github.com/{u}',
         headerLevelStart: 1,
+        literalMidWordAsterisks: false,
         literalMidWordUnderscores: false,
         noHeaderId: false,
         omitExtraWLInCodeBlocks: false,
+        openLinksInNewWindow: false,
         parseImgDimensions: false,
         prefixHeaderId: false,
         requireSpaceBeforeHeadingText: false,
