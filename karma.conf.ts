@@ -1,7 +1,7 @@
-var webpack = require('webpack'),
-    CleanWebpackPlugin = require('clean-webpack-plugin');
+import * as webpack from 'webpack';
+import * as CleanWebpackPlugin from 'clean-webpack-plugin';
 
-module.exports = function (config) {
+export = (config) => {
     config.set({
         basePath: '',
 

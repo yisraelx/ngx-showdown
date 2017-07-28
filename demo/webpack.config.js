@@ -26,7 +26,8 @@ module.exports = {
         stats: 'minimal',
         open: true,
         port: 8080,
-        inline: true
+        inline: true,
+        openPage: ''
     },
 
     module: {

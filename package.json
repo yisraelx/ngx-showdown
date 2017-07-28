@@ -132,6 +132,7 @@
     "showdown": "^1.7.1",
     "style-loader": "^0.18.2",
     "ts-loader": "^2.3.2",
+    "ts-node": "^3.3.0",
     "tslint": "^5.5.0",
     "typescript": "^2.4.2",
     "validate-commit-msg": "^2.13.1",
