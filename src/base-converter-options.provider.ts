@@ -47,7 +47,7 @@ export class ConverterOptions {
  * @example
  * ```javascript
  * import { NgModel } from '@angular/core';
- * import { ConverterOptions, BaseConverterOptions } from 'ng2-md';
+ * import { ConverterOptions, BaseConverterOptions } from 'ngx-showdown';
  * export class MyConverterOptions extends ConverterOptions{
  *  constructor(){
  *      super({...});

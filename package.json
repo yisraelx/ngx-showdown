@@ -1,6 +1,6 @@
 {
-  "name": "ng2-md",
-  "description": "Angular 2 Markdown Module.",
+  "name": "ngx-showdown",
+  "description": "Angular X Showdown Module.",
   "version": "0.0.0-semantically-released",
   "license": "MIT",
   "author": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/yisraelx/"
   },
   "main": "lib/index.js",
-  "browser": "bundles/ng2-md.umd.js",
+  "browser": "bundles/ngx-showdown.umd.js",
   "typings": "lib/index.d.ts",
   "files": [
     "bundles",
@@ -18,13 +18,12 @@
     "README.md"
   ],
   "keywords": [
+    "ng",
     "ng2",
-    "ng2-markdown",
-    "ng2-showdown",
+    "ngx",
+    "angular",
     "angular2",
-    "angular2-md",
-    "angular2-markdown",
-    "angular2-showdown",
+    "angularx",
     "markdown",
     "md",
     "showdown"
@@ -34,11 +33,11 @@
     "build:lib": "ngc --project src",
     "build:bundles": "webpack --progress --profile --bail",
     "build:demo": "webpack --config demo/webpack.config.js --progress --profile --bail",
-    "build:gh-pages": "npm run build:demo -- --output-public-path /ng2-md/",
+    "build:gh-pages": "npm run build:demo -- --output-public-path /ngx-showdown/",
     "ci:before": "npm prune",
     "ci:script": "run-s ready",
     "ci:after": "run-s coverage:report semantic-release ci:deploy",
-    "ci:deploy": "run-s build:gh-pages && git config --global user.email 'gh-pages@localhost' && git config --global user.name 'gh-pages' && gh-pages -d demo/build -r https://$GH_TOKEN@github.com/yisraelx/ng2-md.git -x",
+    "ci:deploy": "run-s build:gh-pages && git config --global user.email 'gh-pages@localhost' && git config --global user.name 'gh-pages' && gh-pages -d demo/build -r https://$GH_TOKEN@github.com/yisraelx/ngx-showdown.git -x",
     "coverage:check": "istanbul check-coverage --statements 80 --branches 80 --functions 80 --lines 80",
     "coverage:report": "codecov -f coverage/*.json",
     "clean": "rimraf lib bundles demo/build coverage",
@@ -60,12 +59,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yisraelx/ng2-md.git"
+    "url": "https://github.com/yisraelx/ngx-showdown.git"
   },
   "bugs": {
-    "url": "https://github.com/yisraelx/ng2-md/issues"
+    "url": "https://github.com/yisraelx/ngx-showdown/issues"
   },
-  "homepage": "http://yisraelx.github.io/ng2-md",
+  "homepage": "http://yisraelx.github.io/ngx-showdown",
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"

@@ -1,15 +1,15 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { MdDirective } from './md.directive';
+import { ShowdownDirective } from './showdown.directive';
 import { SrcDirective } from './src.directive';
-import { MdPipe } from './md.pipe';
-import { MdConverter } from './md-converter.provider';
+import { ShowdownPipe } from './showdown.pipe';
+import { ShowdownConverter } from './showdown-converter.provider';
 import { ConverterOptions, BaseConverterOptions } from './base-converter-options.provider';
 import { IConverterOptions } from './base-converter.class';
 
 
 let declarations = [
-    MdDirective,
-    MdPipe,
+    ShowdownDirective,
+    ShowdownPipe,
     SrcDirective
 ];
 
@@ -17,17 +17,17 @@ let declarations = [
  * @example
  * ```javascript
  * import { NgModule } from '@angular/core';
- * import { MdModule} from 'ng2-md';
+ * import { ShowdownModule} from 'ngx-showdown';
  * @NgModule({
- *  imports: [ MdModule ];
+ *  imports: [ ShowdownModule ];
  * })
  * export class AppModule{}
  * ```
  * ```javascript
  * import { NgModule } from '@angular/core';
- * import { MdModule, IConverterOptions, ConverterOptions } from 'ng2-md';
+ * import { ShowdownModule, IConverterOptions, ConverterOptions } from 'ngx-showdown';
  * @NgModule({
- *  imports: [ MdModule.forRoot({...} as IConverterOptions | ConverterOptions) ];
+ *  imports: [ ShowdownModule.forRoot({...} as IConverterOptions | ConverterOptions) ];
  * })
  * export class AppModule{}
  * ```
@@ -35,15 +35,15 @@ let declarations = [
 @NgModule({
     declarations: declarations,
     providers: [
-        MdConverter,
+        ShowdownConverter,
         {provide: ConverterOptions, useClass: BaseConverterOptions}
     ],
     exports: declarations
 })
-export class MdModule {
+export class ShowdownModule {
     static forRoot(config: ConverterOptions | IConverterOptions): ModuleWithProviders {
         return {
-            ngModule: MdModule,
+            ngModule: ShowdownModule,
             providers: [
                 {provide: ConverterOptions, useValue: config}
             ]

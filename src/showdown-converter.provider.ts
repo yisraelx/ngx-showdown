@@ -5,16 +5,16 @@ import { BaseConverter } from './base-converter.class';
 /**
  * @example
  * ```javascript
- * import { MdConverter } from 'ng2-md';
+ * import { ShowdownConverter } from 'ngx-showdown';
  * class Some{
- *  constructor(mdConverter: MdConverter){
- *      console.log(mdConverter.makeHtml("..."));
+ *  constructor(showdownConverter: ShowdownConverter){
+ *      console.log(showdownConverter.makeHtml("..."));
  *  }
  * }
  * ```
  */
 @Injectable()
-export class MdConverter extends BaseConverter {
+export class ShowdownConverter extends BaseConverter {
     constructor(@Optional() options?: ConverterOptions) {
         super(options);
     }

@@ -7,14 +7,14 @@ let optionsProperties: string[] = [
     'customizedHeaderId', 'disableForced4SpacesIndentedSublists', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordAsterisks', 'literalMidWordUnderscores', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'openLinksInNewWindow', 'parseImgDimensions', 'prefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'trimEachLine'
 ];
 
-export enum MD_COMPONENT_TYPES {
+export enum SHOWDOWN_DIRECTIVE_TYPES {
     NONE,
     SRC,
     BINDING,
     CONTENT
 }
 
-export enum MD_COMPONENT_STATUSES {
+export enum SHOWDOWN_DIRECTIVE_STATUSES {
     CREATED,
     INIT,
     PROCESSING,
@@ -22,55 +22,55 @@ export enum MD_COMPONENT_STATUSES {
 }
 
 /**
- * @problem in content use <md>{}</md> - [unescaped "{":](https://github.com/angular/angular/issues/11859) the solution is to sanitize (html char code etc.).
+ * @problem in content use <showdown>{}</showdown> - [unescaped "{":](https://github.com/angular/angular/issues/11859) the solution is to sanitize (html char code etc.).
  *
  * @example
  * ```javascript
  * import { NgModule } from '@angular/core';
- * import { MdDirective } from 'ng2-md';
+ * import { ShowdownDirective } from 'ngx-showdown';
  * @NgModule({
- *  declarations: [ MdDirective ];
+ *  declarations: [ ShowdownDirective ];
  * })
  * export class AppModule{}
  * ```
  * ```javascript
- * import { IConverterOptionsChangeable } from 'ng2-md';
+ * import { IConverterOptionsChangeable } from 'ngx-showdown';
  * // ...
  * text: string = "...";
  * options: IConverterOptionsChangeable = {...};
  * // ...
  * ```
  * ```html
- * <md [value]="text"><md/>
+ * <showdown [value]="text"></showdown>
  * ```
  * ```html
- * <div md="text"><div/>
+ * <div showdown="text"></div>
  * ```
  * ```html
- * <md [value]="text" [options]="options"><md/>
+ * <showdown [value]="text" [options]="options"></showdown>
  * ```
  * ```html
- * <md [value]="text" [disableForced4SpacesIndentedSublists]="options.disableForced4SpacesIndentedSublists" [encodeEmails]="options.encodeEmails" [excludeTrailingPunctuationFromURLs]="options.excludeTrailingPunctuationFromURLs" [ghCodeBlocks]="options.ghCodeBlocks" [ghCompatibleHeaderId]="options.ghCompatibleHeaderId" [ghMentions]="options.ghMentions" [ghMentionsLink]="options.ghMentionsLink" [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores" [noHeaderId]="options.noHeaderId" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks" [parseImgDimensions]="options.parseImgDimensions" [prefixHeaderId]="options.prefixHeaderId" [requireSpaceBeforeHeadingText]="options.requireSpaceBeforeHeadingText" [simpleLineBreaks]="options.simpleLineBreaks" [simplifiedAutoLink]="options.simplifiedAutoLink" [smartIndentationFix]="options.smartIndentationFix" [smoothLivePreview]="options.smoothLivePreview" [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId" [tasklists]="options.tasklists" [trimEachLine]="options.trimEachLine"></md>
+ * <showdown [value]="text" [disableForced4SpacesIndentedSublists]="options.disableForced4SpacesIndentedSublists" [encodeEmails]="options.encodeEmails" [excludeTrailingPunctuationFromURLs]="options.excludeTrailingPunctuationFromURLs" [ghCodeBlocks]="options.ghCodeBlocks" [ghCompatibleHeaderId]="options.ghCompatibleHeaderId" [ghMentions]="options.ghMentions" [ghMentionsLink]="options.ghMentionsLink" [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores" [noHeaderId]="options.noHeaderId" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks" [parseImgDimensions]="options.parseImgDimensions" [prefixHeaderId]="options.prefixHeaderId" [requireSpaceBeforeHeadingText]="options.requireSpaceBeforeHeadingText" [simpleLineBreaks]="options.simpleLineBreaks" [simplifiedAutoLink]="options.simplifiedAutoLink" [smartIndentationFix]="options.smartIndentationFix" [smoothLivePreview]="options.smoothLivePreview" [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId" [tasklists]="options.tasklists" [trimEachLine]="options.trimEachLine"></showdown>
  * ```
  * ```html
- * <md trimEachLine="space"> # abc </md> // <md><h1>abc</h1></md>
+ * <showdown trimEachLine="space"> # abc </showdown> // <showdown><h1>abc</h1></showdown>
  * ```
  * ```html
- * <md trimEachLine="tab">\t# abc\t</md> // <md><h1>abc</h1></md>
+ * <showdown trimEachLine="tab">\t# abc\t</showdown> // <showdown><h1>abc</h1></showdown>
  * ```
  * both tab and space
  * ```html
- * <md trimEachLine>\t # abc\t </md> // <md><h1>abc</h1></md>
+ * <showdown trimEachLine>\t # abc\t </showdown> // <showdown><h1>abc</h1></showdown>
  * ```
  */
 @Directive({
-    selector: 'md,[md]',
+    selector: 'showdown,[showdown]',
     inputs: [].concat(optionsProperties)
 })
-export class MdDirective extends BaseConverter implements OnInit {
+export class ShowdownDirective extends BaseConverter implements OnInit {
 
-    public static readonly TYPES = MD_COMPONENT_TYPES;
-    public static readonly STATUSES = MD_COMPONENT_STATUSES;
+    public static readonly TYPES = SHOWDOWN_DIRECTIVE_TYPES;
+    public static readonly STATUSES = SHOWDOWN_DIRECTIVE_STATUSES;
 
     // options getter setter dynamic definition (the code after the class)
     public customizedHeaderId?: boolean;
@@ -101,8 +101,8 @@ export class MdDirective extends BaseConverter implements OnInit {
     public trimEachLine?: boolean | 'tab' | 'space';
 
     private _value: string;
-    private _type: number = MdDirective.TYPES.NONE;
-    private _status: number = MdDirective.STATUSES.CREATED;
+    private _type: number = ShowdownDirective.TYPES.NONE;
+    private _status: number = ShowdownDirective.STATUSES.CREATED;
 
     /** Value of the component (the input md text pre converter). */
     @Input()
@@ -116,21 +116,21 @@ export class MdDirective extends BaseConverter implements OnInit {
 
     /** Type of the input source [binding, content, src]. */
     public get type(): string {
-        return MdDirective.TYPES[this._type].toLowerCase();
+        return ShowdownDirective.TYPES[this._type].toLowerCase();
     }
 
     /** Status of the component life cycle. */
     public get status(): string {
-        return MdDirective.STATUSES[this._status].toLowerCase();
+        return ShowdownDirective.STATUSES[this._status].toLowerCase();
     }
 
     /** Alias to value */
     @Input()
-    public get md(): string {
+    public get showdown(): string {
         return this.value;
     }
 
-    public set md(value: string) {
+    public set showdown(value: string) {
         this.value = value;
     }
 
@@ -155,18 +155,18 @@ export class MdDirective extends BaseConverter implements OnInit {
 
     public ngOnInit(): void {
 
-        if (this._type === MdDirective.TYPES.NONE && !$.isEmpty(this._elementRef.nativeElement.innerText)) {
+        if (this._type === ShowdownDirective.TYPES.NONE && !$.isEmpty(this._elementRef.nativeElement.innerText)) {
             let value = this._elementRef.nativeElement.innerHTML;
-            this.setValue(value, MdDirective.TYPES.CONTENT);
+            this.setValue(value, ShowdownDirective.TYPES.CONTENT);
         }
 
-        if (this._status === MdDirective.STATUSES.CREATED) {
-            this._status = MdDirective.STATUSES.INIT;
+        if (this._status === ShowdownDirective.STATUSES.CREATED) {
+            this._status = ShowdownDirective.STATUSES.INIT;
         }
 
     }
 
-    public setValue(value: string, type: number = MdDirective.TYPES.BINDING): void {
+    public setValue(value: string, type: number = ShowdownDirective.TYPES.BINDING): void {
         this._value = value;
         this._type = type;
         this._onChange();
@@ -178,10 +178,10 @@ export class MdDirective extends BaseConverter implements OnInit {
     }
 
     public compile(): void {
-        if (this._type === MdDirective.TYPES.NONE) return;
-        this._status = MdDirective.STATUSES.PROCESSING;
+        if (this._type === ShowdownDirective.TYPES.NONE) return;
+        this._status = ShowdownDirective.STATUSES.PROCESSING;
         this._elementRef.nativeElement.innerHTML = this.toHTML();
-        this._status = MdDirective.STATUSES.READY;
+        this._status = ShowdownDirective.STATUSES.READY;
     }
 
     public registerOnChange(fn: (() => void)): void {
@@ -204,7 +204,7 @@ export class MdDirective extends BaseConverter implements OnInit {
 
 // define options properties getter setter for angular directive and direct access
 optionsProperties.forEach((key: string) => {
-    Object.defineProperty(MdDirective.prototype, key, {
+    Object.defineProperty(ShowdownDirective.prototype, key, {
         set(value: any): void {
             this.setOption(key, $.isEmpty(value) ? true : value);
         },

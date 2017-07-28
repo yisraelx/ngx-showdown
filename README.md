@@ -1,5 +1,4 @@
-# Rename Library from 'ng2-md' to 'ngx-showdown'
-# Angular 2 Markdown Module based on [Showdown library](https://github.com/showdownjs/showdown).
+# Angular X Showdown Module based on [Showdown library](https://github.com/showdownjs/showdown).
 [![Travis build](https://travis-ci.org/yisraelx/ngx-showdown.svg?branch=master)](https://travis-ci.org/yisraelx/ngx-showdown)
 [![Codecov coverage](https://codecov.io/github/yisraelx/ngx-showdown/coverage.svg?branch=master)](https://codecov.io/github/yisraelx/ngx-showdown)
 [![Version](https://img.shields.io/npm/v/ngx-showdown.svg)](https://www.npmjs.com/package/ngx-showdown)
@@ -12,7 +11,7 @@ There is a demo in [source code](https://github.com/yisraelx/ngx-showdown/blob/m
 
 ## Install
 ```bash
-$ npm install --save ng2-md
+$ npm install --save ngx-showdown
 # and install peer dependencies
 $ npm install --save @angular/core @angular/http showdown
 ```
@@ -21,27 +20,27 @@ $ npm install --save @angular/core @angular/http showdown
 #### Setup
 ```javascript
 import { NgModule } from '@angular/core';
-import { MdModule } from 'ng2-md';
+import { ShowdownModule } from 'ngx-showdown';
 
 @NgModule({
-    imports: [ MdModule ]
+    imports: [ ShowdownModule ]
 })
 export class AppModule{}
 ```
 Or with config
 ```javascript
 import { NgModule } from '@angular/core';
-import { MdModule, ConverterOptions, IConverterOptions } from 'ng2-md';
+import { ShowdownModule, ConverterOptions, IConverterOptions } from 'ngx-showdown';
 
 @NgModule({
-    imports: [ MdModule.forRoot({...} as ConverterOptions | IConverterOptions) ]
+    imports: [ ShowdownModule.forRoot({...} as ConverterOptions | IConverterOptions) ]
 })
 export class AppModule{}
 ```
-### MdDirective
+### ShowdownDirective
 #### Binding
 ```javascript
-import { IConverterOptionsChangeable } from 'ng2-md';
+import { IConverterOptionsChangeable } from 'ngx-showdown';
 // ...
     text: string = `
         # h1
@@ -51,64 +50,64 @@ import { IConverterOptionsChangeable } from 'ng2-md';
 // ...
 ```
 ```html
-<md [value]="text"><md>
+<showdown [value]="text"></showdown>
 ```
 ```html
-<md [value]="text" [options]="options"><md>
+<showdown [value]="text" [options]="options"></showdown>
 ```
 ```html
-<div [md]="text" [options]="options"><div>
+<div [showdown]="text" [options]="options"></div>
 ```
 #### Content
 ```html
-<md>
+<showdown>
     # H1
     ## H2
-<md>
+</showdown>
 ```
 ```html
-<md [options]="{...} as IConverterOptionsChangeable">
+<showdown [options]="{...} as IConverterOptionsChangeable">
     # H1
     ## H2
-<md>
+</showdown>
 ```
 Note: _there is a problem in content unescaped "{" and "}" (use html char code)._
 
 ### Options
 ```javascript
-import { IConverterOptionsChangeable } from 'ng2-md';
+import { IConverterOptionsChangeable } from 'ngx-showdown';
 // ...
     options: IConverterOptionsChangeable = {...};
 //...
 ```
 ```html
-<md [options]="options"># abc</md>
+<showdown [options]="options"># abc</showdown>
 ```
 ```html
-<md [disableForced4SpacesIndentedSublists]="options.disableForced4SpacesIndentedSublists" [encodeEmails]="options.encodeEmails" [excludeTrailingPunctuationFromURLs]="options.excludeTrailingPunctuationFromURLs" [ghCodeBlocks]="options.ghCodeBlocks" [ghCompatibleHeaderId]="options.ghCompatibleHeaderId" [ghMentions]="options.ghMentions" [ghMentionsLink]="options.ghMentionsLink" [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores" [noHeaderId]="options.noHeaderId" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks" [parseImgDimensions]="options.parseImgDimensions" [prefixHeaderId]="options.prefixHeaderId" [requireSpaceBeforeHeadingText]="options.requireSpaceBeforeHeadingText" [simpleLineBreaks]="options.simpleLineBreaks" [simplifiedAutoLink]="options.simplifiedAutoLink" [smartIndentationFix]="options.smartIndentationFix" [smoothLivePreview]="options.smoothLivePreview" [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId" [tasklists]="options.tasklists" [trimEachLine]="options.trimEachLine"># abc</md>
+<showdown [disableForced4SpacesIndentedSublists]="options.disableForced4SpacesIndentedSublists" [encodeEmails]="options.encodeEmails" [excludeTrailingPunctuationFromURLs]="options.excludeTrailingPunctuationFromURLs" [ghCodeBlocks]="options.ghCodeBlocks" [ghCompatibleHeaderId]="options.ghCompatibleHeaderId" [ghMentions]="options.ghMentions" [ghMentionsLink]="options.ghMentionsLink" [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores" [noHeaderId]="options.noHeaderId" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks" [parseImgDimensions]="options.parseImgDimensions" [prefixHeaderId]="options.prefixHeaderId" [requireSpaceBeforeHeadingText]="options.requireSpaceBeforeHeadingText" [simpleLineBreaks]="options.simpleLineBreaks" [simplifiedAutoLink]="options.simplifiedAutoLink" [smartIndentationFix]="options.smartIndentationFix" [smoothLivePreview]="options.smoothLivePreview" [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId" [tasklists]="options.tasklists" [trimEachLine]="options.trimEachLine"># abc</showdown>
 ```
 ### Trim each line
 ```html
-<md trimEachLine="space"> # abc </md> // <md><h1>abc</h1></md>
+<showdown trimEachLine="space"> # abc </showdown> // <showdown><h1>abc</h1></showdown>
 ```
 ```html
-<md trimEachLine="tab">\t# abc\t</md> // <md><h1>abc</h1></md>
+<showdown trimEachLine="tab">\t# abc\t</showdown> // <showdown><h1>abc</h1></showdown>
 ```
 both tab and space
 ```html
-<md trimEachLine>\t # abc\t </md> // <md><h1>abc</h1></md>
+<showdown trimEachLine>\t # abc\t </showdown> // <showdown><h1>abc</h1></showdown>
 ```
 ### Load .md file (SrcDirective)
 ```html
-<md src="README.md"></md>
+<showdown src="README.md"></showdown>
 ```
 ```html
-<md src="README.md" [options]="{...} as IConverterOptionsChangeable"></md>
+<showdown src="README.md" [options]="{...} as IConverterOptionsChangeable"></showdown>
 ```
 
 ### Pipe
 ```javascript
-import { IConverterOptionsChangeable } from 'ng2-md';
+import { IConverterOptionsChangeable } from 'ngx-showdown';
 // ...
     text: string = `
         # h1
@@ -118,19 +117,19 @@ import { IConverterOptionsChangeable } from 'ng2-md';
 // ...
 ```
 ```html
-{{ text | md }}
+{{ text | showdown }}
 ```
 ```html
-{{ text | md:options }}
+{{ text | showdown:options }}
 ```
 
 ### Provider
 ```javascript
-import { MdConverter } from 'ng2-md';
+import { ShowdownConverter } from 'ngx-showdown';
 
 class Some{
-        constructor(mdConverter: MdConverter){
-            console.log(mdConverter.makeHtml("..."));
+        constructor(showdownConverter: ShowdownConverter){
+            console.log(showdownConverter.makeHtml("..."));
         }
 }
 ```
@@ -139,7 +138,7 @@ class Some{
 the default options is the showdown default options
 ```javascript
 import { NgModel } from '@angular/core';
-import { ConverterOptions, BaseConverterOptions } from 'ng2-md';
+import { ConverterOptions, BaseConverterOptions } from 'ngx-showdown';
 export class MyConverterOptions extends ConverterOptions{
     constructor(){
         super({...});
@@ -155,7 +154,7 @@ export class AppModule{}
 Or
 ```javascript
 import { NgModel } from '@angular/core';
-import { ConverterOptions, IConverterOptions } from 'ng2-md';
+import { ConverterOptions, IConverterOptions } from 'ngx-showdown';
 
 @NgModel({
     providers:[

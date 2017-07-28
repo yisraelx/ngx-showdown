@@ -1,6 +1,6 @@
 ### Clone
 ```bash
-$ git clone https://github.com/yisraelx/ng2-md.git
+$ git clone https://github.com/yisraelx/ngx-showdown.git
 ```
 ### Install
 ```bash

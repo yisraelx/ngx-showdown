@@ -1,29 +1,29 @@
 import { Directive, Input } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { MdDirective } from './md.directive';
+import { ShowdownDirective } from './showdown.directive';
 
 /**
  * @example
  * ```javascript
  * import { NgModule } from '@angular/core';
- * import { MdDirective, SrcDirective } from 'ng2-md';
+ * import { ShowdownDirective, SrcDirective } from 'ngx-showdown';
  * @NgModule({
- *  declarations: [ MdDirective, SrcDirective ];
+ *  declarations: [ ShowdownDirective, SrcDirective ];
  * })
  * export class AppModule{}
  * ```
  * ```html
- * <md src="README.md"><md/>
+ * <showdown src="README.md"></showdown>
  * ```
  * ```html
- * <md src="README.md" [options]="{...} as IConverterOptionsChangeable"><md/>
+ * <showdown src="README.md" [options]="{...} as IConverterOptionsChangeable"></showdown>
  * ```
  * ```html
- * <div md src="README.md"><div/>
+ * <div showdown src="README.md"></div>
  * ```
  */
 @Directive({
-    selector: 'md[src],[md][src]'
+    selector: 'showdown[src],[showdown][src]'
 })
 export class SrcDirective {
 
@@ -40,14 +40,14 @@ export class SrcDirective {
         this.load();
     }
 
-    constructor(private _mdDirective: MdDirective, private _http: Http) {
+    constructor(private _showdownDirective: ShowdownDirective, private _http: Http) {
     }
 
     public load(): void {
         let {src} = this;
         this._http.get(src).subscribe((res: Response) => {
             let value = res.text();
-            this._mdDirective.setValue(value, MdDirective.TYPES.SRC);
+            this._showdownDirective.setValue(value, ShowdownDirective.TYPES.SRC);
         });
     }
 }

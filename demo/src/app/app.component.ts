@@ -8,8 +8,8 @@ import { IConverterOptionsChangeable } from '../../../src';
 })
 export class AppComponent {
 
-    title = 'Angular 2 Markdown Demo!';
-    md: string = `## hello markdown!
+    title = 'Angular X Showdown Demo!';
+    text: string = `## Hello Showdown!
 \`\`\`js
 let a = 1;
 let b = 2;

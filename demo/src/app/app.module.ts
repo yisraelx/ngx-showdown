@@ -12,13 +12,13 @@ import {
     MdIconModule
 } from '@angular/material';
 import { AppComponent } from './app.component';
-import { MdModule } from '../../../src';
+import { ShowdownModule } from '../../../src';
 
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
-        MdModule,
+        ShowdownModule,
         // material
         MdInputModule,
         MdSlideToggleModule,

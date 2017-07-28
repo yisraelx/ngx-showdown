@@ -1,13 +1,13 @@
 import { HttpModule, Http, BaseRequestOptions, Response, ResponseOptions } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { TestModuleMetadata } from '@angular/core/testing';
-import { MdDirective } from '../src/md.directive';
+import { ShowdownDirective } from '../src/showdown.directive';
 import { SrcDirective } from '../src/src.directive';
 import { ConverterOptions, BaseConverterOptions } from '../src/base-converter-options.provider';
 import $ from './utils';
 
 let srcDirectiveModuleMetadata: TestModuleMetadata = {
-    declarations: [MdDirective, SrcDirective],
+    declarations: [ShowdownDirective, SrcDirective],
     providers: [
         { provide: ConverterOptions, useClass: BaseConverterOptions },
         BaseRequestOptions,
@@ -25,21 +25,21 @@ let srcDirectiveModuleMetadata: TestModuleMetadata = {
 
 describe('SrcDirective', () => {
 
-    it('should be the mdDirective.type to be equal to MdDirective.TYPES.SRC', () => {
-        let fixture = $.createFixture(srcDirectiveModuleMetadata, { metadata: { template: '<md src="TEST.md"></md>' } });
+    it('should be the showdownDirective.type to be equal to ShowdownDirective.TYPES.SRC', () => {
+        let fixture = $.createFixture(srcDirectiveModuleMetadata, { metadata: { template: '<showdown src="TEST.md"></showdown>' } });
         let mockBackend = fixture.debugElement.injector.get(MockBackend);
-        let mdDirective: MdDirective = fixture.debugElement.children[0].injector.get(MdDirective);
+        let showdownDirective: ShowdownDirective = fixture.debugElement.children[0].injector.get(ShowdownDirective);
         mockBackend.connections.subscribe(connection => {
             connection.mockRespond(new Response(new ResponseOptions({ body: '# abc' })));
         });
 
         fixture.detectChanges();
-        expect(mdDirective.type).toBe(MdDirective.TYPES[MdDirective.TYPES.SRC].toLowerCase());
-        expect(mdDirective.status).toBe(MdDirective.STATUSES[MdDirective.STATUSES.READY].toLowerCase());
+        expect(showdownDirective.type).toBe(ShowdownDirective.TYPES[ShowdownDirective.TYPES.SRC].toLowerCase());
+        expect(showdownDirective.status).toBe(ShowdownDirective.STATUSES[ShowdownDirective.STATUSES.READY].toLowerCase());
     });
 
-    it('should be request to md[src] url over http and converted the response md data to html and set the result to the element content', () => {
-        let fixture = $.createFixture(srcDirectiveModuleMetadata, { metadata: { template: '<md src="TEST.md"></md>' } });
+    it('should be request to showdown[src] url over http and converted the response md data to html and set the result to the element content', () => {
+        let fixture = $.createFixture(srcDirectiveModuleMetadata, { metadata: { template: '<showdown src="TEST.md"></showdown>' } });
         let mockBackend = fixture.debugElement.injector.get(MockBackend);
 
         mockBackend.connections.subscribe(connection => {
@@ -50,8 +50,8 @@ describe('SrcDirective', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="abc">abc</h1>');
     });
 
-    it('should be request to md[src] url over http and converted the response md data to html and set the result to the element content (whit options)', () => {
-        let fixture = $.createFixture(srcDirectiveModuleMetadata, { metadata: { template: '<md src="TEST.md" [options]="{trimEachLine: true}"></md>' } });
+    it('should be request to showdown[src] url over http and converted the response md data to html and set the result to the element content (whit options)', () => {
+        let fixture = $.createFixture(srcDirectiveModuleMetadata, { metadata: { template: '<showdown src="TEST.md" [options]="{trimEachLine: true}"></showdown>' } });
         let mockBackend = fixture.debugElement.injector.get(MockBackend);
 
         mockBackend.connections.subscribe(connection => {
@@ -63,7 +63,7 @@ describe('SrcDirective', () => {
     });
 
     it('should be request and converted after binding second time', () => {
-        let fixture = $.createFixture<{ url: string }>(srcDirectiveModuleMetadata, { metadata: { template: '<md [src]="url"></md>' }, scope: { url: 'TEST.md' } });
+        let fixture = $.createFixture<{ url: string }>(srcDirectiveModuleMetadata, { metadata: { template: '<showdown [src]="url"></showdown>' }, scope: { url: 'TEST.md' } });
         let mockBackend = fixture.debugElement.injector.get(MockBackend);
         let srcDirective: SrcDirective = fixture.debugElement.children[0].injector.get(SrcDirective);
 
@@ -92,7 +92,7 @@ describe('SrcDirective', () => {
     });
 
     it('should be request same url two time and get different response', () => {
-        let fixture = $.createFixture<{ url: string }>(srcDirectiveModuleMetadata, { metadata: { template: '<md [src]="url"></md>' }, scope: { url: 'TEST.md' } });
+        let fixture = $.createFixture<{ url: string }>(srcDirectiveModuleMetadata, { metadata: { template: '<showdown [src]="url"></showdown>' }, scope: { url: 'TEST.md' } });
         let mockBackend = fixture.debugElement.injector.get(MockBackend);
         let srcDirective: SrcDirective = fixture.debugElement.children[0].injector.get(SrcDirective);
         let count = 1;

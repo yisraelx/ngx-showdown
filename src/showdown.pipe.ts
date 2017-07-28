@@ -6,31 +6,31 @@ import { BaseConverter, IConverterOptionsChangeable } from './base-converter.cla
  * @example
  * ```javascript
  * import { NgModule } from '@angular/core';
- * import { MdPipe } from 'ng2-md';
+ * import { ShowdownPipe } from 'ngx-showdown';
  * @NgModule({
- *  declarations: [ MdPipe ];
+ *  declarations: [ ShowdownPipe ];
  * })
  * export class AppModule{}
  * ```
  * ```javascript
- * import { IConverterOptionsChangeable } from 'ng2-md';
+ * import { IConverterOptionsChangeable } from 'ngx-showdown';
  * // ...
- * md: string = "...";
+ * text: string = "...";
  * options: IConverterOptionsChangeable = {...};
  * // ...
  * ```
  * ```html
- * {{ md | md }}
+ * {{ text | showdown }}
  * ```
  * ```html
- * {{ md | md:options}}
+ * {{ text | showdown:options}}
  * ```
  */
 @Pipe({
-    name: 'md',
+    name: 'showdown',
     pure: false
 })
-export class MdPipe extends BaseConverter implements PipeTransform {
+export class ShowdownPipe extends BaseConverter implements PipeTransform {
 
     constructor(@Optional() options: ConverterOptions) {
         super(options);
