@@ -41,7 +41,7 @@
     "coverage:check": "istanbul check-coverage --statements 80 --branches 80 --functions 80 --lines 80",
     "coverage:report": "codecov -f coverage/*.json",
     "clean": "rimraf lib bundles demo/build coverage",
-    "commit": "git-cz",
+    "cm": "git-cz",
     "commitmsg": "validate-commit-msg",
     "demo": "webpack-dev-server --config demo/webpack.config.js --progress",
     "deploy": "run-s build:gh-pages && gh-pages -d demo/build",
@@ -70,7 +70,7 @@
       "path": "cz-conventional-changelog"
     },
     "validate-commit-msg": {
-      "helpMessage": "Commit message violates the rules defined for this project. Please, execute `npm run commit` to generate a correct commit message with `commitizen`"
+      "helpMessage": "Commit message violates the rules defined for this project. Please, execute `npm run cm` to generate a correct commit message with `commitizen`"
     }
   },
   "dependencies": {
