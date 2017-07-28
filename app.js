@@ -1,245 +1,6 @@
 webpackJsonp([1],{
 
-/***/ 126:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(11);
-var utils_1 = __webpack_require__(127);
-var base_converter_options_provider_1 = __webpack_require__(71);
-var base_converter_class_1 = __webpack_require__(92);
-var optionsProperties = [
-    'customizedHeaderId', 'disableForced4SpacesIndentedSublists', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordAsterisks', 'literalMidWordUnderscores', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'openLinksInNewWindow', 'parseImgDimensions', 'prefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'trimEachLine'
-];
-var MD_COMPONENT_TYPES;
-(function (MD_COMPONENT_TYPES) {
-    MD_COMPONENT_TYPES[MD_COMPONENT_TYPES["NONE"] = 0] = "NONE";
-    MD_COMPONENT_TYPES[MD_COMPONENT_TYPES["SRC"] = 1] = "SRC";
-    MD_COMPONENT_TYPES[MD_COMPONENT_TYPES["BINDING"] = 2] = "BINDING";
-    MD_COMPONENT_TYPES[MD_COMPONENT_TYPES["CONTENT"] = 3] = "CONTENT";
-})(MD_COMPONENT_TYPES = exports.MD_COMPONENT_TYPES || (exports.MD_COMPONENT_TYPES = {}));
-var MD_COMPONENT_STATUSES;
-(function (MD_COMPONENT_STATUSES) {
-    MD_COMPONENT_STATUSES[MD_COMPONENT_STATUSES["CREATED"] = 0] = "CREATED";
-    MD_COMPONENT_STATUSES[MD_COMPONENT_STATUSES["INIT"] = 1] = "INIT";
-    MD_COMPONENT_STATUSES[MD_COMPONENT_STATUSES["PROCESSING"] = 2] = "PROCESSING";
-    MD_COMPONENT_STATUSES[MD_COMPONENT_STATUSES["READY"] = 3] = "READY";
-})(MD_COMPONENT_STATUSES = exports.MD_COMPONENT_STATUSES || (exports.MD_COMPONENT_STATUSES = {}));
-/**
- * @problem in content use <md>{}</md> - [unescaped "{":](https://github.com/angular/angular/issues/11859) the solution is to sanitize (html char code etc.).
- *
- * @example
- * ```javascript
- * import { NgModule } from '@angular/core';
- * import { MdDirective } from 'ng2-md';
- * @NgModule({
- *  declarations: [ MdDirective ];
- * })
- * export class AppModule{}
- * ```
- * ```javascript
- * import { IConverterOptionsChangeable } from 'ng2-md';
- * // ...
- * text: string = "...";
- * options: IConverterOptionsChangeable = {...};
- * // ...
- * ```
- * ```html
- * <md [value]="text"><md/>
- * ```
- * ```html
- * <div md="text"><div/>
- * ```
- * ```html
- * <md [value]="text" [options]="options"><md/>
- * ```
- * ```html
- * <md [value]="text" [disableForced4SpacesIndentedSublists]="options.disableForced4SpacesIndentedSublists" [encodeEmails]="options.encodeEmails" [excludeTrailingPunctuationFromURLs]="options.excludeTrailingPunctuationFromURLs" [ghCodeBlocks]="options.ghCodeBlocks" [ghCompatibleHeaderId]="options.ghCompatibleHeaderId" [ghMentions]="options.ghMentions" [ghMentionsLink]="options.ghMentionsLink" [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores" [noHeaderId]="options.noHeaderId" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks" [parseImgDimensions]="options.parseImgDimensions" [prefixHeaderId]="options.prefixHeaderId" [requireSpaceBeforeHeadingText]="options.requireSpaceBeforeHeadingText" [simpleLineBreaks]="options.simpleLineBreaks" [simplifiedAutoLink]="options.simplifiedAutoLink" [smartIndentationFix]="options.smartIndentationFix" [smoothLivePreview]="options.smoothLivePreview" [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId" [tasklists]="options.tasklists" [trimEachLine]="options.trimEachLine"></md>
- * ```
- * ```html
- * <md trimEachLine="space"> # abc </md> // <md><h1>abc</h1></md>
- * ```
- * ```html
- * <md trimEachLine="tab">\t# abc\t</md> // <md><h1>abc</h1></md>
- * ```
- * both tab and space
- * ```html
- * <md trimEachLine>\t # abc\t </md> // <md><h1>abc</h1></md>
- * ```
- */
-var MdDirective = MdDirective_1 = (function (_super) {
-    __extends(MdDirective, _super);
-    function MdDirective(_elementRef, options) {
-        var _this = _super.call(this, options) || this;
-        _this._elementRef = _elementRef;
-        _this._type = MdDirective_1.TYPES.NONE;
-        _this._status = MdDirective_1.STATUSES.CREATED;
-        /** Default OnChange method, Called on change value or options */
-        _this._onChange = function () {
-            _this.compile();
-        };
-        // override the setOption method (define in the super constructor)
-        _this.setOption = function (optionKey, value) {
-            _this.getOptions()[optionKey] = value;
-            _this._onChange();
-        };
-        return _this;
-    }
-    Object.defineProperty(MdDirective.prototype, "value", {
-        /** Value of the component (the input md text pre converter). */
-        get: function () {
-            return this._value;
-        },
-        set: function (value) {
-            this.setValue(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdDirective.prototype, "type", {
-        /** Type of the input source [binding, content, src]. */
-        get: function () {
-            return MdDirective_1.TYPES[this._type].toLowerCase();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdDirective.prototype, "status", {
-        /** Status of the component life cycle. */
-        get: function () {
-            return MdDirective_1.STATUSES[this._status].toLowerCase();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdDirective.prototype, "md", {
-        /** Alias to value */
-        get: function () {
-            return this.value;
-        },
-        set: function (value) {
-            this.value = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdDirective.prototype, "options", {
-        get: function () {
-            return this.getOptions();
-        },
-        set: function (options) {
-            this.setOptions(options);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MdDirective.prototype.ngOnInit = function () {
-        if (this._type === MdDirective_1.TYPES.NONE && !utils_1.default.isEmpty(this._elementRef.nativeElement.innerText)) {
-            var value = this._elementRef.nativeElement.innerHTML;
-            this.setValue(value, MdDirective_1.TYPES.CONTENT);
-        }
-        if (this._status === MdDirective_1.STATUSES.CREATED) {
-            this._status = MdDirective_1.STATUSES.INIT;
-        }
-    };
-    MdDirective.prototype.setValue = function (value, type) {
-        if (type === void 0) { type = MdDirective_1.TYPES.BINDING; }
-        this._value = value;
-        this._type = type;
-        this._onChange();
-    };
-    MdDirective.prototype.setOptions = function (options) {
-        _super.prototype.setOptions.call(this, options);
-        this._onChange();
-    };
-    MdDirective.prototype.compile = function () {
-        if (this._type === MdDirective_1.TYPES.NONE)
-            return;
-        this._status = MdDirective_1.STATUSES.PROCESSING;
-        this._elementRef.nativeElement.innerHTML = this.toHTML();
-        this._status = MdDirective_1.STATUSES.READY;
-    };
-    MdDirective.prototype.registerOnChange = function (fn) {
-        if (!utils_1.default.isFunction(fn))
-            throw new Error('Arg fn is missing or invalid.');
-        this._onChange = fn;
-    };
-    /** Converter the component (md value) to html */
-    MdDirective.prototype.toHTML = function () {
-        var value = this._value;
-        return this.makeHtml(value);
-    };
-    return MdDirective;
-}(base_converter_class_1.BaseConverter));
-MdDirective.TYPES = MD_COMPONENT_TYPES;
-MdDirective.STATUSES = MD_COMPONENT_STATUSES;
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String),
-    __metadata("design:paramtypes", [String])
-], MdDirective.prototype, "value", null);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String),
-    __metadata("design:paramtypes", [String])
-], MdDirective.prototype, "md", null);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object),
-    __metadata("design:paramtypes", [Object])
-], MdDirective.prototype, "options", null);
-MdDirective = MdDirective_1 = __decorate([
-    core_1.Directive({
-        selector: 'md,[md]',
-        inputs: [].concat(optionsProperties)
-    }),
-    __param(1, core_1.Optional()),
-    __metadata("design:paramtypes", [core_1.ElementRef, base_converter_options_provider_1.ConverterOptions])
-], MdDirective);
-exports.MdDirective = MdDirective;
-// define options properties getter setter for angular directive and direct access
-optionsProperties.forEach(function (key) {
-    Object.defineProperty(MdDirective.prototype, key, {
-        set: function (value) {
-            this.setOption(key, utils_1.default.isEmpty(value) ? true : value);
-        },
-        get: function () {
-            return this.getOption(key);
-        },
-        enumerable: true,
-        configurable: true
-    });
-});
-var MdDirective_1;
-
-
-/***/ }),
-
-/***/ 127:
+/***/ 131:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -286,7 +47,7 @@ exports.default = Utils;
 
 /***/ }),
 
-/***/ 216:
+/***/ 132:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -314,118 +75,278 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(11);
-var base_converter_options_provider_1 = __webpack_require__(71);
-var base_converter_class_1 = __webpack_require__(92);
+var core_1 = __webpack_require__(12);
+var utils_1 = __webpack_require__(131);
+var base_converter_options_provider_1 = __webpack_require__(72);
+var base_converter_class_1 = __webpack_require__(95);
+var optionsProperties = [
+    'customizedHeaderId', 'disableForced4SpacesIndentedSublists', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordAsterisks', 'literalMidWordUnderscores', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'openLinksInNewWindow', 'parseImgDimensions', 'prefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'trimEachLine'
+];
+var SHOWDOWN_DIRECTIVE_TYPES;
+(function (SHOWDOWN_DIRECTIVE_TYPES) {
+    SHOWDOWN_DIRECTIVE_TYPES[SHOWDOWN_DIRECTIVE_TYPES["NONE"] = 0] = "NONE";
+    SHOWDOWN_DIRECTIVE_TYPES[SHOWDOWN_DIRECTIVE_TYPES["SRC"] = 1] = "SRC";
+    SHOWDOWN_DIRECTIVE_TYPES[SHOWDOWN_DIRECTIVE_TYPES["BINDING"] = 2] = "BINDING";
+    SHOWDOWN_DIRECTIVE_TYPES[SHOWDOWN_DIRECTIVE_TYPES["CONTENT"] = 3] = "CONTENT";
+})(SHOWDOWN_DIRECTIVE_TYPES = exports.SHOWDOWN_DIRECTIVE_TYPES || (exports.SHOWDOWN_DIRECTIVE_TYPES = {}));
+var SHOWDOWN_DIRECTIVE_STATUSES;
+(function (SHOWDOWN_DIRECTIVE_STATUSES) {
+    SHOWDOWN_DIRECTIVE_STATUSES[SHOWDOWN_DIRECTIVE_STATUSES["CREATED"] = 0] = "CREATED";
+    SHOWDOWN_DIRECTIVE_STATUSES[SHOWDOWN_DIRECTIVE_STATUSES["INIT"] = 1] = "INIT";
+    SHOWDOWN_DIRECTIVE_STATUSES[SHOWDOWN_DIRECTIVE_STATUSES["PROCESSING"] = 2] = "PROCESSING";
+    SHOWDOWN_DIRECTIVE_STATUSES[SHOWDOWN_DIRECTIVE_STATUSES["READY"] = 3] = "READY";
+})(SHOWDOWN_DIRECTIVE_STATUSES = exports.SHOWDOWN_DIRECTIVE_STATUSES || (exports.SHOWDOWN_DIRECTIVE_STATUSES = {}));
 /**
- * @example
- * ```javascript
- * import { MdConverter } from 'ng2-md';
- * class Some{
- *  constructor(mdConverter: MdConverter){
- *      console.log(mdConverter.makeHtml("..."));
- *  }
- * }
- * ```
- */
-var MdConverter = (function (_super) {
-    __extends(MdConverter, _super);
-    function MdConverter(options) {
-        return _super.call(this, options) || this;
-    }
-    return MdConverter;
-}(base_converter_class_1.BaseConverter));
-MdConverter = __decorate([
-    core_1.Injectable(),
-    __param(0, core_1.Optional()),
-    __metadata("design:paramtypes", [base_converter_options_provider_1.ConverterOptions])
-], MdConverter);
-exports.MdConverter = MdConverter;
-
-
-/***/ }),
-
-/***/ 217:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(11);
-var base_converter_options_provider_1 = __webpack_require__(71);
-var base_converter_class_1 = __webpack_require__(92);
-/**
+ * @problem in content use <showdown>{}</showdown> - [unescaped "{":](https://github.com/angular/angular/issues/11859) the solution is to sanitize (html char code etc.).
+ *
  * @example
  * ```javascript
  * import { NgModule } from '@angular/core';
- * import { MdPipe } from 'ng2-md';
+ * import { ShowdownDirective } from 'ngx-showdown';
  * @NgModule({
- *  declarations: [ MdPipe ];
+ *  declarations: [ ShowdownDirective ];
  * })
  * export class AppModule{}
  * ```
  * ```javascript
- * import { IConverterOptionsChangeable } from 'ng2-md';
+ * import { IConverterOptionsChangeable } from 'ngx-showdown';
  * // ...
- * md: string = "...";
+ * text: string = "...";
  * options: IConverterOptionsChangeable = {...};
  * // ...
  * ```
  * ```html
- * {{ md | md }}
+ * <showdown [value]="text"></showdown>
  * ```
  * ```html
- * {{ md | md:options}}
+ * <div showdown="text"></div>
+ * ```
+ * ```html
+ * <showdown [value]="text" [options]="options"></showdown>
+ * ```
+ * ```html
+ * <showdown [value]="text" [disableForced4SpacesIndentedSublists]="options.disableForced4SpacesIndentedSublists" [encodeEmails]="options.encodeEmails" [excludeTrailingPunctuationFromURLs]="options.excludeTrailingPunctuationFromURLs" [ghCodeBlocks]="options.ghCodeBlocks" [ghCompatibleHeaderId]="options.ghCompatibleHeaderId" [ghMentions]="options.ghMentions" [ghMentionsLink]="options.ghMentionsLink" [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores" [noHeaderId]="options.noHeaderId" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks" [parseImgDimensions]="options.parseImgDimensions" [prefixHeaderId]="options.prefixHeaderId" [requireSpaceBeforeHeadingText]="options.requireSpaceBeforeHeadingText" [simpleLineBreaks]="options.simpleLineBreaks" [simplifiedAutoLink]="options.simplifiedAutoLink" [smartIndentationFix]="options.smartIndentationFix" [smoothLivePreview]="options.smoothLivePreview" [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId" [tasklists]="options.tasklists" [trimEachLine]="options.trimEachLine"></showdown>
+ * ```
+ * ```html
+ * <showdown trimEachLine="space"> # abc </showdown> // <showdown><h1>abc</h1></showdown>
+ * ```
+ * ```html
+ * <showdown trimEachLine="tab">\t# abc\t</showdown> // <showdown><h1>abc</h1></showdown>
+ * ```
+ * both tab and space
+ * ```html
+ * <showdown trimEachLine>\t # abc\t </showdown> // <showdown><h1>abc</h1></showdown>
  * ```
  */
-var MdPipe = (function (_super) {
-    __extends(MdPipe, _super);
-    function MdPipe(options) {
-        return _super.call(this, options) || this;
+var ShowdownDirective = (function (_super) {
+    __extends(ShowdownDirective, _super);
+    function ShowdownDirective(_elementRef, options) {
+        var _this = _super.call(this, options) || this;
+        _this._elementRef = _elementRef;
+        _this._type = ShowdownDirective_1.TYPES.NONE;
+        _this._status = ShowdownDirective_1.STATUSES.CREATED;
+        /** Default OnChange method, Called on change value or options */
+        _this._onChange = function () {
+            _this.compile();
+        };
+        // override the setOption method (define in the super constructor)
+        _this.setOption = function (optionKey, value) {
+            _this.getOptions()[optionKey] = value;
+            _this._onChange();
+        };
+        return _this;
     }
-    MdPipe.prototype.transform = function (md, options) {
-        if (md === void 0) { md = ''; }
-        this.setOptions(options);
-        return this.makeHtml(md);
+    ShowdownDirective_1 = ShowdownDirective;
+    Object.defineProperty(ShowdownDirective.prototype, "value", {
+        /** Value of the component (the input md text pre converter). */
+        get: function () {
+            return this._value;
+        },
+        set: function (value) {
+            this.setValue(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ShowdownDirective.prototype, "type", {
+        /** Type of the input source [binding, content, src]. */
+        get: function () {
+            return ShowdownDirective_1.TYPES[this._type].toLowerCase();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ShowdownDirective.prototype, "status", {
+        /** Status of the component life cycle. */
+        get: function () {
+            return ShowdownDirective_1.STATUSES[this._status].toLowerCase();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ShowdownDirective.prototype, "showdown", {
+        /** Alias to value */
+        get: function () {
+            return this.value;
+        },
+        set: function (value) {
+            this.value = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ShowdownDirective.prototype, "options", {
+        get: function () {
+            return this.getOptions();
+        },
+        set: function (options) {
+            this.setOptions(options);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ShowdownDirective.prototype.ngOnInit = function () {
+        if (this._type === ShowdownDirective_1.TYPES.NONE && !utils_1.default.isEmpty(this._elementRef.nativeElement.innerText)) {
+            var value = this._elementRef.nativeElement.innerHTML;
+            this.setValue(value, ShowdownDirective_1.TYPES.CONTENT);
+        }
+        if (this._status === ShowdownDirective_1.STATUSES.CREATED) {
+            this._status = ShowdownDirective_1.STATUSES.INIT;
+        }
     };
-    return MdPipe;
+    ShowdownDirective.prototype.setValue = function (value, type) {
+        if (type === void 0) { type = ShowdownDirective_1.TYPES.BINDING; }
+        this._value = value;
+        this._type = type;
+        this._onChange();
+    };
+    ShowdownDirective.prototype.setOptions = function (options) {
+        _super.prototype.setOptions.call(this, options);
+        this._onChange();
+    };
+    ShowdownDirective.prototype.compile = function () {
+        if (this._type === ShowdownDirective_1.TYPES.NONE)
+            return;
+        this._status = ShowdownDirective_1.STATUSES.PROCESSING;
+        this._elementRef.nativeElement.innerHTML = this.toHTML();
+        this._status = ShowdownDirective_1.STATUSES.READY;
+    };
+    ShowdownDirective.prototype.registerOnChange = function (fn) {
+        if (!utils_1.default.isFunction(fn))
+            throw new Error('Arg fn is missing or invalid.');
+        this._onChange = fn;
+    };
+    /** Converter the component (md value) to html */
+    ShowdownDirective.prototype.toHTML = function () {
+        var value = this._value;
+        return this.makeHtml(value);
+    };
+    ShowdownDirective.TYPES = SHOWDOWN_DIRECTIVE_TYPES;
+    ShowdownDirective.STATUSES = SHOWDOWN_DIRECTIVE_STATUSES;
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String),
+        __metadata("design:paramtypes", [String])
+    ], ShowdownDirective.prototype, "value", null);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String),
+        __metadata("design:paramtypes", [String])
+    ], ShowdownDirective.prototype, "showdown", null);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object),
+        __metadata("design:paramtypes", [Object])
+    ], ShowdownDirective.prototype, "options", null);
+    ShowdownDirective = ShowdownDirective_1 = __decorate([
+        core_1.Directive({
+            selector: 'showdown,[showdown]',
+            inputs: [].concat(optionsProperties)
+        }),
+        __param(1, core_1.Optional()),
+        __metadata("design:paramtypes", [core_1.ElementRef, base_converter_options_provider_1.ConverterOptions])
+    ], ShowdownDirective);
+    return ShowdownDirective;
+    var ShowdownDirective_1;
 }(base_converter_class_1.BaseConverter));
-MdPipe = __decorate([
-    core_1.Pipe({
-        name: 'md',
-        pure: false
-    }),
-    __param(0, core_1.Optional()),
-    __metadata("design:paramtypes", [base_converter_options_provider_1.ConverterOptions])
-], MdPipe);
-exports.MdPipe = MdPipe;
+exports.ShowdownDirective = ShowdownDirective;
+// define options properties getter setter for angular directive and direct access
+optionsProperties.forEach(function (key) {
+    Object.defineProperty(ShowdownDirective.prototype, key, {
+        set: function (value) {
+            this.setOption(key, utils_1.default.isEmpty(value) ? true : value);
+        },
+        get: function () {
+            return this.getOption(key);
+        },
+        enumerable: true,
+        configurable: true
+    });
+});
 
 
 /***/ }),
 
-/***/ 218:
+/***/ 209:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(12);
+var base_converter_options_provider_1 = __webpack_require__(72);
+var base_converter_class_1 = __webpack_require__(95);
+/**
+ * @example
+ * ```javascript
+ * import { ShowdownConverter } from 'ngx-showdown';
+ * class Some{
+ *  constructor(showdownConverter: ShowdownConverter){
+ *      console.log(showdownConverter.makeHtml("..."));
+ *  }
+ * }
+ * ```
+ */
+var ShowdownConverter = (function (_super) {
+    __extends(ShowdownConverter, _super);
+    function ShowdownConverter(options) {
+        return _super.call(this, options) || this;
+    }
+    ShowdownConverter = __decorate([
+        core_1.Injectable(),
+        __param(0, core_1.Optional()),
+        __metadata("design:paramtypes", [base_converter_options_provider_1.ConverterOptions])
+    ], ShowdownConverter);
+    return ShowdownConverter;
+}(base_converter_class_1.BaseConverter));
+exports.ShowdownConverter = ShowdownConverter;
+
+
+/***/ }),
+
+/***/ 210:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -440,32 +361,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(11);
-var http_1 = __webpack_require__(94);
-var md_directive_1 = __webpack_require__(126);
+var core_1 = __webpack_require__(12);
+var http_1 = __webpack_require__(126);
+var showdown_directive_1 = __webpack_require__(132);
 /**
  * @example
  * ```javascript
  * import { NgModule } from '@angular/core';
- * import { MdDirective, SrcDirective } from 'ng2-md';
+ * import { ShowdownDirective, SrcDirective } from 'ngx-showdown';
  * @NgModule({
- *  declarations: [ MdDirective, SrcDirective ];
+ *  declarations: [ ShowdownDirective, SrcDirective ];
  * })
  * export class AppModule{}
  * ```
  * ```html
- * <md src="README.md"><md/>
+ * <showdown src="README.md"></showdown>
  * ```
  * ```html
- * <md src="README.md" [options]="{...} as IConverterOptionsChangeable"><md/>
+ * <showdown src="README.md" [options]="{...} as IConverterOptionsChangeable"></showdown>
  * ```
  * ```html
- * <div md src="README.md"><div/>
+ * <div showdown src="README.md"></div>
  * ```
  */
 var SrcDirective = (function () {
-    function SrcDirective(_mdDirective, _http) {
-        this._mdDirective = _mdDirective;
+    function SrcDirective(_showdownDirective, _http) {
+        this._showdownDirective = _showdownDirective;
         this._http = _http;
     }
     Object.defineProperty(SrcDirective.prototype, "src", {
@@ -485,35 +406,127 @@ var SrcDirective = (function () {
         var src = this.src;
         this._http.get(src).subscribe(function (res) {
             var value = res.text();
-            _this._mdDirective.setValue(value, md_directive_1.MdDirective.TYPES.SRC);
+            _this._showdownDirective.setValue(value, showdown_directive_1.ShowdownDirective.TYPES.SRC);
         });
     };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String),
+        __metadata("design:paramtypes", [String])
+    ], SrcDirective.prototype, "src", null);
+    SrcDirective = __decorate([
+        core_1.Directive({
+            selector: 'showdown[src],[showdown][src]'
+        }),
+        __metadata("design:paramtypes", [showdown_directive_1.ShowdownDirective, http_1.Http])
+    ], SrcDirective);
     return SrcDirective;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String),
-    __metadata("design:paramtypes", [String])
-], SrcDirective.prototype, "src", null);
-SrcDirective = __decorate([
-    core_1.Directive({
-        selector: 'md[src],[md][src]'
-    }),
-    __metadata("design:paramtypes", [md_directive_1.MdDirective, http_1.Http])
-], SrcDirective);
 exports.SrcDirective = SrcDirective;
 
 
 /***/ }),
 
-/***/ 222:
-/***/ (function(module, exports) {
+/***/ 211:
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(12);
+var base_converter_options_provider_1 = __webpack_require__(72);
+var base_converter_class_1 = __webpack_require__(95);
+/**
+ * @example
+ * ```javascript
+ * import { NgModule } from '@angular/core';
+ * import { ShowdownPipe } from 'ngx-showdown';
+ * @NgModule({
+ *  declarations: [ ShowdownPipe ];
+ * })
+ * export class AppModule{}
+ * ```
+ * ```javascript
+ * import { IConverterOptionsChangeable } from 'ngx-showdown';
+ * // ...
+ * text: string = "...";
+ * options: IConverterOptionsChangeable = {...};
+ * // ...
+ * ```
+ * ```html
+ * {{ text | showdown }}
+ * ```
+ * ```html
+ * {{ text | showdown:options}}
+ * ```
+ */
+var ShowdownPipe = (function (_super) {
+    __extends(ShowdownPipe, _super);
+    function ShowdownPipe(options) {
+        return _super.call(this, options) || this;
+    }
+    ShowdownPipe.prototype.transform = function (md, options) {
+        if (md === void 0) { md = ''; }
+        this.setOptions(options);
+        return this.makeHtml(md);
+    };
+    ShowdownPipe = __decorate([
+        core_1.Pipe({
+            name: 'showdown',
+            pure: false
+        }),
+        __param(0, core_1.Optional()),
+        __metadata("design:paramtypes", [base_converter_options_provider_1.ConverterOptions])
+    ], ShowdownPipe);
+    return ShowdownPipe;
+}(base_converter_class_1.BaseConverter));
+exports.ShowdownPipe = ShowdownPipe;
+
 
 /***/ }),
 
-/***/ 226:
+/***/ 632:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+Object.defineProperty(exports, "__esModule", { value: true });
+var platform_browser_dynamic_1 = __webpack_require__(172);
+var core_1 = __webpack_require__(12);
+var app_module_1 = __webpack_require__(633);
+__webpack_require__(640);
+if (process.env.ENV === 'production') {
+    core_1.enableProdMode();
+}
+platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(96)))
+
+/***/ }),
+
+/***/ 633:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -525,59 +538,150 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(11);
-var forms_1 = __webpack_require__(130);
-var platform_browser_1 = __webpack_require__(47);
-var material_1 = __webpack_require__(128);
+var core_1 = __webpack_require__(12);
+var forms_1 = __webpack_require__(189);
+var platform_browser_1 = __webpack_require__(46);
+var material_1 = __webpack_require__(180);
 var app_component_1 = __webpack_require__(634);
-var src_1 = __webpack_require__(638);
+var src_1 = __webpack_require__(637);
 var AppModule = (function () {
     function AppModule() {
     }
+    AppModule = __decorate([
+        core_1.NgModule({
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                src_1.ShowdownModule,
+                // material
+                material_1.MdInputModule,
+                material_1.MdSlideToggleModule,
+                material_1.MdSliderModule,
+                material_1.MdToolbarModule,
+                material_1.MdButtonModule,
+                material_1.MdListModule,
+                material_1.MdSidenavModule,
+                material_1.MdIconModule
+            ],
+            declarations: [
+                app_component_1.AppComponent
+            ],
+            bootstrap: [app_component_1.AppComponent]
+        })
+    ], AppModule);
     return AppModule;
 }());
-AppModule = __decorate([
-    core_1.NgModule({
-        imports: [
-            platform_browser_1.BrowserModule,
-            forms_1.FormsModule,
-            src_1.MdModule,
-            // material
-            material_1.MdInputModule,
-            material_1.MdSlideToggleModule,
-            material_1.MdSliderModule,
-            material_1.MdToolbarModule,
-            material_1.MdButtonModule,
-            material_1.MdListModule,
-            material_1.MdSidenavModule,
-            material_1.MdIconModule
-        ],
-        declarations: [
-            app_component_1.AppComponent
-        ],
-        bootstrap: [app_component_1.AppComponent]
-    })
-], AppModule);
 exports.AppModule = AppModule;
 
 
 /***/ }),
 
-/***/ 381:
-/***/ (function(module, exports) {
+/***/ 634:
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = "<md-sidenav-container fullscreen>\r\n    <md-sidenav #start>\r\n        <md-nav-list>\r\n            <div *ngFor=\"let key of keys(options)\">\r\n                <md-slide-toggle *ngIf=\"isType(options[key],'boolean')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\">{{key}}\r\n                </md-slide-toggle>\r\n                <input mdInput  type=\"number\" *ngIf=\"isType(options[key],'number')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\r\n                       placeholder=\"{{key}}\" />\r\n                <input mdInput type=\"text\" *ngIf=\"isType(options[key],'string')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\r\n                       placeholder=\"{{key}}\" />\r\n            </div>\r\n            <hr/>\r\n        </md-nav-list>\r\n        <hr/>\r\n        <button md-button (click)=\"start.close()\">CLOSE</button>\r\n    </md-sidenav>\r\n    <div class=\"page\">\r\n        <md-toolbar color=\"primary\">\r\n            <button md-icon-button (click)=\"start.open()\">\r\n                <md-icon class=\"md-24\">menu</md-icon>\r\n            </button>\r\n            <h1 class=\"app-title\">{{title}}</h1>\r\n        </md-toolbar>\r\n        <div class=\"content\">\r\n            <div class=\"left\">\r\n                <textarea [(ngModel)]=\"md\"></textarea>\r\n            </div>\r\n            <div class=\"right\">\r\n                <md [value]=\"md\" [trimEachLine]=\"options.trimEachLine\" [omitExtraWLInCodeBlocks]=\"options.omitExtraWLInCodeBlocks\"\r\n                    [noHeaderId]=\"options.noHeaderId\" [prefixHeaderId]=\"options.prefixHeaderId\" [parseImgDimensions]=\"options.parseImgDimensions\"\r\n                    [headerLevelStart]=\"options.headerLevelStart\" [literalMidWordUnderscores]=\"options.literalMidWordUnderscores\"\r\n                    [strikethrough]=\"options.strikethrough\" [tables]=\"options.tables\" [tablesHeaderId]=\"options.tablesHeaderId\"\r\n                    [ghCodeBlocks]=\"options.ghCodeBlocks\" [tasklists]=\"options.tasklists\" [smoothLivePreview]=\"options.smoothLivePreview\"></md>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</md-sidenav-container>\r\n<a href=\"https://github.com/yisraelx/ng2-md\"><img style=\"position: absolute; top: 0; right: 0; border: 0;\" src=\"https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67\"\r\n                                                  alt=\"Fork me on GitHub\" data-canonical-src=\"https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png\">\r\n</a>";
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(12);
+var AppComponent = (function () {
+    function AppComponent() {
+        this.title = 'Angular X Showdown Demo!';
+        this.text = "## Hello Showdown!\n```js\nlet a = 1;\nlet b = 2;\nlet sum = a+b;\nconsole.log(`sum: ${sum}`);\n```";
+        this.options = {
+            customizedHeaderId: false,
+            disableForced4SpacesIndentedSublists: false,
+            encodeEmails: true,
+            excludeTrailingPunctuationFromURLs: false,
+            ghCodeBlocks: true,
+            ghCompatibleHeaderId: false,
+            ghMentions: false,
+            ghMentionsLink: 'https://github.com/{u}',
+            headerLevelStart: 1,
+            literalMidWordAsterisks: false,
+            literalMidWordUnderscores: false,
+            noHeaderId: false,
+            omitExtraWLInCodeBlocks: false,
+            openLinksInNewWindow: false,
+            parseImgDimensions: false,
+            prefixHeaderId: false,
+            requireSpaceBeforeHeadingText: false,
+            simpleLineBreaks: false,
+            simplifiedAutoLink: false,
+            smartIndentationFix: false,
+            smoothLivePreview: false,
+            strikethrough: false,
+            tables: false,
+            tablesHeaderId: false,
+            tasklists: false,
+            trimEachLine: 'space'
+        };
+    }
+    AppComponent.prototype.keys = function (obj) {
+        return Object.keys(obj);
+    };
+    AppComponent.prototype.isType = function (value, type) {
+        return typeof value === type;
+    };
+    AppComponent = __decorate([
+        core_1.Component({
+            selector: 'my-app',
+            template: __webpack_require__(635),
+            styles: [__webpack_require__(636)]
+        })
+    ], AppComponent);
+    return AppComponent;
+}());
+exports.AppComponent = AppComponent;
+
 
 /***/ }),
 
-/***/ 382:
+/***/ 635:
 /***/ (function(module, exports) {
 
-module.exports = ".app-title {\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n\r\nmd-sidenav {\r\n    width: 30%;\r\n    text-align: center;\r\n}\r\n\r\n.page {\r\n    height: calc(90%);\r\n}\r\n\r\n.content {\r\n    display: flex;\r\n    height: 100%;\r\n}\r\n\r\nmd, textarea {\r\n    height: 100%;\r\n    overflow-y: scroll;\r\n    border: none;\r\n    padding: 10px;\r\n}\r\n\r\n.left, .right {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    flex: 1;\r\n    padding: 1rem;\r\n}"
+module.exports = "<md-sidenav-container fullscreen>\r\n    <md-sidenav #start>\r\n        <md-nav-list>\r\n            <div *ngFor=\"let key of keys(options)\">\r\n                <md-slide-toggle *ngIf=\"isType(options[key],'boolean')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\">{{key}}\r\n                </md-slide-toggle>\r\n                <input mdInput  type=\"number\" *ngIf=\"isType(options[key],'number')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\r\n                       placeholder=\"{{key}}\" />\r\n                <input mdInput type=\"text\" *ngIf=\"isType(options[key],'string')\" class=\"nav-item-center\" md-list-item [(ngModel)]=\"options[key]\"\r\n                       placeholder=\"{{key}}\" />\r\n            </div>\r\n            <hr/>\r\n        </md-nav-list>\r\n        <hr/>\r\n        <button md-button (click)=\"start.close()\">CLOSE</button>\r\n    </md-sidenav>\r\n    <div class=\"page\">\r\n        <md-toolbar color=\"primary\">\r\n            <button md-icon-button (click)=\"start.open()\">\r\n                <md-icon class=\"md-24\">menu</md-icon>\r\n            </button>\r\n            <h1 class=\"app-title\">{{title}}</h1>\r\n        </md-toolbar>\r\n        <div class=\"content\">\r\n            <div class=\"left\">\r\n                <textarea [(ngModel)]=\"text\"></textarea>\r\n            </div>\r\n            <div class=\"right\">\r\n                <showdown [value]=\"text\" [trimEachLine]=\"options.trimEachLine\" [omitExtraWLInCodeBlocks]=\"options.omitExtraWLInCodeBlocks\"\r\n                    [noHeaderId]=\"options.noHeaderId\" [prefixHeaderId]=\"options.prefixHeaderId\" [parseImgDimensions]=\"options.parseImgDimensions\"\r\n                    [headerLevelStart]=\"options.headerLevelStart\" [literalMidWordUnderscores]=\"options.literalMidWordUnderscores\"\r\n                    [strikethrough]=\"options.strikethrough\" [tables]=\"options.tables\" [tablesHeaderId]=\"options.tablesHeaderId\"\r\n                    [ghCodeBlocks]=\"options.ghCodeBlocks\" [tasklists]=\"options.tasklists\" [smoothLivePreview]=\"options.smoothLivePreview\"></showdown>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</md-sidenav-container>\r\n<a href=\"https://github.com/yisraelx/ngx-showdown\"><img style=\"position: absolute; top: 0; right: 0; border: 0;\" src=\"https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67\"\r\n                                                  alt=\"Fork me on GitHub\" data-canonical-src=\"https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png\">\r\n</a>";
 
 /***/ }),
 
-/***/ 633:
+/***/ 636:
+/***/ (function(module, exports) {
+
+module.exports = ".app-title {\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n\r\nmd-sidenav {\r\n    width: 30%;\r\n    text-align: center;\r\n}\r\n\r\n.page {\r\n    height: calc(90%);\r\n}\r\n\r\n.content {\r\n    display: flex;\r\n    height: 100%;\r\n}\r\n\r\nshowdown, textarea {\r\n    height: 100%;\r\n    overflow-y: scroll;\r\n    border: none;\r\n    padding: 10px;\r\n}\r\n\r\n.left, .right {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    flex: 1;\r\n    padding: 1rem;\r\n}"
+
+/***/ }),
+
+/***/ 637:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var base_converter_class_1 = __webpack_require__(95);
+exports.BaseConverter = base_converter_class_1.BaseConverter;
+var base_converter_options_provider_1 = __webpack_require__(72);
+exports.ConverterOptions = base_converter_options_provider_1.ConverterOptions;
+exports.BaseConverterOptions = base_converter_options_provider_1.BaseConverterOptions;
+var showdown_converter_provider_1 = __webpack_require__(209);
+exports.ShowdownConverter = showdown_converter_provider_1.ShowdownConverter;
+var showdown_directive_1 = __webpack_require__(132);
+exports.ShowdownDirective = showdown_directive_1.ShowdownDirective;
+var src_directive_1 = __webpack_require__(210);
+exports.SrcDirective = src_directive_1.SrcDirective;
+var showdown_pipe_1 = __webpack_require__(211);
+exports.ShowdownPipe = showdown_pipe_1.ShowdownPipe;
+var showdown_module_1 = __webpack_require__(639);
+exports.ShowdownModule = showdown_module_1.ShowdownModule;
+
+
+/***/ }),
+
+/***/ 638:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;;/*! showdown 02-06-2017 */
@@ -3513,116 +3617,6 @@ if (typeof module !== 'undefined' && module.exports) {
 
 /***/ }),
 
-/***/ 634:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(11);
-var AppComponent = (function () {
-    function AppComponent() {
-        this.title = 'Angular 2 Markdown Demo!';
-        this.md = "## hello markdown!\n```js\nlet a = 1;\nlet b = 2;\nlet sum = a+b;\nconsole.log(`sum: ${sum}`);\n```";
-        this.options = {
-            customizedHeaderId: false,
-            disableForced4SpacesIndentedSublists: false,
-            encodeEmails: true,
-            excludeTrailingPunctuationFromURLs: false,
-            ghCodeBlocks: true,
-            ghCompatibleHeaderId: false,
-            ghMentions: false,
-            ghMentionsLink: 'https://github.com/{u}',
-            headerLevelStart: 1,
-            literalMidWordAsterisks: false,
-            literalMidWordUnderscores: false,
-            noHeaderId: false,
-            omitExtraWLInCodeBlocks: false,
-            openLinksInNewWindow: false,
-            parseImgDimensions: false,
-            prefixHeaderId: false,
-            requireSpaceBeforeHeadingText: false,
-            simpleLineBreaks: false,
-            simplifiedAutoLink: false,
-            smartIndentationFix: false,
-            smoothLivePreview: false,
-            strikethrough: false,
-            tables: false,
-            tablesHeaderId: false,
-            tasklists: false,
-            trimEachLine: 'space'
-        };
-    }
-    AppComponent.prototype.keys = function (obj) {
-        return Object.keys(obj);
-    };
-    AppComponent.prototype.isType = function (value, type) {
-        return typeof value === type;
-    };
-    return AppComponent;
-}());
-AppComponent = __decorate([
-    core_1.Component({
-        selector: 'my-app',
-        template: __webpack_require__(381),
-        styles: [__webpack_require__(382)]
-    })
-], AppComponent);
-exports.AppComponent = AppComponent;
-
-
-/***/ }),
-
-/***/ 635:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-Object.defineProperty(exports, "__esModule", { value: true });
-var platform_browser_dynamic_1 = __webpack_require__(95);
-var core_1 = __webpack_require__(11);
-var app_module_1 = __webpack_require__(226);
-__webpack_require__(222);
-if (process.env.ENV === 'production') {
-    core_1.enableProdMode();
-}
-platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(72)))
-
-/***/ }),
-
-/***/ 638:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var base_converter_class_1 = __webpack_require__(92);
-exports.BaseConverter = base_converter_class_1.BaseConverter;
-var base_converter_options_provider_1 = __webpack_require__(71);
-exports.ConverterOptions = base_converter_options_provider_1.ConverterOptions;
-exports.BaseConverterOptions = base_converter_options_provider_1.BaseConverterOptions;
-var md_converter_provider_1 = __webpack_require__(216);
-exports.MdConverter = md_converter_provider_1.MdConverter;
-var md_directive_1 = __webpack_require__(126);
-exports.MdDirective = md_directive_1.MdDirective;
-var src_directive_1 = __webpack_require__(218);
-exports.SrcDirective = src_directive_1.SrcDirective;
-var md_pipe_1 = __webpack_require__(217);
-exports.MdPipe = md_pipe_1.MdPipe;
-var md_module_1 = __webpack_require__(639);
-exports.MdModule = md_module_1.MdModule;
-
-
-/***/ }),
-
 /***/ 639:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3635,66 +3629,74 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(11);
-var md_directive_1 = __webpack_require__(126);
-var src_directive_1 = __webpack_require__(218);
-var md_pipe_1 = __webpack_require__(217);
-var md_converter_provider_1 = __webpack_require__(216);
-var base_converter_options_provider_1 = __webpack_require__(71);
+var core_1 = __webpack_require__(12);
+var showdown_directive_1 = __webpack_require__(132);
+var src_directive_1 = __webpack_require__(210);
+var showdown_pipe_1 = __webpack_require__(211);
+var showdown_converter_provider_1 = __webpack_require__(209);
+var base_converter_options_provider_1 = __webpack_require__(72);
 var declarations = [
-    md_directive_1.MdDirective,
-    md_pipe_1.MdPipe,
+    showdown_directive_1.ShowdownDirective,
+    showdown_pipe_1.ShowdownPipe,
     src_directive_1.SrcDirective
 ];
 /**
  * @example
  * ```javascript
  * import { NgModule } from '@angular/core';
- * import { MdModule} from 'ng2-md';
+ * import { ShowdownModule} from 'ngx-showdown';
  * @NgModule({
- *  imports: [ MdModule ];
+ *  imports: [ ShowdownModule ];
  * })
  * export class AppModule{}
  * ```
  * ```javascript
  * import { NgModule } from '@angular/core';
- * import { MdModule, IConverterOptions, ConverterOptions } from 'ng2-md';
+ * import { ShowdownModule, IConverterOptions, ConverterOptions } from 'ngx-showdown';
  * @NgModule({
- *  imports: [ MdModule.forRoot({...} as IConverterOptions | ConverterOptions) ];
+ *  imports: [ ShowdownModule.forRoot({...} as IConverterOptions | ConverterOptions) ];
  * })
  * export class AppModule{}
  * ```
  */
-var MdModule = MdModule_1 = (function () {
-    function MdModule() {
+var ShowdownModule = (function () {
+    function ShowdownModule() {
     }
-    MdModule.forRoot = function (config) {
+    ShowdownModule_1 = ShowdownModule;
+    ShowdownModule.forRoot = function (config) {
         return {
-            ngModule: MdModule_1,
+            ngModule: ShowdownModule_1,
             providers: [
                 { provide: base_converter_options_provider_1.ConverterOptions, useValue: config }
             ]
         };
     };
-    return MdModule;
+    ShowdownModule = ShowdownModule_1 = __decorate([
+        core_1.NgModule({
+            declarations: declarations,
+            providers: [
+                showdown_converter_provider_1.ShowdownConverter,
+                { provide: base_converter_options_provider_1.ConverterOptions, useClass: base_converter_options_provider_1.BaseConverterOptions }
+            ],
+            exports: declarations
+        })
+    ], ShowdownModule);
+    return ShowdownModule;
+    var ShowdownModule_1;
 }());
-MdModule = MdModule_1 = __decorate([
-    core_1.NgModule({
-        declarations: declarations,
-        providers: [
-            md_converter_provider_1.MdConverter,
-            { provide: base_converter_options_provider_1.ConverterOptions, useClass: base_converter_options_provider_1.BaseConverterOptions }
-        ],
-        exports: declarations
-    })
-], MdModule);
-exports.MdModule = MdModule;
-var MdModule_1;
+exports.ShowdownModule = ShowdownModule;
 
 
 /***/ }),
 
-/***/ 71:
+/***/ 640:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 72:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3719,8 +3721,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(11);
-var utils_1 = __webpack_require__(127);
+var core_1 = __webpack_require__(12);
+var utils_1 = __webpack_require__(131);
 var ConverterOptions = (function () {
     function ConverterOptions(options) {
         this.merge(options);
@@ -3740,7 +3742,7 @@ exports.ConverterOptions = ConverterOptions;
  * @example
  * ```javascript
  * import { NgModel } from '@angular/core';
- * import { ConverterOptions, BaseConverterOptions } from 'ng2-md';
+ * import { ConverterOptions, BaseConverterOptions } from 'ngx-showdown';
  * export class MyConverterOptions extends ConverterOptions{
  *  constructor(){
  *      super({...});
@@ -3787,18 +3789,18 @@ var BaseConverterOptions = (function (_super) {
             trimEachLine: false
         }) || this;
     }
+    BaseConverterOptions = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [])
+    ], BaseConverterOptions);
     return BaseConverterOptions;
 }(ConverterOptions));
-BaseConverterOptions = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [])
-], BaseConverterOptions);
 exports.BaseConverterOptions = BaseConverterOptions;
 
 
 /***/ }),
 
-/***/ 92:
+/***/ 95:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3814,8 +3816,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var showdown_1 = __webpack_require__(633);
-var utils_1 = __webpack_require__(127);
+var showdown_1 = __webpack_require__(638);
+var utils_1 = __webpack_require__(131);
 var BaseConverter = (function (_super) {
     __extends(BaseConverter, _super);
     function BaseConverter(options) {
@@ -3849,5 +3851,5 @@ exports.BaseConverter = BaseConverter;
 
 /***/ })
 
-},[635]);
+},[632]);
 //# sourceMappingURL=app.js.map
