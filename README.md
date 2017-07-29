@@ -1,13 +1,15 @@
 # Angular 2 Markdown Module based on [Showdown library](https://github.com/showdownjs/showdown).
-[![Travis build](https://travis-ci.org/yisraelx/ng2-md.svg?branch=master)](https://travis-ci.org/yisraelx/ng2-md)
-[![Codecov coverage](https://codecov.io/github/yisraelx/ng2-md/coverage.svg?branch=master)](https://codecov.io/github/yisraelx/ng2-md)
-[![Version](https://img.shields.io/npm/v/ng2-md.svg)](https://www.npmjs.com/package/ng2-md)
-[![MIT License](https://img.shields.io/npm/l/ng2-md.svg)](https://github.com/yisraelx/ng2-md/blob/master/LICENSE)
+[![Travis build](https://travis-ci.org/yisraelx/ngx-showdown.svg?branch=master)](https://travis-ci.org/yisraelx/ngx-showdown)
+[![Codecov coverage](https://codecov.io/github/yisraelx/ngx-showdown/coverage.svg?branch=master)](https://codecov.io/github/yisraelx/ngx-showdown)
+[![Version](https://img.shields.io/npm/v/ngx-showdown.svg)](https://www.npmjs.com/package/ngx-showdown)
+[![MIT License](https://img.shields.io/npm/l/ngx-showdown.svg)](https://github.com/yisraelx/ngx-showdown/blob/master/LICENSE)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
+## WARNING: This module has been renamed to [ngx-showdown](https://www.npmjs.com/package/ngx-showdown). Please install it instead.
+
 ## Demo
-There is a demo in [source code](https://github.com/yisraelx/ng2-md/blob/master/demo), it is also [online](http://yisraelx.github.io/ng2-md) and have another demo in [Plunker](https://plnkr.co/edit/0j8d9w) can play it online.
+There is a demo in [source code](https://github.com/yisraelx/ngx-showdown/blob/master/demo), it is also [online](http://yisraelx.github.io/ngx-showdown) and have another demo in [Plunker](https://plnkr.co/edit/0j8d9w) can play it online.
 
 ## Install
 ```bash
@@ -169,4 +171,4 @@ This library based on [Showdown library](https://github.com/showdownjs/showdown)
 
 ## License
 Copyright © 2016 [Yisrael Eliav](https://github.com/yisraelx),
-Licensed under the [MIT license](https://github.com/yisraelx/ng2-md/blob/master/LICENSE).
+Licensed under the [MIT license](https://github.com/yisraelx/ngx-showdown/blob/master/LICENSE).

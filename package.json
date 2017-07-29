@@ -60,12 +60,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yisraelx/ng2-md.git"
+    "url": "https://github.com/yisraelx/ngx-showdown.git"
   },
   "bugs": {
-    "url": "https://github.com/yisraelx/ng2-md/issues"
+    "url": "https://github.com/yisraelx/ngx-showdown/issues"
   },
-  "homepage": "http://yisraelx.github.io/ng2-md",
+  "homepage": "http://yisraelx.github.io/ngx-showdown",
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
