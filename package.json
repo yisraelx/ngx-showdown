@@ -37,7 +37,7 @@
     "ci:before": "npm prune",
     "ci:script": "run-s ready",
     "ci:after": "run-s coverage:report semantic-release ci:deploy",
-    "ci:deploy": "run-s build:gh-pages && git config --global user.email 'gh-pages@localhost' && git config --global user.name 'gh-pages' && gh-pages -d demo/build -r https://$GH_TOKEN@github.com/yisraelx/ngx-showdown.git -x",
+    "ci:deploy": "run-s build:gh-pages && git config --global user.email 'gh-pages@localhost' && git config --global user.name 'gh-pages' && gh-pages -d demo/build -r https://$GH_TOKEN@github.com/yisraelx/ngx-showdown.git -m \"chore: update\" -x",
     "coverage:check": "istanbul check-coverage --statements 80 --branches 80 --functions 80 --lines 80",
     "coverage:report": "codecov -f coverage/*.json",
     "clean": "rimraf lib bundles demo/build coverage",
