@@ -4,7 +4,7 @@ import { ConverterOptions } from './base-converter-options.provider';
 import { BaseConverter, IConverterOptionsChangeable } from './base-converter.class';
 
 let optionsProperties: string[] = [
-    'customizedHeaderId', 'disableForced4SpacesIndentedSublists', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordAsterisks', 'literalMidWordUnderscores', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'openLinksInNewWindow', 'parseImgDimensions', 'prefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'trimEachLine'
+    'customizedHeaderId', 'backslashEscapesHTMLTags', 'disableForced4SpacesIndentedSublists', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordAsterisks', 'literalMidWordUnderscores', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'openLinksInNewWindow', 'parseImgDimensions', 'prefixHeaderId', 'rawHeaderId', 'rawPrefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'trimEachLine'
 ];
 
 export enum SHOWDOWN_DIRECTIVE_TYPES {
@@ -74,6 +74,7 @@ export class ShowdownDirective extends BaseConverter implements OnInit {
 
     // options getter setter dynamic definition (the code after the class)
     public customizedHeaderId?: boolean;
+    public backslashEscapesHTMLTags?: boolean;
     public disableForced4SpacesIndentedSublists?: boolean;
     public encodeEmails?: boolean;
     public excludeTrailingPunctuationFromURLs?: boolean;
@@ -89,6 +90,8 @@ export class ShowdownDirective extends BaseConverter implements OnInit {
     public openLinksInNewWindow?: boolean;
     public parseImgDimensions?: boolean;
     public prefixHeaderId?: string | boolean;
+    public rawHeaderId?: boolean;
+    public rawPrefixHeaderId?: boolean;
     public requireSpaceBeforeHeadingText?: boolean;
     public simpleLineBreaks?: boolean;
     public simplifiedAutoLink?: boolean;
@@ -205,10 +208,10 @@ export class ShowdownDirective extends BaseConverter implements OnInit {
 // define options properties getter setter for angular directive and direct access
 optionsProperties.forEach((key: string) => {
     Object.defineProperty(ShowdownDirective.prototype, key, {
-        set(value: any): void {
+        set (value: any): void {
             this.setOption(key, $.isEmpty(value) ? true : value);
         },
-        get(): any {
+        get (): any {
             return this.getOption(key);
         },
         enumerable: true,

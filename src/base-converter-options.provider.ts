@@ -5,6 +5,7 @@ import { IConverterOptions } from './base-converter.class';
 export class ConverterOptions {
 
     customizedHeaderId: boolean;
+    backslashEscapesHTMLTags: boolean;
     disableForced4SpacesIndentedSublists: boolean;
     encodeEmails: boolean;
     excludeTrailingPunctuationFromURLs: boolean;
@@ -20,6 +21,8 @@ export class ConverterOptions {
     openLinksInNewWindow: boolean;
     parseImgDimensions: boolean;
     prefixHeaderId: string | boolean;
+    rawHeaderId: boolean;
+    rawPrefixHeaderId: boolean;
     requireSpaceBeforeHeadingText: boolean;
     simpleLineBreaks: boolean;
     simplifiedAutoLink: boolean;
@@ -66,6 +69,7 @@ export class BaseConverterOptions extends ConverterOptions {
     constructor() {
         super({
             customizedHeaderId: false,
+            backslashEscapesHTMLTags: false,
             disableForced4SpacesIndentedSublists: false,
             encodeEmails: true,
             excludeTrailingPunctuationFromURLs: false,
@@ -82,6 +86,8 @@ export class BaseConverterOptions extends ConverterOptions {
             openLinksInNewWindow: false,
             parseImgDimensions: false,
             prefixHeaderId: false,
+            rawHeaderId: false,
+            rawPrefixHeaderId: false,
             requireSpaceBeforeHeadingText: false,
             simpleLineBreaks: false,
             simplifiedAutoLink: false,

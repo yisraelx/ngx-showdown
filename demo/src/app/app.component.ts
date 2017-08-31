@@ -19,6 +19,7 @@ console.log(\`sum: \${sum}\`);
 
     options: IConverterOptionsChangeable = {
         customizedHeaderId: false,
+        backslashEscapesHTMLTags: false,
         disableForced4SpacesIndentedSublists: false,
         encodeEmails: true,
         excludeTrailingPunctuationFromURLs: false,
@@ -34,6 +35,8 @@ console.log(\`sum: \${sum}\`);
         openLinksInNewWindow: false,
         parseImgDimensions: false,
         prefixHeaderId: false,
+        rawHeaderId: false,
+        rawPrefixHeaderId: false,
         requireSpaceBeforeHeadingText: false,
         simpleLineBreaks: false,
         simplifiedAutoLink: false,
