@@ -13,7 +13,7 @@ There is a demo in [source code](https://github.com/yisraelx/ngx-showdown/blob/m
 ```bash
 $ npm install --save ngx-showdown
 # and install peer dependencies
-$ npm install --save @angular/core @angular/http showdown
+$ npm install --save @angular/core @angular/common showdown
 ```
 
 ## Use

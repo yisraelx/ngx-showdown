@@ -1,5 +1,5 @@
 import { Directive, Input } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { ShowdownDirective } from './showdown.directive';
 
 /**
@@ -40,14 +40,14 @@ export class SrcDirective {
         this.load();
     }
 
-    constructor(private _showdownDirective: ShowdownDirective, private _http: Http) {
+    constructor(private _showdownDirective: ShowdownDirective, private _http: HttpClient) {
     }
 
     public load(): void {
         let {src} = this;
-        this._http.get(src).subscribe((res: Response) => {
-            let value = res.text();
-            this._showdownDirective.setValue(value, ShowdownDirective.TYPES.SRC);
+
+        this._http.get(src, {responseType: 'text'}).subscribe((response: string) => {
+            this._showdownDirective.setValue(response, ShowdownDirective.TYPES.SRC);
         });
     }
 }

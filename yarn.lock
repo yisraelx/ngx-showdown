@@ -46,12 +46,6 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/http@^4.3.6":
-  version "4.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/http/-/http-4.4.6.tgz#0af680c6710bdc026d940e225cfd0f6a5c005d0c"
-  dependencies:
-    tslib "^1.7.1"
-
 "@angular/material@2.0.0-beta.10":
   version "2.0.0-beta.10"
   resolved "https://registry.yarnpkg.com/@angular/material/-/material-2.0.0-beta.10.tgz#23f5887d5e34da89dd6da1fe4da0b3f779da4807"
