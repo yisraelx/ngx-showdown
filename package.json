@@ -49,12 +49,13 @@
     "lint:lib": "tslint src/**/*.ts",
     "lint:test": "tslint test/**/*.ts",
     "precommit": "run-s ready",
+    "prepublish": "run-s build:lib build:bundles",
     "ready": "run-s clean lint test coverage:check",
     "start": "run-s demo",
     "test": "karma start",
     "watch:lib": "tsc --project src --watch",
     "watch:test": "npm test -- --auto-watch --no-single-run",
-    "semantic-release": "semantic-release pre && run-s build:lib build:bundles && npm publish && semantic-release post"
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
