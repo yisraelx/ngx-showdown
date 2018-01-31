@@ -3,10 +3,11 @@ import $ from './utils';
 import { IConverterOptions } from './base-converter.class';
 
 export class ConverterOptions {
-
-    customizedHeaderId: boolean;
     backslashEscapesHTMLTags: boolean;
+    completeHTMLDocument: boolean;
+    customizedHeaderId: boolean;
     disableForced4SpacesIndentedSublists: boolean;
+    emoji: boolean;
     encodeEmails: boolean;
     excludeTrailingPunctuationFromURLs: boolean;
     ghCodeBlocks: boolean;
@@ -16,6 +17,7 @@ export class ConverterOptions {
     headerLevelStart: number;
     literalMidWordAsterisks: boolean;
     literalMidWordUnderscores: boolean;
+    metadata: boolean;
     noHeaderId: boolean;
     omitExtraWLInCodeBlocks: boolean;
     openLinksInNewWindow: boolean;
@@ -32,7 +34,8 @@ export class ConverterOptions {
     tables: boolean;
     tablesHeaderId: boolean;
     tasklists: boolean;
-    trimEachLine?: boolean | 'tab' | 'space';
+    trimEachLine: boolean | 'tab' | 'space';
+    underline: boolean;
 
     constructor(options?: IConverterOptions) {
         this.merge(options);
@@ -68,9 +71,11 @@ export class ConverterOptions {
 export class BaseConverterOptions extends ConverterOptions {
     constructor() {
         super({
-            customizedHeaderId: false,
             backslashEscapesHTMLTags: false,
+            completeHTMLDocument: false,
+            customizedHeaderId: false,
             disableForced4SpacesIndentedSublists: false,
+            emoji: false,
             encodeEmails: true,
             excludeTrailingPunctuationFromURLs: false,
             extensions: [],
@@ -81,6 +86,7 @@ export class BaseConverterOptions extends ConverterOptions {
             headerLevelStart: 1,
             literalMidWordAsterisks: false,
             literalMidWordUnderscores: false,
+            metadata: false,
             noHeaderId: false,
             omitExtraWLInCodeBlocks: false,
             openLinksInNewWindow: false,
@@ -97,7 +103,8 @@ export class BaseConverterOptions extends ConverterOptions {
             tables: false,
             tablesHeaderId: false,
             tasklists: false,
-            trimEachLine: false
+            trimEachLine: false,
+            underline: false
         });
     }
 }

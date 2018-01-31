@@ -5,7 +5,9 @@ import { ConverterOptions } from './base-converter-options.provider';
 export interface IConverterOptionsChangeable {
     customizedHeaderId?: boolean;
     backslashEscapesHTMLTags?: boolean;
+    completeHTMLDocument?: boolean;
     disableForced4SpacesIndentedSublists?: boolean;
+    emoji?: boolean;
     encodeEmails?: boolean;
     excludeTrailingPunctuationFromURLs?: boolean;
     ghCodeBlocks?: boolean;
@@ -15,6 +17,7 @@ export interface IConverterOptionsChangeable {
     headerLevelStart?: number;
     literalMidWordAsterisks?: boolean;
     literalMidWordUnderscores?: boolean;
+    metadata?: boolean;
     noHeaderId?: boolean;
     omitExtraWLInCodeBlocks?: boolean;
     openLinksInNewWindow?: boolean;
@@ -32,6 +35,7 @@ export interface IConverterOptionsChangeable {
     tablesHeaderId?: boolean;
     tasklists?: boolean;
     trimEachLine?: boolean | 'tab' | 'space';
+    underline?: boolean;
 }
 
 export interface IConverterOptions extends IConverterOptionsChangeable {

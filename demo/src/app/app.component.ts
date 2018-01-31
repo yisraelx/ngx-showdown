@@ -18,9 +18,11 @@ console.log(\`sum: \${sum}\`);
 \`\`\``;
 
     options: IConverterOptionsChangeable = {
-        customizedHeaderId: false,
         backslashEscapesHTMLTags: false,
+        completeHTMLDocument: false,
+        customizedHeaderId: false,
         disableForced4SpacesIndentedSublists: false,
+        emoji: false,
         encodeEmails: true,
         excludeTrailingPunctuationFromURLs: false,
         ghCodeBlocks: true,
@@ -30,6 +32,7 @@ console.log(\`sum: \${sum}\`);
         headerLevelStart: 1,
         literalMidWordAsterisks: false,
         literalMidWordUnderscores: false,
+        metadata: false,
         noHeaderId: false,
         omitExtraWLInCodeBlocks: false,
         openLinksInNewWindow: false,
@@ -46,7 +49,8 @@ console.log(\`sum: \${sum}\`);
         tables: false,
         tablesHeaderId: false,
         tasklists: false,
-        trimEachLine: 'space'
+        trimEachLine: 'space',
+        underline: false
     };
 
     keys(obj: Object) {

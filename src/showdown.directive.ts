@@ -4,7 +4,7 @@ import { ConverterOptions } from './base-converter-options.provider';
 import { BaseConverter, IConverterOptionsChangeable } from './base-converter.class';
 
 let optionsProperties: string[] = [
-    'customizedHeaderId', 'backslashEscapesHTMLTags', 'disableForced4SpacesIndentedSublists', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordAsterisks', 'literalMidWordUnderscores', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'openLinksInNewWindow', 'parseImgDimensions', 'prefixHeaderId', 'rawHeaderId', 'rawPrefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'trimEachLine'
+    'backslashEscapesHTMLTags', 'completeHTMLDocument', 'customizedHeaderId', 'disableForced4SpacesIndentedSublists', 'emoji', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordAsterisks', 'literalMidWordUnderscores', 'metadata', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'openLinksInNewWindow', 'parseImgDimensions', 'prefixHeaderId', 'rawHeaderId', 'rawPrefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'trimEachLine', 'underline'
 ];
 
 export enum SHOWDOWN_DIRECTIVE_TYPES {
@@ -73,35 +73,39 @@ export class ShowdownDirective extends BaseConverter implements OnInit {
     public static readonly STATUSES = SHOWDOWN_DIRECTIVE_STATUSES;
 
     // options getter setter dynamic definition (the code after the class)
-    public customizedHeaderId?: boolean;
-    public backslashEscapesHTMLTags?: boolean;
-    public disableForced4SpacesIndentedSublists?: boolean;
-    public encodeEmails?: boolean;
-    public excludeTrailingPunctuationFromURLs?: boolean;
-    public ghCodeBlocks?: boolean;
+    public backslashEscapesHTMLTags: boolean;
+    public completeHTMLDocument: boolean;
+    public customizedHeaderId: boolean;
+    public disableForced4SpacesIndentedSublists: boolean;
+    public emoji: boolean;
+    public encodeEmails: boolean;
+    public excludeTrailingPunctuationFromURLs: boolean;
+    public ghCodeBlocks: boolean;
     public ghCompatibleHeaderId?: boolean;
-    public ghMentions?: boolean;
-    public ghMentionsLink?: string;
-    public headerLevelStart?: number;
-    public literalMidWordAsterisks?: boolean;
-    public literalMidWordUnderscores?: boolean;
-    public noHeaderId?: boolean;
-    public omitExtraWLInCodeBlocks?: boolean;
-    public openLinksInNewWindow?: boolean;
-    public parseImgDimensions?: boolean;
-    public prefixHeaderId?: string | boolean;
-    public rawHeaderId?: boolean;
-    public rawPrefixHeaderId?: boolean;
-    public requireSpaceBeforeHeadingText?: boolean;
-    public simpleLineBreaks?: boolean;
-    public simplifiedAutoLink?: boolean;
-    public smartIndentationFix?: boolean;
-    public smoothLivePreview?: boolean;
-    public strikethrough?: boolean;
-    public tables?: boolean;
-    public tablesHeaderId?: boolean;
-    public tasklists?: boolean;
-    public trimEachLine?: boolean | 'tab' | 'space';
+    public ghMentions: boolean;
+    public ghMentionsLink: string;
+    public headerLevelStart: number;
+    public literalMidWordAsterisks: boolean;
+    public literalMidWordUnderscores: boolean;
+    public metadata: boolean;
+    public noHeaderId: boolean;
+    public omitExtraWLInCodeBlocks: boolean;
+    public openLinksInNewWindow: boolean;
+    public parseImgDimensions: boolean;
+    public prefixHeaderId: string | boolean;
+    public rawHeaderId: boolean;
+    public rawPrefixHeaderId: boolean;
+    public requireSpaceBeforeHeadingText: boolean;
+    public simpleLineBreaks: boolean;
+    public simplifiedAutoLink: boolean;
+    public smartIndentationFix: boolean;
+    public smoothLivePreview: boolean;
+    public strikethrough: boolean;
+    public tables: boolean;
+    public tablesHeaderId: boolean;
+    public tasklists: boolean;
+    public trimEachLine: boolean | 'tab' | 'space';
+    public underline: boolean;
 
     private _value: string;
     private _type: number = ShowdownDirective.TYPES.NONE;
