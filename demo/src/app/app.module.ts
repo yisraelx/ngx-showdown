@@ -3,14 +3,14 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule }  from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-    MdInputModule,
-    MdSlideToggleModule,
-    MdSliderModule,
-    MdToolbarModule,
-    MdButtonModule,
-    MdListModule,
-    MdSidenavModule,
-    MdIconModule
+    MatInputModule,
+    MatSlideToggleModule,
+    MatSliderModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatListModule,
+    MatSidenavModule,
+    MatIconModule
 } from '@angular/material';
 import { AppComponent } from './app.component';
 import { ShowdownModule } from '../../../src';
@@ -22,14 +22,14 @@ import { ShowdownModule } from '../../../src';
         FormsModule,
         ShowdownModule,
         // material
-        MdInputModule,
-        MdSlideToggleModule,
-        MdSliderModule,
-        MdToolbarModule,
-        MdButtonModule,
-        MdListModule,
-        MdSidenavModule,
-        MdIconModule
+        MatInputModule,
+        MatSlideToggleModule,
+        MatSliderModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatListModule,
+        MatSidenavModule,
+        MatIconModule
     ],
     declarations: [
         AppComponent

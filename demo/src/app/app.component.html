@@ -1,40 +1,41 @@
-<md-sidenav-container fullscreen>
-    <md-sidenav #start>
-        <md-nav-list>
-            <div *ngFor="let key of keys(options)">
-                <md-slide-toggle *ngIf="isType(options[key],'boolean')" class="nav-item-center" md-list-item [(ngModel)]="options[key]">{{key}}
-                </md-slide-toggle>
-                <input mdInput  type="number" *ngIf="isType(options[key],'number')" class="nav-item-center" md-list-item [(ngModel)]="options[key]"
-                       placeholder="{{key}}" />
-                <input mdInput type="text" *ngIf="isType(options[key],'string')" class="nav-item-center" md-list-item [(ngModel)]="options[key]"
-                       placeholder="{{key}}" />
-            </div>
-            <hr/>
-        </md-nav-list>
-        <hr/>
-        <button md-button (click)="start.close()">CLOSE</button>
-    </md-sidenav>
+<mat-sidenav-container fullscreen>
+    <mat-sidenav #start>
+        <mat-nav-list>
+            <mat-list-item *ngFor="let key of keys(options)">
+                <mat-slide-toggle *ngIf="isType(options[key],'boolean')" class="nav-item-center"
+                                  [(ngModel)]="options[key]">{{key}}
+                </mat-slide-toggle>
+                <input mat-input type="number" *ngIf="isType(options[key],'number')" class="nav-item-center"
+                        [(ngModel)]="options[key]"
+                       placeholder="{{key}}"/>
+                <input mat-input type="text" *ngIf="isType(options[key],'string')" class="nav-item-center"
+                       [(ngModel)]="options[key]"
+                       placeholder="{{key}}"/>
+            </mat-list-item>
+            <mat-list-item>
+                <button mat-button mat-line (click)="start.close()">CLOSE</button>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
     <div class="page">
-        <md-toolbar color="primary">
-            <button md-icon-button (click)="start.open()">
-                <md-icon class="md-24">menu</md-icon>
+        <mat-toolbar color="primary">
+            <button mat-icon-button (click)="start.open()">
+                <mat-icon class="mat-24">menu</mat-icon>
             </button>
             <h1 class="app-title">{{title}}</h1>
-        </md-toolbar>
+        </mat-toolbar>
         <div class="content">
             <div class="left">
                 <textarea [(ngModel)]="text"></textarea>
             </div>
             <div class="right">
-                <showdown [value]="text" [trimEachLine]="options.trimEachLine" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks"
-                    [noHeaderId]="options.noHeaderId" [prefixHeaderId]="options.prefixHeaderId" [parseImgDimensions]="options.parseImgDimensions"
-                    [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores"
-                    [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId"
-                    [ghCodeBlocks]="options.ghCodeBlocks" [tasklists]="options.tasklists" [smoothLivePreview]="options.smoothLivePreview"></showdown>
+                <showdown [value]="text" [backslashEscapesHTMLTags]="options.backslashEscapesHTMLTags" [completeHTMLDocument]="options.completeHTMLDocument" [customizedHeaderId]="options.customizedHeaderId" [disableForced4SpacesIndentedSublists]="options.disableForced4SpacesIndentedSublists" [emoji]="options.emoji" [encodeEmails]="options.encodeEmails" [excludeTrailingPunctuationFromURLs]="options.excludeTrailingPunctuationFromURLs" [ghCodeBlocks]="options.ghCodeBlocks" [ghCompatibleHeaderId]="options.ghCompatibleHeaderId" [ghMentions]="options.ghMentions" [ghMentionsLink]="options.ghMentionsLink" [headerLevelStart]="options.headerLevelStart" [literalMidWordAsterisks]="options.literalMidWordAsterisks" [literalMidWordUnderscores]="options.literalMidWordUnderscores" [metadata]="options.metadata" [noHeaderId]="options.noHeaderId" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks" [openLinksInNewWindow]="options.openLinksInNewWindow" [parseImgDimensions]="options.parseImgDimensions" [prefixHeaderId]="options.prefixHeaderId" [rawHeaderId]="options.rawHeaderId" [rawPrefixHeaderId]="options.rawPrefixHeaderId" [requireSpaceBeforeHeadingText]="options.requireSpaceBeforeHeadingText" [simpleLineBreaks]="options.simpleLineBreaks" [simplifiedAutoLink]="options.simplifiedAutoLink" [smartIndentationFix]="options.smartIndentationFix" [smoothLivePreview]="options.smoothLivePreview" [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId" [tasklists]="options.tasklists" [trimEachLine]="options.trimEachLine" [underline]="options.underline"></showdown>
             </div>
         </div>
     </div>
-</md-sidenav-container>
-<a href="https://github.com/yisraelx/ngx-showdown"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
-                                                  alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+</mat-sidenav-container>
+<a href="https://github.com/yisraelx/ngx-showdown"><img style="position: absolute; top: 0; right: 0; border: 0;"
+                                                        src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+                                                        alt="Fork me on GitHub"
+                                                        data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
 </a>
