@@ -3,6 +3,7 @@ node_js:
   - '6.6.0'
 sudo: false
 cache:
+  yarn: true
   directories:
     - node_modules
 notifications:
@@ -12,8 +13,15 @@ branches:
     - master
   except:
     - /^v\d+\.\d+\.\d+$/
-before_script:
-  - npm run ci:before
+before_install:
+  - if [[ `node -v` == v4* ]]; then npm i -g npm@latest-3; fi
+  - if [[ `node -v` == v6* ]]; then npm i -g npm@latest-4; fi
+  - if [[ `node -v` == v8* ]]; then npm i -g npm@latest-5; fi
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH=$HOME/.yarn/bin:$PATH
+
+install: yarn --frozen-lockfile
+
 script:
   - npm run ci:script
 after_success:
