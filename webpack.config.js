@@ -57,11 +57,11 @@ module.exports = {
             commonjs: '@angular/core',
             commonjs2: '@angular/core'
         },
-        '@angular/http': {
-            root: ['ng', 'http'],
-            amd: '@angular/http',
-            commonjs: '@angular/http',
-            commonjs2: '@angular/http'
+        '@angular/common/http': {
+            root: ['ng', 'common', 'http'],
+            amd: '@angular/common/http',
+            commonjs: '@angular/common/http',
+            commonjs2: '@angular/common/http'
         },
         'showdown': 'showdown'
     }
