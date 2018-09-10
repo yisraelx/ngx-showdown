@@ -1,26 +1,28 @@
-var webpack = require('webpack'),
-    CleanWebpackPlugin = require('clean-webpack-plugin'),
-    HtmlWebpackPlugin = require('html-webpack-plugin'),
-    ExtractTextPlugin = require('extract-text-webpack-plugin'),
-    path = require('path');
+const webpack = require('webpack'),
+CleanWebpackPlugin = require('clean-webpack-plugin'),
+HtmlWebpackPlugin = require('html-webpack-plugin'),
+MiniCssExtractPlugin = require('mini-css-extract-plugin');
+path = require('path');
 
 module.exports = {
+    mode: 'production',
+    
     entry: {
         'polyfills': root('src', 'polyfills.ts'),
         'vendor': root('src', 'vendor.ts'),
         'app': root('src', 'main.ts')
     },
-
+    
     output: {
         path: root('build'),
         filename: '[name].js',
         chunkFilename: '[id].chunk.js'
     },
-
+    
     resolve: {
         extensions: ['.ts', '.js']
     },
-
+    
     devServer: {
         historyApiFallback: true,
         stats: 'minimal',
@@ -29,7 +31,7 @@ module.exports = {
         inline: true,
         openPage: ''
     },
-
+    
     module: {
         rules: [
             {
@@ -47,10 +49,10 @@ module.exports = {
             {
                 test: /\.css$/,
                 exclude: root('src', 'app'),
-                loader: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader"
-                })
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader'
+                ]
             },
             {
                 test: /\.css$/,
@@ -59,29 +61,46 @@ module.exports = {
             }
         ]
     },
-
+    
     plugins: [
         new CleanWebpackPlugin('build'),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: ['app', 'vendor', 'polyfills']
-        }),
         new webpack.ContextReplacementPlugin(
-            /angular(\\|\/)core(\\|\/)@angular/,
+            /\@angular(\\|\/)core(\\|\/)f?esm5/,
             root('src')
         ),
         new HtmlWebpackPlugin({
             template: root('src', 'index.html'),
             favicon: root('src', 'favicon.ico')
         }),
-
-        new ExtractTextPlugin('[name].css')
+        
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: "[name].css",
+            chunkFilename: "[id].css"
+        })
     ],
-
+    
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                //app: { name: 'app'},
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    chunks: 'initial',
+                    name: 'vendor',
+                    enforce: true
+                },
+                //polyfills: { name: 'polyfills'},
+            }
+        }
+    },
+    
     devtool: 'source-map'
 };
 
 
 
 function root(...args) {
-    return path.join.apply(path, [__dirname].concat(args))
+    return path.join(__dirname, ...args)
 }

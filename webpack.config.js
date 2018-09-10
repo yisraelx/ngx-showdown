@@ -9,6 +9,7 @@ let webpack = require('webpack'),
  */`;
 
 module.exports = {
+    mode: 'production',
 
     entry: {
         'ngx-showdown.umd': './src/index.ts',
@@ -29,11 +30,13 @@ module.exports = {
 
     plugins: [
         new CleanWebpackPlugin('./bundles'),
-        new webpack.optimize.UglifyJsPlugin({
-            include: /\.min\.js$/, minimize: true
-        }),
         new webpack.BannerPlugin({banner, raw: true, entryOnly: true})
     ],
+
+
+    optimization: {
+        minimize: true
+    },
 
     module: {
         rules: [
