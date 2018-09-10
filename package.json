@@ -29,7 +29,7 @@
     "showdown"
   ],
   "scripts": {
-    "build": "run-s build:*",
+    "build": "run-s build:lib build:bundles build:demo",
     "build:lib": "ngc --project src",
     "build:bundles": "webpack --progress --profile --bail",
     "build:demo": "webpack --config demo/webpack.config.js --progress --profile --bail",
