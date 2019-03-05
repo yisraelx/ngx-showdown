@@ -37,7 +37,7 @@ import { ShowdownModule, ConverterOptions, IConverterOptions } from 'ngx-showdow
 })
 export class AppModule{}
 ```
-### ShowdownDirective
+### ShowdownComponent
 #### Binding
 ```javascript
 import { IConverterOptionsChangeable } from 'ngx-showdown';

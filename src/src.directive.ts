@@ -1,14 +1,14 @@
 import { Directive, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ShowdownDirective } from './showdown.directive';
+import { ShowdownComponent } from './showdown.component';
 
 /**
  * @example
  * ```javascript
  * import { NgModule } from '@angular/core';
- * import { ShowdownDirective, SrcDirective } from 'ngx-showdown';
+ * import { ShowdownComponent, SrcDirective } from 'ngx-showdown';
  * @NgModule({
- *  declarations: [ ShowdownDirective, SrcDirective ];
+ *  declarations: [ ShowdownComponent, SrcDirective ];
  * })
  * export class AppModule{}
  * ```
@@ -40,14 +40,14 @@ export class SrcDirective {
         this.load();
     }
 
-    constructor(private _showdownDirective: ShowdownDirective, private _http: HttpClient) {
+    constructor(private _showdownComponent: ShowdownComponent, private _http: HttpClient) {
     }
 
     public load(): void {
         let {src} = this;
 
         this._http.get(src, {responseType: 'text'}).subscribe((response: string) => {
-            this._showdownDirective.setValue(response, ShowdownDirective.TYPES.SRC);
+            this._showdownComponent.setValue(response, ShowdownComponent.TYPES.SRC);
         });
     }
 }

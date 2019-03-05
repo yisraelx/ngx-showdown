@@ -1,12 +1,12 @@
 import {HttpClientTestingModule, HttpTestingController, TestRequest} from '@angular/common/http/testing';
 import { TestModuleMetadata } from '@angular/core/testing';
-import { ShowdownDirective } from '../src/showdown.directive';
+import { ShowdownComponent } from '../src/showdown.component';
 import { SrcDirective } from '../src/src.directive';
 import { ConverterOptions, BaseConverterOptions } from '../src/base-converter-options.provider';
 import $ from './utils';
 
 let srcDirectiveModuleMetadata: TestModuleMetadata = {
-    declarations: [ShowdownDirective, SrcDirective],
+    declarations: [ShowdownComponent, SrcDirective],
     providers: [
         { provide: ConverterOptions, useClass: BaseConverterOptions }
     ],
@@ -16,17 +16,17 @@ let srcDirectiveModuleMetadata: TestModuleMetadata = {
 
 describe('SrcDirective', () => {
 
-    it('should be the showdownDirective.type to be equal to ShowdownDirective.TYPES.SRC', () => {
+    it('should be the showdownComponent.type to be equal to ShowdownComponent.TYPES.SRC', () => {
         let fixture = $.createFixture(srcDirectiveModuleMetadata, { metadata: { template: '<showdown src="TEST.md"></showdown>' } });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
-        let showdownDirective: ShowdownDirective = fixture.debugElement.children[0].injector.get(ShowdownDirective);
+        let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
 
         fixture.detectChanges();
         let req: TestRequest = mockHttpClient.expectOne(`TEST.md`);
         expect(req.request.method).toBe('GET');
         req.flush('# abc');
-        expect(showdownDirective.type).toBe(ShowdownDirective.TYPES[ShowdownDirective.TYPES.SRC].toLowerCase());
-        expect(showdownDirective.status).toBe(ShowdownDirective.STATUSES[ShowdownDirective.STATUSES.READY].toLowerCase());
+        expect(showdownComponent.type).toBe(ShowdownComponent.TYPES[ShowdownComponent.TYPES.SRC].toLowerCase());
+        expect(showdownComponent.status).toBe(ShowdownComponent.STATUSES[ShowdownComponent.STATUSES.READY].toLowerCase());
     });
 
     it('should be request to showdown[src] url over http and converted the response md data to html and set the result to the element content', () => {

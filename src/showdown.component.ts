@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit, Optional } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Optional } from '@angular/core';
 import $ from './utils';
 import { ConverterOptions } from './base-converter-options.provider';
 import { BaseConverter, IConverterOptionsChangeable } from './base-converter.class';
@@ -27,11 +27,11 @@ export enum SHOWDOWN_DIRECTIVE_STATUSES {
  * @example
  * ```javascript
  * import { NgModule } from '@angular/core';
- * import { ShowdownDirective } from 'ngx-showdown';
+ * import { ShowdownComponent } from 'ngx-showdown';
  * @NgModule({
- *  declarations: [ ShowdownDirective ];
+ *      declarations: [ ShowdownComponent ];
  * })
- * export class AppModule{}
+ * export class AppModule {}
  * ```
  * ```javascript
  * import { IConverterOptionsChangeable } from 'ngx-showdown';
@@ -63,11 +63,12 @@ export enum SHOWDOWN_DIRECTIVE_STATUSES {
  * <showdown trimEachLine>\t # abc\t </showdown> // <showdown><h1>abc</h1></showdown>
  * ```
  */
-@Directive({
+@Component({
     selector: 'showdown,[showdown]',
+    template: '<ng-content></ng-content>',
     inputs: [].concat(optionsProperties)
 })
-export class ShowdownDirective extends BaseConverter implements OnInit {
+export class ShowdownComponent extends BaseConverter implements OnInit {
 
     public static readonly TYPES = SHOWDOWN_DIRECTIVE_TYPES;
     public static readonly STATUSES = SHOWDOWN_DIRECTIVE_STATUSES;
@@ -108,8 +109,8 @@ export class ShowdownDirective extends BaseConverter implements OnInit {
     public underline: boolean;
 
     private _value: string;
-    private _type: number = ShowdownDirective.TYPES.NONE;
-    private _status: number = ShowdownDirective.STATUSES.CREATED;
+    private _type: number = ShowdownComponent.TYPES.NONE;
+    private _status: number = ShowdownComponent.STATUSES.CREATED;
 
     /** Value of the component (the input md text pre converter). */
     @Input()
@@ -123,12 +124,12 @@ export class ShowdownDirective extends BaseConverter implements OnInit {
 
     /** Type of the input source [binding, content, src]. */
     public get type(): string {
-        return ShowdownDirective.TYPES[this._type].toLowerCase();
+        return ShowdownComponent.TYPES[this._type].toLowerCase();
     }
 
     /** Status of the component life cycle. */
     public get status(): string {
-        return ShowdownDirective.STATUSES[this._status].toLowerCase();
+        return ShowdownComponent.STATUSES[this._status].toLowerCase();
     }
 
     /** Alias to value */
@@ -162,18 +163,18 @@ export class ShowdownDirective extends BaseConverter implements OnInit {
 
     public ngOnInit(): void {
 
-        if (this._type === ShowdownDirective.TYPES.NONE && !$.isEmpty(this._elementRef.nativeElement.innerText)) {
+        if (this._type === ShowdownComponent.TYPES.NONE && !$.isEmpty(this._elementRef.nativeElement.innerText)) {
             let value = this._elementRef.nativeElement.innerHTML;
-            this.setValue(value, ShowdownDirective.TYPES.CONTENT);
+            this.setValue(value, ShowdownComponent.TYPES.CONTENT);
         }
 
-        if (this._status === ShowdownDirective.STATUSES.CREATED) {
-            this._status = ShowdownDirective.STATUSES.INIT;
+        if (this._status === ShowdownComponent.STATUSES.CREATED) {
+            this._status = ShowdownComponent.STATUSES.INIT;
         }
 
     }
 
-    public setValue(value: string, type: number = ShowdownDirective.TYPES.BINDING): void {
+    public setValue(value: string, type: number = ShowdownComponent.TYPES.BINDING): void {
         this._value = value;
         this._type = type;
         this._onChange();
@@ -185,10 +186,10 @@ export class ShowdownDirective extends BaseConverter implements OnInit {
     }
 
     public compile(): void {
-        if (this._type === ShowdownDirective.TYPES.NONE) return;
-        this._status = ShowdownDirective.STATUSES.PROCESSING;
+        if (this._type === ShowdownComponent.TYPES.NONE) return;
+        this._status = ShowdownComponent.STATUSES.PROCESSING;
         this._elementRef.nativeElement.innerHTML = this.toHTML();
-        this._status = ShowdownDirective.STATUSES.READY;
+        this._status = ShowdownComponent.STATUSES.READY;
     }
 
     public registerOnChange(fn: (() => void)): void {
@@ -211,7 +212,7 @@ export class ShowdownDirective extends BaseConverter implements OnInit {
 
 // define options properties getter setter for angular directive and direct access
 optionsProperties.forEach((key: string) => {
-    Object.defineProperty(ShowdownDirective.prototype, key, {
+    Object.defineProperty(ShowdownComponent.prototype, key, {
         set (value: any): void {
             this.setOption(key, $.isEmpty(value) ? true : value);
         },
