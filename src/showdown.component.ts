@@ -62,10 +62,20 @@ export enum SHOWDOWN_DIRECTIVE_STATUSES {
  * ```html
  * <showdown trimEachLine>\t # abc\t </showdown> // <showdown><h1>abc</h1></showdown>
  * ```
+ *
+ * Set template reference variable
+ * ```html
+ * <showdown #sd></showdown>
+ * ```
+ * Or
+ * ```html
+ * <div showdown #sd="showdown"></div>
+ * ```
  */
 @Component({
     selector: 'showdown,[showdown]',
     template: '<ng-content></ng-content>',
+    exportAs: 'showdown',
     inputs: [].concat(optionsProperties)
 })
 export class ShowdownComponent extends BaseConverter implements OnInit {
