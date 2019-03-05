@@ -84,19 +84,31 @@ import { IConverterOptionsChangeable } from 'ngx-showdown';
 <showdown [options]="options"># abc</showdown>
 ```
 ```html
-<showdown [disableForced4SpacesIndentedSublists]="options.disableForced4SpacesIndentedSublists" [encodeEmails]="options.encodeEmails" [excludeTrailingPunctuationFromURLs]="options.excludeTrailingPunctuationFromURLs" [ghCodeBlocks]="options.ghCodeBlocks" [ghCompatibleHeaderId]="options.ghCompatibleHeaderId" [ghMentions]="options.ghMentions" [ghMentionsLink]="options.ghMentionsLink" [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores" [noHeaderId]="options.noHeaderId" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks" [parseImgDimensions]="options.parseImgDimensions" [prefixHeaderId]="options.prefixHeaderId" [requireSpaceBeforeHeadingText]="options.requireSpaceBeforeHeadingText" [simpleLineBreaks]="options.simpleLineBreaks" [simplifiedAutoLink]="options.simplifiedAutoLink" [smartIndentationFix]="options.smartIndentationFix" [smoothLivePreview]="options.smoothLivePreview" [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId" [tasklists]="options.tasklists" [trimEachLine]="options.trimEachLine"># abc</showdown>
+<showdown [disableForced4SpacesIndentedSublists]="options.disableForced4SpacesIndentedSublists" [encodeEmails]="options.encodeEmails" [excludeTrailingPunctuationFromURLs]="options.excludeTrailingPunctuationFromURLs" [ghCodeBlocks]="options.ghCodeBlocks" [ghCompatibleHeaderId]="options.ghCompatibleHeaderId" [ghMentions]="options.ghMentions" [ghMentionsLink]="options.ghMentionsLink" [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores" [noHeaderId]="options.noHeaderId" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks" [parseImgDimensions]="options.parseImgDimensions" [prefixHeaderId]="options.prefixHeaderId" [requireSpaceBeforeHeadingText]="options.requireSpaceBeforeHeadingText" [simpleLineBreaks]="options.simpleLineBreaks" [simplifiedAutoLink]="options.simplifiedAutoLink" [smartIndentationFix]="options.smartIndentationFix" [smoothLivePreview]="options.smoothLivePreview" [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId" [tasklists]="options.tasklists"># abc</showdown>
 ```
-### Trim each line
+#### Indentation
+
+Showdown converter [smartIndentationFix](https://github.com/showdownjs/showdown/wiki/Showdown-options#smartindentationfix) option can fix string indentation. 
+```typescript
+text = `
+  # A
+  ## B
+`;
+```
 ```html
-<showdown trimEachLine="space"> # abc </showdown> // <showdown><h1>abc</h1></showdown>
+<showdown [value]="text" smartIndentationFix></showdown>
 ```
-```html
-<showdown trimEachLine="tab">\t# abc\t</showdown> // <showdown><h1>abc</h1></showdown>
+With `smartIndentationFix`
 ```
-both tab and space
-```html
-<showdown trimEachLine>\t # abc\t </showdown> // <showdown><h1>abc</h1></showdown>
+# A
+## B
 ```
+Without `smartIndentationFix`
+```
+  # A
+  ## B
+```
+
 ### Load .md file (SrcDirective)
 ```html
 <showdown src="README.md"></showdown>

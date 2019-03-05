@@ -107,18 +107,20 @@ describe('ShowdownComponent', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h2 id="abc">abc</h2>');
     });
 
-    it('should be converted showdown[value] bind attr to html and set the result to the element content (trimEachLine directive)', () => {
+    it('should be converted showdown[value] bind attr to html and set the result to the element content', () => {
         let fixture = $.createFixture(showdownComponentModuleMetadata, {
-            metadata: { template: '<showdown [value]="text" [trimEachLine]="options.trimEachLine"></showdown>' },
-            scope: { text: ' # a b c ', options: { trimEachLine: 'space' } }
+            metadata: {template: '<showdown [value]="text" [smartIndentationFix]="options.smartIndentationFix"></showdown>'},
+            scope: {text: ' # a b c ', options: {smartIndentationFix: true}}
         });
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="abc">a b c</h1>');
 
-        fixture.debugElement.componentInstance.options.trimEachLine = 'tab';
         fixture.debugElement.componentInstance.text = '\t#\ta\tb\tc\t';
         fixture.detectChanges();
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="abc">a   b   c</h1>');
 
+        fixture.debugElement.componentInstance.options.smartIndentationFix = false;
+        fixture.detectChanges();
+        expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe(`<pre><code>#   a   b   c   \n</code></pre>`);
     });
 
     it('should be converted div[showdown] bind attr to html and set the result to the element content', () => {
@@ -162,15 +164,15 @@ describe('ShowdownComponent', () => {
 
     it('should be set get options', () => {
         let fixture = $.createFixture(showdownComponentModuleMetadata, {
-            metadata: { template: '<showdown noHeaderId trimEachLine="space" [options]="options"></showdown>' },
-            scope: { options: { tables: true } }
+            metadata: {template: '<showdown noHeaderId [smartIndentationFix]="true" [options]="options"></showdown>'},
+            scope: {options: {tables: true}}
         });
         let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
 
         expect(showdownComponent.options.noHeaderId).toBeTruthy();
         expect(showdownComponent.noHeaderId).toBeTruthy();
-        expect(showdownComponent.options.trimEachLine).toBe('space');
-        expect(showdownComponent.trimEachLine).toBe('space');
+        expect(showdownComponent.options.smartIndentationFix).toBeTruthy();
+        expect(showdownComponent.smartIndentationFix).toBeTruthy();
         expect(showdownComponent.options.tables).toBeTruthy();
         expect(showdownComponent.tables).toBeTruthy();
     });

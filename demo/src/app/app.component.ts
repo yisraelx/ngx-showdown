@@ -49,7 +49,6 @@ console.log(\`sum: \${sum}\`);
         tables: false,
         tablesHeaderId: false,
         tasklists: false,
-        trimEachLine: 'space',
         underline: false
     };
 

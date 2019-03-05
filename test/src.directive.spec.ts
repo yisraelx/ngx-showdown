@@ -41,7 +41,7 @@ describe('SrcDirective', () => {
     });
 
     it('should be request to showdown[src] url over http and converted the response md data to html and set the result to the element content (whit options)', () => {
-        let fixture = $.createFixture(srcDirectiveModuleMetadata, { metadata: { template: '<showdown src="TEST.md" [options]="{trimEachLine: true}"></showdown>' } });
+        let fixture = $.createFixture(srcDirectiveModuleMetadata, { metadata: { template: '<showdown src="TEST.md" [options]="{smartIndentationFix: true}"></showdown>' } });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
 
         fixture.detectChanges();

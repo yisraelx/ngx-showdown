@@ -34,7 +34,6 @@ export class ConverterOptions {
     tables: boolean;
     tablesHeaderId: boolean;
     tasklists: boolean;
-    trimEachLine: boolean | 'tab' | 'space';
     underline: boolean;
 
     constructor(options?: IConverterOptions) {
@@ -103,7 +102,6 @@ export class BaseConverterOptions extends ConverterOptions {
             tables: false,
             tablesHeaderId: false,
             tasklists: false,
-            trimEachLine: false,
             underline: false
         });
     }

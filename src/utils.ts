@@ -19,19 +19,4 @@ export default class Utils {
         });
     }
 
-    static trimEachLine(text: string, trimEachLine?: boolean | 'tab' | 'space') {
-        if (this.isEmpty(text)) return text;
-
-        switch (trimEachLine) {
-            case 'space':
-                return text.replace(/^(?=\n)$|^[ ]+|[ ]+$/gm, '');
-            case 'tab':
-                return text.replace(/^(?=\n)$|^\t+|\t+$/gm, '');
-            case true:
-                return text.replace(/^(?=\n)$|^\s+|\s+$/gm, '');
-            default:
-                return text;
-        }
-
-    }
 }

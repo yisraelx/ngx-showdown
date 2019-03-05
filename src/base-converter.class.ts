@@ -34,7 +34,6 @@ export interface IConverterOptionsChangeable {
     tables?: boolean;
     tablesHeaderId?: boolean;
     tasklists?: boolean;
-    trimEachLine?: boolean | 'tab' | 'space';
     underline?: boolean;
 }
 
@@ -46,12 +45,6 @@ export class BaseConverter extends Converter {
 
     constructor(options?: IConverterOptions | ConverterOptions) {
         super(options);
-        // override makeHtml method (define in super constructor)
-        let {makeHtml} = this;
-        this.makeHtml = (text: string): string => {
-            text = this._preMakeHtml(text);
-            return makeHtml.call(this, text);
-        };
     }
 
     public setOptions(options: IConverterOptionsChangeable): void {
@@ -62,10 +55,4 @@ export class BaseConverter extends Converter {
         }
     }
 
-    /** pre super.makeHtml (situation that not possible to achieve it with subParsers or extensions) */
-    private _preMakeHtml(text: string): string {
-        let {trimEachLine} = this.getOptions() as IConverterOptionsChangeable;
-        text = $.trimEachLine(text, trimEachLine);
-        return text;
-    }
 }

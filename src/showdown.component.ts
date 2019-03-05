@@ -4,7 +4,7 @@ import { ConverterOptions } from './base-converter-options.provider';
 import { BaseConverter, IConverterOptionsChangeable } from './base-converter.class';
 
 let optionsProperties: string[] = [
-    'backslashEscapesHTMLTags', 'completeHTMLDocument', 'customizedHeaderId', 'disableForced4SpacesIndentedSublists', 'emoji', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordAsterisks', 'literalMidWordUnderscores', 'metadata', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'openLinksInNewWindow', 'parseImgDimensions', 'prefixHeaderId', 'rawHeaderId', 'rawPrefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'trimEachLine', 'underline'
+    'backslashEscapesHTMLTags', 'completeHTMLDocument', 'customizedHeaderId', 'disableForced4SpacesIndentedSublists', 'emoji', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordAsterisks', 'literalMidWordUnderscores', 'metadata', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'openLinksInNewWindow', 'parseImgDimensions', 'prefixHeaderId', 'rawHeaderId', 'rawPrefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'underline'
 ];
 
 export enum SHOWDOWN_DIRECTIVE_TYPES {
@@ -25,42 +25,57 @@ export enum SHOWDOWN_DIRECTIVE_STATUSES {
  * @problem in content use <showdown>{}</showdown> - [unescaped "{":](https://github.com/angular/angular/issues/11859) the solution is to sanitize (html char code etc.).
  *
  * @example
- * ```javascript
+ * Setup as standalone
+ * ```typescript
  * import { NgModule } from '@angular/core';
  * import { ShowdownComponent } from 'ngx-showdown';
+ *
  * @NgModule({
- *      declarations: [ ShowdownComponent ];
+ *     declarations: [ ShowdownComponent ];
  * })
- * export class AppModule {}
+ * export class AppModule{}
  * ```
- * ```javascript
+ *
+ * Bind markdown value and options object
+ * ```typescript
+ * import { Component } from '@angular/core';
  * import { IConverterOptionsChangeable } from 'ngx-showdown';
- * // ...
- * text: string = "...";
- * options: IConverterOptionsChangeable = {...};
- * // ...
+ *
+ * @Component({
+ *     selector: 'some',
+ *     template: '<showdown [value]="text" [options]="options"></showdown>'
+ * })
+ * export class SomeComponent {
+ *     text: string = "# Some header";
+ *     options: IConverterOptionsChangeable = {noHeaderId: true};
+ *     // ...
+ * }
  * ```
+ * Bind single option (it have properties for all showdown options).
  * ```html
- * <showdown [value]="text"></showdown>
+ * <showdown emoji="true"  noHeaderId># Some text :+1:</showdown>
  * ```
+ *
+ * Set static markdown value
  * ```html
- * <div showdown="text"></div>
+ * <showdown value="___Some static value___" underline></showdown>
  * ```
+ *
+ * Use as directive on anther element
  * ```html
- * <showdown [value]="text" [options]="options"></showdown>
+ * <div showdown="# Div Element" headerLevelStart="2"></div>
  * ```
+ *
+ * Markdown value in the element content
  * ```html
- * <showdown [value]="text" [disableForced4SpacesIndentedSublists]="options.disableForced4SpacesIndentedSublists" [encodeEmails]="options.encodeEmails" [excludeTrailingPunctuationFromURLs]="options.excludeTrailingPunctuationFromURLs" [ghCodeBlocks]="options.ghCodeBlocks" [ghCompatibleHeaderId]="options.ghCompatibleHeaderId" [ghMentions]="options.ghMentions" [ghMentionsLink]="options.ghMentionsLink" [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores" [noHeaderId]="options.noHeaderId" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks" [parseImgDimensions]="options.parseImgDimensions" [prefixHeaderId]="options.prefixHeaderId" [requireSpaceBeforeHeadingText]="options.requireSpaceBeforeHeadingText" [simpleLineBreaks]="options.simpleLineBreaks" [simplifiedAutoLink]="options.simplifiedAutoLink" [smartIndentationFix]="options.smartIndentationFix" [smoothLivePreview]="options.smoothLivePreview" [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId" [tasklists]="options.tasklists" [trimEachLine]="options.trimEachLine"></showdown>
- * ```
- * ```html
- * <showdown trimEachLine="space"> # abc </showdown> // <showdown><h1>abc</h1></showdown>
- * ```
- * ```html
- * <showdown trimEachLine="tab">\t# abc\t</showdown> // <showdown><h1>abc</h1></showdown>
- * ```
- * both tab and space
- * ```html
- * <showdown trimEachLine>\t # abc\t </showdown> // <showdown><h1>abc</h1></showdown>
+ * <div>
+ *    <showdown smartIndentationFix>
+ *       # List:
+ *       * a
+ *            * A
+ *       * b
+ *    </showdown>
+ * </div>
  * ```
  *
  * Set template reference variable
@@ -115,7 +130,6 @@ export class ShowdownComponent extends BaseConverter implements OnInit {
     public tables: boolean;
     public tablesHeaderId: boolean;
     public tasklists: boolean;
-    public trimEachLine: boolean | 'tab' | 'space';
     public underline: boolean;
 
     private _value: string;
