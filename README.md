@@ -74,18 +74,31 @@ import { IConverterOptionsChangeable } from 'ngx-showdown';
 Note: _there is a problem in content unescaped "{" and "}" (use html char code)._
 
 ### Options
-```javascript
+ Bind options object (it will detect object property changes )
+```typescript
+import { Component } from '@angular/core';
 import { IConverterOptionsChangeable } from 'ngx-showdown';
-// ...
-    options: IConverterOptionsChangeable = {...};
-//...
+
+@Component({
+    selector: `some`,
+    template: `<showdown [value]="text" [options]="options"></showdown>`,
+    // ...
+})
+export class SomeComponent {
+    text: string = '# Some';
+    options: IConverterOptionsChangeable = {noHeaderId: true};
+    // ...
+}
 ```
+Or
 ```html
-<showdown [options]="options"># abc</showdown>
+<showdown [options]="{noHeaderId: true}"># abc</showdown>
 ```
+Bind single option (it have input properties for all showdown options).
 ```html
-<showdown [disableForced4SpacesIndentedSublists]="options.disableForced4SpacesIndentedSublists" [encodeEmails]="options.encodeEmails" [excludeTrailingPunctuationFromURLs]="options.excludeTrailingPunctuationFromURLs" [ghCodeBlocks]="options.ghCodeBlocks" [ghCompatibleHeaderId]="options.ghCompatibleHeaderId" [ghMentions]="options.ghMentions" [ghMentionsLink]="options.ghMentionsLink" [headerLevelStart]="options.headerLevelStart" [literalMidWordUnderscores]="options.literalMidWordUnderscores" [noHeaderId]="options.noHeaderId" [omitExtraWLInCodeBlocks]="options.omitExtraWLInCodeBlocks" [parseImgDimensions]="options.parseImgDimensions" [prefixHeaderId]="options.prefixHeaderId" [requireSpaceBeforeHeadingText]="options.requireSpaceBeforeHeadingText" [simpleLineBreaks]="options.simpleLineBreaks" [simplifiedAutoLink]="options.simplifiedAutoLink" [smartIndentationFix]="options.smartIndentationFix" [smoothLivePreview]="options.smoothLivePreview" [strikethrough]="options.strikethrough" [tables]="options.tables" [tablesHeaderId]="options.tablesHeaderId" [tasklists]="options.tasklists"># abc</showdown>
+<showdown noHeaderId [headerLevelStart]="2" [tables]="options.tables"># abc</showdown>
 ```
+
 #### Indentation
 
 Showdown converter [smartIndentationFix](https://github.com/showdownjs/showdown/wiki/Showdown-options#smartindentationfix) option can fix string indentation. 

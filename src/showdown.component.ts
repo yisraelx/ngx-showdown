@@ -1,11 +1,16 @@
 import { Component, ElementRef, Input, OnInit, Optional } from '@angular/core';
+import { getDefaultOptions } from 'showdown';
 import $ from './utils';
 import { ConverterOptions } from './base-converter-options.provider';
 import { BaseConverter, IConverterOptionsChangeable } from './base-converter.class';
 
-let optionsProperties: string[] = [
-    'backslashEscapesHTMLTags', 'completeHTMLDocument', 'customizedHeaderId', 'disableForced4SpacesIndentedSublists', 'emoji', 'encodeEmails', 'excludeTrailingPunctuationFromURLs', 'ghCodeBlocks', 'ghCompatibleHeaderId', 'ghMentions', 'ghMentionsLink', 'headerLevelStart', 'literalMidWordAsterisks', 'literalMidWordUnderscores', 'metadata', 'noHeaderId', 'omitExtraWLInCodeBlocks', 'openLinksInNewWindow', 'parseImgDimensions', 'prefixHeaderId', 'rawHeaderId', 'rawPrefixHeaderId', 'requireSpaceBeforeHeadingText', 'simpleLineBreaks', 'simplifiedAutoLink', 'smartIndentationFix', 'smoothLivePreview', 'strikethrough', 'tables', 'tablesHeaderId', 'tasklists', 'underline'
-];
+
+// The options keys for the dynamic properties set
+const OPTIONS_PROPERTIES_KEYS: string[] = Object.keys(getDefaultOptions());
+
+// options getter setter dynamic definition (the code after the class)
+export interface ShowdownComponent extends IConverterOptionsChangeable {
+}
 
 export enum SHOWDOWN_DIRECTIVE_TYPES {
     NONE,
@@ -91,46 +96,12 @@ export enum SHOWDOWN_DIRECTIVE_STATUSES {
     selector: 'showdown,[showdown]',
     template: '<ng-content></ng-content>',
     exportAs: 'showdown',
-    inputs: [].concat(optionsProperties)
+    inputs: OPTIONS_PROPERTIES_KEYS
 })
-export class ShowdownComponent extends BaseConverter implements OnInit {
+export class ShowdownComponent extends BaseConverter implements OnInit, IConverterOptionsChangeable {
 
     public static readonly TYPES = SHOWDOWN_DIRECTIVE_TYPES;
     public static readonly STATUSES = SHOWDOWN_DIRECTIVE_STATUSES;
-
-    // options getter setter dynamic definition (the code after the class)
-    public backslashEscapesHTMLTags: boolean;
-    public completeHTMLDocument: boolean;
-    public customizedHeaderId: boolean;
-    public disableForced4SpacesIndentedSublists: boolean;
-    public emoji: boolean;
-    public encodeEmails: boolean;
-    public excludeTrailingPunctuationFromURLs: boolean;
-    public ghCodeBlocks: boolean;
-    public ghCompatibleHeaderId?: boolean;
-    public ghMentions: boolean;
-    public ghMentionsLink: string;
-    public headerLevelStart: number;
-    public literalMidWordAsterisks: boolean;
-    public literalMidWordUnderscores: boolean;
-    public metadata: boolean;
-    public noHeaderId: boolean;
-    public omitExtraWLInCodeBlocks: boolean;
-    public openLinksInNewWindow: boolean;
-    public parseImgDimensions: boolean;
-    public prefixHeaderId: string | boolean;
-    public rawHeaderId: boolean;
-    public rawPrefixHeaderId: boolean;
-    public requireSpaceBeforeHeadingText: boolean;
-    public simpleLineBreaks: boolean;
-    public simplifiedAutoLink: boolean;
-    public smartIndentationFix: boolean;
-    public smoothLivePreview: boolean;
-    public strikethrough: boolean;
-    public tables: boolean;
-    public tablesHeaderId: boolean;
-    public tasklists: boolean;
-    public underline: boolean;
 
     private _value: string;
     private _type: number = ShowdownComponent.TYPES.NONE;
@@ -235,15 +206,15 @@ export class ShowdownComponent extends BaseConverter implements OnInit {
 }
 
 // define options properties getter setter for angular directive and direct access
-optionsProperties.forEach((key: string) => {
-    Object.defineProperty(ShowdownComponent.prototype, key, {
-        set (value: any): void {
-            this.setOption(key, $.isEmpty(value) ? true : value);
-        },
-        get (): any {
-            return this.getOption(key);
-        },
-        enumerable: true,
-        configurable: true
-    });
-});
+for (let key of OPTIONS_PROPERTIES_KEYS) {
+  Object.defineProperty(ShowdownComponent.prototype, key, {
+    set (value: any): void {
+      this.setOption(key, value === '' || value == null || value);
+    },
+    get (): any {
+      return this.getOption(key);
+    },
+    enumerable: true,
+    configurable: true
+  });
+}

@@ -2,39 +2,11 @@ import { Injectable } from '@angular/core';
 import $ from './utils';
 import { IConverterOptions } from './base-converter.class';
 
-export class ConverterOptions {
-    backslashEscapesHTMLTags: boolean;
-    completeHTMLDocument: boolean;
-    customizedHeaderId: boolean;
-    disableForced4SpacesIndentedSublists: boolean;
-    emoji: boolean;
-    encodeEmails: boolean;
-    excludeTrailingPunctuationFromURLs: boolean;
-    ghCodeBlocks: boolean;
-    ghCompatibleHeaderId: boolean;
-    ghMentions: boolean;
-    ghMentionsLink: string;
-    headerLevelStart: number;
-    literalMidWordAsterisks: boolean;
-    literalMidWordUnderscores: boolean;
-    metadata: boolean;
-    noHeaderId: boolean;
-    omitExtraWLInCodeBlocks: boolean;
-    openLinksInNewWindow: boolean;
-    parseImgDimensions: boolean;
-    prefixHeaderId: string | boolean;
-    rawHeaderId: boolean;
-    rawPrefixHeaderId: boolean;
-    requireSpaceBeforeHeadingText: boolean;
-    simpleLineBreaks: boolean;
-    simplifiedAutoLink: boolean;
-    smartIndentationFix: boolean;
-    smoothLivePreview: boolean;
-    strikethrough: boolean;
-    tables: boolean;
-    tablesHeaderId: boolean;
-    tasklists: boolean;
-    underline: boolean;
+// options getter setter dynamic definition (the code after the class)
+export interface ConverterOptions extends IConverterOptions {
+}
+
+export class ConverterOptions implements IConverterOptions{
 
     constructor(options?: IConverterOptions) {
         this.merge(options);
