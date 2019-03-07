@@ -16,17 +16,18 @@ let srcDirectiveModuleMetadata: TestModuleMetadata = {
 
 describe('SrcDirective', () => {
 
-    it('should be the showdownComponent.type to be equal to ShowdownComponent.TYPES.SRC', () => {
-        let fixture = $.createFixture(srcDirectiveModuleMetadata, { metadata: { template: '<showdown src="TEST.md"></showdown>' } });
+    it('should not load if `src` is empty', () => {
+        let fixture = $.createFixture(srcDirectiveModuleMetadata, { metadata: { template: '<showdown src></showdown>' } });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
         let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
+        let srcDirective: SrcDirective = fixture.debugElement.children[0].injector.get(SrcDirective);
 
+        mockHttpClient.expectNone('');
         fixture.detectChanges();
-        let req: TestRequest = mockHttpClient.expectOne(`TEST.md`);
-        expect(req.request.method).toBe('GET');
-        req.flush('# abc');
-        expect(showdownComponent.type).toBe(ShowdownComponent.TYPES[ShowdownComponent.TYPES.SRC].toLowerCase());
-        expect(showdownComponent.status).toBe(ShowdownComponent.STATUSES[ShowdownComponent.STATUSES.READY].toLowerCase());
+
+        expect(srcDirective.src).toBe('');
+        expect(showdownComponent.value).toBeUndefined();
+        expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('');
     });
 
     it('should be request to showdown[src] url over http and converted the response md data to html and set the result to the element content', () => {
