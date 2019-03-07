@@ -4,28 +4,42 @@ import { ShowdownComponent } from './showdown.component';
 
 /**
  * @example
- * ```javascript
+ * Setup as standalone
+ * ```typescript
  * import { NgModule } from '@angular/core';
+ * import { HttpClientModule } from '@angular/common/http';
  * import { ShowdownComponent, SrcDirective } from 'ngx-showdown';
+ *
  * @NgModule({
- *  declarations: [ ShowdownComponent, SrcDirective ];
+ *    declarations: [ ShowdownComponent, SrcDirective ],
+ *    imports: [ HttpClientModule ]
  * })
- * export class AppModule{}
+ * export class AppModule {}
  * ```
- * ```html
- * <showdown src="README.md"></showdown>
+ *
+ * Bind url `src` directive
+ * ```typescript
+ * import { Component } from '@angular/core';
+ *
+ * @Component({
+ *     selector: 'some',
+ *     template: '<showdown [src]="url" smartIndentationFix>**Loading...**</showdown>
+ * })
+ * class SomeComponent {
+ *     url: string = 'https://unpkg.com/ngx-showdown/README.md';
+ *     // ...
+ * }
  * ```
+ *
+ * Set static url
  * ```html
- * <showdown src="README.md" [options]="{...} as IConverterOptionsChangeable"></showdown>
- * ```
- * ```html
- * <div showdown src="README.md"></div>
+ * <showdown src="README.md" [options]="{noHeaderId: true}"></showdown>
  * ```
  */
 @Directive({
     selector: 'showdown[src],[showdown][src]'
 })
-export class SrcDirective {
+export class SourceDirective {
 
     private _src: string;
 

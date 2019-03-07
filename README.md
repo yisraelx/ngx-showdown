@@ -122,7 +122,7 @@ Without `smartIndentationFix`
   ## B
 ```
 
-### Load .md file (SrcDirective)
+### Load .md file (SourceDirective)
 ```html
 <showdown src="README.md"></showdown>
 ```

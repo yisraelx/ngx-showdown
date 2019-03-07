@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ShowdownComponent } from './showdown.component';
-import { SrcDirective } from './src.directive';
+import { SourceDirective } from './source.directive';
 import { ShowdownPipe } from './showdown.pipe';
 import { ShowdownConverter } from './showdown-converter.provider';
 import { ConverterOptions, BaseConverterOptions } from './base-converter-options.provider';
@@ -10,7 +10,7 @@ import { IConverterOptions } from './base-converter.class';
 let declarations = [
     ShowdownComponent,
     ShowdownPipe,
-    SrcDirective
+    SourceDirective
 ];
 
 /**
