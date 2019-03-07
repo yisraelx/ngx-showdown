@@ -163,8 +163,7 @@ export class ShowdownComponent extends BaseConverter implements OnInit, OnChange
      */
     ngOnInit(): void {
         if (this.value === undefined && this._elementRef.nativeElement.innerHTML.trim() !== '') {
-            this.setValue(this._elementRef.nativeElement.innerHTML);
-            this.render();
+            this.render(this._elementRef.nativeElement.innerHTML);
         }
     }
 
@@ -176,20 +175,24 @@ export class ShowdownComponent extends BaseConverter implements OnInit, OnChange
         this.render();
     }
 
-    public setValue(value: string): void {
-        this.value = value;
-    }
-
-    public render(): void {
-        if (this.value === undefined) return;
-        this._elementRef.nativeElement.innerHTML = this.toHTML();
-    }
-
     /**
-     * Converter the component (md value) to html
+     * Convert the markdown value of `this#value` to html and set the html result to the element content.
+     *
+     * @param value - A markdown value to render (it will override the current value of `this#value`)
+     * @example
+     * ```html
+     * <textarea #textarea (change)="showdown.render(textarea.value)"/># Some Header</textarea>
+     * <showdown #showdown></showdown>
+     * ```
      */
-    public toHTML(): string {
-        return this.makeHtml(this.value);
+    public render(value?: string): void {
+        if (typeof value === 'string') {
+            this.value = value;
+        }
+
+        if (typeof this.value === 'string') {
+            this._elementRef.nativeElement.innerHTML = this.makeHtml(this.value);
+        }
     }
 
 }

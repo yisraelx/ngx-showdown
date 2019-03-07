@@ -53,8 +53,7 @@ describe('ShowdownComponent', () => {
         expect(showdownComponent.value).toBe('# Hello');
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="hello">Hello</h1>');
 
-        showdownComponent.setValue('');
-        showdownComponent.render();
+        showdownComponent.render('');
         expect(showdownComponent.value).toBe('');
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('');
     });
@@ -215,8 +214,8 @@ describe('ShowdownComponent', () => {
         expect(showdownComponent.value).toBe('# some');
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="some">some</h1>');
 
-        showdownComponent.setValue('**other**');
-        showdownComponent.render();
+        showdownComponent.render('**other**');
+
         expect(showdownComponent.value).toBe('**other**');
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<p><strong>other</strong></p>');
     });

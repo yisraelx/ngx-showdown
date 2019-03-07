@@ -47,8 +47,7 @@ export class SrcDirective {
         let {src} = this;
 
         this._http.get(src, {responseType: 'text'}).subscribe((response: string) => {
-            this._showdownComponent.setValue(response);
-            this._showdownComponent.render();
+            this._showdownComponent.render(response);
         });
     }
 }
