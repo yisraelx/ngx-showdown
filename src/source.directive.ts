@@ -35,9 +35,15 @@ import { ShowdownComponent } from './showdown.component';
  * ```html
  * <showdown src="README.md" [options]="{noHeaderId: true}"></showdown>
  * ```
+ *
+ * Set template reference variable
+ * ```html
+ * <showdown #source="source" src="README.md"></showdown>
+ * ```
  */
 @Directive({
-    selector: 'showdown[src],[showdown][src]'
+    selector: 'showdown[src],[showdown][src]',
+    exportAs: 'source'
 })
 export class SourceDirective {
 
