@@ -1,5 +1,5 @@
-import {HttpClientTestingModule, HttpTestingController, TestRequest} from '@angular/common/http/testing';
-import { TestModuleMetadata } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
+import { ComponentFixtureAutoDetect, TestModuleMetadata } from '@angular/core/testing';
 import { ShowdownComponent } from '../src/showdown.component';
 import { SourceDirective } from '../src/source.directive';
 import { ConverterOptions, BaseConverterOptions } from '../src/base-converter-options.provider';
@@ -8,7 +8,8 @@ import $ from './utils';
 let sourceDirectiveModuleMetadata: TestModuleMetadata = {
     declarations: [ShowdownComponent, SourceDirective],
     providers: [
-        { provide: ConverterOptions, useClass: BaseConverterOptions }
+        { provide: ConverterOptions, useClass: BaseConverterOptions },
+        { provide: ComponentFixtureAutoDetect, useValue: true }
     ],
     imports: [HttpClientTestingModule]
 };
@@ -23,7 +24,6 @@ describe('SourceDirective', () => {
         let sourceDirective: SourceDirective = fixture.debugElement.children[0].injector.get(SourceDirective);
 
         mockHttpClient.expectNone('');
-        fixture.detectChanges();
 
         expect(sourceDirective.src).toBe('');
         expect(showdownComponent.value).toBeUndefined();
@@ -33,22 +33,30 @@ describe('SourceDirective', () => {
     it('should be request to showdown[src] url over http and converted the response md data to html and set the result to the element content', () => {
         let fixture = $.createFixture(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown src="TEST.md"></showdown>' } });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
+        let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
 
-        fixture.detectChanges();
+        expect(showdownComponent.value).toBeUndefined();
+        expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('');
+
         let req: TestRequest = mockHttpClient.expectOne(`TEST.md`);
         expect(req.request.method).toBe('GET');
         req.flush('# abc');
+        expect(showdownComponent.value).toBe('# abc');
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="abc">abc</h1>');
     });
 
     it('should be request to showdown[src] url over http and converted the response md data to html and set the result to the element content (whit options)', () => {
         let fixture = $.createFixture(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown src="TEST.md" [options]="{smartIndentationFix: true}"></showdown>' } });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
+        let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
 
-        fixture.detectChanges();
+        expect(showdownComponent.value).toBeUndefined();
+        expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('');
+
         let req: TestRequest = mockHttpClient.expectOne(`TEST.md`);
         expect(req.request.method).toBe('GET');
         req.flush('\t # abc\t ');
+        expect(showdownComponent.value).toBe('\t # abc\t ');
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="abc">abc</h1>');
     });
 
@@ -57,7 +65,6 @@ describe('SourceDirective', () => {
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
         let sourceDirective: SourceDirective = fixture.debugElement.children[0].injector.get(SourceDirective);
 
-        fixture.detectChanges();
         let req: TestRequest = mockHttpClient.expectOne(`TEST.md`);
         expect(req.request.method).toBe('GET');
         req.flush('# Test');
@@ -71,7 +78,6 @@ describe('SourceDirective', () => {
         req2.flush('# Test 2');
         expect(sourceDirective.src).toBe('TEST2.md');
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="test2">Test 2</h1>');
-
     });
 
     it('should be request same url two time and get different response', () => {
@@ -79,17 +85,17 @@ describe('SourceDirective', () => {
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
         let sourceDirective: SourceDirective = fixture.debugElement.children[0].injector.get(SourceDirective);
 
-        fixture.detectChanges();
         let req: TestRequest = mockHttpClient.expectOne(`TEST.md`);
         expect(req.request.method).toBe('GET');
         req.flush('# Test 1');
+        expect(sourceDirective.src).toBe('TEST.md');
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="test1">Test 1</h1>');
 
         sourceDirective.load();
         let req2: TestRequest = mockHttpClient.expectOne(`TEST.md`);
         expect(req2.request.method).toBe('GET');
         req2.flush('# Test 2');
+        expect(sourceDirective.src).toBe('TEST.md');
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="test2">Test 2</h1>');
     });
-
 });

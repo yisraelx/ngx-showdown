@@ -1,4 +1,4 @@
-import { Directive, Input } from '@angular/core';
+import { Directive, Input, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ShowdownComponent } from './showdown.component';
 
@@ -45,29 +45,46 @@ import { ShowdownComponent } from './showdown.component';
     selector: 'showdown[src],[showdown][src]',
     exportAs: 'source'
 })
-export class SourceDirective {
+export class SourceDirective implements OnChanges {
 
-    private _src: string;
-
-    /** Source of md file */
-    @Input()
-    public get src(): string {
-        return this._src;
-    }
-
-    public set src(src: string) {
-        this._src = src;
-        this.load();
-    }
+    /**
+     * The source url of the markdown content.
+     *
+     * @example
+     * Set static url to `src` directive.
+     * ```html
+     * <showdown src="https://unpkg.com/ngx-showdown/README.md"></showdown>
+     * ```
+     *
+     * Bind url to `src` directive.
+     * ```html
+     * <input type="text" #url placeholder="url" />
+     * <button (click)="src = url.value">Load</button>
+     * <showdown [src]="src">**Loading...**</showdown>
+     * ```
+     */
+    @Input() src: string;
 
     constructor(private _showdownComponent: ShowdownComponent, private _http: HttpClient) {
     }
 
-    public load(): void {
-        let {src} = this;
-
-        this._http.get(src, {responseType: 'text'}).subscribe((response: string) => {
-            this._showdownComponent.render(response);
-        });
+    /**
+     * A angular lifecycle method, Use to call to `this#load` method on src init/changes
+     * @internal
+     */
+    ngOnChanges(): void {
+        this.load();
     }
+
+    public load(): void {
+        if (this.src) {
+            this
+              ._http
+              .get(this.src, {responseType: 'text'})
+              .subscribe((response: string) => {
+                  this._showdownComponent.render(response);
+              });
+        }
+    }
+
 }
