@@ -1,5 +1,5 @@
-import { Directive, Input, OnChanges } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Directive, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ShowdownComponent } from './showdown.component';
 
 /**
@@ -40,6 +40,11 @@ import { ShowdownComponent } from './showdown.component';
  * ```html
  * <showdown #source="source" src="README.md"></showdown>
  * ```
+ *
+ * Listening to `error` events.
+ * ```html
+ * <showdown #sd src="http://url.error" (error)="sd.render('# '+$event.message)"></showdown>
+ * ```
  */
 @Directive({
     selector: 'showdown[src],[showdown][src]',
@@ -64,6 +69,17 @@ export class SourceDirective implements OnChanges {
      * ```
      */
     @Input() src: string;
+
+    /**
+     * On error occur.
+     *
+     * @example
+     * ```html
+     * <input type="text" placeholder="url" [(ngModel)]="url"/>
+     * <showdown [src]="url" (error)="sd.render('# Error\n> '+$event.message)">**Loading...**</showdown>
+     * ```
+     */
+    @Output() error: EventEmitter<HttpErrorResponse> = new EventEmitter();
 
     constructor(private _showdownComponent: ShowdownComponent, private _http: HttpClient) {
     }
@@ -98,6 +114,8 @@ export class SourceDirective implements OnChanges {
               .get(this.src, {responseType: 'text'})
               .subscribe((response: string) => {
                   this._showdownComponent.render(response);
+              }, (error: HttpErrorResponse) => {
+                  this.error.emit(error);
               });
         }
     }

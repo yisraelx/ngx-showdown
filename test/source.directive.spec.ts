@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { ComponentFixtureAutoDetect, TestModuleMetadata } from '@angular/core/testing';
 import { ShowdownComponent } from '../src/showdown.component';
@@ -146,5 +147,26 @@ describe('SourceDirective', () => {
         req.flush('**Loaded...**');
         expect(showdownComponent.value).toBe('**Loaded...**');
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<p><strong>Loaded…</strong></p>');
+    });
+
+    it('should emit `error` event if the loader request fail', () => {
+        let fixture = $.createFixture<{ url: string }>(sourceDirectiveModuleMetadata, {
+            metadata: { template: '<showdown src="error.md" (error)="handleError($event)">**Try...**</showdown>' },
+            scope: { handleError($event: HttpErrorResponse) {
+                expect($event.error).toBe('**400**');
+                showdownComponent.render('**Catch...**');
+            }}
+        });
+        let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
+        let showdownComponent: ShowdownComponent  = fixture.debugElement.children[0].injector.get(ShowdownComponent);
+
+        expect(showdownComponent.value).toBe('**Try...**');
+        expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<p><strong>Try…</strong></p>');
+
+        let req: TestRequest = mockHttpClient.expectOne(`error.md`);
+        expect(req.request.method).toBe('GET');
+        req.flush('**400**',  { status: 400, statusText: 'Bad Request' });
+        expect(showdownComponent.value).toBe('**Catch...**');
+        expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<p><strong>Catch…</strong></p>');
     });
 });
