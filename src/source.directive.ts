@@ -76,7 +76,22 @@ export class SourceDirective implements OnChanges {
         this.load();
     }
 
-    public load(): void {
+    /**
+     * Load the markdown content of `this#url` to `ShowdownComponent#value`.
+     *
+     * @param url - A url of markdown content to load (it will override the current url of `this#url`)
+     * @example
+     * ```html
+     * <input type="text" #url value="source.src" placeholder="Url" />
+     * <button (click)="source.load(url.value)">Load</button>
+     * <showdown #source="source" src="https://unpkg.com/ngx-showdown/README.md"></showdown>
+     * ```
+     */
+    public load(url?: string): void {
+        if (url) {
+            this.src = url;
+        }
+
         if (this.src) {
             this
               ._http

@@ -28,6 +28,11 @@ describe('SourceDirective', () => {
         expect(sourceDirective.src).toBe('');
         expect(showdownComponent.value).toBeUndefined();
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('');
+
+        sourceDirective.load('');
+        expect(sourceDirective.src).toBe('');
+        expect(showdownComponent.value).toBeUndefined();
+        expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('');
     });
 
     it('should be request to showdown[src] url over http and converted the response md data to html and set the result to the element content', () => {
@@ -97,5 +102,49 @@ describe('SourceDirective', () => {
         req2.flush('# Test 2');
         expect(sourceDirective.src).toBe('TEST.md');
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="test2">Test 2</h1>');
+    });
+
+    it('should load by `load` method markdown content url and override the current component `url` ', () => {
+        let fixture = $.createFixture<{ url: string }>(sourceDirectiveModuleMetadata, {
+            metadata: { template: '<showdown src="TEST.md" underline></showdown>' }
+        });
+        let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
+        let showdownComponent: ShowdownComponent  = fixture.debugElement.children[0].injector.get(ShowdownComponent);
+        let sourceDirective: SourceDirective = fixture.debugElement.children[0].injector.get(SourceDirective);
+
+        expect(showdownComponent.value).toBeUndefined();
+        expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('');
+
+        let req: TestRequest = mockHttpClient.expectOne(`TEST.md`);
+        expect(req.request.method).toBe('GET');
+        req.flush('___Some___');
+        expect(sourceDirective.src).toBe('TEST.md');
+        expect(showdownComponent.value).toBe('___Some___');
+        expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<p><u>Some</u></p>');
+
+        sourceDirective.load(`TEST2.md`);
+        let req2: TestRequest = mockHttpClient.expectOne(`TEST2.md`);
+        expect(req2.request.method).toBe('GET');
+        req2.flush('*Other*');
+        expect(sourceDirective.src).toBe('TEST2.md');
+        expect(showdownComponent.value).toBe('*Other*');
+        expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<p><em>Other</em></p>');
+    });
+
+    it('should convert the content if the request is delayed ', () => {
+        let fixture = $.createFixture<{ url: string }>(sourceDirectiveModuleMetadata, {
+            metadata: { template: '<showdown src="TEST.md">**Loading...**</showdown>' }
+        });
+        let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
+        let showdownComponent: ShowdownComponent  = fixture.debugElement.children[0].injector.get(ShowdownComponent);
+
+        expect(showdownComponent.value).toBe('**Loading...**');
+        expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<p><strong>Loading…</strong></p>');
+
+        let req: TestRequest = mockHttpClient.expectOne(`TEST.md`);
+        expect(req.request.method).toBe('GET');
+        req.flush('**Loaded...**');
+        expect(showdownComponent.value).toBe('**Loaded...**');
+        expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<p><strong>Loaded…</strong></p>');
     });
 });
