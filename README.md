@@ -18,7 +18,7 @@ $ npm install --save @angular/core @angular/common showdown
 
 ## Use
 #### Setup
-```javascript
+```typescript
 import { NgModule } from '@angular/core';
 import { ShowdownModule } from 'ngx-showdown';
 
@@ -28,56 +28,71 @@ import { ShowdownModule } from 'ngx-showdown';
 export class AppModule{}
 ```
 Or with config
-```javascript
+```typescript
 import { NgModule } from '@angular/core';
-import { ShowdownModule, ConverterOptions, IConverterOptions } from 'ngx-showdown';
+import { ShowdownModule, ConverterOptions } from 'ngx-showdown';
+import * as Showdown from 'showdown';
 
 @NgModule({
-    imports: [ ShowdownModule.forRoot({...} as ConverterOptions | IConverterOptions) ]
+    imports: [ ShowdownModule.forRoot({...} as ConverterOptions | Showdown.ConverterOptions) ]
 })
 export class AppModule{}
 ```
 ### ShowdownComponent
 #### Binding
-```javascript
-import { IConverterOptionsChangeable } from 'ngx-showdown';
-// ...
-    text: string = `
-        # h1
-        ## h2
-    `;
-    options: IConverterOptionsChangeable = {...}
-// ...
+```typescript
+import { Component } from '@angular/core';
+import * as Showdown from 'showdown';
+
+@Component({...})
+export class SomeComponent {
+  text: string = `
+# h1
+## h2
+`;
+  options: Showdown.ShowdownOptions = {...};
+  // ...
+}
 ```
+Bind property to 'value' attribute of showdown element.
 ```html
 <showdown [value]="text"></showdown>
 ```
+With options
 ```html
 <showdown [value]="text" [options]="options"></showdown>
 ```
+As attribute on anther element 
 ```html
 <div [showdown]="text" [options]="options"></div>
 ```
+
 #### Content
+A showdown element with markdown content.  
 ```html
 <showdown>
-    # H1
-    ## H2
+# H1
+## H2
 </showdown>
 ```
+With options
 ```html
-<showdown [options]="{...} as IConverterOptionsChangeable">
-    # H1
-    ## H2
+<showdown [options]="{smartIndentationFix: true}">
+    * a
+    * b
+    * c
 </showdown>
 ```
-Note: _there is a problem in content unescaped "{" and "}" (use html char code)._
+As attribute on anther element 
+```html
+<span showdown>**Showdown**</span>
+```
 
 ### Options
  Bind options object (it will detect object property changes )
 ```typescript
 import { Component } from '@angular/core';
-import { IConverterOptionsChangeable } from 'ngx-showdown';
+import * as Showdown from 'showdown';
 
 @Component({
     selector: `some`,
@@ -86,7 +101,7 @@ import { IConverterOptionsChangeable } from 'ngx-showdown';
 })
 export class SomeComponent {
     text: string = '# Some';
-    options: IConverterOptionsChangeable = {noHeaderId: true};
+    options: Showdown.ShowdownOptions = {noHeaderId: true};
     // ...
 }
 ```
@@ -127,41 +142,48 @@ Without `smartIndentationFix`
 <showdown src="README.md"></showdown>
 ```
 ```html
-<showdown src="README.md" [options]="{...} as IConverterOptionsChangeable"></showdown>
+<showdown src="README.md" [options]="{emoji: true}"></showdown>
 ```
 
 ### Pipe
-```javascript
-import { IConverterOptionsChangeable } from 'ngx-showdown';
+```typescript
+import { Component } from '@angular/core';
+import * as Showdown from 'showdown';
+
+@Component({...})
+export class SomeComponent {
+  text: string = `
+      # h1
+      ## h2
+  `;
+  options: Showdown.ShowdownOptions = {...};
 // ...
-    text: string = `
-        # h1
-        ## h2
-    `;
-    options: IConverterOptionsChangeable = {...}
-// ...
+}
 ```
+Convert the markdown value of `text` property to html by showdown pipe 
 ```html
 {{ text | showdown }}
 ```
+With options
 ```html
 {{ text | showdown:options }}
 ```
 
 ### Provider
-```javascript
+
+```typescript
 import { ShowdownConverter } from 'ngx-showdown';
 
-class Some{
-        constructor(showdownConverter: ShowdownConverter){
-            console.log(showdownConverter.makeHtml("..."));
-        }
+export class SomeComponent {
+  constructor(showdownConverter: ShowdownConverter){
+    console.log(showdownConverter.makeHtml('# Showdown'));
+  }
 }
 ```
 
 ### Default converter options 
 the default options is the showdown default options
-```javascript
+```typescript
 import { NgModel } from '@angular/core';
 import { ConverterOptions, BaseConverterOptions } from 'ngx-showdown';
 export class MyConverterOptions extends ConverterOptions{
@@ -177,13 +199,14 @@ export class MyConverterOptions extends ConverterOptions{
 export class AppModule{}
 ```
 Or
-```javascript
+```typescript
 import { NgModel } from '@angular/core';
-import { ConverterOptions, IConverterOptions } from 'ngx-showdown';
+import { ConverterOptions } from 'ngx-showdown';
+import * as Showdown from 'showdown';
 
 @NgModel({
     providers:[
-        {provide: ConverterOptions, useValue: {...} as IConverterOptions | ConverterOptions},
+        {provide: ConverterOptions, useValue: {...} as Showdown.ConverterOptions | ConverterOptions},
     ]
 })
 export class AppModule{}

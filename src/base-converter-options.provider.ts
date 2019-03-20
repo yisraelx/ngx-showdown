@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
+import * as Showdown from 'showdown';
 import $ from './utils';
-import { IConverterOptions } from './base-converter.class';
 
 // options getter setter dynamic definition (the code after the class)
-export interface ConverterOptions extends IConverterOptions {
+export interface ConverterOptions extends Showdown.ConverterOptions {
 }
 
-export class ConverterOptions implements IConverterOptions{
+export class ConverterOptions implements Showdown.ConverterOptions {
 
-    constructor(options?: IConverterOptions) {
+    constructor(options?: Showdown.ConverterOptions) {
         this.merge(options);
     }
 
-    public merge(options: IConverterOptions) {
+    public merge(options: Showdown.ConverterOptions) {
         if (!$.isObject(options)) return;
         $.forIn(options, (val, key) => {
             this[key] = val;

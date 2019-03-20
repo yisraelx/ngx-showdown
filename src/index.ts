@@ -1,4 +1,4 @@
-export { BaseConverter, IConverterOptions, IConverterOptionsChangeable } from './base-converter.class';
+export { BaseConverter } from './base-converter.class';
 export { ConverterOptions, BaseConverterOptions } from './base-converter-options.provider';
 export { ShowdownConverter } from './showdown-converter.provider';
 export { ShowdownComponent } from './showdown.component';

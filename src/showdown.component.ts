@@ -1,14 +1,14 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, Optional } from '@angular/core';
-import { getDefaultOptions } from 'showdown';
+import * as Showdown from 'showdown';
 import { ConverterOptions } from './base-converter-options.provider';
-import { BaseConverter, IConverterOptionsChangeable } from './base-converter.class';
+import { BaseConverter } from './base-converter.class';
 
 
 // The options keys for the dynamic properties set
-const OPTIONS_PROPERTIES_KEYS: string[] = Object.keys(getDefaultOptions());
+const OPTIONS_PROPERTIES_KEYS: string[] = Object.keys(Showdown.getDefaultOptions());
 
 // options getter setter dynamic definition (the code after the class)
-export interface ShowdownComponent extends IConverterOptionsChangeable {
+export interface ShowdownComponent extends Showdown.ShowdownOptions {
 }
 
 /**
@@ -29,7 +29,7 @@ export interface ShowdownComponent extends IConverterOptionsChangeable {
  * Bind markdown value and options object
  * ```typescript
  * import { Component } from '@angular/core';
- * import { IConverterOptionsChangeable } from 'ngx-showdown';
+ * import * as Showdown from 'showdown';
  *
  * @Component({
  *     selector: 'some',
@@ -37,7 +37,7 @@ export interface ShowdownComponent extends IConverterOptionsChangeable {
  * })
  * export class SomeComponent {
  *     text: string = "# Some header";
- *     options: IConverterOptionsChangeable = {noHeaderId: true};
+ *     options: Showdown.ShowdownOptions = {noHeaderId: true};
  *     // ...
  * }
  * ```
@@ -83,7 +83,7 @@ export interface ShowdownComponent extends IConverterOptionsChangeable {
     exportAs: 'showdown',
     inputs: OPTIONS_PROPERTIES_KEYS
 })
-export class ShowdownComponent extends BaseConverter implements OnInit, OnChanges, IConverterOptionsChangeable {
+export class ShowdownComponent extends BaseConverter implements OnInit, OnChanges, Showdown.ShowdownOptions {
 
     /**
      * The input markdown value.
@@ -126,7 +126,7 @@ export class ShowdownComponent extends BaseConverter implements OnInit, OnChange
     * Bind options
     * ```typescript
     * import { Component } from '@angular/core';
-    * import { IConverterOptionsChangeable } from 'ngx-showdown';
+    * import * as Showdown from 'showdown';
     *
     * @Component({
     *     selector: `some`,
@@ -135,7 +135,7 @@ export class ShowdownComponent extends BaseConverter implements OnInit, OnChange
     *     `
     * })
     * export class SomeComponent {
-    *     options: IConverterOptionsChangeable = {headerLevelStart: 1};
+    *     options: Showdown.ShowdownOptions = {headerLevelStart: 1};
     *     // ...
     * }
     * ```
@@ -145,11 +145,11 @@ export class ShowdownComponent extends BaseConverter implements OnInit, OnChange
     * ```
     */
     @Input()
-    public get options(): IConverterOptionsChangeable {
+    get options(): Showdown.ShowdownOptions {
         return this.getOptions();
     }
 
-    public set options(options: IConverterOptionsChangeable) {
+    set options(options: Showdown.ShowdownOptions) {
         this.setOptions(options);
     }
 

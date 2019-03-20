@@ -1,13 +1,12 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import * as Showdown from 'showdown';
 import { ShowdownComponent } from './showdown.component';
 import { SourceDirective } from './source.directive';
 import { ShowdownPipe } from './showdown.pipe';
 import { ShowdownConverter } from './showdown-converter.provider';
 import { ConverterOptions, BaseConverterOptions } from './base-converter-options.provider';
-import { IConverterOptions } from './base-converter.class';
 
-
-let declarations = [
+const DECLARATIONS = [
     ShowdownComponent,
     ShowdownPipe,
     SourceDirective
@@ -15,37 +14,47 @@ let declarations = [
 
 /**
  * @example
- * ```javascript
+ * ```typescript
+ * Add `ShowdownModule` to app `imports`.
  * import { NgModule } from '@angular/core';
- * import { ShowdownModule} from 'ngx-showdown';
+ * import { ShowdownModule } from 'ngx-showdown';
+ *
  * @NgModule({
- *  imports: [ ShowdownModule ];
+ *    imports: [ ShowdownModule ];
  * })
- * export class AppModule{}
- * ```
- * ```javascript
- * import { NgModule } from '@angular/core';
- * import { ShowdownModule, IConverterOptions, ConverterOptions } from 'ngx-showdown';
- * @NgModule({
- *  imports: [ ShowdownModule.forRoot({...} as IConverterOptions | ConverterOptions) ];
- * })
- * export class AppModule{}
+ * export class AppModule {}
  * ```
  */
 @NgModule({
-    declarations: declarations,
+    declarations: DECLARATIONS,
     providers: [
         ShowdownConverter,
         {provide: ConverterOptions, useClass: BaseConverterOptions}
     ],
-    exports: declarations
+    exports: DECLARATIONS
 })
 export class ShowdownModule {
-    static forRoot(config: ConverterOptions | IConverterOptions): ModuleWithProviders {
+
+    /**
+     *
+     * @param options - A root options for all converter instances.
+     * @example
+     * Add `ShowdownModule` to app `imports` with config.
+     * ```typescript
+     * import { NgModule } from '@angular/core';
+     * import { ShowdownModule } from 'ngx-showdown';
+     *
+     * @NgModule({
+     *    imports: [ ShowdownModule.forRoot({smartIndentationFix: true}) ];
+     * })
+     * export class AppModule {}
+     * ```
+     */
+    static forRoot(options: ConverterOptions | Showdown.ConverterOptions): ModuleWithProviders {
         return {
             ngModule: ShowdownModule,
             providers: [
-                {provide: ConverterOptions, useValue: config}
+                {provide: ConverterOptions, useValue: options}
             ]
         };
     }

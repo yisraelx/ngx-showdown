@@ -8,10 +8,10 @@ import { ShowdownComponent } from './showdown.component';
  * ```typescript
  * import { NgModule } from '@angular/core';
  * import { HttpClientModule } from '@angular/common/http';
- * import { ShowdownComponent, SrcDirective } from 'ngx-showdown';
+ * import { ShowdownComponent, SourceDirective } from 'ngx-showdown';
  *
  * @NgModule({
- *    declarations: [ ShowdownComponent, SrcDirective ],
+ *    declarations: [ ShowdownComponent, SourceDirective ],
  *    imports: [ HttpClientModule ]
  * })
  * export class AppModule {}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IConverterOptionsChangeable } from '../../../src';
+import { getDefaultOptions, ShowdownOptions } from 'showdown';
 
 @Component({
     selector: 'my-app',
@@ -17,40 +17,7 @@ let sum = a+b;
 console.log(\`sum: \${sum}\`);
 \`\`\``;
 
-    options: IConverterOptionsChangeable = {
-        backslashEscapesHTMLTags: false,
-        completeHTMLDocument: false,
-        customizedHeaderId: false,
-        disableForced4SpacesIndentedSublists: false,
-        emoji: false,
-        encodeEmails: true,
-        excludeTrailingPunctuationFromURLs: false,
-        ghCodeBlocks: true,
-        ghCompatibleHeaderId: false,
-        ghMentions: false,
-        ghMentionsLink: 'https://github.com/{u}',
-        headerLevelStart: 1,
-        literalMidWordAsterisks: false,
-        literalMidWordUnderscores: false,
-        metadata: false,
-        noHeaderId: false,
-        omitExtraWLInCodeBlocks: false,
-        openLinksInNewWindow: false,
-        parseImgDimensions: false,
-        prefixHeaderId: false,
-        rawHeaderId: false,
-        rawPrefixHeaderId: false,
-        requireSpaceBeforeHeadingText: false,
-        simpleLineBreaks: false,
-        simplifiedAutoLink: false,
-        smartIndentationFix: false,
-        smoothLivePreview: false,
-        strikethrough: false,
-        tables: false,
-        tablesHeaderId: false,
-        tasklists: false,
-        underline: false
-    };
+    options: ShowdownOptions = getDefaultOptions();
 
     keys(obj: Object) {
         return Object.keys(obj);
