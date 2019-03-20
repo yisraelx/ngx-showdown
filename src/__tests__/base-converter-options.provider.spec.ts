@@ -1,4 +1,4 @@
-import { ConverterOptions } from '../src/base-converter-options.provider';
+import { ConverterOptions } from '../base-converter-options.provider';
 
 describe('BaseConverterOptions', () => {
 

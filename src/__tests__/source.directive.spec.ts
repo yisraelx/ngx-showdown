@@ -1,10 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { ComponentFixtureAutoDetect, TestModuleMetadata } from '@angular/core/testing';
-import { ShowdownComponent } from '../src/showdown.component';
-import { SourceDirective } from '../src/source.directive';
-import { ConverterOptions, BaseConverterOptions } from '../src/base-converter-options.provider';
-import $ from './utils';
+import { ShowdownComponent } from '../showdown.component';
+import { SourceDirective } from '../source.directive';
+import { ConverterOptions, BaseConverterOptions } from '../base-converter-options.provider';
+import { createComponentFixture } from './helpers';
 
 let sourceDirectiveModuleMetadata: TestModuleMetadata = {
     declarations: [ShowdownComponent, SourceDirective],
@@ -19,7 +19,7 @@ let sourceDirectiveModuleMetadata: TestModuleMetadata = {
 describe('SourceDirective', () => {
 
     it('should not load if `src` is empty', () => {
-        let fixture = $.createFixture(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown src></showdown>' } });
+        let fixture = createComponentFixture(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown src></showdown>' } });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
         let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
         let sourceDirective: SourceDirective = fixture.debugElement.children[0].injector.get(SourceDirective);
@@ -37,7 +37,7 @@ describe('SourceDirective', () => {
     });
 
     it('should be request to showdown[src] url over http and converted the response md data to html and set the result to the element content', () => {
-        let fixture = $.createFixture(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown src="TEST.md"></showdown>' } });
+        let fixture = createComponentFixture(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown src="TEST.md"></showdown>' } });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
         let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
 
@@ -52,7 +52,7 @@ describe('SourceDirective', () => {
     });
 
     it('should be request to showdown[src] url over http and converted the response md data to html and set the result to the element content (whit options)', () => {
-        let fixture = $.createFixture(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown src="TEST.md" [options]="{smartIndentationFix: true}"></showdown>' } });
+        let fixture = createComponentFixture(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown src="TEST.md" [options]="{smartIndentationFix: true}"></showdown>' } });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
         let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
 
@@ -67,7 +67,7 @@ describe('SourceDirective', () => {
     });
 
     it('should be request and converted after binding second time', () => {
-        let fixture = $.createFixture<{ url: string }>(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown [src]="url"></showdown>' }, scope: { url: 'TEST.md' } });
+        let fixture = createComponentFixture<{ url: string }>(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown [src]="url"></showdown>' }, scope: { url: 'TEST.md' } });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
         let sourceDirective: SourceDirective = fixture.debugElement.children[0].injector.get(SourceDirective);
 
@@ -87,7 +87,7 @@ describe('SourceDirective', () => {
     });
 
     it('should be request same url two time and get different response', () => {
-        let fixture = $.createFixture<{ url: string }>(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown [src]="url"></showdown>' }, scope: { url: 'TEST.md' } });
+        let fixture = createComponentFixture<{ url: string }>(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown [src]="url"></showdown>' }, scope: { url: 'TEST.md' } });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
         let sourceDirective: SourceDirective = fixture.debugElement.children[0].injector.get(SourceDirective);
 
@@ -106,7 +106,7 @@ describe('SourceDirective', () => {
     });
 
     it('should load by `load` method markdown content url and override the current component `url` ', () => {
-        let fixture = $.createFixture<{ url: string }>(sourceDirectiveModuleMetadata, {
+        let fixture = createComponentFixture<{ url: string }>(sourceDirectiveModuleMetadata, {
             metadata: { template: '<showdown src="TEST.md" underline></showdown>' }
         });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
@@ -133,7 +133,7 @@ describe('SourceDirective', () => {
     });
 
     it('should convert the content if the request is delayed ', () => {
-        let fixture = $.createFixture<{ url: string }>(sourceDirectiveModuleMetadata, {
+        let fixture = createComponentFixture<{ url: string }>(sourceDirectiveModuleMetadata, {
             metadata: { template: '<showdown src="TEST.md">**Loading...**</showdown>' }
         });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
@@ -150,7 +150,7 @@ describe('SourceDirective', () => {
     });
 
     it('should emit `error` event if the loader request fail', () => {
-        let fixture = $.createFixture<{ url: string }>(sourceDirectiveModuleMetadata, {
+        let fixture = createComponentFixture<{ url: string }>(sourceDirectiveModuleMetadata, {
             metadata: { template: '<showdown src="error.md" (error)="handleError($event)">**Try...**</showdown>' },
             scope: { handleError($event: HttpErrorResponse) {
                 expect($event.error).toBe('**400**');

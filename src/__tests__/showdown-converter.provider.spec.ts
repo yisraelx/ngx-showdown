@@ -1,8 +1,8 @@
 import { Directive } from '@angular/core';
 import { TestBed, TestBedStatic } from '@angular/core/testing';
 import * as Showdown from 'showdown';
-import { ConverterOptions } from '../src/base-converter-options.provider';
-import { ShowdownConverter } from '../src/showdown-converter.provider';
+import { ConverterOptions } from '../base-converter-options.provider';
+import { ShowdownConverter } from '../showdown-converter.provider';
 
 describe('ShowdownConverter', () => {
 

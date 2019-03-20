@@ -1,7 +1,7 @@
 import { TestModuleMetadata, ComponentFixtureAutoDetect } from '@angular/core/testing';
-import { ShowdownComponent } from '../src/showdown.component';
-import { ConverterOptions, BaseConverterOptions } from '../src/base-converter-options.provider';
-import $ from './utils';
+import { ShowdownComponent } from '../showdown.component';
+import { ConverterOptions, BaseConverterOptions } from '../base-converter-options.provider';
+import { createComponentFixture } from './helpers';
 
 let showdownComponentModuleMetadata: TestModuleMetadata = {
     declarations: [ShowdownComponent],
@@ -13,8 +13,8 @@ let showdownComponentModuleMetadata: TestModuleMetadata = {
 
 describe('ShowdownComponent', () => {
 
-    it('should not render if `value` is not empty ', () => {
-        let fixture = $.createFixture(showdownComponentModuleMetadata, {
+    it('should not render if the component `value` property is empty ', () => {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
             metadata: { template: '<showdown></showdown>' }
         });
         let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
@@ -27,8 +27,8 @@ describe('ShowdownComponent', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('');
     });
 
-    it('should render bind data of `value` with empty string', () => {
-        let fixture = $.createFixture(showdownComponentModuleMetadata, {
+    it('should render empty value that bind to `[value]` property', () => {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
           metadata: { template: '<showdown [value]="text"></showdown>' },
           scope: { text: '# Hello' }
         });
@@ -45,7 +45,7 @@ describe('ShowdownComponent', () => {
     });
 
     it('should render by `render` method `value` with empty string', () => {
-        let fixture = $.createFixture(showdownComponentModuleMetadata, {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
           metadata: { template: '<showdown ># Hello</showdown>' }
         });
         let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
@@ -58,8 +58,8 @@ describe('ShowdownComponent', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('');
     });
 
-    it('should convert the bind data of `value` property and set to the element content', () => {
-        let fixture = $.createFixture(showdownComponentModuleMetadata, {
+    it('should render markdown value that bind from `[value]` property', () => {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
             metadata: { template: '<showdown [value]="text"></showdown>' },
             scope: { text: '# abc' }
         });
@@ -69,8 +69,8 @@ describe('ShowdownComponent', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="abc">abc</h1>');
     });
 
-    it('should be set input of showdownComponent#showdown to showdownComponent#value', () => {
-        let fixture = $.createFixture(showdownComponentModuleMetadata, {
+    it('should be set markdown value that bind from `[showdown]` property to component `value` property', () => {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
             metadata: { template: '<div [showdown]="text"></div>'},
             scope: { text: '# abc' }
         });
@@ -92,8 +92,8 @@ describe('ShowdownComponent', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h2 id="abc">ABC</h2>');
     });
 
-    it('should be converted showdown[value] bind attr to html and set the result to the element content', () => {
-        let fixture = $.createFixture(showdownComponentModuleMetadata, {
+    it('should render changes markdown value that bind from `[value]` property', () => {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
             metadata: { template: '<showdown [value]="text"></showdown>' },
             scope: { text: '# abc' }
         });
@@ -110,8 +110,8 @@ describe('ShowdownComponent', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h2 id="abc">abc</h2>');
     });
 
-    it('should be converted showdown[value] bind attr to html and set the result to the element content (whit options)', () => {
-        let fixture = $.createFixture(showdownComponentModuleMetadata, {
+  it('should render markdown value that bind from `[value]` property (with `options` object)', () => {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
             metadata: { template: '<showdown [value]="text" [options]="options"></showdown>' },
             scope: { text: '# abc', options: { noHeaderId: true } }
         });
@@ -131,8 +131,8 @@ describe('ShowdownComponent', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h2 id="abc">abc</h2>');
     });
 
-    it('should be converted showdown[value] bind attr to html and set the result to the element content', () => {
-        let fixture = $.createFixture(showdownComponentModuleMetadata, {
+    it('should render markdown value that bind from `[value]` property (with `smartIndentationFix` option)', () => {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
             metadata: {template: '<showdown [value]="text" [smartIndentationFix]="options.smartIndentationFix"></showdown>'},
             scope: {text: ' # a b c ', options: {smartIndentationFix: true}}
         });
@@ -153,8 +153,8 @@ describe('ShowdownComponent', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe(`<pre><code>#   a   b   c   \n</code></pre>`);
     });
 
-    it('should be converted div[showdown] bind attr to html and set the result to the element content', () => {
-        let fixture = $.createFixture(showdownComponentModuleMetadata, {
+    it('should render markdown value that bind from `[showdown]` property on div element', () => {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
             metadata: { template: '<div [showdown]="text"></div>' },
             scope: { text: '# abc' }
         });
@@ -170,8 +170,8 @@ describe('ShowdownComponent', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h2 id="abc">abc</h2>');
     });
 
-    it('should be converted element md content to html and set the result to the element content', () => {
-        let fixture = $.createFixture(showdownComponentModuleMetadata, {
+    it('should render markdown value from element content', () => {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
             metadata: { template: '<showdown># abc</showdown>' }
         });
         let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
@@ -180,8 +180,8 @@ describe('ShowdownComponent', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="abc">abc</h1>');
     });
 
-    it('should be converted element md content to html and set the result to the element content (whit options)', () => {
-        let fixture = $.createFixture(showdownComponentModuleMetadata, {
+    it('should render markdown value from element content (with `options` object)', () => {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
             metadata: { template: '<showdown [options]="{noHeaderId:true}"># abc</showdown>' }
         });
         let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
@@ -190,8 +190,8 @@ describe('ShowdownComponent', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1>abc</h1>');
     });
 
-    it('should be set get options', () => {
-        let fixture = $.createFixture(showdownComponentModuleMetadata, {
+    it('should be set options', () => {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
             metadata: {template: '<showdown noHeaderId [smartIndentationFix]="true" [options]="options"></showdown>'},
             scope: {options: {tables: true}}
         });
@@ -206,7 +206,7 @@ describe('ShowdownComponent', () => {
     });
 
     it('should render by `render` method markdown value and override the current component `value` ', () => {
-        let fixture = $.createFixture(showdownComponentModuleMetadata, {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
           metadata: {template: '<showdown># some</showdown>'}
         });
         let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
@@ -220,8 +220,8 @@ describe('ShowdownComponent', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<p><strong>other</strong></p>');
     });
 
-    it('should set empty option attr to true', () => {
-        let fixture = $.createFixture(showdownComponentModuleMetadata, {
+    it('should set empty input value of option (`[*]`) property to true', () => {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
             metadata: {template: '<showdown noHeaderId># abc</showdown>'}
         });
         let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
@@ -230,8 +230,8 @@ describe('ShowdownComponent', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1>abc</h1>');
     });
 
-    it('should bind options object value', () => {
-        let fixture = $.createFixture(showdownComponentModuleMetadata, {
+    it('should set options object value that bind from `[options]` property', () => {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
             metadata: {template: '<showdown [options]="{noHeaderId: noHeaderId, smartIndentationFix: true}"> # abc</showdown>'},
             scope: {noHeaderId: true}
         });

@@ -43,7 +43,7 @@ import * as Showdown from 'showdown';
 })
 export class ShowdownPipe extends ShowdownConverter implements PipeTransform {
 
-    transform(md: string = '', options?: Showdown.ShowdownOptions): string {
+    transform(md: string, options?: Showdown.ShowdownOptions): string {
         this.setOptions(options);
         return this.makeHtml(md);
     }

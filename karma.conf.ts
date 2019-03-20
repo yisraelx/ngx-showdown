@@ -8,11 +8,11 @@ export = (config) => {
         frameworks: ['jasmine', 'source-map-support'],
 
         files: [
-            {pattern: './test/index.ts', watched: false}
+            {pattern: './src/__tests__/index.ts', watched: false}
         ],
 
         preprocessors: {
-            './test/index.ts': ['webpack']
+            './src/__tests__/index.ts': ['webpack']
         },
 
         webpack: {
