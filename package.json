@@ -73,12 +73,10 @@
       "helpMessage": "Commit message violates the rules defined for this project. Please, execute `npm run cm` to generate a correct commit message with `commitizen`"
     }
   },
-  "dependencies": {
-    "@types/showdown": "^1.7.3"
-  },
   "peerDependencies": {
     "@angular/common": "^6.0.0",
     "@angular/core": "^6.0.0",
+    "@types/showdown": "^1.7.3",
     "showdown": "^1.8.6"
   },
   "devDependencies": {
@@ -97,6 +95,7 @@
     "@types/core-js": "^0.9.46",
     "@types/jasmine": "^2.8.6",
     "@types/node": "^10.0.4",
+    "@types/showdown": "^1.7.3",
     "@types/webpack": "^3.8.4",
     "angular2-template-loader": "^0.6.2",
     "clean-webpack-plugin": "^0.1.18",

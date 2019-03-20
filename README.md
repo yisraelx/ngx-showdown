@@ -11,9 +11,15 @@ There is a demo in [source code](https://github.com/yisraelx/ngx-showdown/blob/m
 
 ## Install
 ```bash
-$ npm install --save ngx-showdown
-# and install peer dependencies
-$ npm install --save @angular/core @angular/common showdown
+$ npm install ngx-showdown --save
+```
+and install peer dependencies (`@angular/common/http` for `SourceDirective`)
+```bash
+$ npm install showdown @angular/core @angular/common --save
+```
+and install type package of `showdown` for TypeScript 
+```bash
+$ npm install @types/showdown --save-dev
 ```
 
 ## Use
