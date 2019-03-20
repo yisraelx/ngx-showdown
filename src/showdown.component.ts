@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, Optional } from '@angular/core';
+import { ShowdownConverter } from './showdown-converter.provider';
 import * as Showdown from 'showdown';
 import { ConverterOptions } from './base-converter-options.provider';
-import { BaseConverter } from './base-converter.class';
 
 
 // The options keys for the dynamic properties set
@@ -83,7 +83,7 @@ export interface ShowdownComponent extends Showdown.ShowdownOptions {
     exportAs: 'showdown',
     inputs: OPTIONS_PROPERTIES_KEYS
 })
-export class ShowdownComponent extends BaseConverter implements OnInit, OnChanges, Showdown.ShowdownOptions {
+export class ShowdownComponent extends ShowdownConverter implements OnInit, OnChanges, Showdown.ShowdownOptions {
 
     /**
      * The input markdown value.

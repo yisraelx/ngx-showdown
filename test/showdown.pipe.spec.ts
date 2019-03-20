@@ -55,4 +55,11 @@ describe('ShowdownPipe', () => {
         expect(fixture.debugElement.nativeElement.innerHTML).toBe('&lt;h1 id="abc"&gt;abc&lt;/h1&gt;');
     });
 
+    it('should allow using several pipes with different options in the same template', () => {
+        let fixture = $.createFixture(showdownPipeModuleMetadata, {
+          metadata: {template: `{{ '# abc' | showdown:{noHeaderId: true} }} | {{ '# 123' | showdown:{headerLevelStart: 2} }}`},
+        });
+
+        expect(fixture.debugElement.nativeElement.innerHTML).toBe('&lt;h1&gt;abc&lt;/h1&gt; | &lt;h2 id="123"&gt;123&lt;/h2&gt;');
+    });
 });

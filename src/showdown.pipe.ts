@@ -1,7 +1,6 @@
-import { PipeTransform, Pipe, Optional } from '@angular/core';
+import { PipeTransform, Pipe} from '@angular/core';
+import { ShowdownConverter } from './showdown-converter.provider';
 import * as Showdown from 'showdown';
-import { ConverterOptions } from './base-converter-options.provider';
-import { BaseConverter } from './base-converter.class';
 
 /**
  * A angular markdown pipe
@@ -42,14 +41,11 @@ import { BaseConverter } from './base-converter.class';
     name: 'showdown',
     pure: false
 })
-export class ShowdownPipe extends BaseConverter implements PipeTransform {
-
-    constructor(@Optional() options: ConverterOptions) {
-        super(options);
-    }
+export class ShowdownPipe extends ShowdownConverter implements PipeTransform {
 
     transform(md: string = '', options?: Showdown.ShowdownOptions): string {
         this.setOptions(options);
         return this.makeHtml(md);
     }
+
 }

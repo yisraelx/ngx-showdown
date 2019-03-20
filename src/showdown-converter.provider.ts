@@ -1,22 +1,48 @@
-import { Injectable, Optional } from '@angular/core';
+import { Optional } from '@angular/core';
+import * as Showdown from 'showdown';
 import { ConverterOptions } from './base-converter-options.provider';
-import { BaseConverter } from './base-converter.class';
+
+let { hasOwnProperty } = {};
 
 /**
  * @example
+ * Setup as standalone
  * ```typescript
+ * import { NgModule } from '@angular/core';
  * import { ShowdownConverter } from 'ngx-showdown';
  *
- * class Some{
- *  constructor(showdownConverter: ShowdownConverter){
- *      console.log(showdownConverter.makeHtml("..."));
- *  }
+ * @NgModule({
+ *     declarations: [ ShowdownConverter ];
+ * })
+ * export class AppModule {}
+ * ```
+ *
+ * Use the converter instance.
+ * ```typescript
+ * import { Injectable } from '@angular/core';
+ * import { ShowdownConverter } from 'ngx-showdown';
+ *
+ * @Injectable()
+ * export class SomeService {
+ *    constructor(showdownConverter: ShowdownConverter) {
+ *        let markdown: string = "**Some**";
+ *        let html: string = showdownConverter.makeHtml(markdown);
+ *        console.log(`some:\nmarkdown: ${markdown)\nhtml: ${html}\n`);
+ *    }
  * }
  * ```
  */
-@Injectable()
-export class ShowdownConverter extends BaseConverter {
+export class ShowdownConverter extends Showdown.Converter {
+
     constructor(@Optional() options?: ConverterOptions) {
         super(options);
+    }
+
+     public setOptions(options: Showdown.ShowdownOptions): void {
+        for (let key in options) {
+            if (hasOwnProperty.call(options, key)) {
+              this.setOption(key, options[key]);
+            }
+        }
     }
 }
