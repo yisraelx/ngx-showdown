@@ -13,7 +13,7 @@ import {
     MatIconModule
 } from '@angular/material';
 import { AppComponent } from './app.component';
-import { ShowdownModule } from '../../../src';
+import { ShowdownModule } from 'ngx-showdown';
 
 @NgModule({
     imports: [

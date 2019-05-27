@@ -1,18 +1,17 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
-    "declaration": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "lib": [
-      "es6",
-      "dom"
+    "outDir": "../../out-tsc/spec",
+    "types": [
+      "jasmine",
+      "node"
     ]
   },
+  "files": [
+    "index.ts"
+  ],
   "include": [
-    "./*.ts"
+    "**/*.spec.ts",
+    "**/*.d.ts"
   ]
 }

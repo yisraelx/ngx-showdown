@@ -1,25 +1,28 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
+    "outDir": "../out-tsc/lib",
+    "target": "es2015",
+    "module": "es2015",
     "moduleResolution": "node",
-    "target": "es5",
-    "outDir": "../lib",
-    "rootDir": ".",
     "declaration": true,
+    "sourceMap": true,
+    "inlineSources": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "sourceMap": true,
+    "importHelpers": true,
+    "types": [],
     "lib": [
-      "es6",
-      "dom"
+      "dom",
+      "es2018"
     ]
   },
-  "files": [
-    "index.ts"
-  ],
   "angularCompilerOptions": {
+    "annotateForClosureCompiler": true,
+    "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "skipTemplateCodegen": true
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "enableResourceInlining": true
   }
 }

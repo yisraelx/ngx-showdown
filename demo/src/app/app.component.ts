@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { getDefaultOptions, ShowdownOptions } from 'showdown';
 
 @Component({
-    selector: 'my-app',
+    selector: 'app-demo',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })

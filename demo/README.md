@@ -10,11 +10,11 @@ $ npm install
 ```bash
 $ npm run demo
 # or
-$ ../node_modules/.bin/webpack-dev-server
+$ ng serve demo
 ```
 ### Build
 ```bash
 $ npm run build:demo
 # or
-$ ../node_modules/.bin/webpack
+$ ng build demo
 ```
