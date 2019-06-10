@@ -262,4 +262,17 @@ describe('ShowdownComponent', () => {
         expect(showdownComponent.getOption('smartIndentationFix')).toBeTruthy();
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="abc">abc</h1>');
     });
+
+    it('should sanitize the convert result', () => {
+        let text: string = `# 123\n<a href="javascript:alert('')">click</a>\n**Some**`;
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
+            metadata: {template: '<showdown [value]="text" sanitize></showdown>'},
+            scope: {text}
+        });
+        let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
+
+        expect(showdownComponent.value).toBe(text);
+        expect(fixture.debugElement.nativeElement.children[0].innerHTML)
+          .toBe(`<h1>123</h1>\n<p><a href="unsafe:javascript:alert('')">click</a>\n<strong>Some</strong></p>`);
+    });
 });

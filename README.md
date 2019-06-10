@@ -16,12 +16,13 @@ $ npm install ngx-showdown --save
 ```
 and install peer dependencies (`@angular/common/http` for `SourceDirective`)
 ```bash
-$ npm install showdown @angular/core @angular/common --save
+$ npm install showdown @angular/{core,common,platform-browser} --save
 ```
-and install type package of `showdown` for TypeScript 
+and install type package of `Showdown` for `TypeScript` 
 ```bash
 $ npm install @types/showdown --save-dev
 ```
+
 
 ## Use
 #### Setup
@@ -150,6 +151,20 @@ Without `smartIndentationFix`
 ```
 ```html
 <showdown src="README.md" [options]="{emoji: true}"></showdown>
+```
+
+#### sanitize
+Sanitize the convert html output by [`DomSanitizer`](https://angular.io/api/platform-browser/DomSanitizer#sanitize).
+```html
+<showdown sanitize>
+# Some
+<a href="javascript:alert('Hello!')">Click</a>
+__Foo__
+</showdown>
+```
+Also sanitize content of `src` url.
+```html
+<showdown [value]="# Loading.." src="README.md" sanitize="true"></showdown>
 ```
 
 ### Pipe

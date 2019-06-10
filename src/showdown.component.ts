@@ -1,7 +1,22 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, Optional } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, Optional, SecurityContext } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ShowdownConverter } from './showdown-converter.provider';
 import * as Showdown from 'showdown';
 import { ShowdownConfig } from './showdown-config.provider';
+
+/**
+ * @internal
+ */
+const MAP_OPTION = {
+  '': true,
+  'true': true,
+  'false': false
+};
+
+/**
+ * @internal
+ */
+let _toOption = (value: any) => MAP_OPTION.hasOwnProperty(value) ? MAP_OPTION[value] : value;
 
 /**
  * The options keys for the dynamic properties set
@@ -155,7 +170,45 @@ export class ShowdownComponent extends ShowdownConverter implements OnInit, OnCh
         this.setOptions(options);
     }
 
-    constructor(private _elementRef: ElementRef, @Optional() config?: ShowdownConfig) {
+    private _sanitize: boolean;
+
+    /**
+     * Enables html sanitize, it will sanitize the converter html output by [`DomSanitizer`](https://angular.io/api/platform-browser/DomSanitizer#sanitize).
+     *
+     * **Example :**
+     *
+     * ```typescript
+     * import { Component } from '@angular/core';
+     *
+     * @Component({
+     *   selector: 'some',
+     *   styles: [`.box { width: 95%; padding: 5px; border: 1px solid black;}`],
+     *   template: `
+     *     <h3>Input</h3>
+     *     <textarea class="box" [(ngModel)]="text"></textarea>
+     *     <input type="checkbox" [(ngModel)]="sanitize"/> <b>Sanitize</b>
+     *     <h3>Markdown</h3>
+     *     <pre class="box"><code>{{ text }}</code></pre>
+     *     <h3>Result</h3>
+     *     <pre class="box"><code>{{sd.innerHTML}}</code></pre>
+     *     <h3>Preview</h3>
+     *     <div class="box">
+     *       <showdown #sd [value]="text" [sanitize]="sanitize"></showdown>
+     *     </div>
+     *   `;
+     * })
+     * export class SomeComponent {
+     *    text: string = `# A cool link
+     * <a href="javascript:alert('Hello!')">click me</a>`;
+     * }
+     * ```
+     */
+    @Input()
+    set sanitize(sanitize: boolean){
+        this._sanitize = _toOption(sanitize);
+    }
+
+    constructor(private _elementRef: ElementRef, @Optional() private _domSanitizer?: DomSanitizer, @Optional() config?: ShowdownConfig) {
         super(config);
     }
 
@@ -193,27 +246,24 @@ export class ShowdownComponent extends ShowdownConverter implements OnInit, OnCh
         }
 
         if (typeof this.value === 'string') {
-            this._elementRef.nativeElement.innerHTML = this.makeHtml(this.value);
+            let result = this.makeHtml(this.value);
+
+            if (this._sanitize) {
+                result = this._domSanitizer.sanitize(SecurityContext.HTML, result);
+            }
+
+            this._elementRef.nativeElement.innerHTML = result;
         }
     }
 
 }
 
-/**
- * @internal
- */
-const MAP_OPTION = {
-  '': true,
-  'true': true,
-  'false': false
-};
-
-// Define options properties setter for angular directive and direct access
+// Define options properties getter setter for angular directive and direct access
 for (let key of OPTIONS_PROPERTIES_KEYS) {
   Object.defineProperty(ShowdownComponent.prototype, key, {
-    set (value: any): void {
-        this.setOption(key, MAP_OPTION.hasOwnProperty(value) ? MAP_OPTION[value] : value);
-    },
-    configurable: true
+      set (value: any): void {
+          this.setOption(key, _toOption(value));
+      },
+      configurable: true
   });
 }
