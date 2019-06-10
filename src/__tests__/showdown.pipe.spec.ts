@@ -1,43 +1,27 @@
 import { TestModuleMetadata, ComponentFixtureAutoDetect } from '@angular/core/testing';
-import { ConverterOptions, BaseConverterOptions } from '../base-converter-options.provider';
 import { ShowdownPipe } from '../showdown.pipe';
 import { createComponentFixture } from './helpers';
 
 let showdownPipeModuleMetadata: TestModuleMetadata = {
-    declarations: [ShowdownPipe],
-    providers: [
-        {provide: ConverterOptions, useClass: BaseConverterOptions},
-        {provide: ComponentFixtureAutoDetect, useValue: true}
-    ]
+    declarations: [ ShowdownPipe ],
+    providers: [ {provide: ComponentFixtureAutoDetect, useValue: true} ]
 };
 
 describe('ShowdownPipe', () => {
 
-    it('should transforms "# abc" to "<h1 id="abc">abc</h1>"', () => {
-        let pipe = new ShowdownPipe({} as any);
+    it('should transforms markdown to html by the `transform` method', () => {
+        let pipe: ShowdownPipe = new ShowdownPipe();
 
         expect(pipe.transform('# abc')).toBe('<h1 id="abc">abc</h1>');
     });
 
-    it('should transforms "# abc" to "<h1>abc</h1>"', () => {
-        let pipe = new ShowdownPipe({} as any);
+    it('should transforms markdown to html with options by the `transform` method', () => {
+        let pipe: ShowdownPipe = new ShowdownPipe();
 
         expect(pipe.transform('# abc', {noHeaderId: true})).toBe('<h1>abc</h1>');
     });
 
-    it('should transforms " # a b c " to "<h1 id="abc">a b c</h1>"', () => {
-        let pipe = new ShowdownPipe({} as any);
-
-        expect(pipe.transform(' # a b c ', {smartIndentationFix: true})).toBe('<h1 id="abc">a b c</h1>');
-    });
-
-    it('should transforms "\t#\ta\tb\tc\t" to "<h1 id="abc">a   b   c</h1>"', () => {
-        let pipe = new ShowdownPipe({smartIndentationFix: true} as any);
-
-        expect(pipe.transform('\t#\ta\tb\tc\t')).toBe('<h1 id="abc">a   b   c</h1>');
-    });
-
-    it('should be converted from md to html after it passes through the pipe', () => {
+    it('should transforms markdown value of component property', () => {
         let fixture = createComponentFixture(showdownPipeModuleMetadata, {
             metadata: {template: '{{ text | showdown }}'},
             scope: {text: '# abc'}
@@ -46,7 +30,7 @@ describe('ShowdownPipe', () => {
         expect(fixture.debugElement.nativeElement.innerHTML).toBe('&lt;h1 id="abc"&gt;abc&lt;/h1&gt;');
     });
 
-    it('should be converted from md to html after it passes through the pipe ', () => {
+    it('should transforms markdown to html and bind the result to element `innerHTML` property', () => {
         let fixture = createComponentFixture(showdownPipeModuleMetadata, {
             metadata: {template: '<div [innerHTML]="text | showdown:options"></div>'},
             scope: {text: '\t# abc\t', options: {smartIndentationFix: true, noHeaderId: true}}
@@ -62,4 +46,5 @@ describe('ShowdownPipe', () => {
 
         expect(fixture.debugElement.nativeElement.innerHTML).toBe('&lt;h1&gt;abc&lt;/h1&gt; | &lt;h2 id="123"&gt;123&lt;/h2&gt;');
     });
+
 });

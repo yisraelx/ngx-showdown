@@ -1,12 +1,12 @@
 import { Component, Injectable, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, TestBedStatic } from '@angular/core/testing';
 import { ShowdownModule } from '../showdown.module';
-import * as Showdown from 'showdown';
 import { ShowdownComponent } from '../showdown.component';
-import { ConverterOptions } from '../base-converter-options.provider';
+import { ShowdownConfig } from '../showdown-config.provider';
 import { ShowdownConverter } from '../showdown-converter.provider';
 
 describe('ShowdownModule', () => {
+
     it('should imports the `ShowdownModule` to the app', () => {
           @Component({
               selector: 'some',
@@ -29,13 +29,14 @@ describe('ShowdownModule', () => {
           expect(showdownConverter instanceof ShowdownConverter).toBeTruthy();
           expect(componentInstance instanceof SomeComponent).toBeTruthy();
           expect(componentInstance.converter).toBe(showdownConverter);
+          expect(showdownConverter.getFlavor()).toBe('vanilla');
           expect(nativeElement.children[0].innerHTML).toBe('<p><strong>Some</strong></p>');
     });
 
-    it('should inject ShowdownModule with options', () => {
+    it('should imports the ShowdownModule with options', () => {
         @Injectable()
         class SomeService {
-            constructor(public converter: ShowdownConverter, public options: ConverterOptions) {}
+            constructor(public converter: ShowdownConverter, public config: ShowdownConfig) {}
         }
 
         let fixture: TestBedStatic = TestBed.configureTestingModule({
@@ -44,45 +45,55 @@ describe('ShowdownModule', () => {
         });
         let someService: SomeService = fixture.get(SomeService);
         let showdownConverter: ShowdownConverter = fixture.get(ShowdownConverter);
-        let converterOptions: ConverterOptions = fixture.get(ConverterOptions);
+        let config: ShowdownConfig = fixture.get(ShowdownConfig);
 
         expect(showdownConverter instanceof ShowdownConverter).toBeTruthy();
         expect(someService.converter).toBe(showdownConverter);
-        expect(someService.options).toBe(converterOptions);
+        expect(someService.config).toBe(config);
         expect(showdownConverter.getOption('noHeaderId')).toBeTruthy();
         expect(showdownConverter.getOption('foo')).toBe('bar');
+    });
 
+    it('should imports the ShowdownModule with flavor ', () => {
+        let fixture: TestBedStatic = TestBed.configureTestingModule({
+            imports: [ ShowdownModule.forRoot({flavor: 'github'}) ]
+        });
+
+        let showdownConfig: ShowdownConfig = fixture.get(ShowdownConfig);
+        let showdownConverter: ShowdownConverter = fixture.get(ShowdownConverter);
+
+        expect(showdownConfig.flavor).toBe('github');
+        expect(showdownConverter.getFlavor()).toBe('github');
     });
 
     it('should inject options in the module and other options in the component', () => {
-        let componentConverterOptions: Showdown.ConverterOptions = { foo: 'bar', color: 'green', underline: true };
+        let componentShowdownConfig: ShowdownConfig = { foo: 'bar', color: 'green', underline: true, flavor: 'original' };
         @Component({
             selector: 'some',
             providers: [
-                { provide: ConverterOptions, useValue: componentConverterOptions},
+                { provide: ShowdownConfig, useValue: componentShowdownConfig}
             ],
             template: '<showdown>__Some__</showdown>'
         })
         class SomeComponent {
-            @ViewChild(ShowdownComponent) component;
+            @ViewChild(ShowdownComponent) component: ShowdownComponent;
         }
 
-        let moduleFixtureConverterOptions: Showdown.ConverterOptions = { noHeaderId: true, color: 'red'};
+        let moduleFixtureShowdownConfig: ShowdownConfig = { noHeaderId: true, color: 'red', flavor: 'ghost'};
         let moduleFixture: TestBedStatic = TestBed.configureTestingModule({
-            declarations: [SomeComponent],
-            imports: [
-              ShowdownModule.forRoot(moduleFixtureConverterOptions)
-            ]
+            declarations: [ SomeComponent ],
+            imports: [ ShowdownModule.forRoot(moduleFixtureShowdownConfig) ]
         });
 
-        let moduleFixtureOptions: Showdown.ConverterOptions = moduleFixture.get(ConverterOptions);
+        let moduleFixtureConfig: ShowdownConfig = moduleFixture.get(ShowdownConfig);
         let componentFixture: ComponentFixture<SomeComponent> = moduleFixture.createComponent(SomeComponent);
         let {componentInstance, nativeElement} = componentFixture;
 
         componentFixture.detectChanges();
 
         expect(componentInstance instanceof SomeComponent).toBeTruthy();
-        expect(moduleFixtureOptions).toEqual(moduleFixtureConverterOptions);
+        expect(moduleFixtureConfig).toEqual(moduleFixtureShowdownConfig);
+        expect(componentInstance.component.getFlavor()).toBe('original');
         expect(componentInstance.component.getOption('color')).toBe('green');
         expect(componentInstance.component.value).toBe('__Some__');
         expect(nativeElement.children[0].innerHTML).toBe('<p><u>Some</u></p>');

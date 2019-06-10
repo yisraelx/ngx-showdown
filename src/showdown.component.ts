@@ -1,13 +1,15 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, Optional } from '@angular/core';
 import { ShowdownConverter } from './showdown-converter.provider';
 import * as Showdown from 'showdown';
-import { ConverterOptions } from './base-converter-options.provider';
+import { ShowdownConfig } from './showdown-config.provider';
 
-
-// The options keys for the dynamic properties set
+/**
+ * The options keys for the dynamic properties set
+ * @internal
+ */
 const OPTIONS_PROPERTIES_KEYS: string[] = Object.keys(Showdown.getDefaultOptions());
 
-// options getter setter dynamic definition (the code after the class)
+// for the options getter setter properties that dynamic definition (the code after the class)
 export interface ShowdownComponent extends Showdown.ShowdownOptions {
 }
 
@@ -153,8 +155,8 @@ export class ShowdownComponent extends ShowdownConverter implements OnInit, OnCh
         this.setOptions(options);
     }
 
-    constructor(private _elementRef: ElementRef, @Optional() options?: ConverterOptions) {
-        super(options);
+    constructor(private _elementRef: ElementRef, @Optional() config?: ShowdownConfig) {
+        super(config);
     }
 
     /**
@@ -197,7 +199,7 @@ export class ShowdownComponent extends ShowdownConverter implements OnInit, OnCh
 
 }
 
-// define options properties getter setter for angular directive and direct access
+// Define options properties setter for angular directive and direct access
 for (let key of OPTIONS_PROPERTIES_KEYS) {
   Object.defineProperty(ShowdownComponent.prototype, key, {
     set (value: any): void {

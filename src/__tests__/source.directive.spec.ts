@@ -3,16 +3,12 @@ import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@an
 import { ComponentFixtureAutoDetect, TestModuleMetadata } from '@angular/core/testing';
 import { ShowdownComponent } from '../showdown.component';
 import { SourceDirective } from '../source.directive';
-import { ConverterOptions, BaseConverterOptions } from '../base-converter-options.provider';
 import { createComponentFixture } from './helpers';
 
 let sourceDirectiveModuleMetadata: TestModuleMetadata = {
-    declarations: [ShowdownComponent, SourceDirective],
-    providers: [
-        { provide: ConverterOptions, useClass: BaseConverterOptions },
-        { provide: ComponentFixtureAutoDetect, useValue: true }
-    ],
-    imports: [HttpClientTestingModule]
+    declarations: [ ShowdownComponent, SourceDirective ],
+    providers: [ { provide: ComponentFixtureAutoDetect, useValue: true } ],
+    imports: [ HttpClientTestingModule ]
 };
 
 
@@ -36,7 +32,7 @@ describe('SourceDirective', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('');
     });
 
-    it('should be request to showdown[src] url over http and converted the response md data to html and set the result to the element content', () => {
+    it('should make request to the bind url of `[src]` and render the response', () => {
         let fixture = createComponentFixture(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown src="TEST.md"></showdown>' } });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
         let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
@@ -51,7 +47,7 @@ describe('SourceDirective', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="abc">abc</h1>');
     });
 
-    it('should be request to showdown[src] url over http and converted the response md data to html and set the result to the element content (whit options)', () => {
+    it('should make request to the bind url of `[src]` and render the response (whit options)', () => {
         let fixture = createComponentFixture(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown src="TEST.md" [options]="{smartIndentationFix: true}"></showdown>' } });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
         let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
@@ -66,7 +62,7 @@ describe('SourceDirective', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="abc">abc</h1>');
     });
 
-    it('should be request and converted after binding second time', () => {
+    it('should make new request and render the response if `src` is change', () => {
         let fixture = createComponentFixture<{ url: string }>(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown [src]="url"></showdown>' }, scope: { url: 'TEST.md' } });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
         let sourceDirective: SourceDirective = fixture.debugElement.children[0].injector.get(SourceDirective);
@@ -86,7 +82,7 @@ describe('SourceDirective', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1 id="test2">Test 2</h1>');
     });
 
-    it('should be request same url two time and get different response', () => {
+    it('should be request same url twice and get different response and render', () => {
         let fixture = createComponentFixture<{ url: string }>(sourceDirectiveModuleMetadata, { metadata: { template: '<showdown [src]="url"></showdown>' }, scope: { url: 'TEST.md' } });
         let mockHttpClient: HttpTestingController = fixture.debugElement.injector.get(HttpTestingController);
         let sourceDirective: SourceDirective = fixture.debugElement.children[0].injector.get(SourceDirective);
@@ -169,4 +165,5 @@ describe('SourceDirective', () => {
         expect(showdownComponent.value).toBe('**Catch...**');
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<p><strong>Catch…</strong></p>');
     });
+
 });

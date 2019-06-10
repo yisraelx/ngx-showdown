@@ -1,6 +1,6 @@
 import { Optional } from '@angular/core';
 import * as Showdown from 'showdown';
-import { ConverterOptions } from './base-converter-options.provider';
+import { ShowdownConfig } from './showdown-config.provider';
 
 let { hasOwnProperty } = {};
 
@@ -12,7 +12,7 @@ let { hasOwnProperty } = {};
  * import { ShowdownConverter } from 'ngx-showdown';
  *
  * @NgModule({
- *     declarations: [ ShowdownConverter ];
+ *     providers: [ ShowdownConverter ];
  * })
  * export class AppModule {}
  * ```
@@ -24,25 +24,28 @@ let { hasOwnProperty } = {};
  *
  * @Injectable()
  * export class SomeService {
- *    constructor(showdownConverter: ShowdownConverter) {
- *        let markdown: string = "**Some**";
- *        let html: string = showdownConverter.makeHtml(markdown);
- *        console.log(`some:\nmarkdown: ${markdown)\nhtml: ${html}\n`);
- *    }
+ *     constructor(showdownConverter: ShowdownConverter) {
+ *         let markdown: string = "**Some**";
+ *         let html: string = showdownConverter.makeHtml(markdown);
+ *         console.log(`some:\nmarkdown: ${markdown)\nhtml: ${html}\n`);
+ *     }
  * }
  * ```
  */
 export class ShowdownConverter extends Showdown.Converter {
 
-    constructor(@Optional() options?: ConverterOptions) {
-        super(options);
+    constructor(@Optional() config?: ShowdownConfig) {
+        super(config && {extensions: config.extensions});
+        this.setFlavor((config && config.flavor) || 'vanilla');
+        this.setOptions(config);
     }
 
      public setOptions(options: Showdown.ShowdownOptions): void {
         for (let key in options) {
             if (hasOwnProperty.call(options, key)) {
-              this.setOption(key, options[key]);
+                this.setOption(key, options[key]);
             }
         }
     }
+
 }

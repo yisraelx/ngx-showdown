@@ -1,17 +1,32 @@
 import { TestModuleMetadata, ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { ShowdownComponent } from '../showdown.component';
-import { ConverterOptions, BaseConverterOptions } from '../base-converter-options.provider';
+import { ShowdownConfig } from '../showdown-config.provider';
 import { createComponentFixture } from './helpers';
 
 let showdownComponentModuleMetadata: TestModuleMetadata = {
     declarations: [ShowdownComponent],
     providers: [
-        { provide: ConverterOptions, useClass: BaseConverterOptions },
+        { provide: ShowdownConfig, useValue: {color: 'green'} },
         { provide: ComponentFixtureAutoDetect, useValue: true }
     ]
 };
 
 describe('ShowdownComponent', () => {
+
+    it('should create component and override root config', () => {
+        let fixture = createComponentFixture(showdownComponentModuleMetadata, {
+            metadata: {
+                template: '<showdown></showdown>',
+                providers: [ { provide: ShowdownConfig, useValue: {foo: 'bar', flavor: 'ghost'} } ]
+            }
+        });
+        let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
+
+        expect(showdownComponent instanceof ShowdownComponent).toBeTruthy();
+        expect(showdownComponent.getFlavor()).toBe('ghost');
+        expect(showdownComponent.getOption('foo')).toBe('bar');
+        expect(showdownComponent.getOption('color')).toBeUndefined();
+    });
 
     it('should not render if the component `value` property is empty ', () => {
         let fixture = createComponentFixture(showdownComponentModuleMetadata, {

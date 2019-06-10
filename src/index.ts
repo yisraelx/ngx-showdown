@@ -1,4 +1,4 @@
-export { ConverterOptions, BaseConverterOptions } from './base-converter-options.provider';
+export { ShowdownConfig } from './showdown-config.provider';
 export { ShowdownConverter } from './showdown-converter.provider';
 export { ShowdownComponent } from './showdown.component';
 export { SourceDirective } from './source.directive';

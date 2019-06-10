@@ -4,7 +4,7 @@ import { ShowdownComponent } from './showdown.component';
 import { SourceDirective } from './source.directive';
 import { ShowdownPipe } from './showdown.pipe';
 import { ShowdownConverter } from './showdown-converter.provider';
-import { ConverterOptions, BaseConverterOptions } from './base-converter-options.provider';
+import { ShowdownConfig } from './showdown-config.provider';
 
 const DECLARATIONS = [
     ShowdownComponent,
@@ -14,8 +14,8 @@ const DECLARATIONS = [
 
 /**
  * @example
- * ```typescript
  * Add `ShowdownModule` to app `imports`.
+ * ```typescript
  * import { NgModule } from '@angular/core';
  * import { ShowdownModule } from 'ngx-showdown';
  *
@@ -27,17 +27,12 @@ const DECLARATIONS = [
  */
 @NgModule({
     declarations: DECLARATIONS,
-    providers: [
-        ShowdownConverter,
-        {provide: ConverterOptions, useClass: BaseConverterOptions}
-    ],
+    providers: [ ShowdownConverter ],
     exports: DECLARATIONS
 })
 export class ShowdownModule {
 
     /**
-     *
-     * @param options - A root options for all converter instances.
      * @example
      * Add `ShowdownModule` to app `imports` with config.
      * ```typescript
@@ -45,17 +40,22 @@ export class ShowdownModule {
      * import { ShowdownModule } from 'ngx-showdown';
      *
      * @NgModule({
-     *    imports: [ ShowdownModule.forRoot({smartIndentationFix: true}) ];
+     *     imports: [ ShowdownModule.forRoot({
+     *         smartIndentationFix: true,
+     *         foo: 'bar',
+     *         flavor: 'github',
+     *         extensions: [ {type:'listener', listeners: {'codeBlocks.after': console.log}} ]
+     *     }) ];
      * })
      * export class AppModule {}
      * ```
+     * @param config - A root converter config for all converter instances.
      */
-    static forRoot(options: ConverterOptions | Showdown.ConverterOptions): ModuleWithProviders {
+    static forRoot(config: ShowdownConfig | Showdown.ConverterOptions): ModuleWithProviders<ShowdownModule> {
         return {
             ngModule: ShowdownModule,
-            providers: [
-                {provide: ConverterOptions, useValue: options}
-            ]
+            providers: [ {provide: ShowdownConfig, useValue: config} ]
         };
     }
+
 }

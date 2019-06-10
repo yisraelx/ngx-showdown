@@ -25,6 +25,7 @@ $ npm install @types/showdown --save-dev
 
 ## Use
 #### Setup
+Add `ShowdownModule` to `imports` of App.
 ```typescript
 import { NgModule } from '@angular/core';
 import { ShowdownModule } from 'ngx-showdown';
@@ -34,17 +35,17 @@ import { ShowdownModule } from 'ngx-showdown';
 })
 export class AppModule{}
 ```
-Or with config
+Or with [config](#ShowdownConfig)
 ```typescript
 import { NgModule } from '@angular/core';
-import { ShowdownModule, ConverterOptions } from 'ngx-showdown';
-import * as Showdown from 'showdown';
+import { ShowdownModule } from 'ngx-showdown';
 
 @NgModule({
-    imports: [ ShowdownModule.forRoot({...} as ConverterOptions | Showdown.ConverterOptions) ]
+    imports: [ ShowdownModule.forRoot({emoji: true, noHeaderId: true, flavor: 'github'}) ]
 })
 export class AppModule{}
 ```
+
 ### ShowdownComponent
 #### Binding
 ```typescript
@@ -95,16 +96,15 @@ As attribute on anther element
 <span showdown>**Showdown**</span>
 ```
 
-### Options
- Bind options object (it will detect object property changes )
+#### Options
+Bind options object (it init root [config](#ShowdownConfig) and then set the bind `options`)
 ```typescript
 import { Component } from '@angular/core';
 import * as Showdown from 'showdown';
 
 @Component({
     selector: `some`,
-    template: `<showdown [value]="text" [options]="options"></showdown>`,
-    // ...
+    template: `<showdown [value]="text" [options]="options"></showdown>`
 })
 export class SomeComponent {
     text: string = '# Some';
@@ -188,35 +188,116 @@ export class SomeComponent {
 }
 ```
 
-### Default converter options 
-the default options is the showdown default options
+### ShowdownConfig
+Set root config that will be injected to [ShowdownComponent](#ShowdownComponent), [ShowdownPipe](#ShowdownPipe), [ShowdownConverter](#ShowdownConverter) when they are created.
 ```typescript
 import { NgModel } from '@angular/core';
-import { ConverterOptions, BaseConverterOptions } from 'ngx-showdown';
-export class MyConverterOptions extends ConverterOptions{
-    constructor(){
-        super({...});
-    }
-}
-@NgModel({
-    providers:[
-        {provide: ConverterOptions, useClass: MyConverterOptions},
-    ]
-})
-export class AppModule{}
-```
-Or
-```typescript
-import { NgModel } from '@angular/core';
-import { ConverterOptions } from 'ngx-showdown';
+import { ShowdownModule, ShowdownConverter } from 'ngx-showdown';
 import * as Showdown from 'showdown';
 
+let colorExtension: Showdown.FilterExtension = {
+    type: 'output',
+    filter(text: string, converter: ShowdownConverter){
+        return text.replace('$color', converter.getOption('color') || 'green')
+    }
+};
+
 @NgModel({
-    providers:[
-        {provide: ConverterOptions, useValue: {...} as Showdown.ConverterOptions | ConverterOptions},
+    imports:[
+        ShowdownModule.forRoot({
+            flavor: 'original',
+            emoji: true,
+            color: 'red',
+            extensions: [ colorExtension ]
+        })
     ]
 })
-export class AppModule{}
+export class AppModule {}
+```
+
+Override the root config provider.
+```typescript
+import { Component } from '@angular/core';
+import { ShowdownConfig } from 'ngx-showdown';
+
+@Component({
+    selector: 'some',
+    template: '<showdown># Header</showdown>',
+    providers: [ {provide: ShowdownConfig, useValue: {underline: true, emoji: false}} ]
+})
+export class SomeComponent {}
+```
+
+Set the config manually by the converter methods.
+```typescript
+import { Component } from '@angular/core';
+import { ShowdownComponent } from 'ngx-showdown';
+import * as highlightExtension from 'showdown-highlight';
+
+@Component({
+    selector: 'some',
+    template: '<showdown># Header</showdown>'
+})
+export class SomeComponent {
+    constructor(showdownComponent: ShowdownComponent) {
+        showdownComponent.addExtension(highlightExtension);
+        showdownComponent.setFlavor('ghost');
+        showdownComponent.setOptions({emoji: true});
+    }
+}
+```
+
+#### Flavor
+Set root flavor ([Showdown flavors](https://github.com/showdownjs/showdown/blob/master/README.md#flavors)).
+```typescript
+import { NgModel } from '@angular/core';
+import { ShowdownModule } from 'ngx-showdown';
+
+@NgModel({
+    imports:[
+        ShowdownModule.forRoot({flavor: 'github'})
+    ]
+})
+export class AppModule {}
+```
+*Note: If `flavor` is not set then the default value is 'vanilla' flavor.*
+
+#### ConverterOptions
+Set root ConverterOptions ([Showdown options](https://github.com/showdownjs/showdown/blob/master/README.md#valid-options)).
+```typescript
+import { NgModel } from '@angular/core';
+import { ShowdownModule } from 'ngx-showdown';
+
+@NgModel({
+    imports:[
+        ShowdownModule.forRoot({underline: true, emoji: false})
+    ]
+})
+export class AppModule {}
+```
+
+##### Extensions
+Set root Extensions ([Showdown extensions](https://github.com/showdownjs/showdown#extensions)).
+With extension can be made changes to the `Markdown` input ('lang') and the `Html` output also listen to parse event, you can [make extension](https://github.com/showdownjs/showdown/wiki/Extensions) or [search in npm](https://www.npmjs.com/search?q=keywords:showdown%20extension) for existing extension.
+```typescript
+import { NgModel } from '@angular/core';
+import { ShowdownModule } from 'ngx-showdown';
+import * as Showdown from 'showdown';
+import * as highlightExtension from 'showdown-highlight';
+
+let someExtension: Showdown.ShowdownExtension = {
+    type: 'lang',
+    regex: /markdown/g,
+    replace: 'showdown'
+};
+
+
+@NgModel({
+    imports: [ ShowdownModule.forRoot({
+        extensions: [ someExtension, highlightExtension ]
+    }) ]
+})
+export class AppModule {}
 ```
 
 ## Credits
