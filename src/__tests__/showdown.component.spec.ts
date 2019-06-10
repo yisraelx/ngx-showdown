@@ -205,18 +205,17 @@ describe('ShowdownComponent', () => {
         expect(fixture.debugElement.nativeElement.children[0].innerHTML).toBe('<h1>abc</h1>');
     });
 
-    it('should be set options', () => {
+    it('should be set options (with casting)', () => {
         let fixture = createComponentFixture(showdownComponentModuleMetadata, {
-            metadata: {template: '<showdown noHeaderId [smartIndentationFix]="true" [options]="options"></showdown>'},
+            metadata: {template: '<showdown noHeaderId emoji="false" underline="true" [smartIndentationFix]="true" [options]="options"></showdown>'},
             scope: {options: {tables: true}}
         });
         let showdownComponent: ShowdownComponent = fixture.debugElement.children[0].injector.get(ShowdownComponent);
 
-        expect(showdownComponent.options.noHeaderId).toBeTruthy();
         expect(showdownComponent.getOption('noHeaderId')).toBeTruthy();
-        expect(showdownComponent.options.smartIndentationFix).toBeTruthy();
+        expect(showdownComponent.getOption('emoji')).toBeFalsy();
+        expect(showdownComponent.getOption('underline')).toBeTruthy();
         expect(showdownComponent.getOption('smartIndentationFix')).toBeTruthy();
-        expect(showdownComponent.options.tables).toBeTruthy();
         expect(showdownComponent.getOption('tables')).toBeTruthy();
     });
 

@@ -199,11 +199,20 @@ export class ShowdownComponent extends ShowdownConverter implements OnInit, OnCh
 
 }
 
+/**
+ * @internal
+ */
+const MAP_OPTION = {
+  '': true,
+  'true': true,
+  'false': false
+};
+
 // Define options properties setter for angular directive and direct access
 for (let key of OPTIONS_PROPERTIES_KEYS) {
   Object.defineProperty(ShowdownComponent.prototype, key, {
     set (value: any): void {
-        this.setOption(key, value === '' || value == null || value);
+        this.setOption(key, MAP_OPTION.hasOwnProperty(value) ? MAP_OPTION[value] : value);
     },
     configurable: true
   });
