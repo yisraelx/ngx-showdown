@@ -74,6 +74,7 @@
           },
           "configurations": {
             "production": {
+              "outputPath": "dist/page",
               "fileReplacements": [
                 {
                   "replace": "demo/src/environments/environment.ts",

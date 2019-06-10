@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/@compodoc/compodoc/src/config/schema.json",
+  "tsconfig": "src/tsconfig.json",
+  "theme": "material",
+  "output": "dist/docs",
+  "unitTestCoverage": "coverage/coverage-summary.json",
+  "customFavicon": "demo/src/favicon.ico",
+  "disableLifeCycleHooks": true,
+  "disablePrivate": true,
+  "disableInternal": true
+}
