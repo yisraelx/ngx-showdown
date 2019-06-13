@@ -66,8 +66,9 @@
               "demo/src/assets"
             ],
             "styles": [
-              "demo/src/styles.css",
-              "demo/src/vendor.css"
+              "demo/src/theme.scss",
+              "demo/src/styles.scss",
+              "demo/src/vendor.scss"
             ],
             "scripts": [],
             "es5BrowserSupport": true

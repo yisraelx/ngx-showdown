@@ -1,0 +1,48 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.app-header {
+  position: fixed;
+  height: 50px;
+  z-index: 99;
+}
+
+.header-space {
+  flex-grow: 1;
+}
+
+.header-title {
+  height: 40px;
+}
+
+.title-logo {
+  height: 27px;
+  margin-top: 5px;
+  margin-right: 1px;
+}
+
+.title-text {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: #3e8b8a;
+  text-underline-position: under;
+  font-family: 'Anonymous Pro', monospace;
+  font-size: 14px;
+  text-shadow: #3e8b8a 0.05rem 0 0.05rem;
+}
+
+.title-text-end {
+  color: #868e96 !important;
+}
+
+.app-content {
+  margin-top: 50px;
+  flex: 1 0 auto;
+}
