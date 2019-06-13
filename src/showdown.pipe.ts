@@ -3,26 +3,28 @@ import { ShowdownConverter } from './showdown-converter.provider';
 import * as Showdown from 'showdown';
 
 /**
- * A angular markdown pipe
+ * A angular pipe to transform `Markdown` to `HTML`.
  *
- * @example
+ * ### Example
+ *
  * Setup as standalone
  * ```typescript
  * import { NgModule } from '@angular/core';
  * import { ShowdownPipe } from 'ngx-showdown';
  *
  * @NgModule({
- *    declarations: [ ShowdownPipe ];
+ *     declarations: [ ShowdownPipe ];
  * })
- * export class AppModule{}
- * ```
- * Pipe string to showdown pipe
- * ```
- * <input type="text" placeholder="Name"(change)="msg = '**Hello $name!**'.replace('$name', $event.target.value)" />
- * <div innerHTML="{{msg | showdown}}">
+ * export class AppModule {}
  * ```
  *
- * Pipe `text` property to showdown pipe with `options`
+ * Transform markdown value to html.
+ * ```html
+ * <input type="text" placeholder="Name" [(ngModel)]="name"/>
+ * <div [innerHTML]="'**Hello '+(name || 'nobody')+'!**' | showdown">
+ * ```
+ *
+ * Transform markdown value to html with `options`.
  * ```typescript
  * import * as Showdown from 'showdown';
  *
@@ -31,8 +33,8 @@ import * as Showdown from 'showdown';
  *     template: `<div innerHTML="{{ text | showdown: options }}"></div>`
  * })
  * export class SomeComponent {
- *    text: string = "__Some Underline__";
- *    options: Showdown.ShowdownOptions = { underline: true };
+ *     text: string = "__Some Underline__";
+ *     options: Showdown.ShowdownOptions = { underline: true };
  * // ...
  * }
  * ```
@@ -43,9 +45,16 @@ import * as Showdown from 'showdown';
 })
 export class ShowdownPipe extends ShowdownConverter implements PipeTransform {
 
-    transform(md: string, options?: Showdown.ShowdownOptions): string {
+  /**
+   * Transform markdown value to html.
+   *
+   * @param value - The markdown value to transform to html.
+   * @param options - A `Showdown` converter options.
+   * @returns Returns the transform result of `value` to html.
+   */
+    transform(value: string, options?: Showdown.ShowdownOptions): string {
         this.setOptions(options);
-        return this.makeHtml(md);
+        return this.makeHtml(value);
     }
 
 }

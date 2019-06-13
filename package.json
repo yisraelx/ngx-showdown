@@ -1,6 +1,6 @@
 {
   "name": "ngx-showdown",
-  "description": "Angular X Showdown Module.",
+  "description": "A Angular (>=2) integration for Showdown",
   "version": "0.0.0-semantically-released",
   "license": "MIT",
   "author": {
@@ -8,25 +8,19 @@
     "email": "yisraelx@gmail.com",
     "url": "https://github.com/yisraelx/"
   },
-  "main": "lib/index.js",
-  "browser": "bundles/ngx-showdown.umd.js",
-  "typings": "lib/index.d.ts",
-  "files": [
-    "bundles",
-    "lib",
-    "LICENSE",
-    "README.md"
-  ],
   "keywords": [
     "ng",
     "ng2",
     "ngx",
     "angular",
     "angular2",
-    "angularx",
     "markdown",
     "md",
-    "showdown"
+    "showdown",
+    "convert",
+    "converter",
+    "parse",
+    "parser"
   ],
   "repository": {
     "type": "git",

@@ -24,14 +24,15 @@ let _toOption = (value: any) => MAP_OPTION.hasOwnProperty(value) ? MAP_OPTION[va
  */
 const OPTIONS_PROPERTIES_KEYS: string[] = Object.keys(Showdown.getDefaultOptions());
 
-// for the options getter setter properties that dynamic definition (the code after the class)
+// For the options setter properties that dynamic definition (the code after the class)
 export interface ShowdownComponent extends Showdown.ShowdownOptions {
 }
 
 /**
- * A angular markdown component
+ * A angular component for render `Markdown` to `HTML`.
  *
- * @example
+ * ### Example
+ *
  * Setup as standalone
  * ```typescript
  * import { NgModule } from '@angular/core';
@@ -53,8 +54,12 @@ export interface ShowdownComponent extends Showdown.ShowdownOptions {
  *     template: '<showdown [value]="text" [options]="options"></showdown>'
  * })
  * export class SomeComponent {
- *     text: string = "# Some header";
- *     options: Showdown.ShowdownOptions = {noHeaderId: true};
+ *     text: string = `
+ *         # Some header
+ *         ---
+ *         **Some bold**
+ *         `;
+ *     options: Showdown.ShowdownOptions = { smartIndentationFix: true };
  *     // ...
  * }
  * ```
@@ -63,17 +68,17 @@ export interface ShowdownComponent extends Showdown.ShowdownOptions {
  * <showdown emoji="true"  noHeaderId># Some text :+1:</showdown>
  * ```
  *
- * Set static markdown value
+ * Set static markdown value.
  * ```html
  * <showdown value="___Some static value___" underline></showdown>
  * ```
  *
- * Use as directive on anther element
+ * Use as directive on anther element.
  * ```html
  * <div showdown="# Div Element" headerLevelStart="2"></div>
  * ```
  *
- * Markdown value in the element content
+ * Static markdown value in the element content.
  * ```html
  * <div>
  *    <showdown smartIndentationFix>
@@ -85,7 +90,7 @@ export interface ShowdownComponent extends Showdown.ShowdownOptions {
  * </div>
  * ```
  *
- * Set template reference variable
+ * Set template reference variable.
  * ```html
  * <showdown #sd></showdown>
  * ```
@@ -105,7 +110,8 @@ export class ShowdownComponent extends ShowdownConverter implements OnInit, OnCh
     /**
      * The input markdown value.
      *
-     * @example
+     * __Example :__
+     *
      * Set some static markdown value.
      * ```html
      * <showdown value="**Some bold value**"></showdown>
@@ -122,7 +128,8 @@ export class ShowdownComponent extends ShowdownConverter implements OnInit, OnCh
     /**
      * Input alias to `value`.
      *
-     * @example
+     * __Example :__
+     *
      * ```html
      * <div [showdown]="# Some Header"></div>
      * ```
@@ -139,7 +146,8 @@ export class ShowdownComponent extends ShowdownConverter implements OnInit, OnCh
    /**
     * The showdown options of the converter.
     *
-    * @example
+    * __Example :__
+    *
     * Bind options
     * ```typescript
     * import { Component } from '@angular/core';
@@ -147,12 +155,10 @@ export class ShowdownComponent extends ShowdownConverter implements OnInit, OnCh
     *
     * @Component({
     *     selector: `some`,
-    *     template: `
-    *      <showdown [options]="options"># Some Header<showdown>
-    *     `
+    *     template: `<showdown [options]="options"># Some Header<showdown>`
     * })
     * export class SomeComponent {
-    *     options: Showdown.ShowdownOptions = {headerLevelStart: 1};
+    *     options: Showdown.ShowdownOptions = {headerLevelStart: 3};
     *     // ...
     * }
     * ```
@@ -175,7 +181,7 @@ export class ShowdownComponent extends ShowdownConverter implements OnInit, OnCh
     /**
      * Enables html sanitize, it will sanitize the converter html output by [`DomSanitizer`](https://angular.io/api/platform-browser/DomSanitizer#sanitize).
      *
-     * **Example :**
+     * __Example :__
      *
      * ```typescript
      * import { Component } from '@angular/core';
@@ -189,8 +195,6 @@ export class ShowdownComponent extends ShowdownConverter implements OnInit, OnCh
      *     <input type="checkbox" [(ngModel)]="sanitize"/> <b>Sanitize</b>
      *     <h3>Markdown</h3>
      *     <pre class="box"><code>{{ text }}</code></pre>
-     *     <h3>Result</h3>
-     *     <pre class="box"><code>{{sd.innerHTML}}</code></pre>
      *     <h3>Preview</h3>
      *     <div class="box">
      *       <showdown #sd [value]="text" [sanitize]="sanitize"></showdown>
@@ -233,12 +237,13 @@ export class ShowdownComponent extends ShowdownConverter implements OnInit, OnCh
     /**
      * Convert the markdown value of `this#value` to html and set the html result to the element content.
      *
-     * @param value - A markdown value to render (it will override the current value of `this#value`)
-     * @example
+     * __Example :__
+     *
      * ```html
      * <textarea #textarea (change)="showdown.render(textarea.value)"/># Some Header</textarea>
      * <showdown #showdown></showdown>
      * ```
+     * @param value - A markdown value to render (it will override the current value of `this#value`)
      */
     public render(value?: string): void {
         if (typeof value === 'string') {
@@ -258,7 +263,7 @@ export class ShowdownComponent extends ShowdownConverter implements OnInit, OnCh
 
 }
 
-// Define options properties getter setter for angular directive and direct access
+// Define options properties setter for angular directive and direct access
 for (let key of OPTIONS_PROPERTIES_KEYS) {
   Object.defineProperty(ShowdownComponent.prototype, key, {
       set (value: any): void {

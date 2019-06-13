@@ -1,11 +1,15 @@
-import { Optional } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import * as Showdown from 'showdown';
 import { ShowdownConfig } from './showdown-config.provider';
 
+/**
+ * @internal
+ */
 let { hasOwnProperty } = {};
 
 /**
- * @example
+ * ### Example
+ *
  * Setup as standalone
  * ```typescript
  * import { NgModule } from '@angular/core';
@@ -32,6 +36,7 @@ let { hasOwnProperty } = {};
  * }
  * ```
  */
+@Injectable()
 export class ShowdownConverter extends Showdown.Converter {
 
     constructor(@Optional() config?: ShowdownConfig) {
@@ -40,7 +45,12 @@ export class ShowdownConverter extends Showdown.Converter {
         this.setOptions(config);
     }
 
-     public setOptions(options: Showdown.ShowdownOptions): void {
+    /**
+     * Set options to the converter.
+     *
+     * @param options - A options object to set.
+     */
+    public setOptions(options: Showdown.ShowdownOptions): void {
         for (let key in options) {
             if (hasOwnProperty.call(options, key)) {
                 this.setOption(key, options[key]);

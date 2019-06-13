@@ -6,6 +6,9 @@ import { ShowdownPipe } from './showdown.pipe';
 import { ShowdownConverter } from './showdown-converter.provider';
 import { ShowdownConfig } from './showdown-config.provider';
 
+/**
+ * @internal
+ */
 const DECLARATIONS = [
     ShowdownComponent,
     ShowdownPipe,
@@ -13,7 +16,8 @@ const DECLARATIONS = [
 ];
 
 /**
- * @example
+ * ### Example
+ *
  * Add `ShowdownModule` to app `imports`.
  * ```typescript
  * import { NgModule } from '@angular/core';
@@ -33,7 +37,8 @@ const DECLARATIONS = [
 export class ShowdownModule {
 
     /**
-     * @example
+     * __Example :__
+     *
      * Add `ShowdownModule` to app `imports` with config.
      * ```typescript
      * import { NgModule } from '@angular/core';

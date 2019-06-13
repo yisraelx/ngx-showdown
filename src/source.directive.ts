@@ -3,7 +3,10 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ShowdownComponent } from './showdown.component';
 
 /**
- * @example
+ * A angular directive to `ShowdownComponent` for make http request of markdown content.
+ *
+ * ### Example
+ *
  * Setup as standalone
  * ```typescript
  * import { NgModule } from '@angular/core';
@@ -55,7 +58,8 @@ export class SourceDirective implements OnChanges {
     /**
      * The source url of the markdown content.
      *
-     * @example
+     * __Example :__
+     *
      * Set static url to `src` directive.
      * ```html
      * <showdown src="https://unpkg.com/ngx-showdown/README.md"></showdown>
@@ -73,7 +77,8 @@ export class SourceDirective implements OnChanges {
     /**
      * On error occur.
      *
-     * @example
+     * __Example :__
+     *
      * ```html
      * <input type="text" placeholder="url" [(ngModel)]="url"/>
      * <showdown [src]="url" (error)="sd.render('# Error\n> '+$event.message)">**Loading...**</showdown>
@@ -95,13 +100,14 @@ export class SourceDirective implements OnChanges {
     /**
      * Load the markdown content of `this#url` to `ShowdownComponent#value`.
      *
-     * @param url - A url of markdown content to load (it will override the current url of `this#url`)
-     * @example
+     * __Example :__
+     *
      * ```html
      * <input type="text" #url value="source.src" placeholder="Url" />
      * <button (click)="source.load(url.value)">Load</button>
      * <showdown #source="source" src="https://unpkg.com/ngx-showdown/README.md"></showdown>
      * ```
+     * @param url - A url of markdown content to load (it will override the current url of `this#url`)
      */
     public load(url?: string): void {
         if (url) {
