@@ -1,7 +1,6 @@
-export { ShowdownConfig } from './showdown-config.provider';
-export { ShowdownConverter } from './showdown-converter.provider';
-export { ShowdownComponent } from './showdown.component';
-export { SourceDirective } from './source.directive';
-export { ShowdownPipe } from './showdown.pipe';
-
-export { ShowdownModule } from './showdown.module';
+export * from './showdown-config.provider';
+export * from './showdown-converter.provider';
+export * from './showdown.component';
+export * from './source.directive';
+export * from './showdown.pipe';
+export * from './showdown.module';

@@ -44,14 +44,15 @@
     "deploy": "gh-pages -d dist/page -r https://$GH_TOKEN@github.com/yisraelx/ngx-showdown.git -m \"chore: update\" -x",
     "docs": "compodoc --serve --watch --open",
     "lint": "run-s lint:*",
-    "lint:demo": "ng lint demo",
-    "lint:lib": "ng lint lib",
+    "lint:demo": "ng lint demo --type-check",
+    "lint:lib": "ng lint lib --type-check",
     "predeploy": "yarn build:demo --prod --base-href /ngx-showdown/ && yarn build:docs --output dist/page/docs",
     "prerelease": "yarn build:lib",
-    "verify": "run-s clean lint \"test --browsers=ChromeHeadless\"",
+    "verify": "run-s clean lint test:shell",
     "release": "semantic-release",
     "start": "yarn demo",
-    "test": "ng test"
+    "test": "ng test",
+    "test:shell": "yarn test --browsers=ChromeHeadless"
   },
   "husky": {
     "hooks": {
@@ -104,7 +105,7 @@
     "@types/node": "^8.9.4",
     "@types/showdown": "^1.9.3",
     "codecov": "^3.5.0",
-    "codelyzer": "^5.0.1",
+    "codelyzer": "^5.1.0",
     "commitizen": "^3.1.1",
     "core-js": "^2.6.5",
     "gh-pages": "^2.0.1",
@@ -128,7 +129,7 @@
     "ts-node": "^8.1.0",
     "tsickle": ">=0.34.0",
     "tslib": "^1.9.3",
-    "tslint": "^5.16.0",
+    "tslint": "^5.17.0",
     "typescript": "~3.2.4",
     "yarn": "^1.16.0",
     "zone.js": "~0.8.26"

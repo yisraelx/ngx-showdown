@@ -1,6 +1,6 @@
-import { PipeTransform, Pipe} from '@angular/core';
-import { ShowdownConverter } from './showdown-converter.provider';
+import { Pipe, PipeTransform } from '@angular/core';
 import * as Showdown from 'showdown';
+import { ShowdownConverter } from './showdown-converter.provider';
 
 /**
  * A angular pipe to transform `Markdown` to `HTML`.
@@ -13,7 +13,7 @@ import * as Showdown from 'showdown';
  * import { ShowdownPipe } from 'ngx-showdown';
  *
  * @NgModule({
- *     declarations: [ ShowdownPipe ];
+ *   declarations: [ ShowdownPipe ];
  * })
  * export class AppModule {}
  * ```
@@ -29,19 +29,19 @@ import * as Showdown from 'showdown';
  * import * as Showdown from 'showdown';
  *
  * @Component({
- *     selector: 'some',
- *     template: `<div innerHTML="{{ text | showdown: options }}"></div>`
+ *   selector: 'some',
+ *   template: `<div innerHTML="{{ text | showdown: options }}"></div>`
  * })
  * export class SomeComponent {
- *     text: string = "__Some Underline__";
- *     options: Showdown.ShowdownOptions = { underline: true };
- * // ...
+ *   text: string = "__Some Underline__";
+ *   options: Showdown.ShowdownOptions = { underline: true };
+ *   // ...
  * }
  * ```
  */
 @Pipe({
-    name: 'showdown',
-    pure: false
+  name: 'showdown',
+  pure: false
 })
 export class ShowdownPipe extends ShowdownConverter implements PipeTransform {
 
@@ -52,9 +52,9 @@ export class ShowdownPipe extends ShowdownConverter implements PipeTransform {
    * @param options - A `Showdown` converter options.
    * @returns Returns the transform result of `value` to html.
    */
-    transform(value: string, options?: Showdown.ShowdownOptions): string {
-        this.setOptions(options);
-        return this.makeHtml(value);
-    }
+  transform(value: string, options?: Showdown.ShowdownOptions): string {
+    this.setOptions(options);
+    return this.makeHtml(value);
+  }
 
 }

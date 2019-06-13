@@ -5,7 +5,7 @@ import { ShowdownConfig } from './showdown-config.provider';
 /**
  * @internal
  */
-let { hasOwnProperty } = {};
+let {hasOwnProperty} = {};
 
 /**
  * ### Example
@@ -16,7 +16,7 @@ let { hasOwnProperty } = {};
  * import { ShowdownConverter } from 'ngx-showdown';
  *
  * @NgModule({
- *     providers: [ ShowdownConverter ];
+ *   providers: [ ShowdownConverter ];
  * })
  * export class AppModule {}
  * ```
@@ -28,34 +28,34 @@ let { hasOwnProperty } = {};
  *
  * @Injectable()
  * export class SomeService {
- *     constructor(showdownConverter: ShowdownConverter) {
- *         let markdown: string = "**Some**";
- *         let html: string = showdownConverter.makeHtml(markdown);
- *         console.log(`some:\nmarkdown: ${markdown)\nhtml: ${html}\n`);
- *     }
+ *   constructor(showdownConverter: ShowdownConverter) {
+ *     let markdown: string = "**Some**";
+ *     let html: string = showdownConverter.makeHtml(markdown);
+ *     console.log(`some:\nmarkdown: ${markdown)\nhtml: ${html}\n`);
+ *   }
  * }
  * ```
  */
 @Injectable()
 export class ShowdownConverter extends Showdown.Converter {
 
-    constructor(@Optional() config?: ShowdownConfig) {
-        super(config && {extensions: config.extensions});
-        this.setFlavor((config && config.flavor) || 'vanilla');
-        this.setOptions(config);
-    }
+  constructor(@Optional() config?: ShowdownConfig) {
+    super(config && {extensions: config.extensions});
+    this.setFlavor((config && config.flavor) || 'vanilla');
+    this.setOptions(config);
+  }
 
-    /**
-     * Set options to the converter.
-     *
-     * @param options - A options object to set.
-     */
-    public setOptions(options: Showdown.ShowdownOptions): void {
-        for (let key in options) {
-            if (hasOwnProperty.call(options, key)) {
-                this.setOption(key, options[key]);
-            }
-        }
+  /**
+   * Set options to the converter.
+   *
+   * @param options - A options object to set.
+   */
+  public setOptions(options: Showdown.ShowdownOptions): void {
+    for (let key in options) {
+      if (hasOwnProperty.call(options, key)) {
+        this.setOption(key, options[key]);
+      }
     }
+  }
 
 }

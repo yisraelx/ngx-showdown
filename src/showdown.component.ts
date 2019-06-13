@@ -1,16 +1,16 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, Optional, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ShowdownConverter } from './showdown-converter.provider';
 import * as Showdown from 'showdown';
 import { ShowdownConfig } from './showdown-config.provider';
+import { ShowdownConverter } from './showdown-converter.provider';
 
 /**
  * @internal
  */
 const MAP_OPTION = {
   '': true,
-  'true': true,
-  'false': false
+  true: true,
+  false: false
 };
 
 /**
@@ -39,7 +39,7 @@ export interface ShowdownComponent extends Showdown.ShowdownOptions {
  * import { ShowdownComponent } from 'ngx-showdown';
  *
  * @NgModule({
- *     declarations: [ ShowdownComponent ];
+ *   declarations: [ ShowdownComponent ];
  * })
  * export class AppModule {}
  * ```
@@ -50,17 +50,17 @@ export interface ShowdownComponent extends Showdown.ShowdownOptions {
  * import * as Showdown from 'showdown';
  *
  * @Component({
- *     selector: 'some',
- *     template: '<showdown [value]="text" [options]="options"></showdown>'
+ *   selector: 'some',
+ *   template: '<showdown [value]="text" [options]="options"></showdown>'
  * })
  * export class SomeComponent {
- *     text: string = `
- *         # Some header
- *         ---
- *         **Some bold**
- *         `;
- *     options: Showdown.ShowdownOptions = { smartIndentationFix: true };
- *     // ...
+ *   text: string = `
+ *     # Some header
+ *     ---
+ *     **Some bold**
+ *   `;
+ *   options: Showdown.ShowdownOptions = { smartIndentationFix: true };
+ *   // ...
  * }
  * ```
  * Bind single option (it have properties for all showdown options).
@@ -100,175 +100,175 @@ export interface ShowdownComponent extends Showdown.ShowdownOptions {
  * ```
  */
 @Component({
-    selector: 'showdown,[showdown]',
-    template: '<ng-content></ng-content>',
-    exportAs: 'showdown',
-    inputs: OPTIONS_PROPERTIES_KEYS
+  selector: 'showdown,[showdown]',
+  template: '<ng-content></ng-content>',
+  exportAs: 'showdown',
+  inputs: OPTIONS_PROPERTIES_KEYS
 })
 export class ShowdownComponent extends ShowdownConverter implements OnInit, OnChanges, Showdown.ShowdownOptions {
 
-    /**
-     * The input markdown value.
-     *
-     * __Example :__
-     *
-     * Set some static markdown value.
-     * ```html
-     * <showdown value="**Some bold value**"></showdown>
-     * ```
-     *
-     * Bind property with markdown value.
-     * ```html
-     * <textarea [(ngModel)]="text"></textarea>
-     * <showdown [value]="text"></showdown>
-     * ```
-     */
-    @Input() value: string;
+  /**
+   * The input markdown value.
+   *
+   * __Example :__
+   *
+   * Set some static markdown value.
+   * ```html
+   * <showdown value="**Some bold value**"></showdown>
+   * ```
+   *
+   * Bind property with markdown value.
+   * ```html
+   * <textarea [(ngModel)]="text"></textarea>
+   * <showdown [value]="text"></showdown>
+   * ```
+   */
+  @Input() value: string;
 
-    /**
-     * Input alias to `value`.
-     *
-     * __Example :__
-     *
-     * ```html
-     * <div [showdown]="# Some Header"></div>
-     * ```
-     *
-     * Equivalent to
-     * ```html
-     * <showdown [value]="# Some Header"></showdown>
-     * ```
-     */
-    @Input() set showdown(value: string) {
-        this.value = value;
+  /**
+   * Input alias to `value`.
+   *
+   * __Example :__
+   *
+   * ```html
+   * <div [showdown]="# Some Header"></div>
+   * ```
+   *
+   * Equivalent to
+   * ```html
+   * <showdown [value]="# Some Header"></showdown>
+   * ```
+   */
+  @Input() set showdown(value: string) {
+    this.value = value;
+  }
+
+  /**
+   * The showdown options of the converter.
+   *
+   * __Example :__
+   *
+   * Bind options
+   * ```typescript
+   * import { Component } from '@angular/core';
+   * import * as Showdown from 'showdown';
+   *
+   * @Component({
+   *   selector: `some`,
+   *   template: `<showdown [options]="options"># Some Header<showdown>`
+   * })
+   * export class SomeComponent {
+   *   options: Showdown.ShowdownOptions = {headerLevelStart: 3};
+   *   // ...
+   * }
+   * ```
+   * Or
+   * ```html
+   * <showdown [options]="{smartIndentationFix: true}"> # Indentation Fix<showdown>
+   * ```
+   */
+  @Input()
+  get options(): Showdown.ShowdownOptions {
+    return this.getOptions();
+  }
+
+  set options(options: Showdown.ShowdownOptions) {
+    this.setOptions(options);
+  }
+
+  private _sanitize: boolean;
+
+  /**
+   * Enables html sanitize, it will sanitize the converter html output by [`DomSanitizer`](https://angular.io/api/platform-browser/DomSanitizer#sanitize).
+   *
+   * __Example :__
+   *
+   * ```typescript
+   * import { Component } from '@angular/core';
+   *
+   * @Component({
+   *   selector: 'some',
+   *   styles: [`.box { width: 95%; padding: 5px; border: 1px solid black;}`],
+   *   template: `
+   *     <h3>Input</h3>
+   *     <textarea class="box" [(ngModel)]="text"></textarea>
+   *     <input type="checkbox" [(ngModel)]="sanitize"/> <b>Sanitize</b>
+   *     <h3>Markdown</h3>
+   *     <pre class="box"><code>{{ text }}</code></pre>
+   *     <h3>Preview</h3>
+   *     <div class="box">
+   *       <showdown #sd [value]="text" [sanitize]="sanitize"></showdown>
+   *     </div>
+   *   `;
+   * })
+   * export class SomeComponent {
+   *    text: string = `# A cool link
+   * <a href="javascript:alert('Hello!')">click me</a>`;
+   * }
+   * ```
+   */
+  @Input()
+  set sanitize(sanitize: boolean) {
+    this._sanitize = _toOption(sanitize);
+  }
+
+  constructor(private _elementRef: ElementRef, @Optional() private _domSanitizer?: DomSanitizer, @Optional() config?: ShowdownConfig) {
+    super(config);
+  }
+
+  /**
+   * A angular lifecycle method, Use on init to check if it `content` type and load the element `content` to `value`.
+   * @internal
+   */
+  ngOnInit(): void {
+    if (this.value === undefined && this._elementRef.nativeElement.innerHTML.trim() !== '') {
+      this.render(this._elementRef.nativeElement.innerHTML);
+    }
+  }
+
+  /**
+   * A angular lifecycle method, Use to call to render method after changes.
+   * @internal
+   */
+  ngOnChanges(): void {
+    this.render();
+  }
+
+  /**
+   * Convert the markdown value of {@link ShowdownComponent#value} to html and set the html result to the element content.
+   *
+   * __Example :__
+   *
+   * ```html
+   * <textarea #textarea (change)="showdown.render(textarea.value)"/># Some Header</textarea>
+   * <showdown #showdown></showdown>
+   * ```
+   * @param value - A markdown value to render (it will override the current value of `ShowdownComponent#value`)
+   */
+  public render(value?: string): void {
+    if (typeof value === 'string') {
+      this.value = value;
     }
 
-   /**
-    * The showdown options of the converter.
-    *
-    * __Example :__
-    *
-    * Bind options
-    * ```typescript
-    * import { Component } from '@angular/core';
-    * import * as Showdown from 'showdown';
-    *
-    * @Component({
-    *     selector: `some`,
-    *     template: `<showdown [options]="options"># Some Header<showdown>`
-    * })
-    * export class SomeComponent {
-    *     options: Showdown.ShowdownOptions = {headerLevelStart: 3};
-    *     // ...
-    * }
-    * ```
-    * Or
-    * ```html
-    * <showdown [options]="{smartIndentationFix: true}"> # Indentation Fix<showdown>
-    * ```
-    */
-    @Input()
-    get options(): Showdown.ShowdownOptions {
-        return this.getOptions();
+    if (typeof this.value === 'string') {
+      let result = this.makeHtml(this.value);
+
+      if (this._sanitize) {
+        result = this._domSanitizer.sanitize(SecurityContext.HTML, result);
+      }
+
+      this._elementRef.nativeElement.innerHTML = result;
     }
-
-    set options(options: Showdown.ShowdownOptions) {
-        this.setOptions(options);
-    }
-
-    private _sanitize: boolean;
-
-    /**
-     * Enables html sanitize, it will sanitize the converter html output by [`DomSanitizer`](https://angular.io/api/platform-browser/DomSanitizer#sanitize).
-     *
-     * __Example :__
-     *
-     * ```typescript
-     * import { Component } from '@angular/core';
-     *
-     * @Component({
-     *   selector: 'some',
-     *   styles: [`.box { width: 95%; padding: 5px; border: 1px solid black;}`],
-     *   template: `
-     *     <h3>Input</h3>
-     *     <textarea class="box" [(ngModel)]="text"></textarea>
-     *     <input type="checkbox" [(ngModel)]="sanitize"/> <b>Sanitize</b>
-     *     <h3>Markdown</h3>
-     *     <pre class="box"><code>{{ text }}</code></pre>
-     *     <h3>Preview</h3>
-     *     <div class="box">
-     *       <showdown #sd [value]="text" [sanitize]="sanitize"></showdown>
-     *     </div>
-     *   `;
-     * })
-     * export class SomeComponent {
-     *    text: string = `# A cool link
-     * <a href="javascript:alert('Hello!')">click me</a>`;
-     * }
-     * ```
-     */
-    @Input()
-    set sanitize(sanitize: boolean){
-        this._sanitize = _toOption(sanitize);
-    }
-
-    constructor(private _elementRef: ElementRef, @Optional() private _domSanitizer?: DomSanitizer, @Optional() config?: ShowdownConfig) {
-        super(config);
-    }
-
-    /**
-     * A angular lifecycle method, Use on init to check if it `content` type and load the element `content` to `value`.
-     * @internal
-     */
-    ngOnInit(): void {
-        if (this.value === undefined && this._elementRef.nativeElement.innerHTML.trim() !== '') {
-            this.render(this._elementRef.nativeElement.innerHTML);
-        }
-    }
-
-    /**
-     * A angular lifecycle method, Use to call to render method after changes.
-     * @internal
-     */
-    ngOnChanges(): void {
-        this.render();
-    }
-
-    /**
-     * Convert the markdown value of `this#value` to html and set the html result to the element content.
-     *
-     * __Example :__
-     *
-     * ```html
-     * <textarea #textarea (change)="showdown.render(textarea.value)"/># Some Header</textarea>
-     * <showdown #showdown></showdown>
-     * ```
-     * @param value - A markdown value to render (it will override the current value of `this#value`)
-     */
-    public render(value?: string): void {
-        if (typeof value === 'string') {
-            this.value = value;
-        }
-
-        if (typeof this.value === 'string') {
-            let result = this.makeHtml(this.value);
-
-            if (this._sanitize) {
-                result = this._domSanitizer.sanitize(SecurityContext.HTML, result);
-            }
-
-            this._elementRef.nativeElement.innerHTML = result;
-        }
-    }
+  }
 
 }
 
 // Define options properties setter for angular directive and direct access
 for (let key of OPTIONS_PROPERTIES_KEYS) {
   Object.defineProperty(ShowdownComponent.prototype, key, {
-      set (value: any): void {
-          this.setOption(key, _toOption(value));
-      },
-      configurable: true
+    set(value: any): void {
+      this.setOption(key, _toOption(value));
+    },
+    configurable: true
   });
 }

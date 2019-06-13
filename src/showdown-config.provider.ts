@@ -1,9 +1,10 @@
+import { Injectable } from '@angular/core';
 import * as Showdown from 'showdown';
 
 /**
  * @internal
  */
-let { hasOwnProperty } = {};
+let {hasOwnProperty} = {};
 
 export interface ShowdownConfig extends Showdown.ConverterOptions {
 }
@@ -19,18 +20,19 @@ export interface ShowdownConfig extends Showdown.ConverterOptions {
  * import { ShowdownModule, ShowdownConfig } from 'ngx-showdown';
  *
  * export class MyShowdownConfig extends ShowdownConfig {
- *     emoji = true;
- *     underscore = false;
- *     flavor = 'github';
+ *   emoji = true;
+ *   underscore = false;
+ *   flavor = 'github';
  * }
  *
  * @NgModel({
- *     imports: [ ShowdownModule ],
- *     providers: [ {provide: ShowdownConfig, useClass: MyConverterOptions} ]
+ *   imports: [ ShowdownModule ],
+ *   providers: [ {provide: ShowdownConfig, useClass: MyConverterOptions} ]
  * })
  * export class AppModule {}
  * ```
  */
+@Injectable()
 export class ShowdownConfig implements Showdown.ConverterOptions {
 
   /**
@@ -39,20 +41,20 @@ export class ShowdownConfig implements Showdown.ConverterOptions {
   flavor?: Showdown.Flavor;
 
   constructor(options?: ShowdownConfig | Showdown.ConverterOptions) {
-      this.merge(options);
+    this.merge(options);
   }
 
-    /**
-     * Merge options
-     *
-     * @param options - A options object to merge.
-     */
-    public merge?(options: ShowdownConfig | Showdown.ConverterOptions) {
-      for (let key in options) {
-          if (hasOwnProperty.call(options, key)) {
-              this[key] = options[key];
-          }
+  /**
+   * Merge options
+   *
+   * @param options - A options object to merge.
+   */
+  public merge?(options: ShowdownConfig | Showdown.ConverterOptions) {
+    for (let key in options) {
+      if (hasOwnProperty.call(options, key)) {
+        this[key] = options[key];
       }
     }
+  }
 
 }
