@@ -1,13 +1,7 @@
 {
   "name": "ngx-showdown",
-  "description": "A Angular (>=2) integration for Showdown",
   "version": "0.0.0-semantically-released",
-  "license": "MIT",
-  "author": {
-    "name": "Yisrael Eliav",
-    "email": "yisraelx@gmail.com",
-    "url": "https://github.com/yisraelx/"
-  },
+  "description": "A Angular (>=2) integration for Showdown",
   "keywords": [
     "ng",
     "ng2",
@@ -22,6 +16,13 @@
     "parse",
     "parser"
   ],
+  "license": "MIT",
+  "author": {
+    "name": "Yisrael Eliav",
+    "email": "yisraelx@gmail.com",
+    "url": "https://github.com/yisraelx/"
+  },
+  "homepage": "http://yisraelx.github.io/ngx-showdown",
   "repository": {
     "type": "git",
     "url": "https://github.com/yisraelx/ngx-showdown.git"
@@ -29,7 +30,6 @@
   "bugs": {
     "url": "https://github.com/yisraelx/ngx-showdown/issues"
   },
-  "homepage": "http://yisraelx.github.io/ngx-showdown",
   "scripts": {
     "build": "run-s build:*",
     "build:lib": "ng build lib",
@@ -37,16 +37,16 @@
     "build:docs": "compodoc",
     "ci:script": "yarn verify",
     "ci:after": "run-s coverage release deploy",
-    "coverage": "codecov -f coverage/coverage-final.json",
+    "coverage": "codecov --file coverage/coverage-final.json",
     "clean": "rimraf dist coverage",
     "commit": "git-cz",
-    "demo": "ng serve demo --open",
-    "deploy": "gh-pages -d dist/page -r https://$GH_TOKEN@github.com/yisraelx/ngx-showdown.git -m \"chore: update\" -x",
+    "demo": "ng serve demo --watch --open",
+    "deploy": "gh-pages --dist dist/page --repo https://$GH_TOKEN@github.com/yisraelx/ngx-showdown.git --message \"chore: update\" --silent",
     "docs": "compodoc --serve --watch --open",
     "lint": "run-s lint:*",
-    "lint:demo": "ng lint demo --type-check",
-    "lint:lib": "ng lint lib --type-check",
-    "predeploy": "yarn build:demo --prod --base-href /ngx-showdown/ && yarn build:docs --output dist/page/docs",
+    "lint:demo": "ng lint demo",
+    "lint:lib": "ng lint lib",
+    "predeploy": "yarn build:demo --prod && yarn build:docs",
     "prerelease": "yarn build:lib",
     "verify": "run-s clean lint test:shell",
     "release": "semantic-release",
@@ -66,7 +66,7 @@
     ]
   },
   "release": {
-    "pkgRoot": "dist/src"
+    "pkgRoot": "dist/lib"
   },
   "config": {
     "commitizen": {
@@ -74,43 +74,43 @@
     }
   },
   "peerDependencies": {
-    "@angular/common": "^7.2.15",
-    "@angular/core": "^7.2.15",
-    "@angular/platform-browser": "^7.2.15",
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@angular/platform-browser": "^8.0.0",
     "@types/showdown": "^1.9.3",
     "showdown": "^1.9.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.13.9",
-    "@angular-devkit/build-ng-packagr": "^0.13.9",
-    "@angular/animations": "^7.2.15",
-    "@angular/cdk": "^7.3.7",
-    "@angular/cli": "^7.3.9",
-    "@angular/common": "^7.2.15",
-    "@angular/compiler": "^7.2.15",
-    "@angular/compiler-cli": "^7.2.15",
-    "@angular/core": "^7.2.15",
-    "@angular/forms": "^7.2.15",
-    "@angular/language-service": "^7.2.15",
-    "@angular/material": "^7.3.7",
-    "@angular/platform-browser": "^7.2.15",
-    "@angular/platform-browser-dynamic": "^7.2.15",
-    "@angular/router": "^7.2.15",
+    "@angular-devkit/build-angular": "^0.800.3",
+    "@angular-devkit/build-ng-packagr": "^0.800.3",
+    "@angular/animations": "^8.0.1",
+    "@angular/cdk": "^8.0.1",
+    "@angular/cli": "^8.0.3",
+    "@angular/common": "^8.0.1",
+    "@angular/compiler": "^8.0.1",
+    "@angular/compiler-cli": "^8.0.1",
+    "@angular/core": "^8.0.1",
+    "@angular/forms": "^8.0.1",
+    "@angular/language-service": "^8.0.1",
+    "@angular/material": "^8.0.1",
+    "@angular/platform-browser": "^8.0.1",
+    "@angular/platform-browser-dynamic": "^8.0.1",
+    "@angular/router": "^8.0.1",
     "@commitlint/cli": "^8.0.0",
     "@commitlint/config-conventional": "^8.0.0",
     "@commitlint/prompt": "^8.0.0",
-    "@compodoc/compodoc": "^1.1.8",
+    "@compodoc/compodoc": "1.1.8",
     "@types/jasmine": "^3.3.12",
     "@types/jasminewd2": "^2.0.6",
-    "@types/node": "^8.9.4",
+    "@types/node": "^12.0.8",
     "@types/showdown": "^1.9.3",
+    "classlist.js": "^1.1.20150312",
     "codecov": "^3.5.0",
     "codelyzer": "^5.1.0",
     "commitizen": "^3.1.1",
-    "core-js": "^2.6.5",
     "gh-pages": "^2.0.1",
     "hammerjs": "^2.0.8",
-    "husky": "^2.3.0",
+    "husky": "^2.4.1",
     "jasmine-core": "^3.4.0",
     "jasmine-spec-reporter": "^4.2.1",
     "karma": "^4.1.0",
@@ -118,20 +118,20 @@
     "karma-coverage-istanbul-reporter": "^2.0.5",
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
-    "ng-packagr": "^4.7.1",
+    "ng-packagr": "^5.3.0",
     "npm-run-all": "^4.1.5",
-    "protractor": "^5.4.2",
     "rimraf": "^2.6.3",
-    "rxjs": "^6.5.1",
-    "semantic-release": "^15.13.12",
+    "rxjs": "^6.5.2",
+    "semantic-release": "^15.13.16",
     "showdown": "^1.9.0",
     "showdown-highlight": "^2.1.3",
-    "ts-node": "^8.1.0",
-    "tsickle": ">=0.34.0",
-    "tslib": "^1.9.3",
+    "ts-node": "^8.3.0",
+    "tsickle": "^0.35.0",
+    "tslib": "^1.10.0",
     "tslint": "^5.17.0",
-    "typescript": "~3.2.4",
+    "typescript": "~3.4.5",
+    "web-animations-js": "^2.3.1",
     "yarn": "^1.16.0",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.9.1"
   }
 }

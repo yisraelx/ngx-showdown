@@ -2,10 +2,10 @@
   "$schema": "./node_modules/@compodoc/compodoc/src/config/schema.json",
   "tsconfig": "src/tsconfig.json",
   "theme": "material",
-  "output": "dist/docs",
-  "unitTestCoverage": "coverage/coverage-summary.json",
+  "output": "dist/page/docs",
   "customFavicon": "demo/src/favicon.ico",
   "disableLifeCycleHooks": true,
+  "disableRoutesGraph": true,
   "disablePrivate": true,
   "disableInternal": true
 }

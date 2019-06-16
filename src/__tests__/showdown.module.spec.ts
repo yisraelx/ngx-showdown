@@ -79,7 +79,7 @@ describe('ShowdownModule', () => {
       template: '<showdown>__Some__</showdown>'
     })
     class SomeComponent {
-      @ViewChild(ShowdownComponent) component: ShowdownComponent;
+      @ViewChild(ShowdownComponent, {static: true}) component: ShowdownComponent;
     }
 
     let moduleFixtureShowdownConfig: ShowdownConfig = {noHeaderId: true, color: 'red', flavor: 'ghost'};
