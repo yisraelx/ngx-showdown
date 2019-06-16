@@ -1,0 +1,606 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-showdown documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">ngx-showdown documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content directive">
+                   <div class="content-data">
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Directives</li>
+  <li>SourceDirective</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/source.directive.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>A angular directive to <code>ShowdownComponent</code> for make http request of markdown content.</p>
+<h3 id="example">Example</h3>
+<p>Setup as standalone</p>
+<div><pre class="line-numbers"><code class="language-typescript"> * import { NgModule } from &#39;&#64;angular/core&#39;;
+ * import { HttpClientModule } from &#39;&#64;angular/common/http&#39;;
+ * import { ShowdownComponent, SourceDirective } from &#39;ngx-showdown&#39;;
+ *
+ * &#64;NgModule({
+ *    declarations: [ ShowdownComponent, SourceDirective ],
+ *    imports: [ HttpClientModule ]
+ * })
+ * export class AppModule {}
+ *</code></pre></div><p>Bind url <code>src</code> directive</p>
+<div><pre class="line-numbers"><code class="language-typescript"> * import { Component } from &#39;&#64;angular/core&#39;;
+ *
+ * &#64;Component({
+ *     selector: &#39;some&#39;,
+ *     template: &#39;&lt;showdown [src]=&quot;url&quot; smartIndentationFix&gt;**Loading...**&lt;/showdown&gt;
+ * })
+ * class SomeComponent {
+ *     url: string = &#39;https://unpkg.com/ngx-showdown/README.md&#39;;
+ *     // ...
+ * }
+ *</code></pre></div><p>Set static url</p>
+<div><pre class="line-numbers"><code class="language-html"> * &lt;showdown src=&quot;README.md&quot; [options]=&quot;{noHeaderId: true}&quot;&gt;&lt;/showdown&gt;
+ *</code></pre></div><p>Set template reference variable</p>
+<div><pre class="line-numbers"><code class="language-html"> * &lt;showdown #source=&quot;source&quot; src=&quot;README.md&quot;&gt;&lt;/showdown&gt;
+ *</code></pre></div><p>Listening to <code>error</code> events.</p>
+<div><pre class="line-numbers"><code class="language-html"> * &lt;showdown #sd src=&quot;http://url.error&quot; (error)=&quot;sd.render(&#39;# &#39;+$event.message)&quot;&gt;&lt;/showdown&gt;
+ *</code></pre></div>
+            </p>
+
+            <p class="comment">
+                <h3>Implements</h3>
+            </p>
+            <p class="comment">
+                        <code><a href="https://angular.io/api/core/OnChanges" target="_blank" >OnChanges</a></code>
+            </p>
+
+
+        <section>
+            <h3>Metadata</h3>
+            <table class="table table-sm table-hover">
+                <tbody>
+
+                    <tr>
+                        <td class="col-md-3">Selector</td>
+                        <td class="col-md-9"><code>showdown[src],[showdown][src]</code></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </section>
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#load">load</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#src">src</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#error">error</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(_showdownComponent: <a href="../components/ShowdownComponent.html">ShowdownComponent</a>, _http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/source.directive.ts:87</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>_showdownComponent</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../components/ShowdownComponent.html" target="_self" >ShowdownComponent</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_http</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="src"></a>
+                        <b>src</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/source.directive.ts:75</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The source url of the markdown content.</p>
+<p><strong>Example :</strong></p>
+<p>Set static url to <code>src</code> directive.</p>
+<div><pre class="line-numbers"><code class="language-html">   * &lt;showdown src=&quot;https://unpkg.com/ngx-showdown/README.md&quot;&gt;&lt;/showdown&gt;
+   *</code></pre></div><p>Bind url to <code>src</code> directive.</p>
+<div><pre class="line-numbers"><code class="language-html">   * &lt;input type=&quot;text&quot; #url placeholder=&quot;url&quot; /&gt;
+   * &lt;button (click)=&quot;src = url.value&quot;&gt;Load&lt;/button&gt;
+   * &lt;showdown [src]=&quot;src&quot;&gt;**Loading...**&lt;/showdown&gt;
+   *</code></pre></div></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+            <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="error"></a>
+                        <b>error</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter&lt;HttpErrorResponse&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/source.directive.ts:87</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>On error occur.</p>
+<p><strong>Example :</strong></p>
+<div><pre class="line-numbers"><code class="language-html">   * &lt;input type=&quot;text&quot; placeholder=&quot;url&quot; [(ngModel)]=&quot;url&quot;/&gt;
+   * &lt;showdown [src]=&quot;url&quot; (error)=&quot;sd.render(&#39;# Error\n&gt; &#39;+$event.message)&quot;&gt;**Loading...**&lt;/showdown&gt;
+   *</code></pre></div></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+            <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="load"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            load
+                            </b>
+                            <a href="#load"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>load(url?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="112" class="link-to-prism">src/source.directive.ts:112</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Load the markdown content of <a href="../directives/SourceDirective.html#src">SourceDirective</a> url to <a href="../components/ShowdownComponent.html#value">ShowdownComponent</a>.</p>
+<p><strong>Example :</strong></p>
+<div><pre class="line-numbers"><code class="language-html">   * &lt;input type=&quot;text&quot; #url value=&quot;source.src&quot; placeholder=&quot;Url&quot; /&gt;
+   * &lt;button (click)=&quot;source.load(url.value)&quot;&gt;Load&lt;/button&gt;
+   * &lt;showdown #source=&quot;source&quot; src=&quot;https://unpkg.com/ngx-showdown/README.md&quot;&gt;&lt;/showdown&gt;
+   *</code></pre></div></div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>url</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            Yes
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <ul>
+<li>A url of markdown content to load (it will override the current url of <code>SourceDirective#src</code>)</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient, HttpErrorResponse } from &#x27;@angular/common/http&#x27;;
+import { Directive, EventEmitter, Input, OnChanges, Output } from &#x27;@angular/core&#x27;;
+import { ShowdownComponent } from &#x27;./showdown.component&#x27;;
+
+/**
+ * A angular directive to &#x60;ShowdownComponent&#x60; for make http request of markdown content.
+ *
+ * ### Example
+ *
+ * Setup as standalone
+ * &#x60;&#x60;&#x60;typescript
+ * import { NgModule } from &#x27;@angular/core&#x27;;
+ * import { HttpClientModule } from &#x27;@angular/common/http&#x27;;
+ * import { ShowdownComponent, SourceDirective } from &#x27;ngx-showdown&#x27;;
+ *
+ * @NgModule({
+ *    declarations: [ ShowdownComponent, SourceDirective ],
+ *    imports: [ HttpClientModule ]
+ * })
+ * export class AppModule {}
+ * &#x60;&#x60;&#x60;
+ *
+ * Bind url &#x60;src&#x60; directive
+ * &#x60;&#x60;&#x60;typescript
+ * import { Component } from &#x27;@angular/core&#x27;;
+ *
+ * @Component({
+ *     selector: &#x27;some&#x27;,
+ *     template: &#x27;&lt;showdown [src]&#x3D;&quot;url&quot; smartIndentationFix&gt;**Loading...**&lt;/showdown&gt;
+ * })
+ * class SomeComponent {
+ *     url: string &#x3D; &#x27;https://unpkg.com/ngx-showdown/README.md&#x27;;
+ *     // ...
+ * }
+ * &#x60;&#x60;&#x60;
+ *
+ * Set static url
+ * &#x60;&#x60;&#x60;html
+ * &lt;showdown src&#x3D;&quot;README.md&quot; [options]&#x3D;&quot;{noHeaderId: true}&quot;&gt;&lt;/showdown&gt;
+ * &#x60;&#x60;&#x60;
+ *
+ * Set template reference variable
+ * &#x60;&#x60;&#x60;html
+ * &lt;showdown #source&#x3D;&quot;source&quot; src&#x3D;&quot;README.md&quot;&gt;&lt;/showdown&gt;
+ * &#x60;&#x60;&#x60;
+ *
+ * Listening to &#x60;error&#x60; events.
+ * &#x60;&#x60;&#x60;html
+ * &lt;showdown #sd src&#x3D;&quot;http://url.error&quot; (error)&#x3D;&quot;sd.render(&#x27;# &#x27;+$event.message)&quot;&gt;&lt;/showdown&gt;
+ * &#x60;&#x60;&#x60;
+ */
+@Directive({
+  selector: &#x27;showdown[src],[showdown][src]&#x27;,
+  exportAs: &#x27;source&#x27;
+})
+export class SourceDirective implements OnChanges {
+
+  /**
+   * The source url of the markdown content.
+   *
+   * __Example :__
+   *
+   * Set static url to &#x60;src&#x60; directive.
+   * &#x60;&#x60;&#x60;html
+   * &lt;showdown src&#x3D;&quot;https://unpkg.com/ngx-showdown/README.md&quot;&gt;&lt;/showdown&gt;
+   * &#x60;&#x60;&#x60;
+   *
+   * Bind url to &#x60;src&#x60; directive.
+   * &#x60;&#x60;&#x60;html
+   * &lt;input type&#x3D;&quot;text&quot; #url placeholder&#x3D;&quot;url&quot; /&gt;
+   * &lt;button (click)&#x3D;&quot;src &#x3D; url.value&quot;&gt;Load&lt;/button&gt;
+   * &lt;showdown [src]&#x3D;&quot;src&quot;&gt;**Loading...**&lt;/showdown&gt;
+   * &#x60;&#x60;&#x60;
+   */
+  @Input() src: string;
+
+  /**
+   * On error occur.
+   *
+   * __Example :__
+   *
+   * &#x60;&#x60;&#x60;html
+   * &lt;input type&#x3D;&quot;text&quot; placeholder&#x3D;&quot;url&quot; [(ngModel)]&#x3D;&quot;url&quot;/&gt;
+   * &lt;showdown [src]&#x3D;&quot;url&quot; (error)&#x3D;&quot;sd.render(&#x27;# Error\n&gt; &#x27;+$event.message)&quot;&gt;**Loading...**&lt;/showdown&gt;
+   * &#x60;&#x60;&#x60;
+   */
+  @Output() error: EventEmitter&lt;HttpErrorResponse&gt; &#x3D; new EventEmitter();
+
+  constructor(private _showdownComponent: ShowdownComponent, private _http: HttpClient) {
+  }
+
+  /**
+   * A angular lifecycle method, Use to call to &#x60;load&#x60; method on src init/changes
+   * @internal
+   */
+  ngOnChanges(): void {
+    this.load();
+  }
+
+  /**
+   * Load the markdown content of {@link SourceDirective#src} url to {@link ShowdownComponent#value}.
+   *
+   * __Example :__
+   *
+   * &#x60;&#x60;&#x60;html
+   * &lt;input type&#x3D;&quot;text&quot; #url value&#x3D;&quot;source.src&quot; placeholder&#x3D;&quot;Url&quot; /&gt;
+   * &lt;button (click)&#x3D;&quot;source.load(url.value)&quot;&gt;Load&lt;/button&gt;
+   * &lt;showdown #source&#x3D;&quot;source&quot; src&#x3D;&quot;https://unpkg.com/ngx-showdown/README.md&quot;&gt;&lt;/showdown&gt;
+   * &#x60;&#x60;&#x60;
+   * @param url - A url of markdown content to load (it will override the current url of &#x60;SourceDirective#src&#x60;)
+   */
+  public load(url?: string): void {
+    if (url) {
+      this.src &#x3D; url;
+    }
+
+    if (this.src) {
+      this
+        ._http
+        .get(this.src, {responseType: &#x27;text&#x27;})
+        .subscribe((response: string) &#x3D;&gt; {
+          this._showdownComponent.render(response);
+        }, (error: HttpErrorResponse) &#x3D;&gt; {
+          this.error.emit(error);
+        });
+    }
+  }
+
+}
+
+/**
+ * @ignore
+ * @deprecated from v5, renamed &#x60;SrcDirective&#x60; to {@link SourceDirective}.
+ */
+export declare let SrcDirective: typeof SourceDirective;
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'directive';
+            var COMPODOC_CURRENT_PAGE_URL = 'SourceDirective.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

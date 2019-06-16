@@ -1,0 +1,358 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngx-showdown documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	      <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/material.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="./" class="navbar-brand">ngx-showdown documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<p align="center">
+  <img height="200px" width="200px" src="https://github.com/yisraelx/ngx-showdown/raw/master/demo/src/assets/logo.png" alt="ngx-showdown">
+  <h1 align="center">Angular Showdown</h1>
+</p>
+
+<p><a href="https://travis-ci.org/yisraelx/ngx-showdown"><img src="https://travis-ci.org/yisraelx/ngx-showdown.svg?branch=master" alt="Travis build" class="img-responsive"></a>
+<a href="https://codecov.io/github/yisraelx/ngx-showdown"><img src="https://codecov.io/github/yisraelx/ngx-showdown/coverage.svg?branch=master" alt="Codecov coverage" class="img-responsive"></a>
+<a href="https://www.npmjs.com/package/ngx-showdown"><img src="https://img.shields.io/npm/v/ngx-showdown.svg" alt="Version" class="img-responsive"></a>
+<a href="https://github.com/yisraelx/ngx-showdown/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/ngx-showdown.svg" alt="MIT License" class="img-responsive"></a>
+<a href="https://yisraelx.github.io/ngx-showdown/docs/index.html"><img src="https://img.shields.io/badge/%F0%9F%93%9A-documentation-informational.svg" alt="Documentation" class="img-responsive"></a>
+<a href="https://bundlephobia.com/result?p=ngx-showdown"><img src="https://img.shields.io/bundlephobia/min/ngx-showdown.svg?color=green" alt="Bundle Size" class="img-responsive"></a>
+<a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/100%25-TypeScript-blue.svg" alt="TypeScript" class="img-responsive"></a>
+<a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="Semantic release" class="img-responsive"></a>
+<a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly" class="img-responsive"></a></p>
+<p><strong>ngx-showdown is an <a href="https://angular.io">Angular</a> (&gt;=2) integration for <a href="https://github.com/showdownjs/showdown">Showdown</a>, A <code>Markdown</code> to <code>HTML</code> converter.</strong></p>
+<hr>
+<h2 id="demo">Demo</h2>
+<ul>
+<li>Demo app in <a href="https://github.com/yisraelx/ngx-showdown/blob/master/demo">source code</a> (<a href="http://yisraelx.github.io/ngx-showdown">live</a>).</li>
+<li>You can play with it in <a href="https://stackblitz.com/edit/ngx-showdown">Stackblitz</a> and <a href="https://plnkr.co/edit/0j8d9w">Plunker</a>.</li>
+</ul>
+<h2 id="install">Install</h2>
+<div><pre class="line-numbers"><code class="language-bash">$ npm install ngx-showdown --save</code></pre></div><p>and install peer dependencies (<code>@angular/common/http</code> for <code>SourceDirective</code>)</p>
+<div><pre class="line-numbers"><code class="language-bash">$ npm install showdown &#64;angular/common &#64;angular/platform-browser --save</code></pre></div><p>and install type package of <code>Showdown</code> for <code>TypeScript</code> </p>
+<div><pre class="line-numbers"><code class="language-bash">$ npm install &#64;types/showdown --save-dev</code></pre></div><h2 id="usage">Usage</h2>
+<p><em>For more information and explanations, see the <a href="https://yisraelx.github.io/ngx-showdown/docs/index.html">full documentation</a>.</em></p>
+<h3 id="setup-showdownmodule-in-your-app-">Setup <code>ShowdownModule</code> in your app.</h3>
+<p>Add <code>ShowdownModule</code> to <code>imports</code> of App.</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { NgModule } from &#39;&#64;angular/core&#39;;
+import { ShowdownModule } from &#39;ngx-showdown&#39;;
+
+&#64;NgModule({
+  imports: [ ShowdownModule ]
+})
+export class AppModule {}</code></pre></div><p>Or with config (it will init <code>ShowdownConfig</code> provider)</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { NgModule } from &#39;&#64;angular/core&#39;;
+import { ShowdownModule } from &#39;ngx-showdown&#39;;
+
+&#64;NgModule({
+  imports: [ ShowdownModule.forRoot({emoji: true, noHeaderId: true, flavor: &#39;github&#39;}) ]
+})
+export class AppModule {}</code></pre></div><h3 id="use-showdowncomponent-in-the-template">Use <code>ShowdownComponent</code> in the template</h3>
+<h4 id="binding-to-value-property">Binding to <code>[value]</code> property</h4>
+<p>Bind markdown value to <code>value</code> property of showdown component.</p>
+<div><pre class="line-numbers"><code class="language-html">&lt;input type=&quot;text&quot; [(ngModel)]=&quot;text&quot;/&gt;
+&lt;showdown [value]=&quot;text&quot;&gt;&lt;/showdown&gt;</code></pre></div><p>Bind value and options.</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { Component } from &#39;&#64;angular/core&#39;;
+import * as Showdown from &#39;showdown&#39;;
+
+&#64;Component({
+  selector: &#39;some&#39;,
+  template: &#39;&lt;showdown [value]=&quot;text&quot; [options]=&quot;options&quot;&gt;&lt;/showdown&gt;&#39;
+})
+export class SomeComponent {
+  text: string = `
+# h1
+## h2
+`;
+  options: Showdown.ShowdownOptions = {...};
+  // ...
+}</code></pre></div><p>As directive on anther element </p>
+<div><pre class="line-numbers"><code class="language-html">&lt;div showdown=&quot;# Static&quot; noHeaderId&gt;&lt;/div&gt;</code></pre></div><h4 id="markdown-in-component-content">Markdown in component content</h4>
+<p>A markdown value in the component content.  </p>
+<div><pre class="line-numbers"><code class="language-html">&lt;showdown&gt;
+# H1
+## H2
+&lt;/showdown&gt;</code></pre></div><p>With options</p>
+<div><pre class="line-numbers"><code class="language-html">&lt;showdown [options]=&quot;{smartIndentationFix: true}&quot;&gt;
+    * a
+    * b
+    * c
+&lt;/showdown&gt;</code></pre></div><p>As directive on anther element </p>
+<div><pre class="line-numbers"><code class="language-html">&lt;span showdown emoji&gt;:showdown:**howdown**&lt;/span&gt;</code></pre></div><h4 id="load-md-content-by-sourcedirective-">Load .md content (by <code>SourceDirective</code>)</h4>
+<p>Load markdown content of url source.</p>
+<div><pre class="line-numbers"><code class="language-html">&lt;showdown src=&quot;README.md&quot;&gt;&lt;/showdown&gt;</code></pre></div><p>Bind input url to <code>src</code> directive.</p>
+<div><pre class="line-numbers"><code class="language-html">&lt;input type=&quot;text&quot; placeholder=&quot;Url&quot; [(ngModel)]=&quot;url&quot;/&gt;
+&lt;showdown #sd [src]=&quot;url&quot; (error)=&quot;sd.render(&#39;**Not found..**&#39;)&quot;&gt;**No Url..**&lt;/showdown&gt;</code></pre></div><p><em>Note: Loading markdown content requires <a href="https://angular.io/api/common/http/HttpClient"><code>HttpClient</code></a> of <a href="https://angular.io/api/common/http"><code>@angular/common/http</code></a></em></p>
+<h4 id="mixing-sources">Mixing sources</h4>
+<p>When both <code>Content</code> and <code>[value]</code>, It will render <code>[value]</code>.</p>
+<div><pre class="line-numbers"><code class="language-html">&lt;showdown value=&quot;# Value&quot;&gt;# Content&lt;/showdown&gt;</code></pre></div><p>When both <code>Content</code> and <code>[src]</code>, It will render <code>Content</code> and when <code>src</code> loads then results will be <code>src</code> content. </p>
+<div><pre class="line-numbers"><code class="language-html">&lt;showdown src=&quot;README.md&quot;&gt;# Content&lt;/showdown&gt;</code></pre></div><p>When both <code>[value]</code> and <code>[src]</code>, It will render <code>[value]</code> and when <code>src</code> loads then results will be <code>src</code> content. </p>
+<div><pre class="line-numbers"><code class="language-html">&lt;showdown value=&quot;# Value&quot; src=&quot;README.md&quot;&gt;&lt;/showdown&gt;</code></pre></div><h4 id="binding-options">Binding options</h4>
+<p>Bind options object (it init root <code>ShowdownConfig</code> and then set the bind <code>options</code>)</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { Component } from &#39;&#64;angular/core&#39;;
+import * as Showdown from &#39;showdown&#39;;
+
+&#64;Component({
+  selector: `some`,
+  template: `&lt;showdown [value]=&quot;text&quot; [options]=&quot;options&quot;&gt;&lt;/showdown&gt;`
+})
+export class SomeComponent {
+  text: string = &#39;# Some&#39;;
+  options: Showdown.ShowdownOptions = {noHeaderId: true};
+  // ...
+}</code></pre></div><p>Or</p>
+<div><pre class="line-numbers"><code class="language-html">&lt;showdown [options]=&quot;{noHeaderId: true}&quot;&gt;# abc&lt;/showdown&gt;</code></pre></div><p>Bind single option (it have input properties for all showdown options).</p>
+<div><pre class="line-numbers"><code class="language-html">&lt;showdown noHeaderId [headerLevelStart]=&quot;2&quot; [tables]=&quot;options.tables&quot;&gt;# abc&lt;/showdown&gt;</code></pre></div><h4 id="sanitize-the-convert-html-output">Sanitize the convert html output</h4>
+<p>Sanitize the convert html output by <a href="https://angular.io/api/platform-browser/DomSanitizer#sanitize"><code>DomSanitizer</code></a>.</p>
+<div><pre class="line-numbers"><code class="language-html">&lt;showdown sanitize&gt;
+# Some
+&lt;a href=&quot;javascript:alert(&#39;Hello!&#39;)&quot;&gt;Click&lt;/a&gt;
+__Foo__
+&lt;/showdown&gt;</code></pre></div><p>Also sanitize content of <code>src</code> url.</p>
+<div><pre class="line-numbers"><code class="language-html">&lt;showdown [value]=&quot;# Loading..&quot; src=&quot;README.md&quot; sanitize=&quot;true&quot;&gt;&lt;/showdown&gt;</code></pre></div><h3 id="use-showdownpipe-in-the-template">Use <code>ShowdownPipe</code> in the template</h3>
+<p>Transform markdown value of <code>text</code> property to html. </p>
+<div><pre class="line-numbers"><code class="language-html">{{ text | showdown }}</code></pre></div><p>Transform value with options (it init root <code>ShowdownConfig</code> and then set the pipe <code>options</code>)</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { Component } from &#39;&#64;angular/core&#39;;
+import * as Showdown from &#39;showdown&#39;;
+
+&#64;Component({
+  selector: &#39;some&#39;,
+  template: &#39;{{ text | showdown:options }}&#39;
+})
+export class SomeComponent {
+  text: string = `
+      # h1
+      ## h2
+  `;
+  options: Showdown.ShowdownOptions = {smartIndentationFix: true};
+  // ...
+}</code></pre></div><h3 id="use-showdownconverter-service">Use <code>ShowdownConverter</code> service</h3>
+<div><pre class="line-numbers"><code class="language-typescript">import { Injectable } from &#39;&#64;angular/core&#39;;
+import { ShowdownConverter } from &#39;ngx-showdown&#39;;
+
+&#64;Injectable()
+export class SomeService {
+  constructor(showdownConverter: ShowdownConverter){
+    console.log(showdownConverter.makeHtml(&#39;# Showdown&#39;));
+  }
+}</code></pre></div><h3 id="set-config-provider-showdownconfig-">Set config provider (<code>ShowdownConfig</code>)</h3>
+<p>Set root config that will be injected to <a href="#ShowdownComponent">ShowdownComponent</a>, <a href="#ShowdownPipe">ShowdownPipe</a>, <a href="#ShowdownConverter">ShowdownConverter</a> when they are created.</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { NgModel } from &#39;&#64;angular/core&#39;;
+import { ShowdownModule, ShowdownConverter } from &#39;ngx-showdown&#39;;
+import * as Showdown from &#39;showdown&#39;;
+
+let colorExtension: Showdown.FilterExtension = {
+  type: &#39;output&#39;,
+  filter(text: string, converter: ShowdownConverter){
+    return text.replace(&#39;$color&#39;, converter.getOption(&#39;color&#39;) || &#39;green&#39;)
+  }
+};
+
+&#64;NgModel({
+  imports:[
+    ShowdownModule.forRoot({
+      flavor: &#39;original&#39;,
+      emoji: true,
+      color: &#39;red&#39;,
+      extensions: [ colorExtension ]
+    })
+  ]
+})
+export class AppModule {}</code></pre></div><p>Override the root config provider value.</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { Component } from &#39;&#64;angular/core&#39;;
+import { ShowdownConfig } from &#39;ngx-showdown&#39;;
+
+&#64;Component({
+  selector: &#39;some&#39;,
+  template: &#39;&lt;showdown&gt;# Header&lt;/showdown&gt;&#39;,
+  providers: [ {provide: ShowdownConfig, useValue: {underline: true, emoji: false}} ]
+})
+export class SomeComponent {}</code></pre></div><p>Set the config manually by the converter methods.</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { Component } from &#39;&#64;angular/core&#39;;
+import { ShowdownComponent } from &#39;ngx-showdown&#39;;
+import * as highlightExtension from &#39;showdown-highlight&#39;;
+import &#39;highlight.js/styles/default.css&#39;;
+
+&#64;Component({
+  selector: &#39;some&#39;,
+  template: &#39;&lt;showdown&gt;# Header&lt;/showdown&gt;&#39;
+})
+export class SomeComponent {
+  constructor(showdownComponent: ShowdownComponent) {
+    showdownComponent.addExtension(highlightExtension);
+    showdownComponent.setFlavor(&#39;ghost&#39;);
+    showdownComponent.setOptions({emoji: true});
+  }
+}</code></pre></div><h4 id="flavor">Flavor</h4>
+<p>Set root flavor (<a href="https://github.com/showdownjs/showdown/blob/master/README.md#flavors">Showdown flavors</a>).</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { NgModel } from &#39;&#64;angular/core&#39;;
+import { ShowdownModule } from &#39;ngx-showdown&#39;;
+
+&#64;NgModel({
+  imports:[
+    ShowdownModule.forRoot({flavor: &#39;github&#39;})
+  ]
+})
+export class AppModule {}</code></pre></div><p><em>Note: If <code>flavor</code> is not set then the default value is &#39;vanilla&#39; flavor.</em></p>
+<h4 id="converteroptions">ConverterOptions</h4>
+<p>Set root ConverterOptions (<a href="https://github.com/showdownjs/showdown/blob/master/README.md#valid-options">Showdown options</a>).</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { NgModel } from &#39;&#64;angular/core&#39;;
+import { ShowdownModule } from &#39;ngx-showdown&#39;;
+
+&#64;NgModel({
+  imports:[
+    ShowdownModule.forRoot({underline: true, emoji: false})
+  ]
+})
+export class AppModule {}</code></pre></div><h4 id="extensions">Extensions</h4>
+<p>Set root Extensions (<a href="https://github.com/showdownjs/showdown#extensions">Showdown extensions</a>).
+With extension can be made changes to the <code>Markdown</code> input (&#39;lang&#39;) and the <code>Html</code> output also listen to parse event, you can <a href="https://github.com/showdownjs/showdown/wiki/Extensions">make extension</a> or <a href="https://www.npmjs.com/search?q=keywords:showdown%20extension">search in npm</a> for existing extension.</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { NgModel } from &#39;&#64;angular/core&#39;;
+import { ShowdownModule } from &#39;ngx-showdown&#39;;
+import * as Showdown from &#39;showdown&#39;;
+import * as highlightExtension from &#39;showdown-highlight&#39;;
+import &#39;highlight.js/styles/default.css&#39;;
+
+let someExtension: Showdown.ShowdownExtension = {
+  type: &#39;lang&#39;,
+  regex: new RegExp(&#39;markdown&#39;, &#39;g&#39;),
+  replace: &#39;showdown&#39;
+};
+
+
+&#64;NgModel({
+  imports: [ 
+    ShowdownModule.forRoot({extensions: [ someExtension, highlightExtension ]}) 
+  ]
+})
+export class AppModule {}</code></pre></div><h2 id="troubleshoot">Troubleshoot</h2>
+<h4 id="interpolation">Interpolation</h4>
+<p>Using unescaped <code>{}</code> (<code>&lt;showdown&gt;{}&lt;/showdown&gt;</code>) in template causes an template parse error (<a href="https://github.com/angular/angular/issues/11859">@angular/angular/#11859</a>), 
+The solution is to use escape chars (html char code etc.), 
+Anther solution is to override the default <a href="https://angular.io/api/core/Component#interpolation">interpolation</a>.</p>
+<h4 id="whitespaces">Whitespaces</h4>
+<p>Angular aot compiler remove whitespaces by default, use <a href="https://angular.io/api/core/Component#preserving-whitespace">ngPreserveWhitespaces</a> to preserve whitespaces. </p>
+<div><pre class="line-numbers"><code class="language-html">&lt;showdown ngPreserveWhitespaces&gt;
+* a
+  * 1
+  * 2
+* b
+&lt;/showdown&gt;</code></pre></div><p>With <code>ngPreserveWhitespaces</code></p>
+<div><pre class="line-numbers"><code class="language-none">* a
+  * 1
+  * 2
+* b</code></pre></div><p>Without <code>ngPreserveWhitespaces</code></p>
+<div><pre class="line-numbers"><code class="language-none">* a * 1 * 2
+* b</code></pre></div><h4 id="indentation">Indentation</h4>
+<p>Showdown converter <a href="https://github.com/showdownjs/showdown/wiki/Showdown-options#smartindentationfix">smartIndentationFix</a> option can fix string indentation problems of es6 template and html. </p>
+<div><pre class="line-numbers"><code class="language-typescript">text = `
+  # A
+  ## B
+`;</code></pre></div><div><pre class="line-numbers"><code class="language-html">&lt;showdown [value]=&quot;text&quot; smartIndentationFix&gt;&lt;/showdown&gt;</code></pre></div><p>With <code>smartIndentationFix</code></p>
+<div><pre class="line-numbers"><code class="language-none"># A
+## B</code></pre></div><p>Without <code>smartIndentationFix</code></p>
+<div><pre class="line-numbers"><code class="language-none">  # A
+  ## B</code></pre></div><h2 id="contribute">Contribute</h2>
+<p><strong>Pull requests are welcome!</strong></p>
+<h2 id="development">Development</h2>
+<p>This project built with <a href="https://angular.io/cli"><code>Angular Cli</code></a>.</p>
+<p>Install dependencies</p>
+<div><pre class="line-numbers"><code class="language-bash">$ yarn install</code></pre></div><p>Run test</p>
+<div><pre class="line-numbers"><code class="language-bash">$ yarn test</code></pre></div><p>Build for release</p>
+<div><pre class="line-numbers"><code class="language-bash">$ yarn build</code></pre></div><h2 id="credits">Credits</h2>
+<p>This project use <a href="https://github.com/showdownjs/showdown">Showdown library</a> to convert <code>Markdown</code> to <code>Html</code>.</p>
+<h2 id="license">License</h2>
+<p>Copyright © <a href="https://github.com/yisraelx">Yisrael Eliav</a>,
+Licensed under the <a href="https://github.com/yisraelx/ngx-showdown/blob/master/LICENSE">MIT license</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="./js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="./js/menu-wc.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
