@@ -59,3 +59,17 @@ export class ShowdownConverter extends Showdown.Converter {
   }
 
 }
+
+/**
+ * @ignore
+ * @deprecated from v5, use {@link Showdown.ConverterOptions} instead.
+ */
+export interface IConverterOptions extends Showdown.ConverterOptions {
+}
+
+/**
+ * @ignore
+ * @deprecated from v5, use {@link Showdown.ShowdownOptions} instead.
+ */
+export interface IConverterOptionsChangeable extends Showdown.ShowdownOptions {
+}

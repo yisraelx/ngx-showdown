@@ -58,3 +58,15 @@ export class ShowdownConfig implements Showdown.ConverterOptions {
   }
 
 }
+
+/**
+ * @ignore
+ * @deprecated from v5, use {@link ShowdownConfig} or {@link Showdown.ConverterOptions} instead.
+ */
+export declare let ConverterOptions: typeof ShowdownConfig;
+
+/**
+ * @ignore
+ * @deprecated from v5, use {@link ShowdownConfig} or {@link Showdown.ConverterOptions} instead.
+ */
+export declare let BaseConverterOptions: typeof ShowdownConfig;
