@@ -11,7 +11,7 @@
 [![Bundle Size](https://img.shields.io/bundlephobia/min/ngx-showdown.svg?color=green)](https://bundlephobia.com/result?p=ngx-showdown)
 [![TypeScript](https://img.shields.io/badge/100%25-TypeScript-blue.svg)](https://www.typescriptlang.org)
 [![Semantic release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![Greenkeeper badge](https://badges.greenkeeper.io/yisraelx/ngx-showdown.svg)](https://greenkeeper.io/)
 
 **ngx-showdown is an [Angular](https://angular.io) (>=2) integration for [Showdown](https://github.com/showdownjs/showdown), A `Markdown` to `HTML` converter.**
 ___
