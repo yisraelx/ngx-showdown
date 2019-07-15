@@ -113,6 +113,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <li class="link">
                                     <a href="injectables/ShowdownConfig.html" data-type="entity-link">ShowdownConfig</a>
                                 </li>
+                                <li class="link">
+                                    <a href="injectables/ShowdownConverter.html" data-type="entity-link">ShowdownConverter</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="chapter">
