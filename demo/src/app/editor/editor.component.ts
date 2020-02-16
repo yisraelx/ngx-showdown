@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ShowdownComponent } from 'ngx-showdown/showdown.component';
+import { ShowdownComponent } from 'ngx-showdown';
 import * as Showdown from 'showdown';
 
 @Component({
