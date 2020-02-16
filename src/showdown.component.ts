@@ -19,10 +19,42 @@ const MAP_OPTION = {
 let _toOption = (value: any) => MAP_OPTION.hasOwnProperty(value) ? MAP_OPTION[value] : value;
 
 /**
- * The options keys for the dynamic properties set
+ * The options keys for the dynamic properties set.
  * @internal
  */
-const OPTIONS_PROPERTIES_KEYS: string[] = Object.keys(Showdown.getDefaultOptions());
+const OPTIONS_PROPERTIES_KEYS: string[] = [
+  'backslashEscapesHTMLTags',
+  'completeHTMLDocument',
+  'disableForced4SpacesIndentedSublists',
+  'emoji',
+  'encodeEmails',
+  'ghCodeBlocks',
+  'ghCompatibleHeaderId',
+  'ghMentions',
+  'ghMentionsLink',
+  'headerLevelStart',
+  'literalMidWordAsterisks',
+  'literalMidWordUnderscores',
+  'metadata',
+  'noHeaderId',
+  'omitExtraWLInCodeBlocks',
+  'openLinksInNewWindow',
+  'parseImgDimensions',
+  'prefixHeaderId',
+  'rawHeaderId',
+  'rawPrefixHeaderId',
+  'requireSpaceBeforeHeadingText',
+  'simpleLineBreaks',
+  'simplifiedAutoLink',
+  'smartIndentationFix',
+  'smoothLivePreview',
+  'splitAdjacentBlockquotes',
+  'strikethrough',
+  'tables',
+  'tablesHeaderId',
+  'tasklists',
+  'underline'
+];
 
 // For the options setter properties that dynamic definition (the code after the class)
 export interface ShowdownComponent extends Showdown.ShowdownOptions {

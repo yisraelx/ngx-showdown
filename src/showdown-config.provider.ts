@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import * as Showdown from 'showdown';
 
 /**
@@ -32,7 +31,6 @@ export interface ShowdownConfig extends Showdown.ConverterOptions {
  * export class AppModule {}
  * ```
  */
-@Injectable()
 export class ShowdownConfig implements Showdown.ConverterOptions {
 
   /**
