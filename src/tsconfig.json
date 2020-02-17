@@ -12,9 +12,10 @@
     ]
   },
   "angularCompilerOptions": {
+    "enableIvy": false,
+    "enableResourceInlining": true,
     "skipTemplateCodegen": true,
-    "strictMetadataEmit": true,
-    "enableResourceInlining": true
+    "strictMetadataEmit": true
   },
   "exclude": [
     "__tests__/**"
