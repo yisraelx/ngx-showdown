@@ -103,19 +103,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </ul>
                         </li>
                         <li class="chapter">
-                            <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#injectables-links"' :
-                                'data-target="#xs-injectables-links"' }>
-                                <span class="icon ion-md-arrow-round-down"></span>
-                                <span>Injectables</span>
-                                <span class="icon ion-ios-arrow-down"></span>
-                            </div>
-                            <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links"' : 'id="xs-injectables-links"' }>
-                                <li class="link">
-                                    <a href="injectables/ShowdownConfig.html" data-type="entity-link">ShowdownConfig</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="chapter">
                             <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#pipes-links"' :
                                 'data-target="#xs-pipes-links"' }>
                                 <span class="icon ion-md-add"></span>

@@ -250,12 +250,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(_elementRef: <a href="https://angular.io/api/core/ElementRef" target="_blank">ElementRef</a>, _domSanitizer?: <a href="https://angular.io/api/platform-browser/DomSanitizer" target="_blank">DomSanitizer</a>, config?: <a href="../injectables/ShowdownConfig.html">ShowdownConfig</a>)</code>
+<code>constructor(_elementRef: <a href="https://angular.io/api/core/ElementRef" target="_blank">ElementRef</a>, _domSanitizer?: <a href="https://angular.io/api/platform-browser/DomSanitizer" target="_blank">DomSanitizer</a>, config?: ShowdownConfig)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="213" class="link-to-prism">src/showdown.component.ts:213</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="245" class="link-to-prism">src/showdown.component.ts:245</a></div>
                             </td>
                         </tr>
 
@@ -300,7 +300,7 @@
                                                         <td>config</td>
                                                   
                                                         <td>
-                                                                    <code><a href="../injectables/ShowdownConfig.html" target="_self" >ShowdownConfig</a></code>
+                                                                    <code>ShowdownConfig</code>
                                                         </td>
                                                   
                                                     <td>
@@ -335,7 +335,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="171" class="link-to-prism">src/showdown.component.ts:171</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="203" class="link-to-prism">src/showdown.component.ts:203</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -377,7 +377,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="211" class="link-to-prism">src/showdown.component.ts:211</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="243" class="link-to-prism">src/showdown.component.ts:243</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -426,7 +426,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="142" class="link-to-prism">src/showdown.component.ts:142</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="174" class="link-to-prism">src/showdown.component.ts:174</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -457,7 +457,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="126" class="link-to-prism">src/showdown.component.ts:126</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="158" class="link-to-prism">src/showdown.component.ts:158</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -507,7 +507,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="248" class="link-to-prism">src/showdown.component.ts:248</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="280" class="link-to-prism">src/showdown.component.ts:280</a></div>
                             </td>
                         </tr>
 
@@ -590,7 +590,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="142" class="link-to-prism">src/showdown.component.ts:142</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="174" class="link-to-prism">src/showdown.component.ts:174</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -655,7 +655,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="175" class="link-to-prism">src/showdown.component.ts:175</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="207" class="link-to-prism">src/showdown.component.ts:207</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -710,7 +710,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="211" class="link-to-prism">src/showdown.component.ts:211</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="243" class="link-to-prism">src/showdown.component.ts:243</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -802,10 +802,42 @@ const MAP_OPTION &#x3D; {
 let _toOption &#x3D; (value: any) &#x3D;&gt; MAP_OPTION.hasOwnProperty(value) ? MAP_OPTION[value] : value;
 
 /**
- * The options keys for the dynamic properties set
+ * The options keys for the dynamic properties set.
  * @internal
  */
-const OPTIONS_PROPERTIES_KEYS: string[] &#x3D; Object.keys(Showdown.getDefaultOptions());
+const OPTIONS_PROPERTIES_KEYS: string[] &#x3D; [
+  &#x27;backslashEscapesHTMLTags&#x27;,
+  &#x27;completeHTMLDocument&#x27;,
+  &#x27;disableForced4SpacesIndentedSublists&#x27;,
+  &#x27;emoji&#x27;,
+  &#x27;encodeEmails&#x27;,
+  &#x27;ghCodeBlocks&#x27;,
+  &#x27;ghCompatibleHeaderId&#x27;,
+  &#x27;ghMentions&#x27;,
+  &#x27;ghMentionsLink&#x27;,
+  &#x27;headerLevelStart&#x27;,
+  &#x27;literalMidWordAsterisks&#x27;,
+  &#x27;literalMidWordUnderscores&#x27;,
+  &#x27;metadata&#x27;,
+  &#x27;noHeaderId&#x27;,
+  &#x27;omitExtraWLInCodeBlocks&#x27;,
+  &#x27;openLinksInNewWindow&#x27;,
+  &#x27;parseImgDimensions&#x27;,
+  &#x27;prefixHeaderId&#x27;,
+  &#x27;rawHeaderId&#x27;,
+  &#x27;rawPrefixHeaderId&#x27;,
+  &#x27;requireSpaceBeforeHeadingText&#x27;,
+  &#x27;simpleLineBreaks&#x27;,
+  &#x27;simplifiedAutoLink&#x27;,
+  &#x27;smartIndentationFix&#x27;,
+  &#x27;smoothLivePreview&#x27;,
+  &#x27;splitAdjacentBlockquotes&#x27;,
+  &#x27;strikethrough&#x27;,
+  &#x27;tables&#x27;,
+  &#x27;tablesHeaderId&#x27;,
+  &#x27;tasklists&#x27;,
+  &#x27;underline&#x27;
+];
 
 // For the options setter properties that dynamic definition (the code after the class)
 export interface ShowdownComponent extends Showdown.ShowdownOptions {
