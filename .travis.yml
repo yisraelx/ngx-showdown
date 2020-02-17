@@ -1,5 +1,4 @@
 dist: trusty
-sudo: false
 language: node_js
 node_js:
   - '10'
@@ -15,11 +14,7 @@ branches:
   except:
     - /^v\d+\.\d+\.\d+$/
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+  chrome: stable
 
 install: yarn install --frozen-lockfile
 
