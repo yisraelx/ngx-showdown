@@ -21,7 +21,7 @@ describe('ShowdownModule', () => {
       declarations: [SomeComponent],
       imports: [ShowdownModule]
     });
-    let showdownConverter: ShowdownConverter = moduleFixture.get(ShowdownConverter);
+    let showdownConverter: ShowdownConverter = moduleFixture.inject(ShowdownConverter);
     let componentFixture: ComponentFixture<SomeComponent> = moduleFixture.createComponent(SomeComponent);
     let {componentInstance, nativeElement} = componentFixture;
 
@@ -45,9 +45,9 @@ describe('ShowdownModule', () => {
       providers: [SomeService],
       imports: [ShowdownModule.forRoot({foo: 'bar', noHeaderId: true})]
     });
-    let someService: SomeService = fixture.get(SomeService);
-    let showdownConverter: ShowdownConverter = fixture.get(ShowdownConverter);
-    let showdownConfig: ShowdownConfig = fixture.get(ShowdownConfig);
+    let someService: SomeService = fixture.inject(SomeService);
+    let showdownConverter: ShowdownConverter = fixture.inject(ShowdownConverter);
+    let showdownConfig: ShowdownConfig = fixture.inject(ShowdownConfig);
 
     expect(showdownConverter instanceof ShowdownConverter).toBeTruthy();
     expect(someService.converter).toBe(showdownConverter);
@@ -61,8 +61,8 @@ describe('ShowdownModule', () => {
       imports: [ShowdownModule.forRoot({flavor: 'github'})]
     });
 
-    let showdownConfig: ShowdownConfig = fixture.get(ShowdownConfig);
-    let showdownConverter: ShowdownConverter = fixture.get(ShowdownConverter);
+    let showdownConfig: ShowdownConfig = fixture.inject(ShowdownConfig);
+    let showdownConverter: ShowdownConverter = fixture.inject(ShowdownConverter);
 
     expect(showdownConfig.flavor).toBe('github');
     expect(showdownConverter.getFlavor()).toBe('github');
@@ -88,7 +88,7 @@ describe('ShowdownModule', () => {
       imports: [ShowdownModule.forRoot(moduleFixtureShowdownConfig)]
     });
 
-    let moduleFixtureConfig: ShowdownConfig = moduleFixture.get(ShowdownConfig);
+    let moduleFixtureConfig: ShowdownConfig = moduleFixture.inject(ShowdownConfig);
     let componentFixture: ComponentFixture<SomeComponent> = moduleFixture.createComponent(SomeComponent);
     let {componentInstance, nativeElement} = componentFixture;
 

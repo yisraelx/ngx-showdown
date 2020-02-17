@@ -40,7 +40,7 @@ describe('ShowdownConverter', () => {
         ShowdownConverter
       ]
     });
-    let showdownConverter: ShowdownConverter = fixture.get(ShowdownConverter);
+    let showdownConverter: ShowdownConverter = fixture.inject(ShowdownConverter);
 
     expect(showdownConverter.getOption('emoji')).toBeTruthy();
     expect(showdownConverter.getOption('noHeaderId')).toBeTruthy();
@@ -67,9 +67,9 @@ describe('ShowdownConverter', () => {
         SomeDirective
       ]
     });
-    let showdownConverter: ShowdownConverter = fixture.get(ShowdownConverter);
-    let some: Some = fixture.get(Some);
-    let someDirective: SomeDirective = fixture.get(SomeDirective);
+    let showdownConverter: ShowdownConverter = fixture.inject(ShowdownConverter);
+    let some: Some = fixture.inject(Some);
+    let someDirective: SomeDirective = fixture.inject(SomeDirective);
 
     someDirective.setOption('noHeaderId', true);
 
@@ -91,7 +91,7 @@ describe('ShowdownConverter', () => {
 
   it('should be converted markdown to html', () => {
     let fixture: TestBedStatic = TestBed.configureTestingModule({providers: [ShowdownConverter]});
-    let showdownConverter: ShowdownConverter = fixture.get(ShowdownConverter);
+    let showdownConverter: ShowdownConverter = fixture.inject(ShowdownConverter);
 
     expect(showdownConverter.makeHtml('# abc')).toBe('<h1 id="abc">abc</h1>');
   });
