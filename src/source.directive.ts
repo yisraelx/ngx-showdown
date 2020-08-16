@@ -127,9 +127,3 @@ export class SourceDirective implements OnChanges {
   }
 
 }
-
-/**
- * @ignore
- * @deprecated from v5, renamed `SrcDirective` to {@link SourceDirective}.
- */
-export declare let SrcDirective: typeof SourceDirective;
