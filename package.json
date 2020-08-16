@@ -35,9 +35,7 @@
     "build:lib": "ng build lib",
     "build:demo": "ng build demo",
     "build:docs": "compodoc",
-    "ci:script": "yarn verify",
-    "ci:after": "run-s coverage release deploy",
-    "coverage": "codecov --file coverage/coverage-final.json",
+    "coverage": "codecov --file=coverage/coverage-final.json",
     "clean": "rimraf dist coverage",
     "commit": "git-cz",
     "demo": "ng serve demo --watch --open",
@@ -71,6 +69,9 @@
   "release": {
     "branches": "master",
     "pkgRoot": "dist/lib"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "config": {
     "commitizen": {

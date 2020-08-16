@@ -24,6 +24,9 @@ install:
   - yarn install --frozen-lockfile
 
 script:
-  - yarn ci:script
+  - yarn verify
+
 after_success:
-  - yarn ci:after
+  - yarn coverage
+  - yarn release
+  - yarn deploy
