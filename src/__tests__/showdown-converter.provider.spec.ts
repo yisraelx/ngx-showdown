@@ -1,4 +1,4 @@
-import { Directive } from '@angular/core';
+import { Directive, Injectable } from '@angular/core';
 import { TestBed, TestBedStatic } from '@angular/core/testing';
 import * as Showdown from 'showdown';
 import { ShowdownConfig } from '../showdown-config.provider';
@@ -50,6 +50,7 @@ describe('ShowdownConverter', () => {
   });
 
   it('should extends from `ShowdownConverter` and keep the Angular annotations', () => {
+    @Injectable()
     class Some extends ShowdownConverter {
     }
 

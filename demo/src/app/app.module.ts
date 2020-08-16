@@ -19,7 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { ShowdownModule } from 'ngx-showdown';
 import * as Showdown from 'showdown';
-import * as highlightExtension from 'showdown-highlight';
+import highlightExtension from 'showdown-highlight';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

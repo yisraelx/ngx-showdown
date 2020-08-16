@@ -62,6 +62,12 @@
             "main": "demo/src/main.ts",
             "polyfills": "demo/src/polyfills.ts",
             "tsConfig": "demo/tsconfig.json",
+            "allowedCommonJsDependencies": [
+              "showdown",
+              "highlight.js",
+              "html-encoder-decoder",
+              "showdown-highlight"
+            ],
             "assets": [
               "demo/src/favicon.ico",
               "demo/src/assets"
@@ -71,8 +77,7 @@
               "demo/src/styles.scss",
               "demo/src/vendor.scss"
             ],
-            "scripts": [],
-            "es5BrowserSupport": true
+            "scripts": []
           },
           "configurations": {
             "production": {

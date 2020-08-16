@@ -59,6 +59,20 @@ import { ShowdownModule } from 'ngx-showdown';
 export class AppModule {}
 ```
 
+Add `showdown` to [`allowedCommonJsDependencies`](https://angular.io/guide/build#configuring-commonjs-dependencies) in the build config of the `angular.json` file (From angular >= 10).
+```json
+"build": {
+  "builder": "@angular-devkit/build-angular:browser",
+  "options": {
+     "allowedCommonJsDependencies": [
+        "showdown"
+     ]
+     ...
+   }
+   ...
+},
+
+```
 ### Use `ShowdownComponent` in the template
 #### Binding to `[value]` property
 Bind markdown value to `value` property of showdown component.
@@ -265,7 +279,7 @@ Set the config manually by the converter methods.
 ```typescript
 import { Component } from '@angular/core';
 import { ShowdownComponent } from 'ngx-showdown';
-import * as highlightExtension from 'showdown-highlight';
+import highlightExtension from 'showdown-highlight';
 import 'highlight.js/styles/default.css';
 
 @Component({
@@ -317,7 +331,7 @@ With extension can be made changes to the `Markdown` input ('lang') and the `Htm
 import { NgModel } from '@angular/core';
 import { ShowdownModule } from 'ngx-showdown';
 import * as Showdown from 'showdown';
-import * as highlightExtension from 'showdown-highlight';
+import highlightExtension from 'showdown-highlight';
 import 'highlight.js/styles/default.css';
 
 let someExtension: Showdown.ShowdownExtension = {
