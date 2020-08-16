@@ -1076,38 +1076,7 @@ export class ShowdownComponent extends ShowdownConverter implements OnInit, OnCh
     }
   }
 
-  /**
-   * @ignore
-   * @deprecated from v5, use {@link ShowdownComponent#smartIndentationFix} instead.
-   */
-  // tslint:disable-next-line:member-ordering
-  trimEachLine;
-
-  /**
-   * @ignore
-   * @deprecated from v5,  use {@link ShowdownComponent#render} method instead.
-   */
-  setValue?(value: string): void;
-
-  /**
-   * @ignore
-   * @deprecated from v5, use {@link ShowdownComponent#render} method instead.
-   */
-  compile?(): void;
-
-  /**
-   * @ignore
-   * @deprecated from v5, use &#x60;innerHTML&#x60; property of the element instead.
-   */
-  toHTML?(): string;
-
 }
-
-/**
- * @ignore
- * @deprecated from v5, renamed &#x60;ShowdownDirective&#x60; to {@link ShowdownComponent}.
- */
-export declare let ShowdownDirective: typeof ShowdownComponent;
 
 // Define options properties setter for angular directive and direct access
 for (let key of OPTIONS_PROPERTIES_KEYS) {

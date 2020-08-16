@@ -72,7 +72,18 @@ import { ShowdownModule } from &#39;ngx-showdown&#39;;
 &#64;NgModule({
   imports: [ ShowdownModule.forRoot({emoji: true, noHeaderId: true, flavor: &#39;github&#39;}) ]
 })
-export class AppModule {}</code></pre></div><h3 id="use-showdowncomponent-in-the-template">Use <code>ShowdownComponent</code> in the template</h3>
+export class AppModule {}</code></pre></div><p>Add <code>showdown</code> to <a href="https://angular.io/guide/build#configuring-commonjs-dependencies"><code>allowedCommonJsDependencies</code></a> in the build config of the <code>angular.json</code> file (From angular &gt;= 10).</p>
+<div><pre class="line-numbers"><code class="language-json">&quot;build&quot;: {
+  &quot;builder&quot;: &quot;&#64;angular-devkit/build-angular:browser&quot;,
+  &quot;options&quot;: {
+     &quot;allowedCommonJsDependencies&quot;: [
+        &quot;showdown&quot;
+     ]
+     ...
+   }
+   ...
+},
+</code></pre></div><h3 id="use-showdowncomponent-in-the-template">Use <code>ShowdownComponent</code> in the template</h3>
 <h4 id="binding-to-value-property">Binding to <code>[value]</code> property</h4>
 <p>Bind markdown value to <code>value</code> property of showdown component.</p>
 <div><pre class="line-numbers"><code class="language-html">&lt;input type=&quot;text&quot; [(ngModel)]=&quot;text&quot;/&gt;
@@ -195,7 +206,7 @@ import { ShowdownConfig } from &#39;ngx-showdown&#39;;
 export class SomeComponent {}</code></pre></div><p>Set the config manually by the converter methods.</p>
 <div><pre class="line-numbers"><code class="language-typescript">import { Component } from &#39;&#64;angular/core&#39;;
 import { ShowdownComponent } from &#39;ngx-showdown&#39;;
-import * as highlightExtension from &#39;showdown-highlight&#39;;
+import highlightExtension from &#39;showdown-highlight&#39;;
 import &#39;highlight.js/styles/default.css&#39;;
 
 &#64;Component({
@@ -235,7 +246,7 @@ With extension can be made changes to the <code>Markdown</code> input (&#39;lang
 <div><pre class="line-numbers"><code class="language-typescript">import { NgModel } from &#39;&#64;angular/core&#39;;
 import { ShowdownModule } from &#39;ngx-showdown&#39;;
 import * as Showdown from &#39;showdown&#39;;
-import * as highlightExtension from &#39;showdown-highlight&#39;;
+import highlightExtension from &#39;showdown-highlight&#39;;
 import &#39;highlight.js/styles/default.css&#39;;
 
 let someExtension: Showdown.ShowdownExtension = {
